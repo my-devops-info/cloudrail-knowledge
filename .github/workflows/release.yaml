@@ -38,6 +38,8 @@ jobs:
 
     # create-new-release:
     - name: Create github release
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT_CLOUDRAIL_KNOWLEDGE }}
       run: |
         gh release create ${{ env.RELEASE_VERSION }}  -t ${{ env.RELEASE_VERSION }} --repo indeni/cloudrail-knowledge
 
