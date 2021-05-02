@@ -19,7 +19,7 @@ if "--version" in sys.argv:
 
 setup(
     name=project_name,
-    description='Cloudrail\'s pakedge for security rules',
+    description='Cloudrail\'s package for security rules',
     long_description=long_description,
     long_description_content_type="text/markdown",
     version=version,
