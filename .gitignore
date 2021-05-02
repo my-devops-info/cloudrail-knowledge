@@ -1,0 +1,5 @@
+/venv/
+.idea
+build
+cloudrail_knowledge.egg-info
+dist

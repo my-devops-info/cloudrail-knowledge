@@ -1,0 +1,66 @@
+import unittest
+
+from cloudrail.knowledge.context.aws.athena.athena_workgroup import AthenaWorkgroup
+from cloudrail.knowledge.context.aws.kms.kms_key import KmsKey
+from cloudrail.knowledge.context.aws.kms.kms_key_manager import KeyManager
+from cloudrail.knowledge.context.environment_context import EnvironmentContext
+from cloudrail.knowledge.context.terraform_action_type import TerraformActionType
+from cloudrail.knowledge.context.terraform_state import TerraformState
+from cloudrail.knowledge.rules.aws.non_context_aware.encryption_enforcement_rules.encrypt_at_rest.ensure_athena_workgroups_encryption_cmk_rule import \
+    EnsureAthenaWorkgroupsEncryptionCmkRule
+from cloudrail.knowledge.rules.base_rule import RuleResultType
+from tests.rule_test_utils import create_empty_entity
+
+
+class TestEnsureAthenaWorkgroupsEncryptionCmkRule(unittest.TestCase):
+    def setUp(self):
+        self.rule = EnsureAthenaWorkgroupsEncryptionCmkRule()
+
+    def test_non_car_athena_workgroup_query_results_encrypt_at_rest_using_customer_managed_cmk__encryption_option_is_SSE_S3__fail(self):
+        # Arrange
+        athena_workgroup: AthenaWorkgroup = create_empty_entity(AthenaWorkgroup)
+        athena_workgroup.terraform_state = TerraformState(address='address',
+                                                          action=TerraformActionType.CREATE,
+                                                          resource_metadata=None,
+                                                          is_new=True)
+        athena_workgroup.encryption_option = 'SSE_S3'
+
+        context = EnvironmentContext(athena_workgroups=[athena_workgroup])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+
+    def test_non_car_athena_workgroup_query_results_encrypt_at_rest_using_customer_managed_cmk__key_manager_is_not_customer__fail(self):
+        # Arrange
+        athena_workgroup: AthenaWorkgroup = create_empty_entity(AthenaWorkgroup)
+        athena_workgroup.terraform_state = TerraformState(address='address',
+                                                          action=TerraformActionType.CREATE,
+                                                          resource_metadata=None,
+                                                          is_new=True)
+        kms_key: KmsKey = create_empty_entity(KmsKey)
+        kms_key.key_manager = KeyManager.AWS
+        athena_workgroup.kms_data = kms_key
+
+        context = EnvironmentContext(athena_workgroups=[athena_workgroup])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+
+    def test_non_car_athena_workgroup_query_results_encrypt_at_rest_using_customer_managed_cmk_pass(self):
+        # Arrange
+        athena_workgroup: AthenaWorkgroup = create_empty_entity(AthenaWorkgroup)
+        athena_workgroup.terraform_state = TerraformState(address='address',
+                                                          action=TerraformActionType.CREATE,
+                                                          resource_metadata=None,
+                                                          is_new=False)
+
+        context = EnvironmentContext(athena_workgroups=[athena_workgroup])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.SUCCESS, result.status)
+        self.assertEqual(0, len(result.issues))

@@ -1,0 +1,47 @@
+from typing import List
+
+from cloudrail.knowledge.context.aws.kms.kms_alias import KmsAlias
+from cloudrail.knowledge.context.aws.kms.kms_key_manager import KeyManager
+from cloudrail.knowledge.context.aws.kms.kms_key_policy import KmsKeyPolicy
+from cloudrail.knowledge.context.aws.service_name import AwsServiceName
+from cloudrail.knowledge.context.aws.aws_resource import AwsResource
+
+
+class KmsKey(AwsResource):
+
+    def __init__(self,
+                 key_id: str,
+                 arn: str,
+                 key_manager: KeyManager,
+                 region: str,
+                 account: str):
+        super().__init__(account, region, AwsServiceName.AWS_KMS_KEY)
+        self.key_id: str = key_id
+        self.arn: str = arn
+        self.key_manager: KeyManager = key_manager
+        self.policy: KmsKeyPolicy = None
+        self.alias_data: KmsAlias = None
+
+    def get_keys(self) -> List[str]:
+        return [self.key_id]
+
+    def get_arn(self) -> str:
+        return self.arn
+
+    def get_type(self, is_plural: bool = False) -> str:
+        if not is_plural:
+            return 'KMS key'
+        else:
+            return 'KMS keys'
+
+    def get_cloud_resource_url(self) -> str:
+        if self.key_manager == KeyManager.CUSTOMER:
+            return '{0}kms/home?region={1}#/kms/keys/{2}' \
+                .format(self.AWS_CONSOLE_URL, self.region, self.key_id)
+        else:
+            return '{0}kms/home?region={1}#/kms/defaultKeys/{2}' \
+                .format(self.AWS_CONSOLE_URL, self.region, self.key_id)
+
+    @property
+    def is_tagable(self) -> bool:
+        return True

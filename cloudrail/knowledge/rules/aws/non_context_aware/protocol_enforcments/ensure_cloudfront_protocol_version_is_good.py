@@ -1,0 +1,39 @@
+from typing import List, Dict
+
+from packaging import version
+
+from cloudrail.knowledge.context.environment_context import EnvironmentContext
+from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
+
+
+class CloudFrontEnsureVersionRule(BaseRule):
+
+    def get_id(self) -> str:
+        return 'non_car_cloudfront_protocol_version'
+
+    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+        issues: List[Issue] = []
+
+        for distribution_list in env_context.cloudfront_distribution_list:
+            if self._version_check(distribution_list.viewer_cert.minimum_protocol_version):
+                issues.append(
+                    Issue(
+                        f'The {distribution_list.get_type()} `{distribution_list.get_friendly_name()}` is set to use a minimum protocol version'
+                        f' of `{distribution_list.viewer_cert.minimum_protocol_version}` whereas TLSv1.2_2019 is the recommended '
+                        f'minimum', distribution_list, distribution_list))
+        return issues
+
+    def get_needed_parameters(self) -> List[ParameterType]:
+        return []
+
+    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+        return bool(environment_context.cloudfront_distribution_list)
+
+    @staticmethod
+    def _version_check(proto_version: str) -> bool:
+        if proto_version != 'SSLv3':
+            version_num = proto_version.replace('TLSv', '').replace('_', '.')
+            return version.parse(version_num) < version.parse('1.2.2019')
+        else:
+            return True

@@ -1,0 +1,22 @@
+from abc import abstractmethod
+from typing import List
+from cloudrail.knowledge.context.aws.aws_resource import AwsResource
+from cloudrail.knowledge.context.aws.service_name import AwsServiceName, AwsServiceAttributes
+from cloudrail.knowledge.context.aws.networking_config.network_resource import NetworkResource
+
+
+class NetworkEntity(AwsResource):
+
+    def __init__(self, name: str, account: str, region: str, tf_resource_type: AwsServiceName,
+                 aws_service_attributes: AwsServiceAttributes = None) -> None:
+        super().__init__(account, region, tf_resource_type, aws_service_attributes)
+        self.name: str = name
+        self.network_resource: NetworkResource = NetworkResource()
+
+    @abstractmethod
+    def get_keys(self) -> List[str]:
+        pass
+
+    @property
+    def is_tagable(self) -> bool:
+        return False
