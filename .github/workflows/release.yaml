@@ -11,7 +11,6 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v2
-      with:
     - name: get new version
       uses: anothrNick/github-tag-action@master
       id: get_new_tag
