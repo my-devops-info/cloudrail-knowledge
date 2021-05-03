@@ -15,10 +15,8 @@ class EnsureRdsInstancesEncryptedAtRestWithCustomerManagedCmkRule(BaseRule):
         issues: List[Issue] = []
 
         for rds_instance in env_context.rds_instances:
-            if rds_instance.is_new_resource():
-                if rds_instance.performance_insights_enabled and\
-                        not rds_instance.performance_insights_kms_data \
-                        or rds_instance.performance_insights_kms_data.key_manager != KeyManager.CUSTOMER:
+            if rds_instance.is_new_resource() and rds_instance.performance_insights_enabled:
+                if not rds_instance.performance_insights_kms_data or rds_instance.performance_insights_kms_data.key_manager != KeyManager.CUSTOMER:
                     issues.append(
                         Issue(
                             f'The RDS cluster instance ```{rds_instance.get_friendly_name()}``` '
