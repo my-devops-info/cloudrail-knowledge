@@ -3,7 +3,7 @@
 #
 # from cloudrail.knowledge.context.environment_context import EnvironmentContext
 # from cloudrail.knowledge.rules.base_rule import RuleResultType
-# from tests.rule_test_utils import create_empty_entity
+# from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 #
 #
 # class TestPublicAccessElasticSearchRule(unittest.TestCase):

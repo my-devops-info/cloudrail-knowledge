@@ -8,7 +8,7 @@ from cloudrail.knowledge.context.terraform_state import TerraformState
 from cloudrail.knowledge.rules.aws.non_context_aware.encryption_enforcement_rules.encrypt_at_rest.ensure_docdb_clusters_encrypted_customer_managed_cmk_rule import \
     EnsureDocdbClustersEncryptedCustomerManagedCmkRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
-from tests.rule_test_utils import create_empty_entity
+from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 
 
 class TestEnsureDocdbClustersEncryptedCustomerManagedCmkRule(unittest.TestCase):

@@ -4,7 +4,7 @@
 # from cloudrail.knowledge.context.environment_context import EnvironmentContext
 # from cloudrail.knowledge.rules.aws.context_aware.ensure_iam_entities_policy_managed_solely_rule import EnsureIamEntitiesPolicyManagedSolely
 # from cloudrail.knowledge.rules.base_rule import RuleResultType
-# from tests.rule_test_utils import create_empty_entity
+# from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 #
 #
 # class TestEnsureIamEntitiesPolicyManagedSolely(unittest.TestCase):

@@ -6,7 +6,7 @@
 # from cloudrail.knowledge.rules.aws.non_context_aware.access_analyzer_rules.access_analyzer_validation_error_and_security_rule import \
 #     AccessAnalyzerValidationErrorAndSecurityRule
 # from cloudrail.knowledge.rules.base_rule import RuleResultType
-# from tests.rule_test_utils import create_empty_entity
+# from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 #
 #
 # class TestAccessAnalyzerValidationErrorAndSecurityRule(unittest.TestCase):

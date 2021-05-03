@@ -9,7 +9,7 @@ from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.aws.context_aware.ec2_outbound_rule import Ec2OutboundRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
-from tests.rule_test_utils import create_empty_entity
+from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 
 
 class TestEc2InboundRule(unittest.TestCase):

@@ -9,7 +9,7 @@ from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.aws.context_aware.ensure_all_used_default_security_groups_restrict_all_traffic_rule import \
     EnsureAllUsedDefaultSecurityGroupsRestrictAllTrafficRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
-from tests.rule_test_utils import create_empty_entity
+from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 
 
 class TestDisallowEc2ClassicModeRule(unittest.TestCase):
