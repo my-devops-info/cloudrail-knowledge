@@ -3,10 +3,8 @@ import time
 from abc import abstractmethod
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Dict
-
+from typing import List, Dict, TypeVar, Generic
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
-from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.context.mergeable import Mergeable
 
 
@@ -16,10 +14,12 @@ class Issue:
     exposed: Mergeable
     violating: Mergeable
 
+
 class RuleResultType(str, Enum):
     SUCCESS = 'success'
     FAILED = 'failed'
     SKIPPED = 'skipped'
+
 
 @dataclass
 class RuleResult:
@@ -28,7 +28,10 @@ class RuleResult:
     issues: List[Issue] = field(default_factory=list)
 
 
-class BaseRule:
+EnvCtx = TypeVar('EnvCtx')
+
+
+class BaseRule(Generic[EnvCtx]):
     def validate_parameters(self, parameter_types: List[ParameterType]) -> bool:
         for parameter_type in self.get_needed_parameters():
             if parameter_type not in parameter_types:
@@ -38,7 +41,7 @@ class BaseRule:
         return True
 
     def run(self,
-            environment_context: EnvironmentContext,
+            environment_context: EnvCtx,
             parameters: Dict[ParameterType, dict]) -> RuleResult:
         if not self.should_run_rule(environment_context):
             logging.info('skipped rule {}, reason {}'.format(self.get_id(), 'no relevant resources'))
@@ -64,15 +67,12 @@ class BaseRule:
         logging.info('finish run rule {}'.format(self.get_id()))
         return rule_result
 
-
-
     @staticmethod
     def _filter_missing_data_issues(issues: List[Issue]) -> List[Issue]:
         return [issue for issue in issues if issue.exposed and issue.violating]
 
-
     @abstractmethod
-    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+    def execute(self, env_context: EnvCtx, parameters: Dict[ParameterType, any]) -> List[Issue]:
         pass
 
     @abstractmethod
@@ -88,5 +88,5 @@ class BaseRule:
         return True
 
     @abstractmethod
-    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+    def should_run_rule(self, environment_context: EnvCtx) -> bool:
         return True

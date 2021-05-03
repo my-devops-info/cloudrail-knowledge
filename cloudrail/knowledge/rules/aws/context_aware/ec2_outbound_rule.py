@@ -1,12 +1,13 @@
 from typing import List, Dict, Set
 
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 from cloudrail.knowledge.context.aws.ec2.ec2_instance import Ec2Instance
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 
 
-class Ec2OutboundRule(BaseRule):
+class Ec2OutboundRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'ec2_outbound_rule'

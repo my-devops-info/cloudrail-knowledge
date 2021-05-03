@@ -8,11 +8,12 @@ from cloudrail.knowledge.context.aws.kms.kms_key_manager import KeyManager
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.context.aws.iam.policy_statement import PolicyStatement, StatementEffect
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class AbstractPolicyWildcardViolationRule(BaseRule):
+class AbstractPolicyWildcardViolationRule(AwsBaseRule):
 
     def __init__(self,
                  resource_name: str,
@@ -56,9 +57,6 @@ class AbstractPolicyWildcardViolationRule(BaseRule):
                     Issue(
                         f"There is no resource policy or no statements attached to `{entity.get_friendly_name()}`", entity, entity))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     @staticmethod
     def _principal_string(principal: Principal) -> str:

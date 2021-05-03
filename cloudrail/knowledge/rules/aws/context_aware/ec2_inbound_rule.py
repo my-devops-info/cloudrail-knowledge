@@ -5,11 +5,12 @@ from cloudrail.knowledge.context.aws.networking_config.network_resource import N
 from cloudrail.knowledge.context.aws.aws_connection import PrivateConnectionDetail
 from cloudrail.knowledge.context.aws.ec2.ec2_instance import Ec2Instance
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class Ec2InboundRule(BaseRule):
+class Ec2InboundRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'ec2_inbound_rule'

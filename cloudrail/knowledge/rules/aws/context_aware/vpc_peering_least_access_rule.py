@@ -1,13 +1,14 @@
 from typing import List, Dict, Optional
 
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
 from cloudrail.knowledge.utils.utils import is_cidr_contained_in_cidr
 from cloudrail.knowledge.context.aws.ec2.route_table import RouteTable
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class VpcPeeringLeastAccessRule(BaseRule):
+class VpcPeeringLeastAccessRule(AwsBaseRule):
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.peering_connections)
@@ -29,9 +30,6 @@ class VpcPeeringLeastAccessRule(BaseRule):
                                     f"~Local VPC `{subnet.vpc_id}`~", subnet.vpc, route_table))
 
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     @staticmethod
     def _has_peering_route_matching_vpc_cidr(route_table: RouteTable) -> Optional[str]:

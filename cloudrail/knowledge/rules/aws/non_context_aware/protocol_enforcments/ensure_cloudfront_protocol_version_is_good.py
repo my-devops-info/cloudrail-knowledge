@@ -3,11 +3,12 @@ from typing import List, Dict
 from packaging import version
 
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class CloudFrontEnsureVersionRule(BaseRule):
+class CloudFrontEnsureVersionRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_cloudfront_protocol_version'
@@ -23,9 +24,6 @@ class CloudFrontEnsureVersionRule(BaseRule):
                         f' of `{distribution_list.viewer_cert.minimum_protocol_version}` whereas TLSv1.2_2019 is the recommended '
                         f'minimum', distribution_list, distribution_list))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.cloudfront_distribution_list)

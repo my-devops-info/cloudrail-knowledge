@@ -3,17 +3,15 @@ from cloudrail.knowledge.context.aws.account.account import Account
 from cloudrail.knowledge.context.aws.iam.policy_statement import StatementEffect
 from cloudrail.knowledge.context.aws.iam.principal import PrincipalType
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class IamRoleAssumeRolePrincipalTooWide(BaseRule):
+class IamRoleAssumeRolePrincipalTooWide(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_iam_role_assume_role_principal_too_wide'
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []

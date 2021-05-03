@@ -2,11 +2,12 @@ from typing import List, Dict
 
 from cloudrail.knowledge.context.aws.cloudfront.cloud_front_distribution_list import CacheBehavior
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import Issue, BaseRule
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class EnsureCloudfrontDistributionEncryptInTransitRule(BaseRule):
+class EnsureCloudfrontDistributionEncryptInTransitRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_cloudfront_distribution_encrypt_in_transit'
@@ -37,9 +38,6 @@ class EnsureCloudfrontDistributionEncryptInTransitRule(BaseRule):
                         f" data in transit default_cache_behavior"
                         f" and in {ordered_cache_list}", distribution, distribution))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     @staticmethod
     def _is_https_restricted(protocol: str) -> bool:

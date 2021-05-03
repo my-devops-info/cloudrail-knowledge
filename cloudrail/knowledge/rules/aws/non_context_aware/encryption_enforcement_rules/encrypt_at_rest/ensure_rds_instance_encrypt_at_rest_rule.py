@@ -1,11 +1,12 @@
 from typing import List, Dict
 
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class RdsEncryptAtRestRule(BaseRule):
+class RdsEncryptAtRestRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'not_car_rds_instances_encrypted_at_rest'
@@ -41,9 +42,6 @@ class RdsEncryptAtRestRule(BaseRule):
                             rds_global_cluster, rds_global_cluster))
 
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.rds_instances or environment_context.rds_clusters or environment_context.rds_global_clusters)

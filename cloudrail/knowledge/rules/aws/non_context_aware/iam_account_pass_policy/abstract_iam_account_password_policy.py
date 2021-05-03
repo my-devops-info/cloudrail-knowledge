@@ -3,12 +3,13 @@ from typing import Callable, List, Dict, Tuple
 from cloudrail.knowledge.context.aws.account.account import Account
 from cloudrail.knowledge.context.aws.iam.iam_password_policy import IamPasswordPolicy
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
 
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class AbstractIamAccountPasswordPolicy(BaseRule):
+class AbstractIamAccountPasswordPolicy(AwsBaseRule):
 
     @abstractmethod
     def get_id(self) -> str:
@@ -17,9 +18,6 @@ class AbstractIamAccountPasswordPolicy(BaseRule):
     @abstractmethod
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         pass
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     @staticmethod
     def _check_users(env_context: EnvironmentContext) -> bool:

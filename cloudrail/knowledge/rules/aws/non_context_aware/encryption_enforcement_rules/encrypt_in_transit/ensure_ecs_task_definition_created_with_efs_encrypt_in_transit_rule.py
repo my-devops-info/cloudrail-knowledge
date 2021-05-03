@@ -2,11 +2,12 @@ from typing import List, Dict
 
 from cloudrail.knowledge.context.aws.ecs.ecs_task_definition import EfsVolume
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class EnsureEcsTaskDefinitionCreatedWithEfsEncryptInTransitRule(BaseRule):
+class EnsureEcsTaskDefinitionCreatedWithEfsEncryptInTransitRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_ecs_task_definition_encrypt_in_transit_with_EFS'
@@ -23,9 +24,6 @@ class EnsureEcsTaskDefinitionCreatedWithEfsEncryptInTransitRule(BaseRule):
                             f'The {task_def.get_type()} `{task_def.family}` is not set to use encryption in transit with '
                             f"EFS volumes: `{', '.join([volume.volume_name for volume in effected_volumes])}`", task_def, task_def))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     @staticmethod
     def _non_encrypted_volumes(volumes_data: List[EfsVolume]) -> List[EfsVolume]:

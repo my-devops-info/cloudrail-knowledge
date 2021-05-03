@@ -1,11 +1,12 @@
 from typing import List, Dict
 
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class EnsureLoadBalancerListenerIsUsingHttps(BaseRule):
+class EnsureLoadBalancerListenerIsUsingHttps(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_alb_https'
@@ -30,9 +31,6 @@ class EnsureLoadBalancerListenerIsUsingHttps(BaseRule):
                             f'is configured to redirect requests using HTTP protocol, and '
                             f'port: `{load_balancer_listener.redirect_action_port}`', load_balancer_listener, load_balancer_listener))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.load_balancer_listeners)

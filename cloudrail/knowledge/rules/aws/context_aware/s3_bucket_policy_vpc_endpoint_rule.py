@@ -7,13 +7,14 @@ from cloudrail.knowledge.context.aws.s3.s3_bucket import S3Bucket
 from cloudrail.knowledge.context.aws.ec2.vpc import Vpc
 from cloudrail.knowledge.context.aws.ec2.vpc_endpoint import VpcEndpoint
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 from cloudrail.knowledge.utils.policy_utils import is_any_resource_based_action_allowed
 from cloudrail.knowledge.utils.s3_public_access_evaluator import S3PublicAccessEvaluator
 
 
-class S3BucketPolicyVpcEndpointRule(BaseRule):
+class S3BucketPolicyVpcEndpointRule(AwsBaseRule):
 
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues_list: List[Issue] = []
@@ -30,9 +31,6 @@ class S3BucketPolicyVpcEndpointRule(BaseRule):
                                                  f" a VPC Endpoint.", bucket, bucket))
 
         return issues_list
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def get_id(self) -> str:
         return "s3_bucket_policy_vpce"

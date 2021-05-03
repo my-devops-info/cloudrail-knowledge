@@ -2,11 +2,12 @@ from typing import List, Dict
 from cloudrail.knowledge.context.aws.iam.policy import Policy
 from cloudrail.knowledge.context.aws.iam.policy_statement import StatementCondition, StatementEffect
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class EnsureS3BucketsPolicyUseHttpsRule(BaseRule):
+class EnsureS3BucketsPolicyUseHttpsRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_s3_bucket_policy_secure_transport'
@@ -21,9 +22,6 @@ class EnsureS3BucketsPolicyUseHttpsRule(BaseRule):
                         f'The {s3_bucket.get_type()} `{s3_bucket.get_friendly_name()}` '
                         f'does not have a policy with the aws:SecureTransport condition', s3_bucket, s3_bucket))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     @staticmethod
     def _check_conditions(s3_bucket_conditions: List[StatementCondition]) -> List:

@@ -1,11 +1,11 @@
 from typing import Dict, List
-
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class IamNoHumanUsersRule(BaseRule):
+class IamNoHumanUsersRule(AwsBaseRule):
 
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues_list: List[Issue] = []
@@ -18,9 +18,6 @@ class IamNoHumanUsersRule(BaseRule):
 
     def get_id(self) -> str:
         return "non_car_iam_no_human_users"
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.users)

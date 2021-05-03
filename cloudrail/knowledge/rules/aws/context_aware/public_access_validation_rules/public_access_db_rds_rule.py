@@ -1,12 +1,13 @@
 from typing import Dict, List
 
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
 from cloudrail.knowledge.utils.connection_utils import ConnectionUtils
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class PublicAccessDbRdsRule(BaseRule):
+class PublicAccessDbRdsRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'public_access_db_rds_rule'
@@ -51,9 +52,6 @@ class PublicAccessDbRdsRule(BaseRule):
                     f"~{rds_instance.get_type()}~", rds_instance, security_group))
 
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.rds_clusters or environment_context.rds_instances)

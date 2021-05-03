@@ -1,7 +1,8 @@
 from abc import abstractmethod
 from typing import List, Dict, Tuple, Optional
 
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 from cloudrail.knowledge.context.aws.aws_connection import ConnectionType, PortConnectionProperty, ConnectionDetail, \
     PrivateConnectionDetail
@@ -14,7 +15,7 @@ from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.utils.utils import is_port_in_ranges
 
 
-class AbstractVpcEndpointRule(BaseRule):
+class AbstractVpcEndpointRule(AwsBaseRule):
 
     def __init__(self, aws_service_type: AwsServiceType, service_ports: Tuple, services_list: List[str], include_service: bool) -> None:
         self.aws_service_type: AwsServiceType = aws_service_type
@@ -68,9 +69,6 @@ class AbstractVpcEndpointRule(BaseRule):
 
     def _is_service_eni_match(self, eni: NetworkInterface) -> bool:
         return self.include_service == (eni.owner.get_terraform_resource_type().value in self.services_list)
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def _is_public_connection_exist(self, eni: NetworkInterface) -> bool:
         return any(self._is_connection_type_exist(conn, ConnectionType.PUBLIC) for conn in eni.outbound_connections)

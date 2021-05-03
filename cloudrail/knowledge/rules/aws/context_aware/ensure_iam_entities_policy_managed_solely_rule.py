@@ -7,11 +7,12 @@ from cloudrail.knowledge.context.aws.iam.iam_user import IamUser
 from cloudrail.knowledge.context.aws.iam.policy import InlinePolicy, ManagedPolicy
 from cloudrail.knowledge.context.mergeable import EntityOrigin
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class EnsureIamEntitiesPolicyManagedSolely(BaseRule):
+class EnsureIamEntitiesPolicyManagedSolely(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'car_iam_policy_control_in_iac_only'
@@ -42,9 +43,6 @@ class EnsureIamEntitiesPolicyManagedSolely(BaseRule):
                                   f'(for example, directly via the console), by adding it to the group `{group.get_friendly_name()}`.',
                                   account, group))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     @staticmethod
     def filter_non_iac_managed_issues() -> bool:

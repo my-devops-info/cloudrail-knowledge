@@ -1,6 +1,7 @@
 from abc import abstractmethod
 from typing import List, Dict, Set
 
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
 from cloudrail.knowledge.utils.port_utils import is_all_ports
 from cloudrail.knowledge.utils.utils import is_port_in_range
 from cloudrail.knowledge.context.aws.dms.dms_replication_instance import DmsReplicationInstance
@@ -16,12 +17,12 @@ from cloudrail.knowledge.context.aws.ec2.network_interface import NetworkInterfa
 from cloudrail.knowledge.context.aws.ec2.security_group import SecurityGroup
 from cloudrail.knowledge.context.aliases_dict import AliasesDict
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.constants.known_ports import KnownPorts
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class PublicAccessSecurityGroupsPortRule(BaseRule):
+class PublicAccessSecurityGroupsPortRule(AwsBaseRule):
 
     def __init__(self, port: KnownPorts) -> None:
         self.port = port
@@ -108,9 +109,6 @@ class PublicAccessSecurityGroupsPortRule(BaseRule):
             elif is_allowed and all_ports:
                 eni_to_sg_rules_map[eni] = self._get_all_allow_all_port_range_sg(eni)
         return eni_to_sg_rules_map
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def _get_all_allow_in_bound_port_sg(self, eni: NetworkInterface) -> Set[SecurityGroup]:
         return {sg for sg in eni.security_groups for permission in sg.inbound_permissions
