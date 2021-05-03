@@ -26,7 +26,7 @@ setup(
     author='Indeni',
     author_email='engineering@indeni.com',
     url='https://github.com/indeni/cloudrail-knowledge',
-    packages=find_packages(include=['cloudrail.knowledge', 'cloudrail.knowledge.*', 'tests.rule_test_utils.py']),
+    packages=find_packages(include=['cloudrail.knowledge', 'cloudrail.knowledge.*']),
     keywords=['cloud', 'aws', 'azure', 'security', 'rules', 'checks'],
     install_requires=requirements,
     classifiers=[
