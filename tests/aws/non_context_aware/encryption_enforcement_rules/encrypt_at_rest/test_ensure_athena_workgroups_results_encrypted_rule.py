@@ -3,8 +3,8 @@ import unittest
 
 from cloudrail.knowledge.context.aws.athena.athena_workgroup import AthenaWorkgroup
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.aws.non_context_aware.encryption_enforcement_rules.encrypt_at_rest.ensure_athena_workgroups_results_encrypted_rule import \
-    EnsureAthenaWorkGroupsResultsEncryptedRule
+from cloudrail.knowledge.rules.aws.non_context_aware.encryption_enforcement_rules.\
+    encrypt_at_rest.ensure_athena_workgroups_results_encrypted_rule import EnsureAthenaWorkGroupsResultsEncryptedRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
 from tests.rule_test_utils import create_empty_entity
 
@@ -26,11 +26,11 @@ class TestEnsureAthenaWorkGroupsResultsEncryptedRule(unittest.TestCase):
         self.assertEqual(RuleResultType.FAILED, result.status)
         self.assertEqual(1, len(result.issues))
 
-    def test_non_car_athena_workgroup_query_results_encrypt_at_rest__encryption_config__missing__fail(self):
+    def test_non_car_athena_workgroup_query_results_encrypt_at_rest__encryption_config__no_enforce_config__fail(self):
         # Arrange
         athena_workgroup: AthenaWorkgroup = create_empty_entity(AthenaWorkgroup)
         athena_workgroup.enforce_workgroup_config = False
-        athena_workgroup.encryption_config = 'kms_key_arn'
+        athena_workgroup.encryption_config = True
 
         context = EnvironmentContext(athena_workgroups=[athena_workgroup])
         # Act
