@@ -94,6 +94,8 @@ class AwsServiceName(Enum):
     AWS_VPC_ENDPOINT_ROUTE_TABLE_ASSOCIATION = 'aws_vpc_endpoint_route_table_association'
     AWS_SQS_QUEUE = 'aws_sqs_queue'
     AWS_ELASTICACHE_REPLICATION_GROUP = 'aws_elasticache_replication_group'
+    AWS_ELASTICACHE_CLUSTER = 'aws_elasticache_cluster'
+    AWS_ELASTICACHE_SUBNET_GROUP = 'aws_elasticache_subnet_group'
     AWS_SNS_TOPIC = 'aws_sns_topic'
     AWS_SQS_QUEUE_POLICY = 'aws_sqs_queue_policy'
     AWS_NEPTUNE_CLUSTER = 'aws_neptune_cluster'
@@ -109,6 +111,7 @@ class AwsServiceName(Enum):
     AWS_GLACIER_VAULT = 'aws_glacier_vault'
     AWS_EFS_FILE_SYSTEM = 'aws_efs_file_system'
     AWS_EFS_FILE_SYSTEM_POLICY = 'aws_efs_file_system_policy'
+    AWS_EFS_MOUNT_TARGET = 'aws_efs_mount_target'
     AWS_GLUE_RESOURCE_POLICY = 'aws_glue_resource_policy'
     AWS_SECRETSMANAGER_SECRET = 'aws_secretsmanager_secret'
     AWS_SECRETSMANAGER_SECRET_POLICY = 'aws_secretsmanager_secret_policy'
@@ -123,6 +126,7 @@ class AwsServiceName(Enum):
     AWS_KINESIS_FIREHOSE_DELIVERY_STREAM = 'aws_kinesis_firehose_delivery_stream'
     AWS_IAM_ACCOUNT_PASSWORD_POLICY = 'aws_iam_account_password_policy'
     AWS_WORKSPACES_WORKSPACE = 'aws_workspaces_workspace'
+    AWS_WORKSPACES_DIRECTORY = 'aws_workspaces_directory'
     AWS_KMS_ALIAS = 'aws_kms_alias'
     AWS_NEPTUNE_CLUSTER_INSTANCE = 'aws_neptune_cluster_instance'
     AWS_IAM_POLICY_ATTACHMENT = 'aws_iam_policy_attachment'
@@ -131,6 +135,7 @@ class AwsServiceName(Enum):
     AWS_DMS_REPLICATION_SUBNET_GROUP = 'aws_dms_replication_subnet_group'
     AWS_SAGEMAKER_ENDPOINT_CONFIGURATION = 'aws_sagemaker_endpoint_configuration'
     AWS_SAGEMAKER_NOTEBOOK_INSTANCE = 'aws_sagemaker_notebook_instance'
+    AWS_DIRECTORY_SERVICE_DIRECTORY = 'aws_directory_service_directory'
 
 
 AWS_SERVICES_DOMAIN: str = ".amazonaws.com"

@@ -1,5 +1,6 @@
 rules_metadata:
 - rule_id: non_car_azure_database_public_access
+  cloud_provider: azure
   name: Ensure Azure database server is not set to be public
   severity: major
   description: Cloudrail will review settings of all of the database servers configured in Azure through the

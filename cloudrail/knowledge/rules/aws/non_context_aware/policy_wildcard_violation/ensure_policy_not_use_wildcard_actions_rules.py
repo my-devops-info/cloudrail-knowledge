@@ -3,7 +3,7 @@ from abc import abstractmethod
 from cloudrail.knowledge.context.aws.lambda_.lambda_function import LambdaFunction
 from cloudrail.knowledge.context.aws.cloudwatch.cloudwatch_logs_destination import CloudWatchLogsDestination
 from cloudrail.knowledge.context.aws.ecr.ecr_repository import EcrRepository
-from cloudrail.knowledge.context.aws.efs.efs import Efs
+from cloudrail.knowledge.context.aws.efs.efs_file_system import ElasticFileSystem
 from cloudrail.knowledge.context.aws.es.elastic_search_domain import ElasticSearchDomain
 from cloudrail.knowledge.context.aws.glacier.glacier_vault import GlacierVault
 from cloudrail.knowledge.context.aws.iam.policy import Policy
@@ -64,7 +64,7 @@ class EnsureEfsPolicyNotUseWildcard(EnsurePolicyNotUseWildcardRules):
         return "non_car_aws_efs_fs_policy_wildcard"
 
     @staticmethod
-    def _get_entity_policy(entity: Efs) -> Policy:
+    def _get_entity_policy(entity: ElasticFileSystem) -> Policy:
         return entity.policy
 
 

@@ -29,6 +29,7 @@ from cloudrail.knowledge.context.aws.dms.dms_replication_instance import DmsRepl
 from cloudrail.knowledge.context.aws.dms.dms_replication_instance_subnet_group import DmsReplicationInstanceSubnetGroup
 from cloudrail.knowledge.context.aws.docdb.docdb_cluster import DocumentDbCluster
 from cloudrail.knowledge.context.aws.docdb.docdb_cluster_parameter_group import DocDbClusterParameterGroup
+from cloudrail.knowledge.context.aws.ds.directory_service import DirectoryService
 from cloudrail.knowledge.context.aws.dynamodb.dynamodb_table import DynamoDbTable
 from cloudrail.knowledge.context.aws.ec2.ec2_image import Ec2Image
 from cloudrail.knowledge.context.aws.ec2.ec2_instance import Ec2Instance
@@ -61,10 +62,13 @@ from cloudrail.knowledge.context.aws.ecs.ecs_cluster import EcsCluster
 from cloudrail.knowledge.context.aws.ecs.ecs_service import EcsService
 from cloudrail.knowledge.context.aws.ecs.ecs_target import EcsTarget
 from cloudrail.knowledge.context.aws.ecs.ecs_task_definition import EcsTaskDefinition
-from cloudrail.knowledge.context.aws.efs.efs import Efs
+from cloudrail.knowledge.context.aws.efs.efs_file_system import ElasticFileSystem
+from cloudrail.knowledge.context.aws.efs.efs_mount_target import EfsMountTarget
 from cloudrail.knowledge.context.aws.efs.efs_policy import EfsPolicy
 from cloudrail.knowledge.context.aws.eks.eks_cluster import EksCluster
-from cloudrail.knowledge.context.aws.elasticache.elasti_cache_replication_group import ElastiCacheReplicationGroup
+from cloudrail.knowledge.context.aws.elasticache.elasticache_replication_group import ElastiCacheReplicationGroup
+from cloudrail.knowledge.context.aws.elasticache.elasticache_cluster import ElastiCacheCluster
+from cloudrail.knowledge.context.aws.elasticache.elasticache_subnet_group import ElastiCacheSubnetGroup
 from cloudrail.knowledge.context.aws.elb.load_balancer import LoadBalancer
 from cloudrail.knowledge.context.aws.elb.load_balancer_listener import LoadBalancerListener
 from cloudrail.knowledge.context.aws.elb.load_balancer_target import LoadBalancerTarget
@@ -91,6 +95,7 @@ from cloudrail.knowledge.context.aws.iam.policy_group_attachment import PolicyGr
 from cloudrail.knowledge.context.aws.iam.policy_role_attachment import PolicyRoleAttachment
 from cloudrail.knowledge.context.aws.iam.policy_user_attachment import PolicyUserAttachment
 from cloudrail.knowledge.context.aws.iam.role import Role
+from cloudrail.knowledge.context.aws.iam.role_last_used import RoleLastUsed
 from cloudrail.knowledge.context.aws.kinesis.kinesis_firehose_stream import KinesisFirehoseStream
 from cloudrail.knowledge.context.aws.kinesis.kinesis_stream import KinesisStream
 from cloudrail.knowledge.context.aws.kms.kms_alias import KmsAlias
@@ -127,6 +132,7 @@ from cloudrail.knowledge.context.aws.sns.sns_topic import SnsTopic
 from cloudrail.knowledge.context.aws.sqs.sqs_queue import SqsQueue
 from cloudrail.knowledge.context.aws.sqs.sqs_queue_policy import SqsQueuePolicy
 from cloudrail.knowledge.context.aws.ssm.ssm_parameter import SsmParameter
+from cloudrail.knowledge.context.aws.workspaces.workspace_directory import WorkspaceDirectory
 from cloudrail.knowledge.context.aws.workspaces.workspaces import Workspace
 from cloudrail.knowledge.context.aws.xray.xray_encryption import XrayEncryption
 from cloudrail.knowledge.context.managed_resources_summary import ManagedResourcesSummary
@@ -196,7 +202,7 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  ecr_repositories: List[EcrRepository] = None,
                  kms_keys: List[KmsKey] = None,
                  cloudwatch_logs_destinations: List[CloudWatchLogsDestination] = None,
-                 efs_file_systems: List[Efs] = None,
+                 efs_file_systems: List[ElasticFileSystem] = None,
                  glacier_vaults: List[GlacierVault] = None,
                  secrets_manager_secrets: List[SecretsManagerSecret] = None,
                  glue_data_catalog_policy: List[GlueDataCatalogPolicy] = None,
@@ -285,8 +291,20 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  assume_role_policies: List[AssumeRolePolicy] = None,
                  dms_replication_instance_subnet_groups: List[DmsReplicationInstanceSubnetGroup] = None,
                  invalidated_resources: Set[Mergeable] = None,
-                 managed_resources_summary: ManagedResourcesSummary = None):
+                 managed_resources_summary: ManagedResourcesSummary = None,
+                 elasticache_clusters: List[ElastiCacheCluster] = None,
+                 elasticache_subnet_groups: List[ElastiCacheSubnetGroup] = None,
+                 efs_mount_targets: List[EfsMountTarget] = None,
+                 workspaces_directories: List[WorkspaceDirectory] = None,
+                 cloud_directories: List[DirectoryService] = None,
+                 roles_last_used: List[RoleLastUsed] = None):
         BaseEnvironmentContext.__init__(self)
+        self.roles_last_used = roles_last_used or []
+        self.cloud_directories = cloud_directories or []
+        self.workspaces_directories = workspaces_directories or []
+        self.efs_mount_targets = efs_mount_targets or []
+        self.elasticache_subnet_groups = elasticache_subnet_groups or []
+        self.elasticache_clusters = elasticache_clusters or []
         self.vpcs = vpcs or AliasesDict()
         self.subnets = subnets or AliasesDict()
         self.transit_gateways = transit_gateways or []

@@ -22,7 +22,7 @@ class RuleResultType(str, Enum):
 
 
 @dataclass
-class RuleResult:
+class RuleResponse:
     rule_id: str
     status: RuleResultType
     issues: List[Issue] = field(default_factory=list)
@@ -42,10 +42,10 @@ class BaseRule(Generic[EnvCtx]):
 
     def run(self,
             environment_context: EnvCtx,
-            parameters: Dict[ParameterType, dict]) -> RuleResult:
+            parameters: Dict[ParameterType, dict]) -> RuleResponse:
         if not self.should_run_rule(environment_context):
             logging.info('skipped rule {}, reason {}'.format(self.get_id(), 'no relevant resources'))
-            return RuleResult(self.get_id(), RuleResultType.SKIPPED)
+            return RuleResponse(self.get_id(), RuleResultType.SKIPPED)
 
         logging.info('start run rule {}'.format(self.get_id()))
         start_time: float = time.time()
@@ -59,11 +59,11 @@ class BaseRule(Generic[EnvCtx]):
             final_issues_list = filtered_missing_data_issues
 
             if not final_issues_list:
-                rule_result = RuleResult(self.get_id(), RuleResultType.SUCCESS)
+                rule_result = RuleResponse(self.get_id(), RuleResultType.SUCCESS)
             else:
-                rule_result = RuleResult(self.get_id(), RuleResultType.FAILED, final_issues_list)
+                rule_result = RuleResponse(self.get_id(), RuleResultType.FAILED, final_issues_list)
         else:
-            rule_result = RuleResult(self.get_id(), RuleResultType.SKIPPED)
+            rule_result = RuleResponse(self.get_id(), RuleResultType.SKIPPED)
         logging.info('finish run rule {}'.format(self.get_id()))
         return rule_result
 

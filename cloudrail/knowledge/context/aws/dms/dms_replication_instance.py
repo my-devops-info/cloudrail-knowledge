@@ -32,6 +32,9 @@ class DmsReplicationInstance(NetworkEntity, INetworkConfiguration):
     def get_arn(self) -> str:
         return self.arn
 
+    def get_id(self) -> str:
+        return self.rep_instance_subnet_group_id
+
     def get_all_network_configurations(self) -> List[NetworkConfiguration]:
         return [NetworkConfiguration(self.publicly_accessible, self.security_group_ids, self.subnet_ids)]
 

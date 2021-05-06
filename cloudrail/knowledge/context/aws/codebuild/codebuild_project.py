@@ -1,22 +1,25 @@
-from typing import List
+from typing import List, Optional
 from cloudrail.knowledge.context.aws.kms.kms_key import KmsKey
-from cloudrail.knowledge.context.aws.aws_resource import AwsResource
+from cloudrail.knowledge.context.aws.networking_config.network_configuration import NetworkConfiguration
+from cloudrail.knowledge.context.aws.networking_config.network_entity import NetworkEntity
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
-class CodeBuildProject(AwsResource):
+class CodeBuildProject(NetworkEntity):
 
     def __init__(self,
                  project_name: str,
                  encryption_key: str,
                  arn: str,
                  account: str,
-                 region: str):
-        super().__init__(account, region, AwsServiceName.AWS_CODEBUILD_PROJECT)
+                 region: str,
+                 vpc_config: NetworkConfiguration):
+        super().__init__(project_name, account, region, AwsServiceName.AWS_CODEBUILD_PROJECT)
         self.project_name: str = project_name
         self.encryption_key: str = encryption_key
         self.arn: str = arn
         self.kms_data: KmsKey = None
+        self.vpc_config: NetworkConfiguration = vpc_config
 
     def get_keys(self) -> List[str]:
         return [self.arn]
@@ -32,6 +35,14 @@ class CodeBuildProject(AwsResource):
             return 'CodeBuild'
         else:
             return 'CodeBuilds'
+
+    def get_all_network_configurations(self) -> Optional[List[NetworkConfiguration]]:
+        if self.vpc_config:
+            return [NetworkConfiguration(self.vpc_config.assign_public_ip,
+                                         self.vpc_config.security_groups_ids,
+                                         self.vpc_config.subnet_list_ids)]
+        else:
+            return []
 
     def get_cloud_resource_url(self) -> str:
         return '{0}codesuite/codebuild/{1}/projects/{2}/'\

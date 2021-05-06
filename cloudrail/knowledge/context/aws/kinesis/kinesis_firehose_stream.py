@@ -1,21 +1,26 @@
-from typing import List
+from typing import List, Optional
 
+from cloudrail.knowledge.context.aws.networking_config.network_configuration import NetworkConfiguration
+from cloudrail.knowledge.context.aws.networking_config.network_entity import NetworkEntity
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
-from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
-class KinesisFirehoseStream(AwsResource):
+class KinesisFirehoseStream(NetworkEntity):
 
     def __init__(self,
                  stream_name: str,
                  stream_arn: str,
                  encrypted_at_rest: bool,
                  account: str,
-                 region: str):
-        super().__init__(account, region, AwsServiceName.AWS_KINESIS_FIREHOSE_DELIVERY_STREAM)
+                 region: str,
+                 es_domain_arn: Optional[str],
+                 es_vpc_config: Optional[NetworkConfiguration]):
+        super().__init__(stream_name, account, region, AwsServiceName.AWS_KINESIS_FIREHOSE_DELIVERY_STREAM)
         self.stream_name: str = stream_name
         self.stream_arn: str = stream_arn
         self.encrypted_at_rest: bool = encrypted_at_rest
+        self.es_domain_arn: Optional[str] = es_domain_arn
+        self.es_vpc_config: Optional[NetworkConfiguration] = es_vpc_config
 
     def get_keys(self) -> List[str]:
         return [self.stream_arn]
@@ -31,6 +36,14 @@ class KinesisFirehoseStream(AwsResource):
             return 'Kinesis Data Firehose'
         else:
             return 'Kinesis Data Firehoses'
+
+    def get_all_network_configurations(self) -> Optional[List[NetworkConfiguration]]:
+        if self.es_vpc_config:
+            return [NetworkConfiguration(self.es_vpc_config.assign_public_ip,
+                                         self.es_vpc_config.security_groups_ids,
+                                         self.es_vpc_config.subnet_list_ids)]
+        else:
+            return None
 
     def get_cloud_resource_url(self) -> str:
         return '{0}firehose/home?region={1}#/details/{2}' \

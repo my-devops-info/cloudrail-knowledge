@@ -112,7 +112,8 @@ templates:
 
 
 rules_metadata:
-- rule_id: ec2_role_share_rule
+- cloud_provider: amazon_web_services
+  rule_id: ec2_role_share_rule
   name: EC2(s) within the public and private subnets should not share identical IAM
     roles
   severity: major
@@ -134,7 +135,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - compute
-- rule_id: vpcs_in_transit_gateway_no_overlapping_cidr_rule
+- cloud_provider: amazon_web_services
+  rule_id: vpcs_in_transit_gateway_no_overlapping_cidr_rule
   name: VPC's in Transit Gateway should not have common CIDR's
   severity: medium
   description: It is important that VPCs utilizing a Transit Gateway should not have
@@ -153,7 +155,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - network
-- rule_id: ensure_all_used_default_security_groups_restrict_all_traffic_rule
+- cloud_provider: amazon_web_services
+  rule_id: ensure_all_used_default_security_groups_restrict_all_traffic_rule
   name: Ensure all used default security groups of every VPC restrict all traffic
   severity: medium
   description: Using default security groups in general is inadvisable. By locking
@@ -173,7 +176,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - network
-- rule_id: public_access_security_groups_ssh_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_ssh_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -202,7 +206,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_rdp_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_rdp_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -231,7 +236,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_oracle_db_default_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_oracle_db_default_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -260,7 +266,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_oracle_db_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_oracle_db_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -289,7 +296,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_oracle_db_ssl_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_oracle_db_ssl_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -318,7 +326,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_mysql_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_mysql_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -347,7 +356,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_postgres_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_postgres_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -376,7 +386,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_redis_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_redis_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -405,7 +416,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_mongodb_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_mongodb_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -434,7 +446,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_mongodb_shard_cluster_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_mongodb_shard_cluster_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -463,7 +476,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_cassandra_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_cassandra_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -492,7 +506,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_cassandra_thrift_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_cassandra_thrift_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -521,7 +536,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_cassandra_mng_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_cassandra_mng_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -550,7 +566,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_memcached_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_memcached_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -579,7 +596,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_elasticsearch_nodes_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_elasticsearch_nodes_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -608,7 +626,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_elasticsearch_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_elasticsearch_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -637,7 +656,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_kibana_port_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_kibana_port_rule
   name:
     template: public_access_security_groups_port_rule_name_template
     params:
@@ -666,7 +686,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_security_groups_all_ports_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_security_groups_all_ports_rule
   name: Ensure no used security groups allow ingress from 0.0.0.0/0 or ::/0 to all
     ports
   severity: major
@@ -693,7 +714,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - network
-- rule_id: disallow_ec2_classic_mode_rule
+- cloud_provider: amazon_web_services
+  rule_id: disallow_ec2_classic_mode_rule
   name: Ensure EC2-Classic mode is not used
   severity: low
   description: AWS accounts created until late 2013 supported EC2 Classic mode. This
@@ -711,7 +733,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: public_access_db_redshift_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_db_redshift_rule
   name: Ensure Redshift database is not publicly accessible
   severity: major
   description: Databases should not be publicly accessible. If a database is serving
@@ -736,7 +759,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - database
-- rule_id: indirect_public_access_db_redshift
+- cloud_provider: amazon_web_services
+  rule_id: indirect_public_access_db_redshift
   name: Ensure Redshift database is not accessible indirectly via a publicly accessible
     resource
   severity: medium
@@ -764,7 +788,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - database
-- rule_id: public_access_db_rds_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_db_rds_rule
   name: Ensure RDS database is not publicly accessible
   severity: major
   description: Databases should not be publicly accessible. If a database is serving
@@ -788,7 +813,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - database
-- rule_id: not_car_rds_instances_encrypted_at_rest
+- cloud_provider: amazon_web_services
+  rule_id: not_car_rds_instances_encrypted_at_rest
   name: Ensure RDS instances/clusters being created are set to be encrypted at rest
   severity: medium
   description: Cloudrail will review the RDS instances, clusters and global clusters
@@ -808,7 +834,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - database
-- rule_id: disallow_default_vpc
+- cloud_provider: amazon_web_services
+  rule_id: disallow_default_vpc
   name: Ensure the default VPC is not used
   severity: medium
   description: "Many AWS resources can be configured to reside in a specific VPC.\
@@ -827,7 +854,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - compute
-- rule_id: indirect_public_access_db_rds
+- cloud_provider: amazon_web_services
+  rule_id: indirect_public_access_db_rds
   name: Ensure RDS database is not accessible indirectly via a publicly accessible
     resource
   severity: medium
@@ -855,7 +883,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - database
-- rule_id: public_access_elasticsearch_rule
+- cloud_provider: amazon_web_services
+  rule_id: public_access_elasticsearch_rule
   name: Ensure Elasticsearch Domain is not publicly accessible
   severity: major
   description: Cloudrail will review all of the Elasticsearch domains configured in
@@ -871,7 +900,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - database
-- rule_id: indirect_public_access_elastic_search_rule
+- cloud_provider: amazon_web_services
+  rule_id: indirect_public_access_elastic_search_rule
   name: Ensure Elasticsearch Domain is not accessible indirectly via a publicly accessible
     resource
   severity: medium
@@ -900,7 +930,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - database
-- rule_id: vpc_peering_least_access
+- cloud_provider: amazon_web_services
+  rule_id: vpc_peering_least_access
   name: Ensure used routing tables for VPC peering are "least access"
   severity: low
   description: It's important to ensure that only specific networks are exposed through
@@ -926,7 +957,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - network
-- rule_id: non_car_es_domain_encrypt_at_rest_creating
+- cloud_provider: amazon_web_services
+  rule_id: non_car_es_domain_encrypt_at_rest_creating
   name: Ensure Elasticsearch Domains being created are set to be encrypted at rest
   severity: major
   description: Elasticsearch Domains should be encrypted whenever possible. Because
@@ -944,7 +976,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: not_car_elasticsearch_domains_encrypted_note_to_node
+- cloud_provider: amazon_web_services
+  rule_id: not_car_elasticsearch_domains_encrypted_note_to_node
   name: Ensure Elasticsearch domains being created are set to be encrypted node-to-node
   severity: major
   description: Cloudrail will review the Elasticsearch domains being created in your
@@ -962,7 +995,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: public_access_eks_api
+- cloud_provider: amazon_web_services
+  rule_id: public_access_eks_api
   name: Ensure EKS API is not publicly accessible
   severity: major
   description: The EKS cluster's management API is a sensitive endpoint to expose
@@ -983,7 +1017,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - kubernetes
-- rule_id: non_car_alb_target_group_no_http
+- cloud_provider: amazon_web_services
+  rule_id: non_car_alb_target_group_no_http
   name: Ensure target groups are not using HTTP
   severity: medium
   description: Best practices encourage encryption of communication between each two
@@ -1000,7 +1035,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - compute
-- rule_id: s3_acl_disallow_public_and_cross_account
+- cloud_provider: amazon_web_services
+  rule_id: s3_acl_disallow_public_and_cross_account
   name: Ensure S3 buckets are not made widely accessible through ACLs and bucket policies
   severity: major
   description: Generally, all S3 buckets, with specific exceptions, should not be
@@ -1023,7 +1059,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - storage
-- rule_id: non_car_cloudfront_protocol_version
+- cloud_provider: amazon_web_services
+  rule_id: non_car_cloudfront_protocol_version
   name: Ensure CloudFront protocol version is a good one
   severity: medium
   description: The CloudFront protocol used is an important piece of securing the
@@ -1040,7 +1077,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - content_delivery
-- rule_id: non_car_iam_no_permissions_directly_to_user
+- cloud_provider: amazon_web_services
+  rule_id: non_car_iam_no_permissions_directly_to_user
   name: Ensure IAM permissions are not given directly to users
   severity: medium
   description: Best practices dictate that IAM permissions are given to roles, groups,
@@ -1058,7 +1096,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: non_car_ensure_imdsv2
+- cloud_provider: amazon_web_services
+  rule_id: non_car_ensure_imdsv2
   name: Ensure IMDSv2 is used and IMDSv1 is disabled
   severity: medium
   description: "There have been hacks in the past caused by the use of IMDSv1. It\
@@ -1077,7 +1116,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - compute
-- rule_id: non_car_cloudfront_distribution_encrypt_in_transit
+- cloud_provider: amazon_web_services
+  rule_id: non_car_cloudfront_distribution_encrypt_in_transit
   name: Ensure CloudFront Distribution being created are set to encrypt in transit
   severity: medium
   description: Cloudrail will review the CloudFront Distributions in your environment.
@@ -1094,7 +1134,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - cloudfront
-- rule_id: CKV_AWS_37
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_37
   name: Ensure Amazon EKS control plane logging enabled for all log types
   severity: low
   description: Logging all control plane activity in EKS is important in order to
@@ -1111,7 +1152,8 @@ rules_metadata:
   security_layer: logging
   resource_type:
   - kubernetes
-- rule_id: CKV_AWS_1
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_1
   name: Ensure IAM policies that allow full "*" administrative privileges are not
     created
   severity: medium
@@ -1129,7 +1171,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: CKV_AWS_3
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_3
   name: Ensure all data stored in the EBS is securely encrypted
   severity: low
   description: Encryption at rest is often part of the security policy of organizations.
@@ -1145,7 +1188,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - compute
-- rule_id: CKV_AWS_7
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_7
   name: Ensure rotation for customer created CMKs is enabled
   severity: low
   description: Encryption keys should be rotated regularly to decrease the exposure
@@ -1162,7 +1206,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - key_mgmt
-- rule_id: CKV_AWS_8
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_8
   name: Ensure all data stored in the Launch configuration EBS is securely encrypted
   severity: low
   description: Encryption at rest is often part of the security policy of organizations.
@@ -1178,7 +1223,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - compute
-- rule_id: CKV_AWS_9
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_9
   name: Ensure IAM password policy expires passwords within 90 days or less
   severity: medium
   description: There are several best practices around password policies. One of them
@@ -1195,7 +1241,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: CKV_AWS_10
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_10
   name: Ensure IAM password policy requires minimum length of 14 or greater
   severity: medium
   description: There are several best practices around password policies. One of them
@@ -1212,7 +1259,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: CKV_AWS_11
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_11
   name: Ensure IAM password policy requires at least one lowercase letter
   severity: medium
   description: There are several best practices around password policies. One of them
@@ -1229,7 +1277,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: CKV_AWS_12
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_12
   name: Ensure IAM password policy requires at least one number character
   severity: medium
   description: There are several best practices around password policies. One of them
@@ -1246,7 +1295,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: CKV_AWS_13
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_13
   name: Ensure IAM password policy prevents password reuse
   severity: medium
   description: There are several best practices around password policies. One of them
@@ -1263,7 +1313,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: CKV_AWS_14
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_14
   name: Ensure IAM password policy requires at least one symbol
   severity: medium
   description: There are several best practices around password policies. One of them
@@ -1280,7 +1331,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: CKV_AWS_15
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_15
   name: Ensure IAM password policy requires at least one uppercase character
   severity: medium
   description: There are several best practices around password policies. One of them
@@ -1297,7 +1349,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: CKV_AWS_19
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_19
   name: Ensure all data stored in the S3 bucket is securely encrypted at rest
   description: Encryption at rest is often part of the security policy of organizations.
     S3 buckets may store sensitive data, and therefore should be encrypted.
@@ -1314,7 +1367,8 @@ rules_metadata:
   security_layer: storage
   resource_type:
     - storage
-- rule_id: CKV_AWS_23
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_23
   name: Ensure every security groups rule has a description
   severity: medium
   description: It is advisable to document every firewall rule's purpose. Some regulations
@@ -1332,7 +1386,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - firewall
-- rule_id: CKV_AWS_26
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_26
   name: Ensure all data stored in the SNS topic is encrypted
   severity: medium
   description: Encryption at rest is often part of the security policy of organizations.
@@ -1349,7 +1404,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - storage
-- rule_id: CKV_AWS_27
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_27
   name: Ensure all data stored in the SQS queue is encrypted
   severity: medium
   description: Encryption at rest is often part of the security policy of organizations.
@@ -1366,7 +1422,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - storage
-- rule_id: non_car_sns_topic_encrypt_at_rest
+- cloud_provider: amazon_web_services
+  rule_id: non_car_sns_topic_encrypt_at_rest
   name: Ensure SNS topics are set to be encrypted at rest
   severity: medium
   description: Cloudrail will review the SNS topics in your environment. If a topic
@@ -1381,7 +1438,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - notification
-- rule_id: non_car_sns_topics_encrypted_at_rest_with_customer_managed_cmk
+- cloud_provider: amazon_web_services
+  rule_id: non_car_sns_topics_encrypted_at_rest_with_customer_managed_cmk
   name: Ensure SNS topics are encrypted at rest with customer-managed CMK
   severity: low
   description: Cloudrail will review the SNS topics in your environment. If a topic
@@ -1398,7 +1456,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - notification
-- rule_id: non_car_sqs_queue_encrypt_at_rest
+- cloud_provider: amazon_web_services
+  rule_id: non_car_sqs_queue_encrypt_at_rest
   name: Ensure SQS queues are set to be encrypted at rest
   severity: medium
   description: Cloudrail will review the SQS queues in your environment. If a queue
@@ -1413,7 +1472,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - queuing
-- rule_id: CKV_AWS_28
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_28
   name: Ensure DynamoDB Point-in-Time recovery (backup) is enabled
   severity: medium
   description: It is important to have automatic backups of crucial data. In DynamoDB
@@ -1429,7 +1489,8 @@ rules_metadata:
   security_layer: disaster_recovery
   resource_type:
   - database
-- rule_id: CKV_AWS_41
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_41
   name: Ensure no hard coded AWS access key and and secret key exists in provider
   severity: major
   description: Hard coding AWS access keys and secret keys in code, where they are
@@ -1444,7 +1505,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - all
-- rule_id: CKV_AWS_43
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_43
   name: Ensure Kinesis Stream is securely encrypted
   severity: medium
   description: Encryption at rest is often part of the security policy of organizations.
@@ -1461,7 +1523,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - storage
-- rule_id: CKV_AWS_45
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_45
   name: Ensure no hard coded AWS access key and secret key exists in lambda environment
   severity: major
   description: Hard coding AWS access keys and secret keys in code, where they are
@@ -1480,7 +1543,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - compute
-- rule_id: CKV_AWS_46
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_46
   name: Ensure no hard coded AWS access key and secret key exists in EC2 user data
   severity: major
   description: Hard coding AWS access keys and secret keys in code, where they are
@@ -1497,7 +1561,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - compute
-- rule_id: CKV_AWS_72
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_72
   name: Ensure SQS policy does not allow ALL (*) actions.
   severity: medium
   description: Policies should have specific permissions in order to follow the "least
@@ -1514,7 +1579,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - storage
-- rule_id: non_car_athena_workgroup_query_results_encrypt_at_rest
+- cloud_provider: amazon_web_services
+  rule_id: non_car_athena_workgroup_query_results_encrypt_at_rest
   name: Ensure Athena Workgroup query results are set to be encrypted at rest and
     enforced on clients
   severity: medium
@@ -1534,7 +1600,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: CKV_AWS_82
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_82
   name: Ensure Athena Workgroup should enforce configuration to prevent client disabling
     encryption
   description: Encryption at rest is often part of the security policy of organizations.
@@ -1555,7 +1622,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
     - database
-- rule_id: CKV_AWS_83
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_83
   name: Ensure Elasticsearch Domain enforces HTTPS
   severity: medium
   description: Encryption in transit is often part of the security policy of organizations.
@@ -1572,7 +1640,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: CKV_AWS_90
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_90
   name: Ensure DocDB TLS is not disabled
   severity: medium
   description: Encryption in transit is often part of the security policy of organizations.
@@ -1592,7 +1661,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: CKV_AWS_94
+- cloud_provider: amazon_web_services
+  rule_id: CKV_AWS_94
   name: Ensure Glue Data Catalog Encryption is enabled
   severity: medium
   description: Encryption at rest is often part of the security policy of organizations.
@@ -1611,7 +1681,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: non_car_alb_https
+- cloud_provider: amazon_web_services
+  rule_id: non_car_alb_https
   name: Ensure ALB is using HTTPS and not HTTP
   description: "In most cases, it is inadvisable to be using HTTP, as confidential\
     \ or sensitive data may be transported over it, and it\u2019s best to use HTTPS."
@@ -1627,7 +1698,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - network
-- rule_id: vpc_endpoint_s3_exposure
+- cloud_provider: amazon_web_services
+  rule_id: vpc_endpoint_s3_exposure
   name:
     template: vpc_endpoint_gateway_is_not_used_rule_name_template
     params:
@@ -1656,7 +1728,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - storage
-- rule_id: vpc_endpoint_dynamodb_exposure
+- cloud_provider: amazon_web_services
+  rule_id: vpc_endpoint_dynamodb_exposure
   name:
     template: vpc_endpoint_gateway_is_not_used_rule_name_template
     params:
@@ -1685,7 +1758,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - storage
-- rule_id: non_car_api_gateway_caching_encrypted
+- cloud_provider: amazon_web_services
+  rule_id: non_car_api_gateway_caching_encrypted
   name: Ensure API Gateway with caching enabled is set to be encrypted
   severity: medium
   description: Cloudrail will review the API Gateways in your environment. If it has
@@ -1702,7 +1776,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - content_delivery
-- rule_id: non_car_iam_no_human_users
+- cloud_provider: amazon_web_services
+  rule_id: non_car_iam_no_human_users
   name: Ensure no human IAM users defined
   severity: medium
   description: Best practices recommend the use of SSO instead of defining specific
@@ -1718,7 +1793,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: non_car_ec2_amis_private_only
+- cloud_provider: amazon_web_services
+  rule_id: non_car_ec2_amis_private_only
   name: Allow only private AMIs to be used
   severity: medium
   description: Some organizations may only allow the use of private AMIs. If this
@@ -1738,7 +1814,8 @@ rules_metadata:
   security_layer: code
   resource_type:
   - compute
-- rule_id: non_car_redshift_cluster_encrypt_at_rest_creating
+- cloud_provider: amazon_web_services
+  rule_id: non_car_redshift_cluster_encrypt_at_rest_creating
   name: Ensure Redshift clusters being created are set to be encrypted at rest
   severity: medium
   description: Cloudrail will review the Redshift clusters being created in your environment.
@@ -1754,7 +1831,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: not_car_docdb_cluster_encrypted_at_rest
+- cloud_provider: amazon_web_services
+  rule_id: not_car_docdb_cluster_encrypted_at_rest
   name: Ensure DocDB clusters being created are set to be encrypted at rest
   severity: medium
   description: Cloudrail will review the DocDB clusters being created in your environment.
@@ -1770,7 +1848,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: endpoint_s3_route_table_exposure
+- cloud_provider: amazon_web_services
+  rule_id: endpoint_s3_route_table_exposure
   name:
     template: vpc_endpoint_route_table_exposure_rule_name_template
     params:
@@ -1797,7 +1876,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - storage
-- rule_id: endpoint_dynamodb_route_table_exposure
+- cloud_provider: amazon_web_services
+  rule_id: endpoint_dynamodb_route_table_exposure
   name:
     template: vpc_endpoint_route_table_exposure_rule_name_template
     params:
@@ -1824,7 +1904,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - storage
-- rule_id: not_car_dynamodb_dax_clusters_encrypted_at_rest
+- cloud_provider: amazon_web_services
+  rule_id: not_car_dynamodb_dax_clusters_encrypted_at_rest
   name: Ensure DynamoDB DAX clusters being created are set to be encrypted at rest
   severity: medium
   description: Cloudrail will review the DynamoDB DAX clusters being created in your
@@ -1842,7 +1923,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: s3_bucket_policy_vpce
+- cloud_provider: amazon_web_services
+  rule_id: s3_bucket_policy_vpce
   name: Ensure that the private bucket's policy reference a VPC Endpoint as source
   severity: medium
   description: "In an environment where VPC Endpoints are used for S3, and private\
@@ -1863,7 +1945,8 @@ rules_metadata:
   resource_type:
   - service_endpoint
   - iam
-- rule_id: non_car_athena_workgroup_query_results_encrypt_at_rest_using_customer_managed_cmk
+- cloud_provider: amazon_web_services
+  rule_id: non_car_athena_workgroup_query_results_encrypt_at_rest_using_customer_managed_cmk
   name: Ensure Athena Workgroup query results being created are set to be encrypted
     at rest using customer-managed CMKs
   severity: low
@@ -1884,7 +1967,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: not_car_s3_buckets_encrypted_at_rest
+- cloud_provider: amazon_web_services
+  rule_id: not_car_s3_buckets_encrypted_at_rest
   name: Ensure S3 buckets are set to be encrypted at rest
   severity: medium
   description: Cloudrail will review the S3 buckets in your environment. If an S3
@@ -1901,7 +1985,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - storage
-- rule_id: not_car_s3_buckets_versioning_enabled
+- cloud_provider: amazon_web_services
+  rule_id: not_car_s3_buckets_versioning_enabled
   name: Ensure S3 buckets have versioning enabled
   severity: medium
   description: Using versioning is a good practice to deal with accidental deletion
@@ -1917,7 +2002,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - storage
-- rule_id: not_car_s3_bucket_object_encrypt_at_rest
+- cloud_provider: amazon_web_services
+  rule_id: not_car_s3_bucket_object_encrypt_at_rest
   name: Ensure S3 bucket objects are set to be encrypted at rest
   severity: medium
   description: Cloudrail will review the S3 bucket objects being created in your Terraform
@@ -1936,7 +2022,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - storage
-- rule_id: not_car_cloudwatch_log_group_encrypted_at_rest_using_kms_cmk
+- cloud_provider: amazon_web_services
+  rule_id: not_car_cloudwatch_log_group_encrypted_at_rest_using_kms_cmk
   name: Ensure Cloudwatch Log Groups being created are set to be encrypted at rest
     using KMS CMK
   severity: low
@@ -1954,7 +2041,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - logging
-- rule_id: not_car_codebuild_projects_encrypted_at_rest_with_customer_managed_CMK
+- cloud_provider: amazon_web_services
+  rule_id: not_car_codebuild_projects_encrypted_at_rest_with_customer_managed_CMK
   name: Ensure CodeBuild projects are set to be encrypted at rest with customer-managed
     CMK
   severity: low
@@ -1972,7 +2060,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - code
-- rule_id: not_car_cloudtrail_trails_encrypt_at_rest_with_sse_kms
+- cloud_provider: amazon_web_services
+  rule_id: not_car_cloudtrail_trails_encrypt_at_rest_with_sse_kms
   name: Ensure CloudTrail trails are set to be encrypted at rest using SSE-KMS
   severity: medium
   description: Cloudrail will review the CloudTrail trails in your environment. If
@@ -1989,7 +2078,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - logging
-- rule_id: non_car_elasticache_replication_group_encrypt_at_rest_creating
+- cloud_provider: amazon_web_services
+  rule_id: non_car_elasticache_replication_group_encrypt_at_rest_creating
   name: Ensure Elasticache replication groups being created are set to be encrypted
     at rest
   severity: medium
@@ -2008,7 +2098,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: non_car_aws_sqs_policy_wildcard
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_sqs_policy_wildcard
   name:
     template: policy_wildcard_violation_rule_name_template
     params:
@@ -2033,7 +2124,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - queuing
-- rule_id: non_car_elasticache_replication_group_encrypt_in_transit_creating
+- cloud_provider: amazon_web_services
+  rule_id: non_car_elasticache_replication_group_encrypt_in_transit_creating
   name: Ensure Elasticache replication groups being created are set to be encrypted
     in transit
   severity: major
@@ -2052,7 +2144,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: non_car_neptune_cluster_encrypt_at_rest_creating
+- cloud_provider: amazon_web_services
+  rule_id: non_car_neptune_cluster_encrypt_at_rest_creating
   name: Ensure Neptune clusters being created are set to be encrypted at rest
   severity: medium
   description: Cloudrail will review the Neptune clusters being created in your environment.
@@ -2068,7 +2161,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: non_car_neptune_cluster_encrypt_at_rest_with_customer_managed_cmk
+- cloud_provider: amazon_web_services
+  rule_id: non_car_neptune_cluster_encrypt_at_rest_with_customer_managed_cmk
   name: Ensure Neptune clusters being created are set to be encrypted at rest with
     customer-managed CMK
   severity: low
@@ -2087,7 +2181,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: non_car_aws_ecr_repo_policy_wildcard
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_ecr_repo_policy_wildcard
   name:
     template: policy_wildcard_violation_rule_name_template
     params:
@@ -2112,7 +2207,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - code
-- rule_id: non_car_aws_s3_bucket_policy_wildcard
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_s3_bucket_policy_wildcard
   name:
     template: policy_wildcard_violation_rule_name_template
     params:
@@ -2137,7 +2233,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - storage
-- rule_id: non_car_aws_kms_key_policy_wildcard
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_kms_key_policy_wildcard
   name:
     template: policy_wildcard_violation_rule_name_template
     params:
@@ -2162,7 +2259,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - key_mgmt
-- rule_id: non_car_aws_api_gateway_endpoint_policy_wildcard
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_api_gateway_endpoint_policy_wildcard
   name:
     template: policy_wildcard_violation_rule_name_template
     params:
@@ -2187,7 +2285,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - content_delivery
-- rule_id: non_car_aws_cloudwatch_logs_destination_policy_wildcard
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_cloudwatch_logs_destination_policy_wildcard
   name:
     template: policy_wildcard_violation_rule_name_template
     params:
@@ -2212,7 +2311,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - logging
-- rule_id: non_car_aws_es_service_domain_policy_wildcard
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_es_service_domain_policy_wildcard
   name:
     template: policy_wildcard_violation_rule_name_template
     params:
@@ -2237,7 +2337,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - database
-- rule_id: non_car_aws_efs_fs_policy_wildcard
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_efs_fs_policy_wildcard
   name:
     template: policy_wildcard_violation_rule_name_template
     params:
@@ -2262,7 +2363,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - storage
-- rule_id: non_car_aws_glacier_vault_policy_wildcard
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_glacier_vault_policy_wildcard
   name:
     template: policy_wildcard_violation_rule_name_template
     params:
@@ -2287,7 +2389,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - storage
-- rule_id: non_car_aws_secrets_manager_secret_policy_wildcard
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_secrets_manager_secret_policy_wildcard
   name:
     template: policy_wildcard_violation_rule_name_template
     params:
@@ -2312,7 +2415,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - key_mgmt
-- rule_id: non_car_secrets_manager_secrets_encrypted_at_rest_with_customer_managed_cmk
+- cloud_provider: amazon_web_services
+  rule_id: non_car_secrets_manager_secrets_encrypted_at_rest_with_customer_managed_cmk
   name: Ensure Secrets Manager secrets are encrypted at rest with customer-managed
     CMK
   severity: low
@@ -2331,7 +2435,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - key_mgmt
-- rule_id: non_car_aws_glue_data_catalog_policy_wildcard
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_glue_data_catalog_policy_wildcard
   name:
     template: policy_wildcard_violation_rule_name_template
     params:
@@ -2351,7 +2456,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - storage
-- rule_id: not_car_docdb_cluster_encrypted_in_transit
+- cloud_provider: amazon_web_services
+  rule_id: not_car_docdb_cluster_encrypted_in_transit
   name: Ensure DocDB clusters are set to encrypt the connection with applications
   severity: major
   description: Cloudrail will review the DocDB clusters in your environment. If a
@@ -2370,7 +2476,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: non_car_sqs_queues_encrypted_at_rest_with_customer_managed_cmk
+- cloud_provider: amazon_web_services
+  rule_id: non_car_sqs_queues_encrypted_at_rest_with_customer_managed_cmk
   name: Ensure SQS queues are encrypted at rest with customer-managed CMK
   severity: low
   description: Cloudrail will review the SQS queues in your environment. If a queue
@@ -2387,7 +2494,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: not_car_docdb_cluster_encrypted_at_rest_using_customer_managed_cmk
+- cloud_provider: amazon_web_services
+  rule_id: not_car_docdb_cluster_encrypted_at_rest_using_customer_managed_cmk
   name: Ensure DocDB clusters being created are set to be encrypted at rest using
     customer-managed CMK
   severity: low
@@ -2406,7 +2514,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: iam_priv_escalation_policy
+- cloud_provider: amazon_web_services
+  rule_id: iam_priv_escalation_policy
   name: Disallow IAM permissions which can lead to privilege escalation
   severity: major
   description: When setting an IAM policy, one may inadvertently grant a permission
@@ -2430,7 +2539,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: non_car_efs_filesystem_encrypt_at_rest_creating
+- cloud_provider: amazon_web_services
+  rule_id: non_car_efs_filesystem_encrypt_at_rest_creating
   name: Ensure EFS filesystems being created are set to be encrypted at rest
   severity: medium
   description: Cloudrail will review the EFS filesystems being created in your environment.
@@ -2447,7 +2557,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - storage
-- rule_id: non_car_api_gateway_tls
+- cloud_provider: amazon_web_services
+  rule_id: non_car_api_gateway_tls
   name: Ensure API Gateway uses modern TLS
   severity: medium
   description: It is best to use TLS v1.2 in all encrypted HTTP communications. By
@@ -2464,7 +2575,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - content_delivery
-- rule_id: non_car_cloudfront_distribution_field_level_encryption_creating
+- cloud_provider: amazon_web_services
+  rule_id: non_car_cloudfront_distribution_field_level_encryption_creating
   name: Ensure CloudFront Distribution being created are set to perform field-level
     encryption
   severity: low
@@ -2484,7 +2596,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - content_delivery
-- rule_id: non_car_kinesis_stream_encrypt_at_rest
+- cloud_provider: amazon_web_services
+  rule_id: non_car_kinesis_stream_encrypt_at_rest
   name: Ensure Kinesis streams are set to be encrypted at rest
   severity: medium
   description: Cloudrail will review the Kinesis streams in your environment. If a
@@ -2499,7 +2612,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - streaming
-- rule_id: non_car_xray_encryption_config_encrypt_at_rest_with_customer_managed_CMK
+- cloud_provider: amazon_web_services
+  rule_id: non_car_xray_encryption_config_encrypt_at_rest_with_customer_managed_CMK
   name: Ensure X-Ray encryption config is set to encrypt at rest with customer-managed
     CMK
   severity: low
@@ -2517,7 +2631,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - logging
-- rule_id: non_car_kinesis_firehose_delivery_stream_encrypt_at_rest
+- cloud_provider: amazon_web_services
+  rule_id: non_car_kinesis_firehose_delivery_stream_encrypt_at_rest
   name: Ensure Kinesis Firehose delivery stream are set to be encrypted at rest
   severity: medium
   description: Cloudrail will review the Kinesis firehose delivery stream in your
@@ -2534,7 +2649,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - streaming
-- rule_id: non_car_aws_iam_password_policy_expiry
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_iam_password_policy_expiry
   name: Ensure your account password policy expires passwords within 90 days or less
   severity: medium
   description: Cloudrail will review your AWS account password policy. If your policy
@@ -2553,7 +2669,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: non_car_aws_iam_password_policy_min_length
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_iam_password_policy_min_length
   name: Ensure the IAM password password policy requires a password of at least 14
     characters in length
   severity: medium
@@ -2573,7 +2690,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: non_car_aws_iam_password_policy_lower_required
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_iam_password_policy_lower_required
   name: Ensure the IAM password policy requires at least one lowercase letter
   severity: medium
   description: Cloudrail will review your AWS account password policy. If your account
@@ -2591,7 +2709,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: non_car_aws_iam_password_policy_num_required
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_iam_password_policy_num_required
   name: Ensure IAM password policy requires at least one number
   severity: medium
   description: Cloudrail will review your AWS account password policy. If your account
@@ -2609,7 +2728,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: non_car_aws_iam_password_policy_password_reuse
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_iam_password_policy_password_reuse
   name: Ensure IAM password policy does not allow password re-use
   severity: medium
   description: Cloudrail will review your AWS account password policy. If your account
@@ -2629,7 +2749,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: non_car_aws_iam_password_policy_symbol_required
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_iam_password_policy_symbol_required
   name: Ensure the IAM password policy requires at least one symbol
   severity: medium
   description: Cloudrail will review your AWS account password policy. If your account
@@ -2646,7 +2767,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: non_car_aws_iam_password_policy_upper_required
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_iam_password_policy_upper_required
   name: Ensure IAM password policy requires at least one uppercase letter
   severity: medium
   description: Cloudrail will review your AWS account password policy. If your account
@@ -2665,7 +2787,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: non_car_workspace_root_volume_encrypt_at_rest_creating
+- cloud_provider: amazon_web_services
+  rule_id: non_car_workspace_root_volume_encrypt_at_rest_creating
   name: Ensure Workspaces being created are set to encrypt root volume at rest
   severity: medium
   description: Cloudrail will review the Workspaces being created in your environment.
@@ -2683,7 +2806,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - compute
-- rule_id: non_car_workspace_root_volume_encrypt_at_rest_with_customer_managed_CMK_creating
+- cloud_provider: amazon_web_services
+  rule_id: non_car_workspace_root_volume_encrypt_at_rest_with_customer_managed_CMK_creating
   name: Ensure Workspaces being created are set to encrypt root volume at rest with
     customer-managed CMK
   severity: low
@@ -2703,7 +2827,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - compute
-- rule_id: non_car_workspace_user_volume_encrypt_at_rest_with_customer_managed_cmk_creating
+- cloud_provider: amazon_web_services
+  rule_id: non_car_workspace_user_volume_encrypt_at_rest_with_customer_managed_cmk_creating
   name: Ensure Workspaces being created are set to encrypt user volume at rest with
     customer-managed CMK
   severity: low
@@ -2722,7 +2847,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - compute
-- rule_id: not_car_codebuild_report_groups_encrypted_at_rest_with_customer_managed_cmk
+- cloud_provider: amazon_web_services
+  rule_id: not_car_codebuild_report_groups_encrypted_at_rest_with_customer_managed_cmk
   name: Ensure Codebuild report groups being created are set to be encrypted at rest
     with customer-managed CMK
   severity: low
@@ -2741,7 +2867,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - code
-- rule_id: non_car_workspace_user_volume_encrypt_at_rest_creating
+- cloud_provider: amazon_web_services
+  rule_id: non_car_workspace_user_volume_encrypt_at_rest_creating
   name: Ensure Workspaces being created are set to encrypt user volume at rest
   severity: medium
   description: Cloudrail will review the Workspaces being created in your environment.
@@ -2759,7 +2886,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - compute
-- rule_id: non_car_s3_bucket_policy_secure_transport
+- cloud_provider: amazon_web_services
+  rule_id: non_car_s3_bucket_policy_secure_transport
   name: Enforce use of HTTPS in S3 bucket policy
   severity: medium
   description: "Access to objects in S3 should only be done via HTTPS. Blocking HTTP\
@@ -2777,7 +2905,8 @@ rules_metadata:
   security_layer: storage
   resource_type:
   - iam
-- rule_id: non_car_aws_cloudtrail_log_validation_disabled
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_cloudtrail_log_validation_disabled
   name: Ensure CloudTrail trails have log validation enabled
   severity: low
   description: Log validation is important for CloudTrail trails to make sure logs
@@ -2794,7 +2923,8 @@ rules_metadata:
   security_layer: logging
   resource_type:
   - logging
-- rule_id: non_car_cw_log_group_no_retention
+- cloud_provider: amazon_web_services
+  rule_id: non_car_cw_log_group_no_retention
   name: Ensure CloudWatch log groups have a retention policy
   severity: low
   description: Having a retention policy on CloudWatch groups is advisable to make
@@ -2813,7 +2943,8 @@ rules_metadata:
   security_layer: logging
   resource_type:
   - logging
-- rule_id: non_car_aws_ec2_security_group_rule_no_desc
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_ec2_security_group_rule_no_desc
   name: Ensure all security groups and rules have a description detailing the rule
   severity: low
   description: Cloudrail will review your security groups. If a security group is
@@ -2836,7 +2967,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - network
-- rule_id: non_car_aws_lambda_func_policy_wildcard
+- cloud_provider: amazon_web_services
+  rule_id: non_car_aws_lambda_func_policy_wildcard
   name:
     template: policy_wildcard_violation_rule_name_template
     params:
@@ -2861,7 +2993,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - compute
-- rule_id: non_car_iam_readonlyaccess_policy
+- cloud_provider: amazon_web_services
+  rule_id: non_car_iam_readonlyaccess_policy
   name: Ensure ReadOnlyAccess policy is not being used by users who can login or roles
     that can be assumed
   severity: major
@@ -2884,7 +3017,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: car_iam_policy_control_in_iac_only
+- cloud_provider: amazon_web_services
+  rule_id: car_iam_policy_control_in_iac_only
   name: Ensure IAM entities policies are managed solely in infrastructure-as-code
   severity: major
   description: "When defining a new IAM entity in infrastructure-as-code (such as\
@@ -2909,7 +3043,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: non_car_ecs_task_definition_encrypt_in_transit_with_EFS
+- cloud_provider: amazon_web_services
+  rule_id: non_car_ecs_task_definition_encrypt_in_transit_with_EFS
   name: Ensure ECS task definitions being created are set to encrypt in transit with
     EFS volumes
   severity: medium
@@ -2927,7 +3062,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - compute
-- rule_id: public_access_db_neptune
+- cloud_provider: amazon_web_services
+  rule_id: public_access_db_neptune
   name: Ensure Neptune database is not publicly accessible
   severity: major
   description: Databases should not be publicly accessible. If a database is serving
@@ -2952,7 +3088,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - database
-- rule_id: non_car_ssm_parameter_store_securestring_encrypted_at_rest_with_customer_managed_CMK
+- cloud_provider: amazon_web_services
+  rule_id: non_car_ssm_parameter_store_securestring_encrypted_at_rest_with_customer_managed_CMK
   name: Ensure SSM Parameter Store SecureString strings are encrypted at rest with
     customer-managed CMK
   severity: low
@@ -2972,7 +3109,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - key_mgmt
-- rule_id: vpc_endpoint_sqs_exposure
+- cloud_provider: amazon_web_services
+  rule_id: vpc_endpoint_sqs_exposure
   name:
     template: vpc_endpoint_exposure_name_template
     params:
@@ -3000,7 +3138,8 @@ rules_metadata:
   resource_type:
   - service_endpoint
   - queuing
-- rule_id: non_car_all_resources_tagged
+- cloud_provider: amazon_web_services
+  rule_id: non_car_all_resources_tagged
   name: Ensure all resources that can be tagged have at least one tag
   severity: low
   description: Some organizations require that all resources have at least one tag
@@ -3018,7 +3157,8 @@ rules_metadata:
   security_layer: tagging
   resource_type:
   - all
-- rule_id: non_car_lambda_logging_not_infnite
+- cloud_provider: amazon_web_services
+  rule_id: non_car_lambda_logging_not_infnite
   name: Ensure each Lambda function has a non-infinite log retention
   severity: low
   description: "By default, Lambda functions have log groups created for them (either\
@@ -3037,7 +3177,8 @@ rules_metadata:
   security_layer: logging
   resource_type:
   - logging
-- rule_id: vpc_endpoint_sqs_subnet_exposure
+- cloud_provider: amazon_web_services
+  rule_id: vpc_endpoint_sqs_subnet_exposure
   name:
     template: vpc_endpoint_subnet_exposure_name_template
     params:
@@ -3066,7 +3207,8 @@ rules_metadata:
   resource_type:
   - service_endpoint
   - queuing
-- rule_id: vpc_endpoint_ec2_exposure
+- cloud_provider: amazon_web_services
+  rule_id: vpc_endpoint_ec2_exposure
   name:
     template: vpc_endpoint_exposure_name_template
     params:
@@ -3094,7 +3236,8 @@ rules_metadata:
   resource_type:
   - service_endpoint
   - queuing
-- rule_id: not_car_sagemaker_endpoint_configurations_encrypt_data_at_rest
+- cloud_provider: amazon_web_services
+  rule_id: not_car_sagemaker_endpoint_configurations_encrypt_data_at_rest
   name: Ensure Sagemaker endpoint configurations being created are set to be encrypted
     data at rest
   severity: medium
@@ -3113,7 +3256,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - compute
-- rule_id: not_car_sagemaker_notebook_instances_encrypt_artifacts_at_rest_with_customer_managed_CMK_creating
+- cloud_provider: amazon_web_services
+  rule_id: not_car_sagemaker_notebook_instances_encrypt_artifacts_at_rest_with_customer_managed_CMK_creating
   name: Ensure Sagemaker Notebook instances being created are set to encrypt artifacts at rest with customer-managed CMK
   severity: low
   description:
@@ -3127,7 +3271,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - compute
-- rule_id: non_car_iam_role_assume_role_principal_too_wide
+- cloud_provider: amazon_web_services
+  rule_id: non_car_iam_role_assume_role_principal_too_wide
   name: Ensure no role uses an overly wide principal for assume role policy
   severity: major
   description: When a role is created, a "trust policy" is used to declare who can
@@ -3147,7 +3292,8 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
-- rule_id: non_car_rds_cluster_instance_encrypt_performance_insights_with_customer_managed_cmk_creating
+- cloud_provider: amazon_web_services
+  rule_id: non_car_rds_cluster_instance_encrypt_performance_insights_with_customer_managed_cmk_creating
   name: Ensure RDS cluster instances being created are set to encrypt the performance insights with customer-managed CMK
   severity: low
   description: Cloudrail will review the RDS cluster instances being created in your environment.
@@ -3162,7 +3308,8 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
-- rule_id: public_access_dms_replication_instance
+- cloud_provider: amazon_web_services
+  rule_id: public_access_dms_replication_instance
   name: Ensure DMS Replication instance is not publicly accessible
   severity: major
   description:
@@ -3181,7 +3328,8 @@ rules_metadata:
   security_layer: networking
   resource_type:
   - database
-- rule_id: s3_lambda_indirect_exposure
+- cloud_provider: amazon_web_services
+  rule_id: s3_lambda_indirect_exposure
   name: S3 Bucket is exposed via an overly permissive Lambda Execution Role
   severity: medium
   description: Excess of permissions in a Lambda Function can lead to inadvertently exposed resources such as S3 buckets.
@@ -3203,7 +3351,8 @@ rules_metadata:
   resource_type:
   - iam
 
-- rule_id: non_car_no_direct_internet_access_allowed_from_sagemaker_notebook_instance_rule
+- cloud_provider: amazon_web_services
+  rule_id: non_car_no_direct_internet_access_allowed_from_sagemaker_notebook_instance_rule
   name: Ensure no direct internet access is allowed from Sagemaker Notebook instances
   severity: medium
   description:
@@ -3220,7 +3369,8 @@ rules_metadata:
   resource_type:
   - compute
 
-- rule_id: not_car_access_analyzer_validation_error_and_security
+- cloud_provider: amazon_web_services
+  rule_id: not_car_access_analyzer_validation_error_and_security
   severity: major
   name:
     template: not_car_access_analyzer_validation_name_template
@@ -3246,7 +3396,8 @@ rules_metadata:
   resource_type:
   - iam
 
-- rule_id: not_car_access_analyzer_validation_warning_and_suggestion
+- cloud_provider: amazon_web_services
+  rule_id: not_car_access_analyzer_validation_warning_and_suggestion
   severity: low
   name:
     template: not_car_access_analyzer_validation_name_template
@@ -3267,6 +3418,43 @@ rules_metadata:
     template: not_car_access_analyzer_validation_remediation_steps_template
   remediation_steps_tf:
     template: not_car_access_analyzer_validation_remediation_steps_template
+  rule_type: non_context_aware
+  security_layer: iam
+  resource_type:
+  - iam
+
+- cloud_provider: amazon_web_services
+  rule_id: car_unused_security_group
+  name: Ensure no unused Security Group exists in the account
+  severity: medium
+  description:
+    Security Groups should be maintained carefully, in order to provide network access for desired entities.
+    Having unused Security Groups is giving the oppertunity to accidently assign vulnerbale network access to your resources.
+  human_readable_logic:
+    Cloudrail will review all of the Network interfaces in your environment, and your Security Groups.
+    Cloudrail will create a list of all used Security Groups, based on the Network interfaces in your environment, which are attached to AWS resources.
+    It will then compare this list to the actual Security Groups in the account.
+    For a Security Group which is present, but not used by any attached Network interface, Cloudrail will raise a violation.
+  remediation_steps_console: Delete the unusued Security Group from your AWS Console.
+  remediation_steps_tf: Remove the unused aws_security_group resource, from your TF template.
+  rule_type: context_aware
+  security_layer: networking
+  resource_type:
+  - compute
+
+- rule_id: non_car_unused_roles
+  cloud_provider: amazon_web_services
+  name: Ensure unused roles are removed
+  severity: medium
+  description:
+    Roles should be maintained carefully, in order to provide access for desired entities.
+    Having unused Roles may leave open a door to bad actors.
+  human_readable_logic:
+    Cloudrail will review all of the IAM Roles in your environment.
+    It will utilize AWS's role usage tracking to determine when the role was used last. If it wasn't used in over 90 days,
+    or was created over 90 days ago and never used, Cloudrail will highlight a violation.
+  remediation_steps_console: Delete the unusued IAM Roles from your AWS Console.
+  remediation_steps_tf: Remove the unused aws_iam_role resource, from your TF template.
   rule_type: non_context_aware
   security_layer: iam
   resource_type:

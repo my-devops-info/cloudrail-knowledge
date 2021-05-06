@@ -1,10 +1,11 @@
-from typing import List
+from typing import List, Optional
 
-from cloudrail.knowledge.context.aws.aws_resource import AwsResource
+from cloudrail.knowledge.context.aws.networking_config.network_configuration import NetworkConfiguration
+from cloudrail.knowledge.context.aws.networking_config.network_entity import NetworkEntity
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
-class ElastiCacheReplicationGroup(AwsResource):
+class ElastiCacheReplicationGroup(NetworkEntity):
 
     def __init__(self,
                  replication_group_id: str,
@@ -12,16 +13,26 @@ class ElastiCacheReplicationGroup(AwsResource):
                  encrypted_in_transit: bool,
                  region: str,
                  account: str):
-        super().__init__(account, region, AwsServiceName.AWS_ELASTICACHE_REPLICATION_GROUP)
+        super().__init__(replication_group_id, account, region, AwsServiceName.AWS_ELASTICACHE_REPLICATION_GROUP)
         self.replication_group_id: str = replication_group_id
         self.encrypted_at_rest: bool = encrypted_at_rest
         self.encrypted_in_transit: bool = encrypted_in_transit
+        self.subnet_group_name: Optional[str] = None
+        self.security_group_ids: Optional[list] = None
+        self.is_in_default_vpc: bool = True
+        self.subnet_ids: Optional[List[str]] = None
 
     def get_keys(self) -> List[str]:
-        return [self.replication_group_id]
+        return [self.account, self.region, self.replication_group_id]
 
     def get_name(self) -> str:
         return self.replication_group_id
+
+    def get_id(self) -> str:
+        return self.replication_group_id
+
+    def get_all_network_configurations(self) -> List[NetworkConfiguration]:
+        return [NetworkConfiguration(False, self.security_group_ids, self.subnet_ids)]
 
     def get_type(self, is_plural: bool = False) -> str:
         if not is_plural:

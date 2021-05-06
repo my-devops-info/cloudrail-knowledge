@@ -4,7 +4,7 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
-class Efs(AwsResource):
+class ElasticFileSystem(AwsResource):
 
     def __init__(self,
                  creation_token: str,
@@ -28,12 +28,6 @@ class Efs(AwsResource):
 
     def get_arn(self) -> str:
         return self.arn
-
-    def get_type(self, is_plural: bool = False) -> str:
-        if not is_plural:
-            return 'EFS file system'
-        else:
-            return 'EFS file systems'
 
     def get_cloud_resource_url(self) -> str:
         return '{0}efs/home?region={1}#/file-systems/{2}'\

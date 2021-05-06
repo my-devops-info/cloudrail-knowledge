@@ -27,7 +27,7 @@ class AthenaWorkgroup(AwsResource):
         self.arn: str = f'arn:aws:athena:{self.region}:{self.account}:workgroup/{self.name}'
 
     def get_keys(self) -> List[str]:
-        return [self.name + self.region + self.account]
+        return [self.name, self.region, self.account]
 
     def get_name(self) -> str:
         return self.name

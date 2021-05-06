@@ -3,22 +3,24 @@ from typing import List, Optional, Set
 from botocore.utils import ArnParser
 
 from cloudrail.knowledge.context.aws.aws_client import AwsClient
-from cloudrail.knowledge.context.aws.lambda_.lambda_alias import create_lambda_function_arn, LambdaAlias
 from cloudrail.knowledge.context.aws.cloudwatch.cloud_watch_log_group import CloudWatchLogGroup
 from cloudrail.knowledge.context.aws.iam.policy import Policy
+from cloudrail.knowledge.context.aws.lambda_.lambda_alias import create_lambda_function_arn, LambdaAlias
 from cloudrail.knowledge.context.aws.networking_config.network_configuration import NetworkConfiguration
+from cloudrail.knowledge.context.aws.networking_config.network_entity import NetworkEntity
 from cloudrail.knowledge.context.aws.resource_based_policy import ResourceBasedPolicy
-from cloudrail.knowledge.context.aws.service_name import AwsServiceName, AwsServiceType, AwsServiceAttributes
-from cloudrail.knowledge.utils.arn_utils import is_valid_arn, are_arns_intersected
+from cloudrail.knowledge.context.aws.service_name import AwsServiceAttributes, AwsServiceName, AwsServiceType
+from cloudrail.knowledge.utils.arn_utils import are_arns_intersected, is_valid_arn
 
 
-class LambdaFunction(ResourceBasedPolicy, AwsClient):
-
+class LambdaFunction(NetworkEntity, ResourceBasedPolicy, AwsClient):
     ARN_PARSER: ArnParser = ArnParser()
 
     def __init__(self, account: str, region: str, arn: str, function_name: str,
                  lambda_func_version: str, role_arn: str, handler: str,
                  runtime: str, vpc_config: NetworkConfiguration):
+        NetworkEntity.__init__(self, function_name, account, region, AwsServiceName.AWS_LAMBDA_FUNCTION,
+                               AwsServiceAttributes(aws_service_type=AwsServiceType.LAMBDA.value, region=region))
         ResourceBasedPolicy.__init__(self, account, region, AwsServiceName.AWS_LAMBDA_FUNCTION,
                                      AwsServiceAttributes(aws_service_type=AwsServiceType.LAMBDA.value, region=region))
         AwsClient.__init__(self)
@@ -50,6 +52,9 @@ class LambdaFunction(ResourceBasedPolicy, AwsClient):
         if self.lambda_func_alias:
             return self.lambda_func_alias.name
         return self.parse_qualifier_from_arn(self.arn)
+
+    def get_all_network_configurations(self) -> List[NetworkConfiguration]:
+        return [NetworkConfiguration(self.vpc_config.assign_public_ip, self.vpc_config.security_groups_ids, self.vpc_config.subnet_list_ids)]
 
     @staticmethod
     def parse_qualifier_from_arn(qualified_arn: str) -> str:
