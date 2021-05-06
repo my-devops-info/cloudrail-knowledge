@@ -5,7 +5,7 @@ from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.aws.non_context_aware.encryption_enforcement_rules.encrypt_at_rest.ensure_cloudtrail_encryption_kms_rule import \
     EnsureCloudTrailEncryptionKmsRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
-from tests.rule_test_utils import create_empty_entity
+from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 
 
 class TestEnsureCloudTrailEncryptionKmsRule(unittest.TestCase):

@@ -1,12 +1,12 @@
 import unittest
 
+from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aws.cloudwatch.cloud_watch_log_group import CloudWatchLogGroup
 from cloudrail.knowledge.context.aws.lambda_.lambda_function import LambdaFunction
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.aws.non_context_aware.log_validation_rules.ensure_lambda_function_has_non_infinite_log_retention_rule import \
     EnsureLambdaFunctionHasNonInfiniteLogRetentionRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
-from tests.rule_test_utils import create_empty_entity
 
 
 class TestEnsureLambdaFunctionHasNonInfiniteLogRetentionRule(unittest.TestCase):

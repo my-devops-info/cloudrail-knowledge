@@ -1,11 +1,12 @@
 from typing import List, Dict
 
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class EnsureAllUsedDefaultSecurityGroupsRestrictAllTrafficRule(BaseRule):
+class EnsureAllUsedDefaultSecurityGroupsRestrictAllTrafficRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'ensure_all_used_default_security_groups_restrict_all_traffic_rule'
@@ -31,9 +32,6 @@ class EnsureAllUsedDefaultSecurityGroupsRestrictAllTrafficRule(BaseRule):
                                 security_group)
 
         return list(default_security_group_to_issues.values())
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.vpcs)

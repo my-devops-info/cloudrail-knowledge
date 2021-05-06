@@ -2,11 +2,12 @@ from abc import ABC, abstractmethod
 from typing import List, Dict, Set
 
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class AccessAnalyzerValidationBaseRule(BaseRule, ABC):
+class AccessAnalyzerValidationBaseRule(AwsBaseRule, ABC):
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.get_terraform_managed_policies())
@@ -38,9 +39,6 @@ class AccessAnalyzerValidationBaseRule(BaseRule, ABC):
                 evidence += f'~{prefix}~. {finding_details} See {learn_more}'
                 evidences.append(evidence)
         return '. '.join(evidences)
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     @abstractmethod
     def _get_violated_finding_types(self) -> Set[str]:

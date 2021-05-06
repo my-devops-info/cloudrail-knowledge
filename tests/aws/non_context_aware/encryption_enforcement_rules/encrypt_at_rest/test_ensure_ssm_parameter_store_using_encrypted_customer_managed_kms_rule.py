@@ -1,5 +1,6 @@
 import unittest
 
+from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aws.kms.kms_key import KmsKey
 from cloudrail.knowledge.context.aws.kms.kms_key_manager import KeyManager
 from cloudrail.knowledge.context.aws.ssm.ssm_parameter import SsmParameter
@@ -8,7 +9,6 @@ from cloudrail.knowledge.rules.aws.non_context_aware.encryption_enforcement_rule
     encrypt_at_rest.ensure_ssm_parameter_store_using_encrypted_customer_managed_kms_rule import\
     EnsureSsmParameterStoreUsingEncryptedCustomerManagedKmsRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
-from tests.rule_test_utils import create_empty_entity
 
 
 class TestEnsureSsmParameterStoreUsingEncryptedCustomerManagedKmsRule(unittest.TestCase):

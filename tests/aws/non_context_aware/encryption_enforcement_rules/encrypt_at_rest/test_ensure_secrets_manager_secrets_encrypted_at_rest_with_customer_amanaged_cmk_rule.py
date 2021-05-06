@@ -1,5 +1,6 @@
 import unittest
 
+from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aws.kms.kms_key import KmsKey
 from cloudrail.knowledge.context.aws.kms.kms_key_manager import KeyManager
 from cloudrail.knowledge.context.aws.secretsmanager.secrets_manager_secret import SecretsManagerSecret
@@ -8,7 +9,6 @@ from cloudrail.knowledge.rules.aws.non_context_aware.encryption_enforcement_rule
     encrypt_at_rest.ensure_secrets_manager_secrets_encrypted_at_rest_with_customer_amanaged_cmk_rule import\
     EnsureSecretsManagersSecretsEncryptedAtRestWithCustomerManagedCmkRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
-from tests.rule_test_utils import create_empty_entity
 
 
 class TestEnsureSecretsManagersSecretsEncryptedAtRestWithCustomerManagedCmkRule(unittest.TestCase):

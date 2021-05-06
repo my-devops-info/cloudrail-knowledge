@@ -1,13 +1,14 @@
 from typing import List, Dict
 
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
 from cloudrail.knowledge.utils.utils import has_intersection, is_cidr_contained_in_cidr
 from cloudrail.knowledge.context.aws.ec2.vpc import Vpc
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class VpcsInTransitGatewayNoOverlappingCidrRule(BaseRule):
+class VpcsInTransitGatewayNoOverlappingCidrRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'vpcs_in_transit_gateway_no_overlapping_cidr_rule'

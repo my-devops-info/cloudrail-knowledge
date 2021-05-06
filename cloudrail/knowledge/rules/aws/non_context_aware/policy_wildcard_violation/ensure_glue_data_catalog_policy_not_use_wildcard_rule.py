@@ -4,11 +4,12 @@ from cloudrail.knowledge.context.aws.glue.glue_data_catalog_policy import GlueDa
 from cloudrail.knowledge.context.aws.iam.policy_statement import PolicyStatement, StatementEffect
 from cloudrail.knowledge.context.aws.iam.principal import Principal, PrincipalType
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class EnsureGlueDataCatalogPolicyNotUseWildcard(BaseRule):
+class EnsureGlueDataCatalogPolicyNotUseWildcard(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_aws_glue_data_catalog_policy_wildcard'
@@ -38,9 +39,6 @@ class EnsureGlueDataCatalogPolicyNotUseWildcard(BaseRule):
                                 f"using principal `{self._principal_string(principal)}`,"
                                 f" without any condition", glue_resource, gdc_policy))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     @staticmethod
     def _principal_string(principal: Principal) -> str:

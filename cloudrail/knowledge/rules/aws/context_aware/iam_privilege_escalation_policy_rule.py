@@ -4,13 +4,14 @@ from cloudrail.knowledge.context.aws.account.account import Account
 from cloudrail.knowledge.context.aws.iam.iam_identity import IamIdentity
 from cloudrail.knowledge.context.aws.iam.policy import Policy
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 from cloudrail.knowledge.utils.action_utils import is_combo_escalation_permissions_match, attribute_match, LAMBDA_UPDATE_ACTION, EC2_RUN_INSTANCE_ACTION, \
     LAMBDA_INVOKE_FUNCTION_ACTION, LAMBDA_CREATE_EVENT_ACTION
 
 
-class IamPrivilegeEscalationPolicyRule(BaseRule):
+class IamPrivilegeEscalationPolicyRule(AwsBaseRule):
     EVIDENCE_TEMPLATE: str = "~`{}`~. is applied to `{}`. {}{}"
 
     def __init__(self) -> None:
@@ -19,9 +20,6 @@ class IamPrivilegeEscalationPolicyRule(BaseRule):
 
     def get_id(self) -> str:
         return "iam_priv_escalation_policy"
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         if env_context.accounts:

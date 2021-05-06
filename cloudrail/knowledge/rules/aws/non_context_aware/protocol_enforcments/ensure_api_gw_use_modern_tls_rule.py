@@ -2,14 +2,15 @@ from typing import List, Dict
 from packaging import version
 
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-### Currently only checking API GW V1 (rest API's), as V2 does not support but TLS v1.2.
+# Currently only checking API GW V1 (rest API's), as V2 does not support but TLS v1.2.
 
 
-class EnsureApiGwUseModernTlsRule(BaseRule):
+class EnsureApiGwUseModernTlsRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_api_gateway_tls'
@@ -22,9 +23,6 @@ class EnsureApiGwUseModernTlsRule(BaseRule):
                     Issue(f"The {api_gw.get_type()} `{api_gw.get_friendly_name()}` "
                           f"has a domain configured but not enforcing TLS v1.2 ", api_gw, api_gw.domain))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     @staticmethod
     def _version_check(proto_version: str) -> bool:

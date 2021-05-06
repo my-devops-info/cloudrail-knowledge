@@ -1,5 +1,6 @@
 import unittest
 
+from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aliases_dict import AliasesDict
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw import RestApiGw
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_policy import RestApiGwPolicy
@@ -37,7 +38,6 @@ from cloudrail.knowledge.rules.aws.non_context_aware.policy_wildcard_violation.e
     EnsureSecretsManagerSecretPolicyNotUseWildcard, \
     EnsureSqsQueuePolicyNotUseWildcard
 from cloudrail.knowledge.rules.base_rule import RuleResultType
-from tests.rule_test_utils import create_empty_entity
 
 
 class TestEnsureLambdaFunctionPolicyNotUseWildcard(unittest.TestCase):

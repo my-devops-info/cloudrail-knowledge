@@ -1,12 +1,12 @@
 import unittest
 
+from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aws.autoscaling.launch_configuration import LaunchConfiguration
 from cloudrail.knowledge.context.aws.autoscaling.launch_template import LaunchTemplate
 from cloudrail.knowledge.context.aws.ec2.ec2_instance import Ec2Instance
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.aws.non_context_aware.protocol_enforcments.ensure_imdsv2_is_used_rule import EnsureImdsv2IsUsedRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
-from tests.rule_test_utils import create_empty_entity
 
 
 class TestEnsureImdsv2IsUsedRule(unittest.TestCase):

@@ -1,7 +1,6 @@
 import functools
 from dataclasses import dataclass
 from typing import List, Dict, Union, TypeVar, Callable, Set
-
 from cloudrail.knowledge.context.aliases_dict import AliasesDict
 from cloudrail.knowledge.context.aws.account.account import Account
 from cloudrail.knowledge.context.aws.apigateway.api_gateway_integration import ApiGatewayIntegration
@@ -131,6 +130,7 @@ from cloudrail.knowledge.context.aws.ssm.ssm_parameter import SsmParameter
 from cloudrail.knowledge.context.aws.workspaces.workspaces import Workspace
 from cloudrail.knowledge.context.aws.xray.xray_encryption import XrayEncryption
 from cloudrail.knowledge.context.managed_resources_summary import ManagedResourcesSummary
+from cloudrail.knowledge.context.base_environment_context import BaseEnvironmentContext
 from cloudrail.knowledge.context.mergeable import Mergeable
 from cloudrail.knowledge.context.unknown_block import UnknownBlock
 
@@ -150,7 +150,7 @@ class CheckovResult:
         return CheckovResult(dic['check_id'], dic['file_path'], dic['resource'], dic['start_line'], dic['end_line'])
 
 
-class EnvironmentContext:
+class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under aws folder
     def __init__(self,
                  vpcs: AliasesDict[Vpc] = None,
                  subnets: AliasesDict[Subnet] = None,
@@ -286,6 +286,7 @@ class EnvironmentContext:
                  dms_replication_instance_subnet_groups: List[DmsReplicationInstanceSubnetGroup] = None,
                  invalidated_resources: Set[Mergeable] = None,
                  managed_resources_summary: ManagedResourcesSummary = None):
+        BaseEnvironmentContext.__init__(self)
         self.vpcs = vpcs or AliasesDict()
         self.subnets = subnets or AliasesDict()
         self.transit_gateways = transit_gateways or []

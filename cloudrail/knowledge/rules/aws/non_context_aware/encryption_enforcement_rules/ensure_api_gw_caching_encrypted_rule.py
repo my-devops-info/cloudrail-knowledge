@@ -1,11 +1,12 @@
 from typing import List, Dict
 
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class EnsureApiGwCachingEncryptedRule(BaseRule):
+class EnsureApiGwCachingEncryptedRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_api_gateway_caching_encrypted'
@@ -18,9 +19,6 @@ class EnsureApiGwCachingEncryptedRule(BaseRule):
                     Issue(f"The {api_gw.get_type()} `{api_gw.get_id()}` has caching enabled and not encrypted for "
                           f"method `{api_gw.method_settings.http_method.value}` in the stage `{api_gw.method_settings.stage_name}`", api_gw, api_gw))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.rest_api_gw)

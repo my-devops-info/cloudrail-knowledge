@@ -8,13 +8,14 @@ from cloudrail.knowledge.context.aws.apigateway.api_gateway_method import ApiGat
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw import ApiGatewayType, RestApiGw
 from cloudrail.knowledge.context.aws.s3.s3_bucket import S3Bucket
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 from cloudrail.knowledge.utils.policy_evaluator import PolicyEvaluator, is_action_subset_allowed
 from cloudrail.knowledge.utils.policy_utils import is_policy_block_public_access
 
 
-class S3BucketLambdaIndirectExposureRule(BaseRule):
+class S3BucketLambdaIndirectExposureRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 's3_lambda_indirect_exposure'
@@ -38,9 +39,6 @@ class S3BucketLambdaIndirectExposureRule(BaseRule):
                                             exposed=s3_bucket,
                                             violating=agw_method.integration.lambda_func_integration))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.s3_buckets and environment_context.lambda_function_list)

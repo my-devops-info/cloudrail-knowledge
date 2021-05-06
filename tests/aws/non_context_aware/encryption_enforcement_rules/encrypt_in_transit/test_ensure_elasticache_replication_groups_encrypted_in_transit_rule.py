@@ -1,5 +1,6 @@
 import unittest
 
+from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aws.elasticache.elasti_cache_replication_group import ElastiCacheReplicationGroup
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.context.terraform_action_type import TerraformActionType
@@ -7,7 +8,6 @@ from cloudrail.knowledge.context.terraform_state import TerraformState
 from cloudrail.knowledge.rules.aws.non_context_aware.encryption_enforcement_rules.\
     encrypt_in_transit.ensure_elasticache_replication_groups_encrypted_in_transit_rule import EnsureElasticacheReplicationGroupsEncryptedInTransitRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
-from tests.rule_test_utils import create_empty_entity
 
 
 class TestEnsureElasticacheReplicationGroupsEncryptedInTransitRule(unittest.TestCase):

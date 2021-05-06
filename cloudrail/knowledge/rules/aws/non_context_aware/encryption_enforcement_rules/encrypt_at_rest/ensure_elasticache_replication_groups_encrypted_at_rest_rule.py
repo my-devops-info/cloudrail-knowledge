@@ -1,11 +1,12 @@
 from typing import List, Dict
 
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class EnsureElasticacheReplicationGroupsEncryptedAtRestRule(BaseRule):
+class EnsureElasticacheReplicationGroupsEncryptedAtRestRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_elasticache_replication_group_encrypt_at_rest_creating'
@@ -21,9 +22,6 @@ class EnsureElasticacheReplicationGroupsEncryptedAtRestRule(BaseRule):
                             f'The {elasticache_replication_group.get_type()} `{elasticache_replication_group.get_friendly_name()}` is '
                             f'not set to use encryption at rest', elasticache_replication_group, elasticache_replication_group))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.elasti_cache_replication_groups)

@@ -2,11 +2,12 @@ from typing import List, Dict
 
 from cloudrail.knowledge.context.aws.cloudfront.cloud_front_distribution_list import CacheBehavior
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import Issue, BaseRule
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class EnsureCloudfrontDistributionFieldLevelEncryptionRule(BaseRule):
+class EnsureCloudfrontDistributionFieldLevelEncryptionRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_cloudfront_distribution_field_level_encryption_creating'
@@ -36,9 +37,6 @@ class EnsureCloudfrontDistributionFieldLevelEncryptionRule(BaseRule):
                             f" data in transit in default_cache_behavior"
                             f" and in {ordered_list}", distribution, distribution))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     @staticmethod
     def _make_ordered_list(ordered_cache_list: List[CacheBehavior]) -> List:

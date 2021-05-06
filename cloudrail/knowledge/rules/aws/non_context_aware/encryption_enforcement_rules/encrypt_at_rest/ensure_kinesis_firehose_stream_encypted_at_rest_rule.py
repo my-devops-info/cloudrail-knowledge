@@ -1,11 +1,12 @@
 from typing import List, Dict
 
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class EnsureKinesisFirehoseStreamEncryptedAtRestRule(BaseRule):
+class EnsureKinesisFirehoseStreamEncryptedAtRestRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_kinesis_firehose_delivery_stream_encrypt_at_rest'
@@ -21,9 +22,6 @@ class EnsureKinesisFirehoseStreamEncryptedAtRestRule(BaseRule):
                         f'is not set to use encryption at rest', firehose_stream, firehose_stream))
 
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.kinesis_firehose_streams)

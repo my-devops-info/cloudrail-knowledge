@@ -1,11 +1,11 @@
 import unittest
 
+from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aws.sns.sns_topic import SnsTopic
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.aws.non_context_aware.encryption_enforcement_rules.encrypt_at_rest.ensure_sns_topic_encrypted_at_rest_rule import \
     EnsureSnsTopicEncryptedAtRestRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
-from tests.rule_test_utils import create_empty_entity
 
 
 class TestEnsureSnsTopicEncryptedAtRestRule(unittest.TestCase):

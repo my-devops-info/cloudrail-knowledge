@@ -1,19 +1,17 @@
 from typing import List, Dict
 
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 from cloudrail.knowledge.context.aws.ec2.route import RouteTargetType
 from cloudrail.knowledge.context.aws.ec2.subnet import Subnet
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 
 
-class NoVpcPeeringAllowedRule(BaseRule):
+class NoVpcPeeringAllowedRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'no_vpc_peering_allowed_rule'
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         peering_connections = self._check_for_peering_connections(env_context)

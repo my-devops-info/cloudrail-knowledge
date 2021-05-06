@@ -1,6 +1,7 @@
 from typing import List, Dict, Set
 
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 from cloudrail.knowledge.context.aws.aws_connection import PrivateConnectionDetail
 from cloudrail.knowledge.context.aws.ec2.ec2_instance import Ec2Instance
@@ -8,13 +9,10 @@ from cloudrail.knowledge.context.aws.s3.s3_bucket import S3Bucket
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 
 
-class Ec2S3ShareRule(BaseRule):
+class Ec2S3ShareRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'ec2_s3_share_rule'
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         public_ec2_to_private_s3_bucket_connections = \

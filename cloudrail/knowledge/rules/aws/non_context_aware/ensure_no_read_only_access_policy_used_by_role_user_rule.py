@@ -7,12 +7,13 @@ from cloudrail.knowledge.context.aws.iam.iam_users_login_profile import IamUsers
 from cloudrail.knowledge.context.aws.iam.role import Role
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
 from cloudrail.knowledge.utils.role_utils import is_allowing_external_assume
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class EnsureNoReadOnlyAccessPolicyUsedByRoleUserRule(BaseRule):
+class EnsureNoReadOnlyAccessPolicyUsedByRoleUserRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_iam_readonlyaccess_policy'
@@ -39,9 +40,6 @@ class EnsureNoReadOnlyAccessPolicyUsedByRoleUserRule(BaseRule):
                             f'The {item.get_type()} `{item.get_friendly_name()}` is assigned ReadOnlyAccess policy, '
                             f'potentially risking contents in its AWS account', account, item))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def _get_iam_entities_issues(self, roles: List[Role], users: List[IamUser], users_login_profile: List[IamUsersLoginProfile]) -> List[AwsResource]:
         users_login_list = [user_name.name for user_name in users_login_profile]

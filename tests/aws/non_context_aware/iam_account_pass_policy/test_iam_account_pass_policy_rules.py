@@ -1,5 +1,6 @@
 import unittest
 
+from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aws.account.account import Account
 from cloudrail.knowledge.context.aws.iam.iam_password_policy import IamPasswordPolicy
 from cloudrail.knowledge.context.aws.iam.iam_user import IamUser
@@ -9,7 +10,6 @@ from cloudrail.knowledge.rules.aws.non_context_aware.iam_account_pass_policy.iam
     EnsureIamPasswordLowerCharacters, EnsureIamPasswordMinimumLength, EnsureIamPasswordNotAllowReuse, EnsureIamPasswordRequiresNumber,\
     EnsureIamPasswordRequiresSymbol, EnsureIamPasswordRequiresUpperCase
 from cloudrail.knowledge.rules.base_rule import RuleResultType
-from tests.rule_test_utils import create_empty_entity
 
 
 class TestEnsureIamPasswordRequiresUpperCase(unittest.TestCase):

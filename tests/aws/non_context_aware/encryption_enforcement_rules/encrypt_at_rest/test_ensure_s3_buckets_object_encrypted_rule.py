@@ -1,5 +1,6 @@
 import unittest
 
+from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aws.aws_connection import ConnectionDirectionType, ConnectionInstance, PolicyConnectionProperty, \
     PrivateConnectionDetail, PublicConnectionDetail
 from cloudrail.knowledge.context.aws.s3.s3_bucket import S3Bucket
@@ -8,7 +9,6 @@ from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.aws.non_context_aware.encryption_enforcement_rules.encrypt_at_rest.ensure_s3_buckets_object_encrypted_rule import \
     EnsureS3BucketObjectsEncryptedRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
-from tests.rule_test_utils import create_empty_entity
 
 
 class TestEnsureS3BucketObjectsEncryptedRule(unittest.TestCase):

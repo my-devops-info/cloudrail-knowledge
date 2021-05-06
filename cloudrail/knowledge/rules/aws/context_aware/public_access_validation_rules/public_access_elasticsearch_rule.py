@@ -1,11 +1,12 @@
 from typing import List, Dict
 
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class PublicAccessElasticSearchRule(BaseRule):
+class PublicAccessElasticSearchRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'public_access_elasticsearch_rule'
@@ -17,9 +18,6 @@ class PublicAccessElasticSearchRule(BaseRule):
             f"{es.get_type()} is currently not deployed within a VPC. ~ElasticSearch~", es, es)
                                for es in env_context.elastic_search_domains if es.is_public]
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.elastic_search_domains)

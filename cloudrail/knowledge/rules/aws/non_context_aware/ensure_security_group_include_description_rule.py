@@ -4,11 +4,12 @@ from cloudrail.knowledge.context.aws.ec2.security_group import SecurityGroup
 
 from cloudrail.knowledge.context.aws.ec2.security_group_rule import SecurityGroupRule
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class EnsureSecurityGroupIncludeDescriptionRule(BaseRule):
+class EnsureSecurityGroupIncludeDescriptionRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_aws_ec2_security_group_rule_no_desc'
@@ -29,9 +30,6 @@ class EnsureSecurityGroupIncludeDescriptionRule(BaseRule):
                     f'The {security_group.get_type()} `{security_group.get_friendly_name()}` does not '
                     f'have a non-default description', security_group, security_group))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
 
     @staticmethod
     def _get_security_groups_affected_list(resources: List[NetworkEntity]) -> \

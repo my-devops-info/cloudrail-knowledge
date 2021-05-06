@@ -1,12 +1,13 @@
 from typing import Dict, List
 
+from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
 from cloudrail.knowledge.utils.connection_utils import ConnectionUtils
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
+from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class PublicAccessDbNeptuneRule(BaseRule):
+class PublicAccessDbNeptuneRule(AwsBaseRule):
 
     def get_id(self) -> str:
         return 'public_access_db_neptune'
@@ -33,10 +34,6 @@ class PublicAccessDbNeptuneRule(BaseRule):
                         f'~{neptune_instance.get_type()}~',
                         neptune_instance, security_group))
         return issues
-
-    def get_needed_parameters(self) -> List[ParameterType]:
-        return []
-
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.neptune_clusters)
