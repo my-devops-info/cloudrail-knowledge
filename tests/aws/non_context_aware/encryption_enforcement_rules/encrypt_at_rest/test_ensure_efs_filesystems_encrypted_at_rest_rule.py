@@ -1,12 +1,12 @@
 import unittest
 
-from cloudrail.knowledge.context.aws.efs.efs import Efs
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.context.terraform_state import TerraformState
 from cloudrail.knowledge.rules.aws.non_context_aware.encryption_enforcement_rules.encrypt_at_rest.ensure_efs_filesystems_encrypted_at_rest_rule import \
     EnsureEfsFilesystemsEncryptedAtRestRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
 from cloudrail.dev_tools.rule_test_utils import create_empty_entity
+from knowledge.context.aws.efs.efs_file_system import ElasticFileSystem
 
 
 class TestEnsureEfsFilesystemsEncryptedAtRestRule(unittest.TestCase):
@@ -15,7 +15,7 @@ class TestEnsureEfsFilesystemsEncryptedAtRestRule(unittest.TestCase):
 
     def test_non_car_efs_filesystem_encrypt_at_rest_creating_fail(self):
         # Arrange
-        efs: Efs = create_empty_entity(Efs)
+        efs: Efs = create_empty_entity(ElasticFileSystem)
         terraform_state = create_empty_entity(TerraformState)
         efs.terraform_state = terraform_state
         efs.terraform_state.is_new = True

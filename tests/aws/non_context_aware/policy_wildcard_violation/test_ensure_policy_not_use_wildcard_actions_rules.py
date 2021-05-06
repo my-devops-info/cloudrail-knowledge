@@ -8,7 +8,6 @@ from cloudrail.knowledge.context.aws.cloudwatch.cloudwatch_logs_destination impo
 from cloudrail.knowledge.context.aws.cloudwatch.cloudwatch_logs_destination_policy import CloudWatchLogsDestinationPolicy
 from cloudrail.knowledge.context.aws.ecr.ecr_repository import EcrRepository
 from cloudrail.knowledge.context.aws.ecr.ecr_repository_policy import EcrRepositoryPolicy
-from cloudrail.knowledge.context.aws.efs.efs import Efs
 from cloudrail.knowledge.context.aws.efs.efs_policy import EfsPolicy
 from cloudrail.knowledge.context.aws.es.elastic_search_domain import ElasticSearchDomain
 from cloudrail.knowledge.context.aws.es.elastic_search_domain_policy import ElasticSearchDomainPolicy
@@ -38,6 +37,7 @@ from cloudrail.knowledge.rules.aws.non_context_aware.policy_wildcard_violation.e
     EnsureSecretsManagerSecretPolicyNotUseWildcard, \
     EnsureSqsQueuePolicyNotUseWildcard
 from cloudrail.knowledge.rules.base_rule import RuleResultType
+from knowledge.context.aws.efs.efs_file_system import ElasticFileSystem
 
 
 class TestEnsureLambdaFunctionPolicyNotUseWildcard(unittest.TestCase):
@@ -657,7 +657,7 @@ class TestEnsureEfsPolicyNotUseWildcard(unittest.TestCase):
 
     def test_non_car_aws_efs_fs_policy_wildcard_fail(self):
         # Arrange
-        efs: Efs = create_empty_entity(Efs)
+        efs: ElasticFileSystem = create_empty_entity(ElasticFileSystem)
         efs.policy = EfsPolicy('efs_id', [PolicyStatement(StatementEffect.ALLOW, ['elasticfilesystem:*'],
                                                           ['*'], Principal(PrincipalType.PUBLIC, ['*']))],
                                'raw_doc', 'account')
@@ -671,7 +671,7 @@ class TestEnsureEfsPolicyNotUseWildcard(unittest.TestCase):
 
     def test_non_car_aws_efs_fs_policy_wildcard__only_action__fail(self):
         # Arrange
-        efs: Efs = create_empty_entity(Efs)
+        efs: ElasticFileSystem = create_empty_entity(ElasticFileSystem)
         efs.policy = EfsPolicy('efs_id', [PolicyStatement(StatementEffect.ALLOW, ['elasticfilesystem:*'],
                                                           ['*'], Principal(PrincipalType.PUBLIC,
                                                                            ['arn:aws:iam::123456789012:root']))],
@@ -686,7 +686,7 @@ class TestEnsureEfsPolicyNotUseWildcard(unittest.TestCase):
 
     def test_non_car_aws_efs_fs_policy_wildcard__only_principal__fail(self):
         # Arrange
-        efs: Efs = create_empty_entity(Efs)
+        efs: ElasticFileSystem = create_empty_entity(ElasticFileSystem)
         efs.policy = EfsPolicy('efs_id', [PolicyStatement(StatementEffect.ALLOW, ['elasticfilesystem:GetLogs'],
                                                           ['*'], Principal(PrincipalType.PUBLIC,
                                                                            ['*']))],
@@ -701,7 +701,7 @@ class TestEnsureEfsPolicyNotUseWildcard(unittest.TestCase):
 
     def test_non_car_aws_efs_fs_policy_wildcard__no_policy__fail(self):
         # Arrange
-        efs: Efs = create_empty_entity(Efs)
+        efs: Efs = create_empty_entity(ElasticFileSystem)
         context = EnvironmentContext(efs_file_systems=[efs])
         # Act
         result = self.rule.run(context, {})
@@ -712,7 +712,7 @@ class TestEnsureEfsPolicyNotUseWildcard(unittest.TestCase):
 
     def test_non_car_aws_efs_fs_policy_wildcard_pass(self):
         # Arrange
-        efs: Efs = create_empty_entity(Efs)
+        efs: ElasticFileSystem = create_empty_entity(ElasticFileSystem)
         efs.policy = EfsPolicy('efs_id', [PolicyStatement(StatementEffect.ALLOW, ['elasticfilesystem:GetLogs'],
                                                           ['*'], Principal(PrincipalType.PUBLIC,
                                                                            ['arn:aws:iam::123456789012:root']))],
