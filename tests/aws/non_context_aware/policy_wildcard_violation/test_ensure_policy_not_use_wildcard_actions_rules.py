@@ -701,7 +701,7 @@ class TestEnsureEfsPolicyNotUseWildcard(unittest.TestCase):
 
     def test_non_car_aws_efs_fs_policy_wildcard__no_policy__fail(self):
         # Arrange
-        efs: Efs = create_empty_entity(ElasticFileSystem)
+        efs: ElasticFileSystem = create_empty_entity(ElasticFileSystem)
         context = EnvironmentContext(efs_file_systems=[efs])
         # Act
         result = self.rule.run(context, {})
