@@ -33,3 +33,4 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+    - uses: gaurav-nelson/github-action-markdown-link-check@v1
