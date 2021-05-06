@@ -15,6 +15,9 @@ evaluate against. You can use this repository for a few purposes:
 3. Build your own custom rules using the same context model existing rules use (for examples see 
    [cloudrail-sample-custom-rules](https://github.com/indeni/cloudrail-sample-custom-rules))
    
+Want to understand how Cloudrail's knowledge works? Jump over to the [Overview](/docs/Overview.md) in our 
+documentation.
+
 ## Contributing
 We welcome all contributions. Simply open an issue and a PR with your additions or changes. Some requirements:
 * Branch names should be `<ticket-id>_<what_it's_trying_to_solve>`. Such as `issue_40_add_docdb_encryption_rule` or 
