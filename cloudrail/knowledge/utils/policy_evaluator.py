@@ -148,8 +148,7 @@ class PolicyEvaluator:
 
     @staticmethod
     def get_resource_actions(aws_service_type: str) -> List[str]:
-        json = load_as_json(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                         '../../core/aws/policy/actions.json'))
+        json = load_as_json(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'actions.json'))
         return json[aws_service_type]
 
     @classmethod

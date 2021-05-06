@@ -1,6 +1,10 @@
+import os
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional, Set
+
+import yaml
+
 from cloudrail.knowledge.context.cloud_provider import CloudProvider
 
 
@@ -77,3 +81,11 @@ def rule_matches_query(rule_id: str, rule_name: str, query: Optional[str]) -> bo
     if not query:
         return True
     return query.lower() in rule_id.lower() or query.lower() in rule_name.lower()
+
+
+def get_rule_metadata_content(provider: CloudProvider) -> dict:
+    provider_name = 'aws' if provider == CloudProvider.AMAZON_WEB_SERVICES else 'azure'
+    current_path = os.path.dirname(os.path.abspath(__file__))
+    rules_metadata_path = os.path.join(current_path, f'{provider_name}/{provider_name}_rules_metadata.yaml')
+    with open(rules_metadata_path, 'r') as file:
+        return yaml.load(file)
