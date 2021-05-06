@@ -1,4 +1,4 @@
-![CD](https://github.com/indeni/cloudrail-knowledge/actions/workflows/cd.yaml/badge.svg) 
+![CD](https://github.com/indeni/cloudrail-knowledge/actions/workflows/ci.yaml/badge.svg) 
 ![PyPI](https://img.shields.io/badge/python-3.7+-blue.svg)
 ![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
