@@ -7,15 +7,16 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
 
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v2
+    - uses: gaurav-nelson/github-action-markdown-link-check@v1
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -33,4 +34,26 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-    - uses: gaurav-nelson/github-action-markdown-link-check@v1
+        pytest --junit-xml pytest.xml
+    - name: Upload Unit Test Results
+      uses: actions/upload-artifact@v2
+      if: success() || failure()
+      with:
+        name: Unit Test Results (Python ${{ matrix.python-version }})
+        path: pytest.xml
+
+  publish-test-results:
+    name: Publish Test Report
+    runs-on: ubuntu-latest
+    if: success() || failure()
+    needs: build
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+      - uses: EnricoMi/publish-unit-test-result-action@v1
+        with:
+          files: artifacts/**/*.xml
+          fail_on: nothing
+          check_name: Test Report
