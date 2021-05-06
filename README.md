@@ -5,7 +5,7 @@
 
 # Cloudrail Knowledge
 [Cloudrail](https://www.indeni.com/cloudrail) is a tool for doing security analysis of infrastructure-as-code before 
-its deployment. For example, when Terraform is used, Cloudrail can inspect Terraform plans and identify configurations 
+its deployment. For example Cloudrail can inspect Terraform plans and identify configurations 
 that violate company policy and best practices, and stop the CI pipeline accordingly.
 
 This repository contains the rules that Cloudrail runs to conduct this analysis, as well as the context model the rules 
