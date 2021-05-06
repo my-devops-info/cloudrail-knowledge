@@ -34,11 +34,11 @@ jobs:
       run: |
         pytest --junit-xml pytest.xml
     - name: Upload Unit Test Results
-        uses: actions/upload-artifact@v2
-        if: success() || failure()
-        with:
-          name: Unit Test Results (Python ${{ matrix.python-version }})
-          path: pytest.xml
+      uses: actions/upload-artifact@v2
+      if: success() || failure()
+      with:
+        name: Unit Test Results (Python ${{ matrix.python-version }})
+        path: pytest.xml
 
   publish-test-results:
     name: Publish Test Report
