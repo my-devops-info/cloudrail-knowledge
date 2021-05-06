@@ -1,29 +1,62 @@
+import unittest
 
-# import unittest
-#
-# from cloudrail.knowledge.context.environment_context import EnvironmentContext
-# from cloudrail.knowledge.rules.base_rule import RuleResultType
-# from tests.rule_test_utils import create_empty_entity
-#
-#
-# class TestAlbDisallowHttpRule(unittest.TestCase):
-#     def setUp(self):
-#         self.rule = AlbDisallowHttpRule()
-#
-#     def test_non_car_alb_target_group_no_http_fail(self):
-#         # Arrange
-#         context = EnvironmentContext()
-#         # Act
-#         result = self.rule.run(context, {})
-#         # Assert
-#         self.assertEqual(RuleResultType.FAILED, result.status)
-#         self.assertEqual(1, len(result.issues))
-#
-#     def test_non_car_alb_target_group_no_http_pass(self):
-#         # Arrange
-#         context = EnvironmentContext()
-#         # Act
-#         result = self.rule.run(context, {})
-#         # Assert
-#         self.assertEqual(RuleResultType.SUCCESS, result.status)
-#         self.assertEqual(0, len(result.issues))
+from cloudrail.knowledge.context.aws.elb.load_balancer import LoadBalancer, LoadBalancerType
+from cloudrail.knowledge.context.aws.elb.load_balancer_target import LoadBalancerTarget
+from cloudrail.knowledge.context.aws.elb.load_balancer_target_group import LoadBalancerTargetGroup
+from cloudrail.knowledge.context.environment_context import EnvironmentContext
+from cloudrail.knowledge.rules.aws.non_context_aware.protocol_enforcments.alb_disallow_target_groups_http_rule import AlbDisallowHttpRule
+from cloudrail.knowledge.rules.base_rule import RuleResultType
+from tests.rule_test_utils import create_empty_entity
+
+
+class TestAlbDisallowHttpRule(unittest.TestCase):
+    def setUp(self):
+        self.rule = AlbDisallowHttpRule()
+
+    def test_non_car_alb_target_group_no_http_fail(self):
+        # Arrange
+        load_balancer: LoadBalancer = create_empty_entity(LoadBalancer)
+        load_balancer.load_balancer_type = LoadBalancerType.APPLICATION
+        lb_target_group: LoadBalancerTargetGroup = create_empty_entity(LoadBalancerTargetGroup)
+        lb_target_group.protocol = 'HTTP'
+        lb_target: LoadBalancerTarget = create_empty_entity(LoadBalancerTarget)
+        lb_target_group.targets = [lb_target]
+        load_balancer.target_groups = [lb_target_group]
+        context = EnvironmentContext(load_balancers=[load_balancer])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+
+    def test_non_car_alb_target_group_no_http__network_lb__pass(self):
+        # Arrange
+        load_balancer: LoadBalancer = create_empty_entity(LoadBalancer)
+        load_balancer.load_balancer_type = LoadBalancerType.NETWORK
+        lb_target_group: LoadBalancerTargetGroup = create_empty_entity(LoadBalancerTargetGroup)
+        lb_target_group.protocol = 'HTTP'
+        lb_target: LoadBalancerTarget = create_empty_entity(LoadBalancerTarget)
+        lb_target_group.targets = [lb_target]
+        load_balancer.target_groups = [lb_target_group]
+        context = EnvironmentContext(load_balancers=[load_balancer])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.SUCCESS, result.status)
+        self.assertEqual(0, len(result.issues))
+
+    def test_non_car_alb_target_group_no_http__not_http_protocol__pass(self):
+        # Arrange
+        load_balancer: LoadBalancer = create_empty_entity(LoadBalancer)
+        load_balancer.load_balancer_type = LoadBalancerType.APPLICATION
+        lb_target_group: LoadBalancerTargetGroup = create_empty_entity(LoadBalancerTargetGroup)
+        lb_target_group.protocol = 'HTTPS'
+        lb_target: LoadBalancerTarget = create_empty_entity(LoadBalancerTarget)
+        lb_target_group.targets = [lb_target]
+        load_balancer.target_groups = [lb_target_group]
+        context = EnvironmentContext(load_balancers=[load_balancer])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.SUCCESS, result.status)
+        self.assertEqual(0, len(result.issues))
