@@ -33,7 +33,6 @@ jobs:
         pylint ./cloudrail
     - name: Test with pytest
       run: |
-        pytest
         pytest --junit-xml pytest.xml
     - name: Upload Unit Test Results
       uses: actions/upload-artifact@v2
