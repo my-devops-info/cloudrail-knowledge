@@ -1,6 +1,18 @@
 import unittest
 
 from cloudrail.knowledge.context.aliases_dict import AliasesDict
+from cloudrail.knowledge.context.aws.apigateway.rest_api_gw import RestApiGw
+from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_policy import RestApiGwPolicy
+from cloudrail.knowledge.context.aws.cloudwatch.cloudwatch_logs_destination import CloudWatchLogsDestination
+from cloudrail.knowledge.context.aws.cloudwatch.cloudwatch_logs_destination_policy import CloudWatchLogsDestinationPolicy
+from cloudrail.knowledge.context.aws.ecr.ecr_repository import EcrRepository
+from cloudrail.knowledge.context.aws.ecr.ecr_repository_policy import EcrRepositoryPolicy
+from cloudrail.knowledge.context.aws.efs.efs import Efs
+from cloudrail.knowledge.context.aws.efs.efs_policy import EfsPolicy
+from cloudrail.knowledge.context.aws.es.elastic_search_domain import ElasticSearchDomain
+from cloudrail.knowledge.context.aws.es.elastic_search_domain_policy import ElasticSearchDomainPolicy
+from cloudrail.knowledge.context.aws.glacier.glacier_vault import GlacierVault
+from cloudrail.knowledge.context.aws.glacier.glacier_vault_policy import GlacierVaultPolicy
 from cloudrail.knowledge.context.aws.iam.policy import Policy, S3Policy
 from cloudrail.knowledge.context.aws.iam.policy_statement import PolicyStatement, StatementEffect
 from cloudrail.knowledge.context.aws.iam.principal import Principal, PrincipalType
@@ -15,7 +27,13 @@ from cloudrail.knowledge.context.aws.sqs.sqs_queue import SqsQueue
 from cloudrail.knowledge.context.aws.sqs.sqs_queue_policy import SqsQueuePolicy
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.aws.non_context_aware.policy_wildcard_violation.ensure_policy_not_use_wildcard_actions_rules import \
-    EnsureKmsKeyPolicyNotUseWildcard, EnsureLambdaFunctionPolicyNotUseWildcard, EnsureS3BucketPolicyNotUseWildcard, \
+    EnsureCloudWatchLogDestinationPolicyNotUseWildcard, EnsureEcrRepositoryPolicyNotUseWildcard, EnsureEfsPolicyNotUseWildcard, \
+    EnsureElasticSearchDomainPolicyNotUseWildcard, \
+    EnsureGlacierVaultPolicyNotUseWildcard, \
+    EnsureKmsKeyPolicyNotUseWildcard, \
+    EnsureLambdaFunctionPolicyNotUseWildcard, \
+    EnsureRestApiGwPolicyNotUseWildcard, \
+    EnsureS3BucketPolicyNotUseWildcard, \
     EnsureSecretsManagerSecretPolicyNotUseWildcard, \
     EnsureSqsQueuePolicyNotUseWildcard
 from cloudrail.knowledge.rules.base_rule import RuleResultType
@@ -405,6 +423,451 @@ class TestEnsureS3BucketPolicyNotUseWildcard(unittest.TestCase):
                                                                                                                ['arn:aws:iam::123456789012:root']))],
                                                    'raw_doc')
         context = EnvironmentContext(s3_buckets=AliasesDict(*[s3_bucket]))
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.SUCCESS, result.status)
+        self.assertEqual(0, len(result.issues))
+
+
+class TestEnsureRestApiGwPolicyNotUseWildcard(unittest.TestCase):
+    def setUp(self):
+        self.rule = EnsureRestApiGwPolicyNotUseWildcard()
+
+    def test_non_car_aws_api_gateway_endpoint_policy_wildcard_fail(self):
+        # Arrange
+        rest_api: RestApiGw = create_empty_entity(RestApiGw)
+        rest_api.resource_based_policy = RestApiGwPolicy('rest_api_id', [PolicyStatement(StatementEffect.ALLOW, ['execute-api:*'],
+                                                                                         ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                                          ['*']))],
+                                                         'raw_doc', 'account')
+        context = EnvironmentContext(rest_api_gw=[rest_api])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using wildcard action `execute-api:*`, and principal `AWS: *`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_api_gateway_endpoint_policy_wildcard__only_action__fail(self):
+        # Arrange
+        rest_api: RestApiGw = create_empty_entity(RestApiGw)
+        rest_api.resource_based_policy = RestApiGwPolicy('rest_api_id', [PolicyStatement(StatementEffect.ALLOW, ['execute-api:*'],
+                                                                                         ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                                          ['arn:aws:iam::123456789012:root']))],
+                                                         'raw_doc', 'account')
+        context = EnvironmentContext(rest_api_gw=[rest_api])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using wildcard action `execute-api:*`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_api_gateway_endpoint_policy_wildcard__only_principal__fail(self):
+        # Arrange
+        rest_api: RestApiGw = create_empty_entity(RestApiGw)
+        rest_api.resource_based_policy = RestApiGwPolicy('rest_api_id', [PolicyStatement(StatementEffect.ALLOW, ['execute-api:GetLogs'],
+                                                                                         ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                                          ['*']))],
+                                                         'raw_doc', 'account')
+        context = EnvironmentContext(rest_api_gw=[rest_api])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using principal `AWS: *`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_api_gateway_endpoint_policy_wildcard__no_policy__fail(self):
+        # Arrange
+        rest_api: RestApiGw = create_empty_entity(RestApiGw)
+        context = EnvironmentContext(rest_api_gw=[rest_api])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("There is no resource policy or no statements attached to" in result.issues[0].evidence)
+
+    def test_non_car_aws_api_gateway_endpoint_policy_wildcard_pass(self):
+        # Arrange
+        rest_api: RestApiGw = create_empty_entity(RestApiGw)
+        rest_api.resource_based_policy = RestApiGwPolicy('rest_api_id', [PolicyStatement(StatementEffect.ALLOW, ['execute-api:GetLogs'],
+                                                                                         ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                                          ['arn:aws:iam::123456789012:root']))],
+                                                         'raw_doc', 'account')
+        context = EnvironmentContext(rest_api_gw=[rest_api])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.SUCCESS, result.status)
+        self.assertEqual(0, len(result.issues))
+
+
+class TestEnsureGlacierVaultPolicyNotUseWildcard(unittest.TestCase):
+    def setUp(self):
+        self.rule = EnsureGlacierVaultPolicyNotUseWildcard()
+
+    def test_non_car_aws_glacier_vault_policy_wildcard_fail(self):
+        # Arrange
+        gc_vault: GlacierVault = create_empty_entity(GlacierVault)
+        gc_vault.policy = GlacierVaultPolicy('vault_arn', [PolicyStatement(StatementEffect.ALLOW, ['glacier:*'],
+                                                                           ['*'], Principal(PrincipalType.PUBLIC, ['*']))],
+                                             'raw_doc', 'account')
+        context = EnvironmentContext(glacier_vaults=[gc_vault])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using wildcard action `glacier:*`, and principal `AWS: *`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_glacier_vault_policy_wildcard__only_action__fail(self):
+        # Arrange
+        gc_vault: GlacierVault = create_empty_entity(GlacierVault)
+        gc_vault.policy = GlacierVaultPolicy('vault_arn', [PolicyStatement(StatementEffect.ALLOW, ['glacier:*'],
+                                                                           ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                            ['arn:aws:iam::123456789012:root']))],
+                                             'raw_doc', 'account')
+        context = EnvironmentContext(glacier_vaults=[gc_vault])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using wildcard action `glacier:*`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_glacier_vault_policy_wildcard__only_principal__fail(self):
+        # Arrange
+        gc_vault: GlacierVault = create_empty_entity(GlacierVault)
+        gc_vault.policy = GlacierVaultPolicy('vault_arn', [PolicyStatement(StatementEffect.ALLOW, ['glacier:GetLogs'],
+                                                                           ['*'], Principal(PrincipalType.PUBLIC, ['*']))],
+                                             'raw_doc', 'account')
+        context = EnvironmentContext(glacier_vaults=[gc_vault])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using principal `AWS: *`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_glacier_vault_policy_wildcard__no_policy__fail(self):
+        # Arrange
+        gc_vault: GlacierVault = create_empty_entity(GlacierVault)
+        context = EnvironmentContext(glacier_vaults=[gc_vault])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("There is no resource policy or no statements attached to" in result.issues[0].evidence)
+
+    def test_non_car_aws_glacier_vault_policy_wildcard_pass(self):
+        # Arrange
+        gc_vault: GlacierVault = create_empty_entity(GlacierVault)
+        gc_vault.policy = GlacierVaultPolicy('vault_arn', [PolicyStatement(StatementEffect.ALLOW, ['glacier:GetLogs'],
+                                                                           ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                            ['arn:aws:iam::123456789012:root']))],
+                                             'raw_doc', 'account')
+        context = EnvironmentContext(glacier_vaults=[gc_vault])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.SUCCESS, result.status)
+        self.assertEqual(0, len(result.issues))
+
+
+class TestEnsureElasticSearchDomainPolicyNotUseWildcard(unittest.TestCase):
+    def setUp(self):
+        self.rule = EnsureElasticSearchDomainPolicyNotUseWildcard()
+
+    def test_non_car_aws_es_service_domain_policy_wildcard_fail(self):
+        # Arrange
+        es_domain: ElasticSearchDomain = create_empty_entity(ElasticSearchDomain)
+        es_domain.policy = ElasticSearchDomainPolicy('es_domain', [PolicyStatement(StatementEffect.ALLOW, ['es:*'],
+                                                                                   ['*'], Principal(PrincipalType.PUBLIC, ['*']))],
+                                                     'raw_doc', 'account')
+        context = EnvironmentContext(elastic_search_domains=[es_domain])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using wildcard action `es:*`, and principal `AWS: *`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_es_service_domain_policy_wildcard__only_action__fail(self):
+        # Arrange
+        es_domain: ElasticSearchDomain = create_empty_entity(ElasticSearchDomain)
+        es_domain.policy = ElasticSearchDomainPolicy('es_domain', [PolicyStatement(StatementEffect.ALLOW, ['es:*'],
+                                                                                   ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                                    ['arn:aws:iam::123456789012:root']))],
+                                                     'raw_doc', 'account')
+        context = EnvironmentContext(elastic_search_domains=[es_domain])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using wildcard action `es:*`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_es_service_domain_policy_wildcard__only_principal__fail(self):
+        # Arrange
+        es_domain: ElasticSearchDomain = create_empty_entity(ElasticSearchDomain)
+        es_domain.policy = ElasticSearchDomainPolicy('es_domain', [PolicyStatement(StatementEffect.ALLOW, ['es:GetLogs'],
+                                                                                   ['*'], Principal(PrincipalType.PUBLIC, ['*']))],
+                                                     'raw_doc', 'account')
+        context = EnvironmentContext(elastic_search_domains=[es_domain])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using principal `AWS: *`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_es_service_domain_policy_wildcard__no_policy__fail(self):
+        # Arrange
+        es_domain: ElasticSearchDomain = create_empty_entity(ElasticSearchDomain)
+        context = EnvironmentContext(elastic_search_domains=[es_domain])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("There is no resource policy or no statements attached to" in result.issues[0].evidence)
+
+    def test_non_car_aws_es_service_domain_policy_wildcard_pass(self):
+        # Arrange
+        es_domain: ElasticSearchDomain = create_empty_entity(ElasticSearchDomain)
+        es_domain.policy = ElasticSearchDomainPolicy('es_domain', [PolicyStatement(StatementEffect.ALLOW, ['es:GetLogs'],
+                                                                                   ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                                    ['arn:aws:iam::123456789012:root']))],
+                                                     'raw_doc', 'account')
+        context = EnvironmentContext(elastic_search_domains=[es_domain])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.SUCCESS, result.status)
+        self.assertEqual(0, len(result.issues))
+
+
+class TestEnsureEfsPolicyNotUseWildcard(unittest.TestCase):
+    def setUp(self):
+        self.rule = EnsureEfsPolicyNotUseWildcard()
+
+    def test_non_car_aws_efs_fs_policy_wildcard_fail(self):
+        # Arrange
+        efs: Efs = create_empty_entity(Efs)
+        efs.policy = EfsPolicy('efs_id', [PolicyStatement(StatementEffect.ALLOW, ['elasticfilesystem:*'],
+                                                          ['*'], Principal(PrincipalType.PUBLIC, ['*']))],
+                               'raw_doc', 'account')
+        context = EnvironmentContext(efs_file_systems=[efs])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using wildcard action `elasticfilesystem:*`, and principal `AWS: *`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_efs_fs_policy_wildcard__only_action__fail(self):
+        # Arrange
+        efs: Efs = create_empty_entity(Efs)
+        efs.policy = EfsPolicy('efs_id', [PolicyStatement(StatementEffect.ALLOW, ['elasticfilesystem:*'],
+                                                          ['*'], Principal(PrincipalType.PUBLIC,
+                                                                           ['arn:aws:iam::123456789012:root']))],
+                               'raw_doc', 'account')
+        context = EnvironmentContext(efs_file_systems=[efs])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using wildcard action `elasticfilesystem:*`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_efs_fs_policy_wildcard__only_principal__fail(self):
+        # Arrange
+        efs: Efs = create_empty_entity(Efs)
+        efs.policy = EfsPolicy('efs_id', [PolicyStatement(StatementEffect.ALLOW, ['elasticfilesystem:GetLogs'],
+                                                          ['*'], Principal(PrincipalType.PUBLIC,
+                                                                           ['*']))],
+                               'raw_doc', 'account')
+        context = EnvironmentContext(efs_file_systems=[efs])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using principal `AWS: *`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_efs_fs_policy_wildcard__no_policy__fail(self):
+        # Arrange
+        efs: Efs = create_empty_entity(Efs)
+        context = EnvironmentContext(efs_file_systems=[efs])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("There is no resource policy or no statements attached to" in result.issues[0].evidence)
+
+    def test_non_car_aws_efs_fs_policy_wildcard_pass(self):
+        # Arrange
+        efs: Efs = create_empty_entity(Efs)
+        efs.policy = EfsPolicy('efs_id', [PolicyStatement(StatementEffect.ALLOW, ['elasticfilesystem:GetLogs'],
+                                                          ['*'], Principal(PrincipalType.PUBLIC,
+                                                                           ['arn:aws:iam::123456789012:root']))],
+                               'raw_doc', 'account')
+        context = EnvironmentContext(efs_file_systems=[efs])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.SUCCESS, result.status)
+        self.assertEqual(0, len(result.issues))
+
+
+class TestEnsureEcrRepositoryPolicyNotUseWildcard(unittest.TestCase):
+    def setUp(self):
+        self.rule = EnsureEcrRepositoryPolicyNotUseWildcard()
+
+    def test_non_car_aws_ecr_repo_policy_wildcard_fail(self):
+        # Arrange
+        ecr_repo: EcrRepository = create_empty_entity(EcrRepository)
+        ecr_repo.policy = EcrRepositoryPolicy('repo_name', [PolicyStatement(StatementEffect.ALLOW, ['ecr:*'],
+                                                                            ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                             ['*']))],
+                                              'raw_doc', 'account')
+        context = EnvironmentContext(ecr_repositories=[ecr_repo])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using wildcard action `ecr:*`, and principal `AWS: *`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_ecr_repo_policy_wildcard__only_action__fail(self):
+        # Arrange
+        ecr_repo: EcrRepository = create_empty_entity(EcrRepository)
+        ecr_repo.policy = EcrRepositoryPolicy('repo_name', [PolicyStatement(StatementEffect.ALLOW, ['ecr:*'],
+                                                                            ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                             ['arn:aws:iam::123456789012:root']))],
+                                              'raw_doc', 'account')
+        context = EnvironmentContext(ecr_repositories=[ecr_repo])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using wildcard action `ecr:*`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_ecr_repo_policy_wildcard__only_principal__fail(self):
+        # Arrange
+        ecr_repo: EcrRepository = create_empty_entity(EcrRepository)
+        ecr_repo.policy = EcrRepositoryPolicy('repo_name', [PolicyStatement(StatementEffect.ALLOW, ['ecr:GetLogs'],
+                                                                            ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                             ['*']))],
+                                              'raw_doc', 'account')
+        context = EnvironmentContext(ecr_repositories=[ecr_repo])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using principal `AWS: *`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_ecr_repo_policy_wildcard__no_policy__fail(self):
+        # Arrange
+        ecr_repo: EcrRepository = create_empty_entity(EcrRepository)
+        context = EnvironmentContext(ecr_repositories=[ecr_repo])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("There is no resource policy or no statements attached to" in result.issues[0].evidence)
+
+    def test_non_car_aws_ecr_repo_policy_wildcard_pass(self):
+        # Arrange
+        ecr_repo: EcrRepository = create_empty_entity(EcrRepository)
+        ecr_repo.policy = EcrRepositoryPolicy('repo_name', [PolicyStatement(StatementEffect.ALLOW, ['ecr:GetLogs'],
+                                                                            ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                             ['arn:aws:iam::123456789012:root']))],
+                                              'raw_doc', 'account')
+        context = EnvironmentContext(ecr_repositories=[ecr_repo])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.SUCCESS, result.status)
+        self.assertEqual(0, len(result.issues))
+
+
+class TestEnsureCloudWatchLogDestinationPolicyNotUseWildcard(unittest.TestCase):
+    def setUp(self):
+        self.rule = EnsureCloudWatchLogDestinationPolicyNotUseWildcard()
+
+    def test_non_car_aws_cloudwatch_logs_destination_policy_wildcard_fail(self):
+        # Arrange
+        cloudwatch_dest: CloudWatchLogsDestination = create_empty_entity(CloudWatchLogsDestination)
+        cloudwatch_dest.policy = CloudWatchLogsDestinationPolicy('dest_name', [PolicyStatement(StatementEffect.ALLOW, ['logs:*'],
+                                                                                               ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                                                ['*']))],
+                                                                 'raw_doc', 'us-east-1', 'account')
+        context = EnvironmentContext(cloudwatch_logs_destinations=[cloudwatch_dest])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using wildcard action `logs:*`, and principal `AWS: *`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_cloudwatch_logs_destination_policy_wildcard__only_action__fail(self):
+        # Arrange
+        cloudwatch_dest: CloudWatchLogsDestination = create_empty_entity(CloudWatchLogsDestination)
+        cloudwatch_dest.policy = CloudWatchLogsDestinationPolicy('dest_name', [PolicyStatement(StatementEffect.ALLOW, ['logs:*'],
+                                                                                               ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                                                ['arn:aws:iam::123456789012:root']))],
+                                                                 'raw_doc', 'us-east-1', 'account')
+        context = EnvironmentContext(cloudwatch_logs_destinations=[cloudwatch_dest])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using wildcard action `logs:*`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_cloudwatch_logs_destination_policy_wildcard__only_principal__fail(self):
+        # Arrange
+        cloudwatch_dest: CloudWatchLogsDestination = create_empty_entity(CloudWatchLogsDestination)
+        cloudwatch_dest.policy = CloudWatchLogsDestinationPolicy('dest_name', [PolicyStatement(StatementEffect.ALLOW, ['logs:GetLogs'],
+                                                                                               ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                                                ['*']))],
+                                                                 'raw_doc', 'us-east-1', 'account')
+        context = EnvironmentContext(cloudwatch_logs_destinations=[cloudwatch_dest])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("is using principal `AWS: *`, without any condition" in result.issues[0].evidence)
+
+    def test_non_car_aws_cloudwatch_logs_destination_policy_wildcard__no_policy__fail(self):
+        # Arrange
+        cloudwatch_dest: CloudWatchLogsDestination = create_empty_entity(CloudWatchLogsDestination)
+        context = EnvironmentContext(cloudwatch_logs_destinations=[cloudwatch_dest])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.FAILED, result.status)
+        self.assertEqual(1, len(result.issues))
+        self.assertTrue("There is no resource policy or no statements attached to" in result.issues[0].evidence)
+
+    def test_non_car_aws_cloudwatch_logs_destination_policy_wildcard_pass(self):
+        # Arrange
+        cloudwatch_dest: CloudWatchLogsDestination = create_empty_entity(CloudWatchLogsDestination)
+        cloudwatch_dest.policy = CloudWatchLogsDestinationPolicy('dest_name', [PolicyStatement(StatementEffect.ALLOW, ['logs:GetLogs'],
+                                                                                               ['*'], Principal(PrincipalType.PUBLIC,
+                                                                                                                ['arn:aws:iam::123456789012:root']))],
+                                                                 'raw_doc', 'us-east-1', 'account')
+        context = EnvironmentContext(cloudwatch_logs_destinations=[cloudwatch_dest])
         # Act
         result = self.rule.run(context, {})
         # Assert
