@@ -15,7 +15,7 @@ class TestEnsureEfsFilesystemsEncryptedAtRestRule(unittest.TestCase):
 
     def test_non_car_efs_filesystem_encrypt_at_rest_creating_fail(self):
         # Arrange
-        efs: Efs = create_empty_entity(ElasticFileSystem)
+        efs: ElasticFileSystem = create_empty_entity(ElasticFileSystem)
         terraform_state = create_empty_entity(TerraformState)
         efs.terraform_state = terraform_state
         efs.terraform_state.is_new = True
@@ -30,7 +30,7 @@ class TestEnsureEfsFilesystemsEncryptedAtRestRule(unittest.TestCase):
 
     def test_non_car_efs_filesystem_encrypt_at_rest_creating__encrypted__pass(self):
         # Arrange
-        efs: Efs = create_empty_entity(Efs)
+        efs: ElasticFileSystem = create_empty_entity(ElasticFileSystem)
         terraform_state = create_empty_entity(TerraformState)
         efs.terraform_state = terraform_state
         efs.terraform_state.is_new = True
@@ -47,7 +47,7 @@ class TestEnsureEfsFilesystemsEncryptedAtRestRule(unittest.TestCase):
 
     def test_non_car_efs_filesystem_encrypt_at_rest_creating_not_new_resource__pass(self):
         # Arrange
-        efs: Efs = create_empty_entity(Efs)
+        efs: ElasticFileSystem = create_empty_entity(ElasticFileSystem)
         terraform_state = create_empty_entity(TerraformState)
         efs.terraform_state = terraform_state
         efs.terraform_state.is_new = True
