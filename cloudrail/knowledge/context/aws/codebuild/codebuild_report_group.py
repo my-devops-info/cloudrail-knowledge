@@ -40,8 +40,11 @@ class CodeBuildReportGroup(AwsResource):
             return 'CodeBuild Report Groups'
 
     def get_cloud_resource_url(self) -> str:
-        return 'https://console.aws.amazon.com/codesuite/codebuild/{0}/testReports/reportGroups/{1}'\
-            .format(self.account, self.name)
+        if self.account:
+            return 'https://console.aws.amazon.com/codesuite/codebuild/{0}/testReports/reportGroups/{1}'\
+                .format(self.account, self.name)
+        else:
+            return None
 
     @property
     def is_tagable(self) -> bool:

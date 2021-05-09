@@ -19,7 +19,8 @@ class WorkspaceDirectory(NetworkEntity):
         self.directory_id: str = directory_id
         self.subnet_ids: Optional[list] = subnet_ids
         self.security_group_ids: list = security_group_ids
-        self.arn: str = f'arn:aws:workspaces:{self.region}:{self.account}:directory/{self.directory_id}'
+        if self.account:
+            self.arn: str = f'arn:aws:workspaces:{self.region}:{self.account}:directory/{self.directory_id}'
         self.workspace_security_groups: List[SecurityGroup] = []
         self.cloud_directory: DirectoryService = None
 

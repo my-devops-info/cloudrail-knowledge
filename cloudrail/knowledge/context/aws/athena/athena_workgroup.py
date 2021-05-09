@@ -24,7 +24,8 @@ class AthenaWorkgroup(AwsResource):
         self.encryption_option: str = encryption_option
         self.kms_key: str = kms_key
         self.kms_data: Optional[KmsKey] = None
-        self.arn: str = f'arn:aws:athena:{self.region}:{self.account}:workgroup/{self.name}'
+        if self.account:
+            self.arn: str = f'arn:aws:athena:{self.region}:{self.account}:workgroup/{self.name}'
 
     def get_keys(self) -> List[str]:
         return [self.name, self.region, self.account]

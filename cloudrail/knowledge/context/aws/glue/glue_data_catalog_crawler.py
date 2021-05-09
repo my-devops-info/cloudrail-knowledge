@@ -13,7 +13,8 @@ class GlueCrawler(AwsResource):
         super().__init__(account, region, AwsServiceName.AWS_GLUE_CRAWLER)
         self.crawler_name: str = crawler_name
         self.database_name: str = database_name
-        self.arn: str = f'arn:aws:glue:{self.region}:{self.account}:crawler/{self.crawler_name}'
+        if self.account:
+            self.arn: str = f'arn:aws:glue:{self.region}:{self.account}:crawler/{self.crawler_name}'
 
     def get_keys(self) -> List[str]:
         return [self.crawler_name, self.account, self.region]
