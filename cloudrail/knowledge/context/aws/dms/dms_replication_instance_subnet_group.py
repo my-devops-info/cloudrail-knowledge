@@ -28,7 +28,7 @@ class DmsReplicationInstanceSubnetGroup(AwsResource):
         else:
             return 'Dms Subnet Groups'
 
-    def get_arn(self) -> str:
+    def get_arn(self) -> Optional[str]:
         if self.account:
             return f"arn:aws:dms:{self.region}:{self.account}:subgrp:{self.rep_subnet_group_id}"
         else:

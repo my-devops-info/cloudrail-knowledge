@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from cloudrail.knowledge.context.aws.kms.kms_key import KmsKey
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
@@ -39,7 +39,7 @@ class CodeBuildReportGroup(AwsResource):
         else:
             return 'CodeBuild Report Groups'
 
-    def get_cloud_resource_url(self) -> str:
+    def get_cloud_resource_url(self) -> Optional[str]:
         if self.account:
             return 'https://console.aws.amazon.com/codesuite/codebuild/{0}/testReports/reportGroups/{1}'\
                 .format(self.account, self.name)
