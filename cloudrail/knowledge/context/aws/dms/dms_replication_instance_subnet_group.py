@@ -31,6 +31,8 @@ class DmsReplicationInstanceSubnetGroup(AwsResource):
     def get_arn(self) -> str:
         if self.account:
             return f"arn:aws:dms:{self.region}:{self.account}:subgrp:{self.rep_subnet_group_id}"
+        else:
+            return None
 
     def get_cloud_resource_url(self) -> str:
         return '{0}dms/v2/home?region={1}#subnetGroupDetail/{2}'\
