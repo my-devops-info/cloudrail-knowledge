@@ -1,6 +1,7 @@
 from typing import List, Optional
 from cloudrail.knowledge.context.aws.resource_based_policy import ResourceBasedPolicy
 from cloudrail.knowledge.context.aws.s3.s3_bucket_object import S3BucketObject
+from cloudrail.knowledge.context.aws.s3.s3_bucket_versioning import S3BucketVersioning
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName, AwsServiceType, AwsServiceAttributes
 from cloudrail.knowledge.context.aws.aws_connection import ConnectionInstance
 from cloudrail.knowledge.context.aws.iam.policy import S3Policy
@@ -27,6 +28,7 @@ class S3Bucket(ConnectionInstance, ResourceBasedPolicy):
         self.access_points: List[S3BucketAccessPoint] = []
         self.encryption_data: Optional[S3BucketEncryption] = None
         self.bucket_objects: List[S3BucketObject] = []
+        self.versioning_data: S3BucketVersioning = None
 
     def get_keys(self) -> List[str]:
         return [self.arn]
