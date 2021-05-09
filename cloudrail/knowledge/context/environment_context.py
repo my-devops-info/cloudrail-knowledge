@@ -298,7 +298,8 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  workspaces_directories: List[WorkspaceDirectory] = None,
                  cloud_directories: List[DirectoryService] = None,
                  roles_last_used: List[RoleLastUsed] = None):
-        BaseEnvironmentContext.__init__(self)
+        BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
+                                        managed_resources_summary=managed_resources_summary)
         self.roles_last_used = roles_last_used or []
         self.cloud_directories = cloud_directories or []
         self.workspaces_directories = workspaces_directories or []
@@ -438,7 +439,6 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
         self.assume_role_policies = assume_role_policies or []
         self.dms_replication_instance_subnet_groups = dms_replication_instance_subnet_groups or []
         self.invalidated_resources = invalidated_resources or set()
-        self.managed_resources_summary = managed_resources_summary or ManagedResourcesSummary(0, 0, 0, 0)
 
     @functools.lru_cache(maxsize=None)
     def get_all_nodes_interfaces(self) -> AliasesDict[NetworkInterface]:
