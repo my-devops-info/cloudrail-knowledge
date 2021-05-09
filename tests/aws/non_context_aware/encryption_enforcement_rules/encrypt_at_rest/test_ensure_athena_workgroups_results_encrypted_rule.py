@@ -16,6 +16,7 @@ class TestEnsureAthenaWorkGroupsResultsEncryptedRule(unittest.TestCase):
     def test_non_car_athena_workgroup_query_results_encrypt_at_rest__encryption_config__missing__fail(self):
         # Arrange
         athena_workgroup: AthenaWorkgroup = create_empty_entity(AthenaWorkgroup)
+        athena_workgroup.name = 'testing_workgroup'
         athena_workgroup.enforce_workgroup_config = True
         athena_workgroup.encryption_config = None
 
@@ -29,6 +30,7 @@ class TestEnsureAthenaWorkGroupsResultsEncryptedRule(unittest.TestCase):
     def test_non_car_athena_workgroup_query_results_encrypt_at_rest__encryption_config__no_enforce_config__fail(self):
         # Arrange
         athena_workgroup: AthenaWorkgroup = create_empty_entity(AthenaWorkgroup)
+        athena_workgroup.name = 'testing_workgroup'
         athena_workgroup.enforce_workgroup_config = False
         athena_workgroup.encryption_config = True
 
@@ -42,6 +44,7 @@ class TestEnsureAthenaWorkGroupsResultsEncryptedRule(unittest.TestCase):
     def test_non_car_athena_workgroup_query_results_encrypt_at_rest_pass(self):
         # Arrange
         athena_workgroup: AthenaWorkgroup = create_empty_entity(AthenaWorkgroup)
+        athena_workgroup.name = 'testing_workgroup'
         athena_workgroup.enforce_workgroup_config = True
         athena_workgroup.encryption_config = 'kms_key_arn'
 
