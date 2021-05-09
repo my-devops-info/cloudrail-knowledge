@@ -21,6 +21,8 @@ class WorkspaceDirectory(NetworkEntity):
         self.security_group_ids: list = security_group_ids
         if self.account:
             self.arn: str = f'arn:aws:workspaces:{self.region}:{self.account}:directory/{self.directory_id}'
+        else:
+            self.arn = None
         self.workspace_security_groups: List[SecurityGroup] = []
         self.cloud_directory: DirectoryService = None
 

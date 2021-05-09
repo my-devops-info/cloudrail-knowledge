@@ -24,6 +24,8 @@ class DirectoryService(NetworkEntity):
         self.vpc_config: NetworkConfiguration = vpc_config
         if self.account:
             self.arn: str = f'arn:aws:clouddirectory:{self.region}:{self.account}:directory/{self.directory_id}'
+        else:
+            self.arn = None
         self.security_group_controller: SecurityGroup = None
 
     def get_keys(self) -> List[str]:

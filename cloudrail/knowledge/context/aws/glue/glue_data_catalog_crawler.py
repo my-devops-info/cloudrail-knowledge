@@ -15,6 +15,8 @@ class GlueCrawler(AwsResource):
         self.database_name: str = database_name
         if self.account:
             self.arn: str = f'arn:aws:glue:{self.region}:{self.account}:crawler/{self.crawler_name}'
+        else:
+            self.arn = None
 
     def get_keys(self) -> List[str]:
         return [self.crawler_name, self.account, self.region]

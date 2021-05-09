@@ -23,8 +23,8 @@ class TestEnsureNoUnusedSecurityGroups(unittest.TestCase):
         network_interface.security_groups.append(security_group_1)
         network_interface.owner = ec2
         ec2.network_resource.network_interfaces.append(network_interface)
-        context = EnvironmentContext(ec2s=[ec2], network_interfaces=AliasesDict(*[network_interface]),
-                                     security_groups=AliasesDict(*[security_group_1, security_group_2]))
+        context = EnvironmentContext(ec2s=[ec2], network_interfaces=AliasesDict(network_interface),
+                                     security_groups=AliasesDict(security_group_1, security_group_2))
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -39,8 +39,8 @@ class TestEnsureNoUnusedSecurityGroups(unittest.TestCase):
         network_interface.security_groups.append(security_group_1)
         network_interface.owner = ec2
         ec2.network_resource.network_interfaces.append(network_interface)
-        context = EnvironmentContext(ec2s=[ec2], network_interfaces=AliasesDict(*[network_interface]),
-                                     security_groups=AliasesDict(*[security_group_1]))
+        context = EnvironmentContext(ec2s=[ec2], network_interfaces=AliasesDict(network_interface),
+                                     security_groups=AliasesDict(security_group_1))
         # Act
         result = self.rule.run(context, {})
         # Assert

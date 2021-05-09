@@ -21,6 +21,8 @@ class Workspace(AwsResource):
         self.keys_data: KmsKey = None
         if self.account:
             self.arn: str = f'arn:aws:workspaces:{self.region}:{self.account}:workspace/{self.workspace_id}'
+        else:
+            self.arn = None
 
     def get_keys(self) -> List[str]:
         return [self.workspace_id]

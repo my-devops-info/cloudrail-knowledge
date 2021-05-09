@@ -19,6 +19,8 @@ class SsmParameter(AwsResource):
         self.kms_data: KmsKey = None
         if self.account:
             self.arn: str = f'arn:aws:ssm:{self.region}:{self.account}:parameter/{self.name}'
+        else:
+            self.arn = None
 
     def get_keys(self) -> List[str]:
         return [self.account + self.region + self.name]
