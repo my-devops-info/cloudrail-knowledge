@@ -21,24 +21,21 @@ class EnsureNoReadOnlyAccessPolicyUsedByRoleUserRule(AwsBaseRule):
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
 
-        for account in env_context.accounts:
-            filtered_roles = [role for role in env_context.roles if role.account == account.account]
-            filtered_users = [user for user in env_context.users if user.account == account.account]
-            issue_items = self._get_iam_entities_issues(filtered_roles, filtered_users, env_context.users_login_profile)
-            for item in issue_items:
-                if isinstance(item, IamUser) and not self._is_read_only_policy(item):
-                    violating_groups: List[IamGroup] = [group for group in item.groups if self._is_read_only_policy(group)]
-                    issues.append(
-                        Issue(
-                            f'The {item.get_type()} `{item.get_friendly_name()}` inherit ReadOnlyAccess policy, '
-                            f'via group(s) `{", ".join([group.get_friendly_name() for group in violating_groups])}` potentially'
-                            f' risking contents in its AWS account',
-                            account, violating_groups[0]))
-                else:
-                    issues.append(
-                        Issue(
-                            f'The {item.get_type()} `{item.get_friendly_name()}` is assigned ReadOnlyAccess policy, '
-                            f'potentially risking contents in its AWS account', account, item))
+        issue_items = self._get_iam_entities_issues(env_context.roles, env_context.users, env_context.users_login_profile)
+        for item in issue_items:
+            if isinstance(item, IamUser) and not self._is_read_only_policy(item):
+                violating_groups: List[IamGroup] = [group for group in item.groups if self._is_read_only_policy(group)]
+                issues.append(
+                    Issue(
+                        f'The {item.get_type()} `{item.get_friendly_name()}` inherit ReadOnlyAccess policy, '
+                        f'via group(s) `{", ".join([group.get_friendly_name() for group in violating_groups])}` potentially'
+                        f' risking contents in its AWS account',
+                        violating_groups[0], violating_groups[0]))
+            else:
+                issues.append(
+                    Issue(
+                        f'The {item.get_type()} `{item.get_friendly_name()}` is assigned ReadOnlyAccess policy, '
+                        f'potentially risking contents in its AWS account', item, item))
         return issues
 
     def _get_iam_entities_issues(self, roles: List[Role], users: List[IamUser], users_login_profile: List[IamUsersLoginProfile]) -> List[AwsResource]:
@@ -67,4 +64,4 @@ class EnsureNoReadOnlyAccessPolicyUsedByRoleUserRule(AwsBaseRule):
         return self._is_read_only_policy(user) or affected_groups
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
-        return bool(environment_context.accounts)
+        return bool(environment_context.get_all_iam_entities())
