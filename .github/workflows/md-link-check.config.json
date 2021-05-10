@@ -1,4 +1,9 @@
 {
+  "ignorePatterns": [
+    {
+      "pattern": "^https://github.com/indeni/cloudrail-knowledge/actions/workflows/ci.yaml/badge.svg"
+    }
+  ],
   "replacementPatterns": [
     {
       "pattern": "^/",
