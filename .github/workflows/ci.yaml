@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: gaurav-nelson/github-action-markdown-link-check@v1
       with:
-        config-file: '.github/workflow/md-link-check.config.json'
+        config-file: './.github/workflow/md-link-check.config.json'
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
