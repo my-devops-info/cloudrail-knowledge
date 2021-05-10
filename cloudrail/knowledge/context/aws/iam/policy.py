@@ -22,7 +22,7 @@ class Policy(AwsResource, Cloneable):
                  aws_service_name: AwsServiceName = AwsServiceName.AWS_IAM_POLICY,
                  policy_type: PolicyType = PolicyType.RESOURCE_POLICY):
         super().__init__(account=account, region=self.GLOBAL_REGION, tf_resource_type=aws_service_name)
-        self._statements: List[PolicyStatement] = statements
+        self.statements: List[PolicyStatement] = statements
         self._init_statements()
         self.uuid: str = str(uuid.uuid4())
         self.raw_document = raw_document
@@ -30,29 +30,25 @@ class Policy(AwsResource, Cloneable):
         self.policy_type = policy_type
 
     def _init_statements(self):
-        for statement in self._statements:
+        for statement in self.statements:
             statement.policy = self
 
     def add_statement(self, statement: PolicyStatement) -> None:
         statement.policy = self
-        self._statements.append(statement)
+        self.statements.append(statement)
 
     def add_all_statements(self, statements: List[PolicyStatement]) -> None:
-        return self._statements.extend(statements)
-
-    @property
-    def statements(self) -> List[PolicyStatement]:
-        return self._statements
+        return self.statements.extend(statements)
 
     def reset_statements(self) -> None:
-        self._statements = []
+        self.statements = []
 
     def get_keys(self) -> List[str]:
         raise NotImplementedError('Policy.get_keys() invoked when it shouldnt')
 
     def get_statements_by_effect(self) -> Dict[StatementEffect, List[PolicyStatement]]:
         statements_by_effect_map: Dict[StatementEffect, List[PolicyStatement]] = {StatementEffect.ALLOW: [], StatementEffect.DENY: []}
-        for statement in self._statements:
+        for statement in self.statements:
             statement_copy: PolicyStatement = statement.clone()
             statements_by_effect_map[statement_copy.effect].append(statement_copy)
         return statements_by_effect_map
@@ -65,7 +61,7 @@ class Policy(AwsResource, Cloneable):
 
     def clone(self):
         policy = Policy(account=self.account,
-                        statements=[stat.clone() for stat in self._statements],
+                        statements=[stat.clone() for stat in self.statements],
                         raw_document=self.raw_document)
         policy.tf_resource_type = self.tf_resource_type
         policy.aliases = self.aliases
