@@ -13,7 +13,7 @@ from cloudrail.knowledge.context.aws.ec2.route import RouteTargetType, Route
 from cloudrail.knowledge.context.aws.ec2.subnet import Subnet
 from cloudrail.knowledge.context.aws.ec2.transit_gateway import TransitGateway
 from cloudrail.knowledge.context.aws.ec2.transit_gateway_route import TransitGatewayRouteState, TransitGatewayRoute, TransitGatewayRouteType
-from cloudrail.knowledge.utils.utils import is_cidr_contained_in_cidr, compare_prefix_length, \
+from cloudrail.knowledge.utils.utils import is_subset, compare_prefix_length, \
     has_intersection, is_ip_address, normalize_port_range, \
     get_all_ports_range, is_port_in_range
 
@@ -46,7 +46,7 @@ def _is_cross_vpc_route_able(src_subnet: Subnet, dest_eni: NetworkInterface,
                 dest_eni.vpc_id in [route.peering_connection.requester_vpc_info.vpc_id, route.peering_connection.accepter_vpc_info.vpc_id]:
             # Check if routable by 'local' route
             if any(x for x in dest_eni.private_ip_addresses if
-                   is_cidr_contained_in_cidr(x, route.target)):
+                   is_subset(x, route.target)):
                 return True
 
         # Check if routable by instance-id redirection
@@ -69,7 +69,7 @@ def _is_cross_vpc_route_able(src_subnet: Subnet, dest_eni: NetworkInterface,
 
             for route_table in route_tables:
                 route = _get_tgw_relevant_route(route_table.routes, ip)
-                if route.state == TransitGatewayRouteState.active:
+                if route.state == TransitGatewayRouteState.ACTIVE:
                     return True
 
     return False
@@ -82,7 +82,7 @@ def _get_tgw_relevant_route(routes: List[TransitGatewayRoute], ip: str) -> Trans
     """
     most_specific_routes: List[TransitGatewayRoute] = None
     for route in routes:
-        if is_cidr_contained_in_cidr(ip, route.destination_cidr_block):
+        if is_subset(ip, route.destination_cidr_block):
             if not most_specific_routes:
                 most_specific_routes = [route]
             else:
@@ -94,7 +94,7 @@ def _get_tgw_relevant_route(routes: List[TransitGatewayRoute], ip: str) -> Trans
     if len(most_specific_routes) == 1:
         return most_specific_routes[0]
 
-    static_route = next((x for x in most_specific_routes if x.route_type == TransitGatewayRouteType.static))
+    static_route = next((x for x in most_specific_routes if x.route_type == TransitGatewayRouteType.STATIC))
     if static_route:
         return static_route
 
@@ -186,12 +186,12 @@ def _get_route_table_relevant_route(routes: List[Route], ip: str) -> Route:
     `Route Evaluation Order <https://docs.aws.amazon.com/vpc/latest/tgw/how-transit-gateways-work.html#tgw-routing-overview>`_
     """
     local_route = next(route for route in routes if route.target == 'local')
-    if is_cidr_contained_in_cidr(ip, local_route.destination):
+    if is_subset(ip, local_route.destination):
         return local_route
 
     most_specific_route: Route = None
     for route in routes:
-        if is_ip_address(ip) and is_cidr_contained_in_cidr(ip, route.target):
+        if is_ip_address(ip) and is_subset(ip, route.target):
             if not most_specific_route or \
                     compare_prefix_length(most_specific_route.target, route.target) == -1:
                 most_specific_route = route
@@ -211,7 +211,7 @@ def reduce_allowed_ports_for_cidr_block_by_acls(rules: List[NetworkAclRule], cid
                                          if is_port_in_range((x.from_port, x.to_port), port)
                                          and has_intersection(cidr_block, x.cidr_block)]
         for entry in entries:
-            if any(x for x in deny_blocks.iter_cidrs() if is_cidr_contained_in_cidr(entry.cidr_block, str(x))):
+            if any(x for x in deny_blocks.iter_cidrs() if is_subset(entry.cidr_block, str(x))):
                 continue
 
             if entry.rule_action == RuleAction.ALLOW:

@@ -12,17 +12,17 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName, AwsServ
 
 
 class AssociatePublicIpAddress(Enum):
-    Yes = 'Yes'
-    No = 'No'
-    UseSubnetSettings = 'UseSubnetSettings'
+    YES = 'Yes'
+    NO = 'No'
+    USE_SUBNET_SETTINGS = 'UseSubnetSettings'
 
     @staticmethod
     def convert_from_optional_boolean(boolean: Optional[bool]) -> AssociatePublicIpAddress:
         if boolean is None:
-            return AssociatePublicIpAddress.UseSubnetSettings
+            return AssociatePublicIpAddress.USE_SUBNET_SETTINGS
         if boolean:
-            return AssociatePublicIpAddress.Yes
-        return AssociatePublicIpAddress.No
+            return AssociatePublicIpAddress.YES
+        return AssociatePublicIpAddress.NO
 
 
 @dataclass

@@ -110,7 +110,8 @@ class Vpc(AwsResource):
     def __str__(self) -> str:
         return self.name or self.vpc_id
 
-    def get_all_subnets(self) -> List['Subnet']:
+    @property
+    def subnets(self) -> List['Subnet']:
         return [subnet for subnet_list in self.subnets_by_az_map.values() for subnet in subnet_list]
 
     def get_type(self, is_plural: bool = False) -> str:
