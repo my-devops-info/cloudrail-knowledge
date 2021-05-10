@@ -43,7 +43,7 @@ class S3PublicAccessEvaluator:
     def _set_acl_policy_results(self):
         if not self._s3_bucket.public_access_block_settings.is_ignore_public_acls():
             for acl in self._s3_bucket.acls:
-                if acl.type == GranteeTypes.Group:
+                if acl.type == GranteeTypes.GROUP:
                     if acl.type_value == S3PredefinedGroups.AUTHENTICATED_USERS.value or \
                             acl.type_value == S3PredefinedGroups.ALL_USERS.value:
                         self._results_map[acl] = PublicAccessResults(principal=self.ALL_AUTHENTICATED_USERS,
@@ -52,8 +52,8 @@ class S3PublicAccessEvaluator:
                 else:
                     # canned acls and names: ac2 instance read: za-team, ec2 instance read/write: ec2-bundled-images
                     # TF don't support "user display name" attribute could lead to false positive
-                    if not (acl.is_grantee_owner() or (acl.type == GranteeTypes.CanonicalUser and (acl.type_value == "za-team" or
-                                                                                                   acl.type_value == "ec2-bundled-images"))):
+                    if not (acl.is_grantee_owner() or (acl.type == GranteeTypes.CANONICAL_USER and (acl.type_value == "za-team" or
+                                                                                                    acl.type_value == "ec2-bundled-images"))):
                         self._results_map[acl] = PublicAccessResults(principal=Principal(PrincipalType.CANONICAL_USER, [acl.type_value]),
                                                                      allowed_actions=set(acl.actions),
                                                                      resources={self._s3_bucket.get_arn()})

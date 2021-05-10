@@ -15,8 +15,8 @@ class RuleAction(Enum):
 
 
 class RuleType(Enum):
-    Inbound = 'inbound'
-    Outbound = 'outbound'
+    INBOUND = 'inbound'
+    OUTBOUND = 'outbound'
 
     def __str__(self):
         return str(self.name)

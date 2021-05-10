@@ -69,7 +69,7 @@ def _is_cross_vpc_route_able(src_subnet: Subnet, dest_eni: NetworkInterface,
 
             for route_table in route_tables:
                 route = _get_tgw_relevant_route(route_table.routes, ip)
-                if route.state == TransitGatewayRouteState.active:
+                if route.state == TransitGatewayRouteState.ACTIVE:
                     return True
 
     return False
@@ -94,7 +94,7 @@ def _get_tgw_relevant_route(routes: List[TransitGatewayRoute], ip: str) -> Trans
     if len(most_specific_routes) == 1:
         return most_specific_routes[0]
 
-    static_route = next((x for x in most_specific_routes if x.route_type == TransitGatewayRouteType.static))
+    static_route = next((x for x in most_specific_routes if x.route_type == TransitGatewayRouteType.STATIC))
     if static_route:
         return static_route
 

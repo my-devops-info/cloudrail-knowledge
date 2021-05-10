@@ -16,8 +16,8 @@ class SecurityGroupRulePropertyType(Enum):
 
 
 class ConnectionType(Enum):
-    Inbound = 'inbound'
-    Outbound = 'outbound'
+    INBOUND = 'inbound'
+    OUTBOUND = 'outbound'
 
 
 class SecurityGroupRule(AwsResource):
@@ -53,7 +53,7 @@ class SecurityGroupRule(AwsResource):
 
     def get_friendly_name(self) -> str:
         return '{} rule of {} for ports {}:{} using protocol {}'\
-            .format('ingress' if self.connection_type == ConnectionType.Inbound else 'egress',
+            .format('ingress' if self.connection_type == ConnectionType.INBOUND else 'egress',
                     self.property_value or self.security_group_id,
                     self.from_port,
                     self.to_port,

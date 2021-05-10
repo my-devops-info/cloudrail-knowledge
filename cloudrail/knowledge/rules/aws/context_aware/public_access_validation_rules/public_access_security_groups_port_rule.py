@@ -37,7 +37,7 @@ class PublicAccessSecurityGroupsPortRule(AwsBaseRule):
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         eni_list: AliasesDict[NetworkInterface] = env_context.get_all_nodes_interfaces()
         self.remove_from_eni_list(eni_list, parameters)
-        if self.port.value == KnownPorts.All:
+        if self.port.value == KnownPorts.ALL:
             eni_to_sg_map: Dict[NetworkInterface, Set[SecurityGroup]] = self.find_sg_issues(eni_list, True)
             message: str = ("~Internet~. {0} `{1}` has internet gateway. "
                             "Instance `{2}` is on `{1}`. {0} routes traffic from instance to internet gateway. "
@@ -279,4 +279,4 @@ class PublicAccessSecurityGroupsAllPortsRule(PublicAccessSecurityGroupsPortRule)
         return 'public_access_security_groups_all_ports_rule'
 
     def __init__(self):
-        super().__init__(KnownPorts.All)
+        super().__init__(KnownPorts.ALL)
