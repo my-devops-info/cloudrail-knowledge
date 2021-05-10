@@ -79,8 +79,8 @@ class PolicyEvaluator:
         `AWS Policy Evaluation Logic user-guide <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html>`_
         """
 
-        resource_based_policies_statements = flat_list([x.get_all_statements() for x in resource_based_policies if x])
-        identity_based_policies_statements = flat_list([x.get_all_statements() for x in identity_based_policies if x])
+        resource_based_policies_statements = flat_list([x.statements for x in resource_based_policies if x])
+        identity_based_policies_statements = flat_list([x.statements for x in identity_based_policies if x])
 
         evaluation_result: PolicyEvaluation = PolicyEvaluation()
 
@@ -107,7 +107,7 @@ class PolicyEvaluator:
             )
 
             if permission_boundary:
-                permission_boundary_policies_statements = permission_boundary.get_all_statements()
+                permission_boundary_policies_statements = permission_boundary.statements
                 evaluation_result.permission_boundary_applied = True
 
                 evaluation_result.permission_boundary_denied_actions.update(
@@ -131,7 +131,7 @@ class PolicyEvaluator:
         Use this function to evaluate policies over an existing evaluation.
         """
         new_evaluation_result = copy_policy_evaluation(evaluation_result)
-        statements = flat_list([x.get_all_statements() for x in resource_based_policies if x])
+        statements = flat_list([x.statements for x in resource_based_policies if x])
 
         for action in PolicyEvaluator.get_resource_actions(destination.get_aws_service_type()):
             new_evaluation_result.resource_denied_actions.update(

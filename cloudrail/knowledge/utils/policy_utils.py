@@ -55,7 +55,7 @@ def remove_allowed_from_denied(allowed_actions: Set[str], denied_actions: Set[st
 
 
 def is_policy_block_public_access(policy: Policy, aws_resource_arn: str = '*') -> bool:
-    for statement in policy.get_all_statements():
+    for statement in policy.statements:
         if len(statement.condition_block) == 0:
             if statement.principal.principal_type == PrincipalType.PUBLIC or \
                     (statement.principal.principal_type == PrincipalType.AWS and

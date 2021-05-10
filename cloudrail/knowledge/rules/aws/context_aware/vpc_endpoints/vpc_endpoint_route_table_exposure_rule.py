@@ -24,7 +24,7 @@ class AbstractVpcEndpointRouteTableExposureRule(AbstractVpcEndpointGatewayRule):
         for vpc in vpc_list:
             for eni in vpc_to_eni_map.get(vpc, []):
                 if self._is_service_eni_match(eni):
-                    for subnet in vpc.get_all_subnets():
+                    for subnet in vpc.subnets:
                         prefix_list: PrefixLists = region_to_prefix_lists_map[vpc.region]
                         aws_service_pl: PrefixList = prefix_list.get_prefix_lists_by_service(self.aws_service_type.value)
                         most_specific_service_pl_route: Route = self._get_most_specific_service_pl_route(subnet.route_table, aws_service_pl)

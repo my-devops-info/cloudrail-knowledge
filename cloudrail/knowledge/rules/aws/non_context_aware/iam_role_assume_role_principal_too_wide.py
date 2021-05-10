@@ -18,7 +18,7 @@ class IamRoleAssumeRolePrincipalTooWide(AwsBaseRule):
         if env_context.accounts:
             account: Account = env_context.accounts[0]
             for role in env_context.roles:
-                for statement in role.assume_role_policy.get_all_statements():
+                for statement in role.assume_role_policy.statements:
                     if statement.effect == StatementEffect.ALLOW and \
                         not statement.condition_block and \
                             (statement.principal.principal_type == PrincipalType.PUBLIC or

@@ -60,7 +60,7 @@ class S3PublicAccessEvaluator:
 
     def _set_bucket_policy_results(self):
         if self._s3_bucket.resource_based_policy:
-            for statement in self._s3_bucket.resource_based_policy.get_all_statements():
+            for statement in self._s3_bucket.resource_based_policy.statements:
                 if not self.ignore_policy_condition_block or len(statement.condition_block) == 0:
                     if statement.principal.principal_type == PrincipalType.PUBLIC or \
                             (statement.principal.principal_type == PrincipalType.AWS and

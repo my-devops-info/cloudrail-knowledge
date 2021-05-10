@@ -40,8 +40,9 @@ class Policy(AwsResource, Cloneable):
     def add_all_statements(self, statements: List[PolicyStatement]) -> None:
         return self._statements.extend(statements)
 
-    def get_all_statements(self) -> List[PolicyStatement]:
-        return list(self._statements)
+    @property
+    def statements(self) -> List[PolicyStatement]:
+        return self._statements
 
     def reset_statements(self) -> None:
         self._statements = []

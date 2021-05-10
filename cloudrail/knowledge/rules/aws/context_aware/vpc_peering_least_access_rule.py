@@ -1,7 +1,7 @@
 from typing import List, Dict, Optional
 
 from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
-from cloudrail.knowledge.utils.utils import is_cidr_contained_in_cidr
+from cloudrail.knowledge.utils.utils import is_subset
 from cloudrail.knowledge.context.aws.ec2.route_table import RouteTable
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.base_rule import Issue
@@ -39,7 +39,7 @@ class VpcPeeringLeastAccessRule(AwsBaseRule):
                     if route.peering_connection.accepter_vpc_info.vpc_id != route_table.vpc_id \
                     else route.peering_connection.requester_vpc_info
 
-                if any(is_cidr_contained_in_cidr(vpc_cidr, route.destination) for vpc_cidr in peer_vpc_info.cidr_blocks):
+                if any(is_subset(vpc_cidr, route.destination) for vpc_cidr in peer_vpc_info.cidr_blocks):
                     return peer_vpc_info.vpc_id
 
         return None
