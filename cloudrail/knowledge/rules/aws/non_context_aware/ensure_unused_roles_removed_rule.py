@@ -24,8 +24,11 @@ class EnsureUnusedRolesRemoved(BaseRule):
     def get_needed_parameters(self) -> List[ParameterType]:
         return []
 
+    # This rule depends on AWS account-data, in order to fetch info about last used date for IAM role.
+    # Thus, adding "accounts" to the needed resources for this rule.
+    # This rule will not run when running the evaluation with --no-cloud-account flag
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
-        return bool(environment_context.roles)
+        return bool(environment_context.roles and environment_context.accounts)
 
     def _get_unused_roles(self, roles: List[Role]) -> List[Optional[Role]]:
         effected_roles_list = []

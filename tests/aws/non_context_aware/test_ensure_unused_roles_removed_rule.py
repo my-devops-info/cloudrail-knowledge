@@ -1,6 +1,7 @@
 import unittest
 from datetime import datetime, timedelta
 
+from cloudrail.knowledge.context.aws.account.account import Account
 from cloudrail.knowledge.context.aws.iam.role import Role
 from cloudrail.knowledge.context.aws.iam.role_last_used import RoleLastUsed
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
@@ -18,6 +19,8 @@ class TestIamNoHumanUsersRule(unittest.TestCase):
     def test_non_car_unused_roles__old_role_not_used_lately__fail(self):
         # Arrange
         role: Role = create_empty_entity(Role)
+        account: Account = create_empty_entity(Account)
+        account.account = 'account_id'
         last_used_date: RoleLastUsed = create_empty_entity(RoleLastUsed)
         current_date = datetime.today()
         role.role_id = 'role_id'
@@ -28,7 +31,7 @@ class TestIamNoHumanUsersRule(unittest.TestCase):
                                               action=TerraformActionType.NO_OP,
                                               resource_metadata=None,
                                               is_new=False)
-        context = EnvironmentContext(roles=[role])
+        context = EnvironmentContext(roles=[role], accounts=[account])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -38,6 +41,8 @@ class TestIamNoHumanUsersRule(unittest.TestCase):
     def test_non_car_unused_roles__old_role_not_used_at_all__fail(self):
         # Arrange
         role: Role = create_empty_entity(Role)
+        account: Account = create_empty_entity(Account)
+        account.account = 'account_id'
         current_date = datetime.today()
         role.role_id = 'role_id'
         role.creation_date = datetime.strftime(current_date - timedelta(days=100), '%Y-%m-%d')
@@ -45,7 +50,7 @@ class TestIamNoHumanUsersRule(unittest.TestCase):
                                               action=TerraformActionType.NO_OP,
                                               resource_metadata=None,
                                               is_new=False)
-        context = EnvironmentContext(roles=[role])
+        context = EnvironmentContext(roles=[role], accounts=[account])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -55,6 +60,8 @@ class TestIamNoHumanUsersRule(unittest.TestCase):
     def test_non_car_unused_roles__lately_used__pass(self):
         # Arrange
         role: Role = create_empty_entity(Role)
+        account: Account = create_empty_entity(Account)
+        account.account = 'account_id'
         last_used_date: RoleLastUsed = create_empty_entity(RoleLastUsed)
         current_date = datetime.today()
         role.role_id = 'role_id'
@@ -65,7 +72,7 @@ class TestIamNoHumanUsersRule(unittest.TestCase):
                                               action=TerraformActionType.NO_OP,
                                               resource_metadata=None,
                                               is_new=False)
-        context = EnvironmentContext(roles=[role])
+        context = EnvironmentContext(roles=[role], accounts=[account])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -75,6 +82,8 @@ class TestIamNoHumanUsersRule(unittest.TestCase):
     def test_non_car_unused_roles__new_role_never_used__pass(self):
         # Arrange
         role: Role = create_empty_entity(Role)
+        account: Account = create_empty_entity(Account)
+        account.account = 'account_id'
         current_date = datetime.today()
         role.role_id = 'role_id'
         role.creation_date = datetime.strftime(current_date, '%Y-%m-%d')
@@ -82,7 +91,7 @@ class TestIamNoHumanUsersRule(unittest.TestCase):
                                               action=TerraformActionType.NO_OP,
                                               resource_metadata=None,
                                               is_new=False)
-        context = EnvironmentContext(roles=[role])
+        context = EnvironmentContext(roles=[role], accounts=[account])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -92,6 +101,8 @@ class TestIamNoHumanUsersRule(unittest.TestCase):
     def test_non_car_unused_roles__old_role_lately_used__pass(self):
         # Arrange
         role: Role = create_empty_entity(Role)
+        account: Account = create_empty_entity(Account)
+        account.account = 'account_id'
         last_used_date: RoleLastUsed = create_empty_entity(RoleLastUsed)
         current_date = datetime.today()
         role.role_id = 'role_id'
@@ -102,7 +113,7 @@ class TestIamNoHumanUsersRule(unittest.TestCase):
                                               action=TerraformActionType.NO_OP,
                                               resource_metadata=None,
                                               is_new=False)
-        context = EnvironmentContext(roles=[role])
+        context = EnvironmentContext(roles=[role], accounts=[account])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -112,6 +123,8 @@ class TestIamNoHumanUsersRule(unittest.TestCase):
     def test_non_car_unused_roles__new_role_creating__pass(self):
         # Arrange
         role: Role = create_empty_entity(Role)
+        account: Account = create_empty_entity(Account)
+        account.account = 'account_id'
         current_date = datetime.today()
         role.role_id = 'role_id'
         role.creation_date = datetime.strftime(current_date, '%Y-%m-%d')
@@ -119,7 +132,7 @@ class TestIamNoHumanUsersRule(unittest.TestCase):
                                               action=TerraformActionType.CREATE,
                                               resource_metadata=None,
                                               is_new=True)
-        context = EnvironmentContext(roles=[role])
+        context = EnvironmentContext(roles=[role], accounts=[account])
         # Act
         result = self.rule.run(context, {})
         # Assert
