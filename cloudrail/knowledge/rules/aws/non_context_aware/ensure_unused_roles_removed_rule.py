@@ -14,7 +14,7 @@ class EnsureUnusedRolesRemoved(BaseRule):
 
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
-        effected_roles = self._get_unused_roles(env_context.roles)
+        effected_roles = self._get_unused_roles([role for role in env_context.roles if not role.is_new_resource()])
         for role in effected_roles:
             issues.append(
                 Issue(
