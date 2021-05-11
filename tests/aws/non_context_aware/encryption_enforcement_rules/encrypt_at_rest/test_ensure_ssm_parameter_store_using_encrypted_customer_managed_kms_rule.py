@@ -18,6 +18,7 @@ class TestEnsureSsmParameterStoreUsingEncryptedCustomerManagedKmsRule(unittest.T
     def test_non_car_ssm_parameter_store_securestring_encrypted_at_rest_with_customer_managed_CMK_fail(self):
         # Arrange
         ssm_param: SsmParameter = create_empty_entity(SsmParameter)
+        ssm_param.name = 'ssm_test'
         ssm_param.kms_data = KmsKey(key_id='key', arn='arn', key_manager=KeyManager.AWS, region='us-east-1', account='111111111')
         context = EnvironmentContext(ssm_parameters=[ssm_param])
         # Act
@@ -29,6 +30,7 @@ class TestEnsureSsmParameterStoreUsingEncryptedCustomerManagedKmsRule(unittest.T
     def test_non_car_ssm_parameter_store_securestring_encrypted_at_rest_with_customer_managed_CMK__no_kms_data__fail(self):
         # Arrange
         ssm_param: SsmParameter = create_empty_entity(SsmParameter)
+        ssm_param.name = 'ssm_test'
         ssm_param.kms_data = None
         context = EnvironmentContext(ssm_parameters=[ssm_param])
         # Act
@@ -40,6 +42,7 @@ class TestEnsureSsmParameterStoreUsingEncryptedCustomerManagedKmsRule(unittest.T
     def test_non_car_ssm_parameter_store_securestring_encrypted_at_rest_with_customer_managed_CMK_pass(self):
         # Arrange
         ssm_param: SsmParameter = create_empty_entity(SsmParameter)
+        ssm_param.name = 'ssm_test'
         ssm_param.kms_data = KmsKey(key_id='key', arn='arn', key_manager=KeyManager.CUSTOMER, region='us-east-1', account='111111111')
         context = EnvironmentContext(ssm_parameters=[ssm_param])
         # Act

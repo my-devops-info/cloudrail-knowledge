@@ -44,9 +44,12 @@ class CodeBuildProject(NetworkEntity):
         else:
             return []
 
-    def get_cloud_resource_url(self) -> str:
-        return '{0}codesuite/codebuild/{1}/projects/{2}/'\
-            .format(self.AWS_CONSOLE_URL, self.account, self.project_name)
+    def get_cloud_resource_url(self) -> Optional[str]:
+        if self.account:
+            return '{0}codesuite/codebuild/{1}/projects/{2}/'\
+                .format(self.AWS_CONSOLE_URL, self.account, self.project_name)
+        else:
+            return None
 
     @property
     def is_tagable(self) -> bool:

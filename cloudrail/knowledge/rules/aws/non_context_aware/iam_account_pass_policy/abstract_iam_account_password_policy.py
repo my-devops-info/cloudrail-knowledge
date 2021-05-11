@@ -1,6 +1,5 @@
 from abc import abstractmethod
-from typing import Callable, List, Dict, Tuple
-from cloudrail.knowledge.context.aws.account.account import Account
+from typing import Callable, List, Dict
 from cloudrail.knowledge.context.aws.iam.iam_password_policy import IamPasswordPolicy
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
@@ -25,14 +24,12 @@ class AbstractIamAccountPasswordPolicy(AwsBaseRule):
         return any(user.name in users_login_list for user in env_context.users)
 
     def _get_entities_list(self, env_context: EnvironmentContext, policy_condition: Callable[[IamPasswordPolicy], bool]) \
-            -> List[Tuple[Account, IamPasswordPolicy]]:
+            -> List[IamPasswordPolicy]:
         issues = []
         if self._check_users(env_context):
-            for account in env_context.accounts:
-                policy = next((policy for policy in env_context.iam_account_pass_policies if policy.account == account.account), None)
-                if policy:
-                    if policy_condition(policy):
-                        issues.append((account, policy))
+            for policy in env_context.iam_account_pass_policies:
+                if policy_condition(policy):
+                    issues.append(policy)
         return issues
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
