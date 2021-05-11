@@ -57,7 +57,7 @@ class S3BucketPolicyVpcEndpointRule(AwsBaseRule):
 
     @staticmethod
     def _is_restrict_to_s3_vpce(policy: S3Policy, s3_vpce: VpcEndpoint) -> bool:
-        for statement in policy.get_all_statements():
+        for statement in policy.statements:
             expected_operator_prefix: str = "String" if statement.effect == StatementEffect.ALLOW else "StringNot"
             for condition_block in statement.condition_block:
                 if condition_block.operator.startswith(expected_operator_prefix) and \

@@ -35,7 +35,7 @@ class EnsureS3BucketsPolicyUseHttpsRule(AwsBaseRule):
 
     def _check_secure_policy(self, s3_bucket_policy: Policy) -> List:
         secure_statement = []
-        for statement in s3_bucket_policy.get_all_statements():
+        for statement in s3_bucket_policy.statements:
             if statement.effect == StatementEffect.DENY and self._check_conditions(statement.condition_block):
                 secure_statement.append(statement)
         return secure_statement

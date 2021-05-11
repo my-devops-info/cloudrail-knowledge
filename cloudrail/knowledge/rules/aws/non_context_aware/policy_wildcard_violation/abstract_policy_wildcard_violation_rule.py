@@ -33,7 +33,7 @@ class AbstractPolicyWildcardViolationRule(AwsBaseRule):
 
         for entity in rule_entity:
             policy = self._get_entity_policy(entity)
-            if policy and policy.get_all_statements():
+            if policy and policy.statements:
                 for action, principal in self._find_violating_actions_and_principals(policy, self.violating_actions):
                     if action and principal:
                         issues.append(
@@ -81,7 +81,7 @@ class AbstractPolicyWildcardViolationRule(AwsBaseRule):
         actions_list = []
         principals_list = []
         return_list = []
-        for policy_statement in item.get_all_statements():
+        for policy_statement in item.statements:
             if policy_statement.effect == StatementEffect.ALLOW and not policy_statement.condition_block:
                 returned_action = ''
                 for action in policy_statement.actions:

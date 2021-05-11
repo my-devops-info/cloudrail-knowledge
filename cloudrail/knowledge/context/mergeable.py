@@ -6,7 +6,7 @@ from cloudrail.knowledge.context.terraform_state import TerraformState
 
 
 class EntityOrigin(Enum):
-    CLOUDMAPPER = 'cloudmapper'
+    LIVE_ENV = 'live_environment'
     TERRAFORM = 'terraform'
     PSEUDO = 'pseudo'
 
@@ -74,7 +74,7 @@ class Mergeable:
         elif self.terraform_state:
             return EntityOrigin.TERRAFORM
         else:
-            return EntityOrigin.CLOUDMAPPER
+            return EntityOrigin.LIVE_ENV
 
     @property
     def is_managed_by_iac(self) -> bool:

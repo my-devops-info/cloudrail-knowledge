@@ -15,7 +15,7 @@ class IamRoleAssumeRolePrincipalTooWide(AwsBaseRule):
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
         for role in env_context.roles:
-            for statement in role.assume_role_policy.get_all_statements():
+            for statement in role.assume_role_policy.statements:
                 if statement.effect == StatementEffect.ALLOW and \
                     not statement.condition_block and \
                         (statement.principal.principal_type == PrincipalType.PUBLIC or

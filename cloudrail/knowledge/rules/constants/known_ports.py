@@ -20,7 +20,7 @@ class KnownPorts(IntEnum):
     ELASTICSEARCH_NODES: int = 9300
     ELASTICSEARCH: int = 9200
     KIBANA: int = 5601
-    All: int = -1
+    ALL: int = -1
 
 
 def get_values() -> List[KnownPorts]:

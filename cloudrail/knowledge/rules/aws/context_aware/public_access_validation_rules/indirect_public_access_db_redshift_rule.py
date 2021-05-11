@@ -1,7 +1,7 @@
 from typing import List, Dict, Optional
 
 from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
-from cloudrail.knowledge.utils.connection_utils import ConnectionData, ConnectionUtils
+from cloudrail.knowledge.utils.connection_utils import ConnectionData, get_allowing_indirect_public_access_on_ports
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
@@ -15,7 +15,7 @@ class IndirectPublicAccessDbRedshift(AwsBaseRule):
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
         for redshift in env_context.redshift_clusters:
-            violation_data: Optional[ConnectionData] = ConnectionUtils.get_allowing_indirect_public_access_on_ports(redshift, [redshift.port])
+            violation_data: Optional[ConnectionData] = get_allowing_indirect_public_access_on_ports(redshift, [redshift.port])
             if violation_data:
                 issues.append(
                     Issue(

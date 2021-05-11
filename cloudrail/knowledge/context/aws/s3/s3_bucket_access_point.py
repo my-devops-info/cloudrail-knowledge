@@ -9,7 +9,7 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 class S3BucketAccessPointNetworkOriginType(str, Enum):
     VPC: str = 'VPC'
-    Internet: str = 'Internet'
+    INTERNET: str = 'Internet'
 
 
 @dataclass

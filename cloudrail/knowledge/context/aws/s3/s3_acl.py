@@ -10,17 +10,17 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 class S3PredefinedGroups(Enum):
     ALL_USERS = 'http://acs.amazonaws.com/groups/global/AllUsers'
-    LogDelivery = 'http://acs.amazonaws.com/groups/s3/LogDelivery'
+    LOG_DELIVERY = 'http://acs.amazonaws.com/groups/s3/LogDelivery'
     AUTHENTICATED_USERS = 'http://acs.amazonaws.com/groups/global/AuthenticatedUsers'
 
 
 class GranteeTypes(Enum):
-    Group = "Group"
-    CanonicalUser = 'CanonicalUser'
+    GROUP = "Group"
+    CANONICAL_USER = 'CanonicalUser'
 
     @staticmethod
     def get_type_value(grantee_type, raw_data: dict):
-        if grantee_type == GranteeTypes.Group:
+        if grantee_type == GranteeTypes.GROUP:
             return raw_data.get('URI') or raw_data.get('uri')
         else:
             return raw_data.get('ID') or raw_data.get('id')
@@ -52,10 +52,10 @@ class S3ACL(AwsResource):
         return [self.bucket_name, self.type_value]
 
     def as_policy(self) -> S3Policy:
-        if self.type == GranteeTypes.Group and self.type_value == S3PredefinedGroups.ALL_USERS.value:
+        if self.type == GranteeTypes.GROUP and self.type_value == S3PredefinedGroups.ALL_USERS.value:
             return S3Policy(self.account, self.bucket_name,
                             [PolicyStatement(StatementEffect.ALLOW, self.actions, ["*"], Principal(PrincipalType.PUBLIC, []))], None)
-        if self.type == GranteeTypes.Group and self.type_value == S3PredefinedGroups.AUTHENTICATED_USERS.value:
+        if self.type == GranteeTypes.GROUP and self.type_value == S3PredefinedGroups.AUTHENTICATED_USERS.value:
             return S3Policy(self.account, self.bucket_name,
                             [PolicyStatement(StatementEffect.ALLOW, self.actions, ["*"], Principal(PrincipalType.AWS, ['arn:aws:*:::*']))], None)
 
@@ -69,7 +69,7 @@ class S3ACL(AwsResource):
         return ', '.join([bucket_name, s3_type, type_value])
 
     def is_grantee_owner(self) -> bool:
-        return self.type == GranteeTypes.CanonicalUser and self.type_value == self.owner_id
+        return self.type == GranteeTypes.CANONICAL_USER and self.type_value == self.owner_id
 
     def get_type(self, is_plural: bool = False) -> str:
         if not is_plural:

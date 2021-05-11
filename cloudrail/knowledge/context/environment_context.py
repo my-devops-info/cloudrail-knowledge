@@ -462,7 +462,7 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
         return self.get_all_mergeable_resources(condition)
 
     @functools.lru_cache(maxsize=None)
-    def get_terraform_managed_policies(self) -> List[Policy]:
+    def get_iac_managed_policies(self) -> List[Policy]:
         condition: Callable = lambda resource: isinstance(resource, Policy) and resource.is_managed_by_iac
         return self.get_all_mergeable_resources(condition)
 

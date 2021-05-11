@@ -1,7 +1,7 @@
 from typing import List, Dict, Optional
 
 from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
-from cloudrail.knowledge.utils.connection_utils import ConnectionData, ConnectionUtils
+from cloudrail.knowledge.utils.connection_utils import ConnectionData, get_allowing_indirect_public_access_on_ports
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
@@ -17,8 +17,7 @@ class IndirectPublicAccessDbRds(AwsBaseRule):
 
         for rds_cluster in env_context.rds_clusters:
             for rds_instance in rds_cluster.cluster_instances:
-                violation_info: Optional[ConnectionData] = \
-                    ConnectionUtils.get_allowing_indirect_public_access_on_ports(rds_instance, [rds_instance.port])
+                violation_info: Optional[ConnectionData] = get_allowing_indirect_public_access_on_ports(rds_instance, [rds_instance.port])
                 if violation_info:
                     issues.append(Issue(
                         f"~Internet~. "
@@ -41,7 +40,7 @@ class IndirectPublicAccessDbRds(AwsBaseRule):
                         violation_info.security_group))
 
         for rds_instance in (x for x in env_context.rds_instances if x.db_cluster_id is None):
-            violation_info: Optional[ConnectionData] = ConnectionUtils.get_allowing_indirect_public_access_on_ports(rds_instance, [rds_instance.port])
+            violation_info: Optional[ConnectionData] = get_allowing_indirect_public_access_on_ports(rds_instance, [rds_instance.port])
             if violation_info:
                 issues.append(Issue(
                     f"~Internet~. "

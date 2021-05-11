@@ -1,5 +1,6 @@
 from typing import List, Dict
 
+from cloudrail.knowledge.context.aws.elb.load_balancer import LoadBalancerType
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
 from cloudrail.knowledge.rules.base_rule import Issue
@@ -17,7 +18,7 @@ class AlbDisallowHttpRule(AwsBaseRule):
         target_group_list = set()
 
         for load_balancer in env_context.load_balancers:
-            if load_balancer.load_balancer_type.name == 'APPLICATION':
+            if load_balancer.load_balancer_type == LoadBalancerType.APPLICATION:
                 for target_group in load_balancer.target_groups:
                     if target_group not in target_group_list:
                         target_group_list.add(target_group)
