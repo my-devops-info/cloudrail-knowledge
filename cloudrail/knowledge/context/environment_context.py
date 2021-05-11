@@ -105,6 +105,7 @@ from cloudrail.knowledge.context.aws.kms.kms_key_policy import KmsKeyPolicy
 from cloudrail.knowledge.context.aws.lambda_.lambda_alias import LambdaAlias
 from cloudrail.knowledge.context.aws.lambda_.lambda_function import LambdaFunction
 from cloudrail.knowledge.context.aws.lambda_.lambda_policy_statements import LambdaPolicyStatements
+from cloudrail.knowledge.context.aws.mq.mq_broker import MqBroker
 from cloudrail.knowledge.context.aws.neptune.neptune_cluster import NeptuneCluster
 from cloudrail.knowledge.context.aws.neptune.neptune_instance import NeptuneInstance
 from cloudrail.knowledge.context.aws.networking_config.network_entity import NetworkEntity
@@ -299,9 +300,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  workspaces_directories: List[WorkspaceDirectory] = None,
                  cloud_directories: List[DirectoryService] = None,
                  roles_last_used: List[RoleLastUsed] = None,
-                 batch_compute_environments: List[BatchComputeEnvironment] = None):
+                 batch_compute_environments: List[BatchComputeEnvironment] = None,
+                 mq_brokers: List[MqBroker] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.mq_brokers = mq_brokers or []
         self.batch_compute_environments = batch_compute_environments or []
         self.roles_last_used = roles_last_used or []
         self.cloud_directories = cloud_directories or []
