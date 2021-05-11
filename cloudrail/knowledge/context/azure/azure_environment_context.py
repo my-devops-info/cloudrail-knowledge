@@ -17,4 +17,3 @@ class AzureEnvironmentContext(BaseEnvironmentContext):
         self.checkov_results: Dict[str, List[CheckovResult]] = checkov_results or {}
         self.resource_groups: AliasesDict[AzureResourceGroup] = resource_groups or AliasesDict()
         self.sql_servers: AliasesDict[AzureSqlServer] = sql_servers or AliasesDict()
-
