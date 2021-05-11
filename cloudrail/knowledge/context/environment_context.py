@@ -15,6 +15,7 @@ from cloudrail.knowledge.context.aws.autoscaling.launch_configuration import Lau
 from cloudrail.knowledge.context.aws.autoscaling.launch_template import LaunchTemplate
 from cloudrail.knowledge.context.aws.aws_client import AwsClient
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
+from cloudrail.knowledge.context.aws.batch.batch_compute_environment import BatchComputeEnvironment
 from cloudrail.knowledge.context.aws.cloudfront.cloud_front_distribution_list import CloudFrontDistribution
 from cloudrail.knowledge.context.aws.cloudfront.origin_access_identity import OriginAccessIdentity
 from cloudrail.knowledge.context.aws.cloudtrail.cloudtrail import CloudTrail
@@ -297,9 +298,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  efs_mount_targets: List[EfsMountTarget] = None,
                  workspaces_directories: List[WorkspaceDirectory] = None,
                  cloud_directories: List[DirectoryService] = None,
-                 roles_last_used: List[RoleLastUsed] = None):
+                 roles_last_used: List[RoleLastUsed] = None,
+                 batch_compute_environments: List[BatchComputeEnvironment] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.batch_compute_environments = batch_compute_environments or []
         self.roles_last_used = roles_last_used or []
         self.cloud_directories = cloud_directories or []
         self.workspaces_directories = workspaces_directories or []

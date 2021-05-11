@@ -136,6 +136,7 @@ class AwsServiceName(Enum):
     AWS_SAGEMAKER_ENDPOINT_CONFIGURATION = 'aws_sagemaker_endpoint_configuration'
     AWS_SAGEMAKER_NOTEBOOK_INSTANCE = 'aws_sagemaker_notebook_instance'
     AWS_DIRECTORY_SERVICE_DIRECTORY = 'aws_directory_service_directory'
+    AWS_BATCH_COMPUTE_ENVIRONMENT = 'aws_batch_compute_environment'
 
 
 AWS_SERVICES_DOMAIN: str = ".amazonaws.com"
