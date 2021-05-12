@@ -22,11 +22,11 @@ class TestEnsureSecurityGroupIncludeDescriptionRule(unittest.TestCase):
         network_interface = create_empty_entity(NetworkInterface)
         security_group: SecurityGroup = create_empty_entity(SecurityGroup)
         inbound_permissions = [SecurityGroupRule(0, 65535, '-1', SecurityGroupRulePropertyType.IP_RANGES,
-                                                 '0.0.0.0/0', False, ConnectionType.Inbound,
+                                                 '0.0.0.0/0', False, ConnectionType.INBOUND,
                                                  'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
         outbound_permissions = [SecurityGroupRule(0, 65535, '-1',
                                                   SecurityGroupRulePropertyType.IP_RANGES, '10.10.10.0/24', False,
-                                                  ConnectionType.Outbound, 'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
+                                                  ConnectionType.OUTBOUND, 'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
         security_group.has_description = False
         security_group.inbound_permissions = inbound_permissions
         security_group.outbound_permissions = outbound_permissions
@@ -47,11 +47,11 @@ class TestEnsureSecurityGroupIncludeDescriptionRule(unittest.TestCase):
         network_interface = create_empty_entity(NetworkInterface)
         security_group: SecurityGroup = create_empty_entity(SecurityGroup)
         inbound_permissions = [SecurityGroupRule(0, 65535, '-1', SecurityGroupRulePropertyType.IP_RANGES,
-                                                 '0.0.0.0/0', False, ConnectionType.Inbound,
+                                                 '0.0.0.0/0', False, ConnectionType.INBOUND,
                                                  'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
         outbound_permissions = [SecurityGroupRule(0, 65535, '-1',
                                                   SecurityGroupRulePropertyType.IP_RANGES, '10.10.10.0/24', True,
-                                                  ConnectionType.Outbound, 'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
+                                                  ConnectionType.OUTBOUND, 'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
         security_group.has_description = True
         security_group.inbound_permissions = inbound_permissions
         security_group.outbound_permissions = outbound_permissions
@@ -64,7 +64,7 @@ class TestEnsureSecurityGroupIncludeDescriptionRule(unittest.TestCase):
         # Assert
         self.assertEqual(RuleResultType.FAILED, result.status)
         self.assertEqual(1, len(result.issues))
-        self.assertEqual(result.issues[0].violating.connection_type, ConnectionType.Inbound)
+        self.assertEqual(result.issues[0].violating.connection_type, ConnectionType.INBOUND)
 
     def test_non_car_aws_ec2_security_group_rule_no_desc__outbound_rule_affected__fail(self):
         # Arrange
@@ -73,11 +73,11 @@ class TestEnsureSecurityGroupIncludeDescriptionRule(unittest.TestCase):
         network_interface = create_empty_entity(NetworkInterface)
         security_group: SecurityGroup = create_empty_entity(SecurityGroup)
         inbound_permissions = [SecurityGroupRule(0, 65535, '-1', SecurityGroupRulePropertyType.IP_RANGES,
-                                                 '0.0.0.0/0', True, ConnectionType.Inbound,
+                                                 '0.0.0.0/0', True, ConnectionType.INBOUND,
                                                  'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
         outbound_permissions = [SecurityGroupRule(0, 65535, '-1',
                                                   SecurityGroupRulePropertyType.IP_RANGES, '10.10.10.0/24', False,
-                                                  ConnectionType.Outbound, 'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
+                                                  ConnectionType.OUTBOUND, 'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
         security_group.has_description = True
         security_group.inbound_permissions = inbound_permissions
         security_group.outbound_permissions = outbound_permissions
@@ -90,7 +90,7 @@ class TestEnsureSecurityGroupIncludeDescriptionRule(unittest.TestCase):
         # Assert
         self.assertEqual(RuleResultType.FAILED, result.status)
         self.assertEqual(1, len(result.issues))
-        self.assertEqual(result.issues[0].violating.connection_type, ConnectionType.Outbound)
+        self.assertEqual(result.issues[0].violating.connection_type, ConnectionType.OUTBOUND)
 
     def test_non_car_aws_ec2_security_group_rule_no_desc__only_sg_affected__fail(self):
         # Arrange
@@ -99,11 +99,11 @@ class TestEnsureSecurityGroupIncludeDescriptionRule(unittest.TestCase):
         network_interface = create_empty_entity(NetworkInterface)
         security_group: SecurityGroup = create_empty_entity(SecurityGroup)
         inbound_permissions = [SecurityGroupRule(0, 65535, '-1', SecurityGroupRulePropertyType.IP_RANGES,
-                                                 '0.0.0.0/0', True, ConnectionType.Inbound,
+                                                 '0.0.0.0/0', True, ConnectionType.INBOUND,
                                                  'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
         outbound_permissions = [SecurityGroupRule(0, 65535, '-1',
                                                   SecurityGroupRulePropertyType.IP_RANGES, '10.10.10.0/24', True,
-                                                  ConnectionType.Outbound, 'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
+                                                  ConnectionType.OUTBOUND, 'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
         security_group.has_description = False
         security_group.inbound_permissions = inbound_permissions
         security_group.outbound_permissions = outbound_permissions
@@ -126,11 +126,11 @@ class TestEnsureSecurityGroupIncludeDescriptionRule(unittest.TestCase):
         network_interface = create_empty_entity(NetworkInterface)
         security_group: SecurityGroup = create_empty_entity(SecurityGroup)
         inbound_permissions = [SecurityGroupRule(0, 65535, '-1', SecurityGroupRulePropertyType.IP_RANGES,
-                                                 '0.0.0.0/0', True, ConnectionType.Inbound,
+                                                 '0.0.0.0/0', True, ConnectionType.INBOUND,
                                                  'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
         outbound_permissions = [SecurityGroupRule(0, 65535, '-1',
                                                   SecurityGroupRulePropertyType.IP_RANGES, '10.10.10.0/24', True,
-                                                  ConnectionType.Outbound, 'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
+                                                  ConnectionType.OUTBOUND, 'AllInclusiveSecurityGroup', 'us-east-1', '1111111')]
         security_group.has_description = True
         security_group.inbound_permissions = inbound_permissions
         security_group.outbound_permissions = outbound_permissions
