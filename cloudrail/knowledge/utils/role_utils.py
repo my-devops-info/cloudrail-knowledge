@@ -6,7 +6,7 @@ from cloudrail.knowledge.context.aws.iam.role import Role
 
 def is_allowing_external_assume(policy: AssumeRolePolicy, role: Role) -> bool:
     valid_principal_values = [role.account, 'amazonaws.com']
-    for statement in policy.get_all_statements():
+    for statement in policy.statements:
         return statement.principal.principal_values and \
                statement.principal.principal_type != PrincipalType.SERVICE and \
                any(all(valid_string not in value for valid_string in valid_principal_values) for value in statement.principal.principal_values) and \

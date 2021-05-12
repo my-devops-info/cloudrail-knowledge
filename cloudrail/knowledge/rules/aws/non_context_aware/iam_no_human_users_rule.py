@@ -9,9 +9,8 @@ class IamNoHumanUsersRule(AwsBaseRule):
 
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues_list: List[Issue] = []
-        users_login_list = [user_name.name for user_name in env_context.users_login_profile]
         for user in env_context.users:
-            if user.name in users_login_list:
+            if any(user.name == login_profile.name and user.account == login_profile.account for login_profile in env_context.users_login_profile):
                 issues_list.append(Issue(f'The {user.get_type()} `{user.get_friendly_name()}` has console access, '
                                          f'and so is considered human', user, user))
         return issues_list

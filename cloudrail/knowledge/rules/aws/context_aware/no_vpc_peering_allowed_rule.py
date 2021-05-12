@@ -17,10 +17,9 @@ class NoVpcPeeringAllowedRule(AwsBaseRule):
         peering_connections = self._check_for_peering_connections(env_context)
         issues = []
         for subnet, peerings in peering_connections.items():
-            subnet_identifier = subnet.name if subnet.name else subnet.subnet_id
-            issues.append(Issue(f'{subnet.get_type()}: {subnet_identifier} from {subnet.vpc.get_type()}: '
+            issues.append(Issue(f'{subnet.get_type()}: {subnet.get_friendly_name()} from {subnet.vpc.get_type()}: '
                                 f'{subnet.vpc.get_friendly_name()} is using the following {subnet.vpc.get_type()}'
-                                f'Peering connections: {peerings}'), None, None)
+                                f'Peering connections: {peerings}', None, None))
         return issues
 
     @classmethod

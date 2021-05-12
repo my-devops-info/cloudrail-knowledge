@@ -81,7 +81,7 @@ class S3BucketLambdaIndirectExposureRule(AwsBaseRule):
     @staticmethod
     def _is_all_bucket_resources_allowed(results: PolicyEvaluation, policies: List[Policy]):
         if is_action_subset_allowed(results, 's3:*'):
-            for statement in [statement for policy in policies for statement in policy.get_all_statements()]:
+            for statement in [statement for policy in policies for statement in policy.statements]:
                 if any(resource == '*' for resource in statement.resources) and \
                         any(action.startswith('s3:') or action == '*' for action in statement.actions):
                     return True

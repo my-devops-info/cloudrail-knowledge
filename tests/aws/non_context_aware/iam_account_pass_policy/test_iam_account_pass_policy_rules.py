@@ -54,25 +54,6 @@ class TestEnsureIamPasswordRequiresUpperCase(unittest.TestCase):
         self.assertEqual(RuleResultType.SUCCESS, result.status)
         self.assertEqual(0, len(result.issues))
 
-    def test_non_car_aws_iam_password_policy_upper_required__not_same_account_id__pass(self):
-        # Arrange
-        account: Account = create_empty_entity(Account)
-        iam_pass_policy: IamPasswordPolicy = create_empty_entity(IamPasswordPolicy)
-        user_login_profile: IamUsersLoginProfile = create_empty_entity(IamUsersLoginProfile)
-        user: IamUser = create_empty_entity(IamUser)
-        account.account = '11111111'
-        iam_pass_policy.account = '111111112131'
-        iam_pass_policy.require_upper_case_characters = False
-        user_login_profile.name = 'user_login_profile'
-        user.name = 'user_login_profile'
-        context = EnvironmentContext(accounts=[account], iam_account_pass_policies=[iam_pass_policy], users_login_profile=[user_login_profile],
-                                     users=[user])
-        # Act
-        result = self.rule.run(context, {})
-        # Assert
-        self.assertEqual(RuleResultType.SUCCESS, result.status)
-        self.assertEqual(0, len(result.issues))
-
     def test_non_car_aws_iam_password_policy_upper_required__not_same_user__pass(self):
         # Arrange
         account: Account = create_empty_entity(Account)
@@ -125,25 +106,6 @@ class TestEnsureIamPasswordRequiresSymbol(unittest.TestCase):
         account.account = '11111111'
         iam_pass_policy.account = '11111111'
         iam_pass_policy.require_symbols = True
-        user_login_profile.name = 'user_login_profile'
-        user.name = 'user_login_profile'
-        context = EnvironmentContext(accounts=[account], iam_account_pass_policies=[iam_pass_policy], users_login_profile=[user_login_profile],
-                                     users=[user])
-        # Act
-        result = self.rule.run(context, {})
-        # Assert
-        self.assertEqual(RuleResultType.SUCCESS, result.status)
-        self.assertEqual(0, len(result.issues))
-
-    def test_non_car_aws_iam_password_policy_symbol_required__not_same_account__pass(self):
-        # Arrange
-        account: Account = create_empty_entity(Account)
-        iam_pass_policy: IamPasswordPolicy = create_empty_entity(IamPasswordPolicy)
-        user_login_profile: IamUsersLoginProfile = create_empty_entity(IamUsersLoginProfile)
-        user: IamUser = create_empty_entity(IamUser)
-        account.account = '11111111'
-        iam_pass_policy.account = '111111234211'
-        iam_pass_policy.require_symbols = False
         user_login_profile.name = 'user_login_profile'
         user.name = 'user_login_profile'
         context = EnvironmentContext(accounts=[account], iam_account_pass_policies=[iam_pass_policy], users_login_profile=[user_login_profile],
@@ -297,25 +259,6 @@ class TestEnsureIamPasswordRequiresNumber(unittest.TestCase):
         self.assertEqual(RuleResultType.SUCCESS, result.status)
         self.assertEqual(0, len(result.issues))
 
-    def test_non_car_aws_iam_password_policy_num_required__not_same_account__pass(self):
-        # Arrange
-        account: Account = create_empty_entity(Account)
-        iam_pass_policy: IamPasswordPolicy = create_empty_entity(IamPasswordPolicy)
-        user_login_profile: IamUsersLoginProfile = create_empty_entity(IamUsersLoginProfile)
-        user: IamUser = create_empty_entity(IamUser)
-        account.account = '11111111'
-        iam_pass_policy.account = '111111234211'
-        iam_pass_policy.require_numbers = False
-        user_login_profile.name = 'user_login_profile'
-        user.name = 'user_login_profile'
-        context = EnvironmentContext(accounts=[account], iam_account_pass_policies=[iam_pass_policy], users_login_profile=[user_login_profile],
-                                     users=[user])
-        # Act
-        result = self.rule.run(context, {})
-        # Assert
-        self.assertEqual(RuleResultType.SUCCESS, result.status)
-        self.assertEqual(0, len(result.issues))
-
     def test_non_car_aws_iam_password_policy_num_required__not_same_user__pass(self):
         # Arrange
         account: Account = create_empty_entity(Account)
@@ -368,25 +311,6 @@ class TestEnsureIamPasswordLowerCharacters(unittest.TestCase):
         account.account = '11111111'
         iam_pass_policy.account = '11111111'
         iam_pass_policy.require_low_case_characters = True
-        user_login_profile.name = 'user_login_profile'
-        user.name = 'user_login_profile'
-        context = EnvironmentContext(accounts=[account], iam_account_pass_policies=[iam_pass_policy], users_login_profile=[user_login_profile],
-                                     users=[user])
-        # Act
-        result = self.rule.run(context, {})
-        # Assert
-        self.assertEqual(RuleResultType.SUCCESS, result.status)
-        self.assertEqual(0, len(result.issues))
-
-    def test_non_car_aws_iam_password_policy_lower_required__not_same_account__pass(self):
-        # Arrange
-        account: Account = create_empty_entity(Account)
-        iam_pass_policy: IamPasswordPolicy = create_empty_entity(IamPasswordPolicy)
-        user_login_profile: IamUsersLoginProfile = create_empty_entity(IamUsersLoginProfile)
-        user: IamUser = create_empty_entity(IamUser)
-        account.account = '11111111'
-        iam_pass_policy.account = '111111234211'
-        iam_pass_policy.require_low_case_characters = False
         user_login_profile.name = 'user_login_profile'
         user.name = 'user_login_profile'
         context = EnvironmentContext(accounts=[account], iam_account_pass_policies=[iam_pass_policy], users_login_profile=[user_login_profile],
@@ -459,25 +383,6 @@ class TestEnsureIamPasswordMinimumLength(unittest.TestCase):
         self.assertEqual(RuleResultType.SUCCESS, result.status)
         self.assertEqual(0, len(result.issues))
 
-    def test_non_car_aws_iam_password_policy_min_length__not_same_account__pass(self):
-        # Arrange
-        account: Account = create_empty_entity(Account)
-        iam_pass_policy: IamPasswordPolicy = create_empty_entity(IamPasswordPolicy)
-        user_login_profile: IamUsersLoginProfile = create_empty_entity(IamUsersLoginProfile)
-        user: IamUser = create_empty_entity(IamUser)
-        account.account = '11111111'
-        iam_pass_policy.account = '111111234211'
-        iam_pass_policy.min_pass_length = 10
-        user_login_profile.name = 'user_login_profile'
-        user.name = 'user_login_profile'
-        context = EnvironmentContext(accounts=[account], iam_account_pass_policies=[iam_pass_policy], users_login_profile=[user_login_profile],
-                                     users=[user])
-        # Act
-        result = self.rule.run(context, {})
-        # Assert
-        self.assertEqual(RuleResultType.SUCCESS, result.status)
-        self.assertEqual(0, len(result.issues))
-
     def test_non_car_aws_iam_password_policy_min_length__not_same_user__pass(self):
         # Arrange
         account: Account = create_empty_entity(Account)
@@ -530,25 +435,6 @@ class TestEnsureIamPasswordExpiration(unittest.TestCase):
         account.account = '11111111'
         iam_pass_policy.account = '11111111'
         iam_pass_policy.max_pass_age = 85
-        user_login_profile.name = 'user_login_profile'
-        user.name = 'user_login_profile'
-        context = EnvironmentContext(accounts=[account], iam_account_pass_policies=[iam_pass_policy], users_login_profile=[user_login_profile],
-                                     users=[user])
-        # Act
-        result = self.rule.run(context, {})
-        # Assert
-        self.assertEqual(RuleResultType.SUCCESS, result.status)
-        self.assertEqual(0, len(result.issues))
-
-    def test_non_car_aws_iam_password_policy_min_length__not_same_account__pass(self):
-        # Arrange
-        account: Account = create_empty_entity(Account)
-        iam_pass_policy: IamPasswordPolicy = create_empty_entity(IamPasswordPolicy)
-        user_login_profile: IamUsersLoginProfile = create_empty_entity(IamUsersLoginProfile)
-        user: IamUser = create_empty_entity(IamUser)
-        account.account = '11111111'
-        iam_pass_policy.account = '111111234211'
-        iam_pass_policy.max_pass_age = 95
         user_login_profile.name = 'user_login_profile'
         user.name = 'user_login_profile'
         context = EnvironmentContext(accounts=[account], iam_account_pass_policies=[iam_pass_policy], users_login_profile=[user_login_profile],

@@ -10,12 +10,12 @@ from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterT
 class AccessAnalyzerValidationBaseRule(AwsBaseRule, ABC):
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
-        return bool(environment_context.get_terraform_managed_policies())
+        return bool(environment_context.get_iac_managed_policies())
 
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues = []
 
-        for policy in env_context.get_terraform_managed_policies():
+        for policy in env_context.get_iac_managed_policies():
             evidence = self._create_evidence_from_findings(policy.access_analyzer_findings)
             if evidence:
                 issues.append(Issue(evidence, policy, policy))

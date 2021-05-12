@@ -1,7 +1,7 @@
 from typing import List, Dict
 
 from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
-from cloudrail.knowledge.utils.utils import has_intersection, is_cidr_contained_in_cidr
+from cloudrail.knowledge.utils.utils import has_intersection, is_subset
 from cloudrail.knowledge.context.aws.ec2.vpc import Vpc
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.base_rule import Issue
@@ -48,7 +48,7 @@ class VpcsInTransitGatewayNoOverlappingCidrRule(AwsBaseRule):
         for cidr1 in vpc1.cidr_block:
             for cidr2 in vpc2.cidr_block:
                 if has_intersection(cidr1, cidr2):
-                    return cidr1 if is_cidr_contained_in_cidr(cidr1, cidr2) else cidr2
+                    return cidr1 if is_subset(cidr1, cidr2) else cidr2
         return None
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:

@@ -7,13 +7,13 @@ from cloudrail.knowledge.context.aws.ec2.transit_gateway_vpc_attachment import T
 
 
 class TransitGatewayRouteState(Enum):
-    active = 'active'
-    blackhole = 'blackhole'
+    ACTIVE = 'active'
+    BLACKHOLE = 'blackhole'
 
 
 class TransitGatewayRouteType(Enum):
-    static = "static"
-    propagated = "propagated"
+    STATIC = "static"
+    PROPAGATED = "propagated"
 
 
 class TransitGatewayRoute(AwsResource):

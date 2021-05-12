@@ -1,5 +1,4 @@
 from typing import List, Dict
-from cloudrail.knowledge.context.aws.account.account import Account
 from cloudrail.knowledge.context.aws.iam.policy_statement import StatementEffect
 from cloudrail.knowledge.context.aws.iam.principal import PrincipalType
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
@@ -15,17 +14,15 @@ class IamRoleAssumeRolePrincipalTooWide(AwsBaseRule):
 
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
-        if env_context.accounts:
-            account: Account = env_context.accounts[0]
-            for role in env_context.roles:
-                for statement in role.assume_role_policy.get_all_statements():
-                    if statement.effect == StatementEffect.ALLOW and \
-                        not statement.condition_block and \
-                            (statement.principal.principal_type == PrincipalType.PUBLIC or
-                             (statement.principal.principal_type == PrincipalType.AWS and
-                              any(value == "*" for value in statement.principal.principal_values))):
-                        issues.append(Issue(f'The IAM role `{role.get_friendly_name()}` has a trust policy that allows `\'*\'` '
-                                            f'principal to assume it', account, role))
+        for role in env_context.roles:
+            for statement in role.assume_role_policy.statements:
+                if statement.effect == StatementEffect.ALLOW and \
+                    not statement.condition_block and \
+                        (statement.principal.principal_type == PrincipalType.PUBLIC or
+                         (statement.principal.principal_type == PrincipalType.AWS and
+                          any(value == "*" for value in statement.principal.principal_values))):
+                    issues.append(Issue(f'The IAM role `{role.get_friendly_name()}` has a trust policy that allows `\'*\'` '
+                                        f'principal to assume it', role, role))
         return issues
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:

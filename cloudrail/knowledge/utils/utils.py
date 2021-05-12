@@ -13,7 +13,7 @@ from pathlib import Path
 from netaddr import IPNetwork, IPSet, AddrFormatError, valid_ipv4, valid_ipv6
 
 
-# --- CloudMapper auxiliary utils
+# --- Dragoneye auxiliary utils
 def get_nested_value(dictionary: dict, outer: str, inner: str):
     outer_json = dictionary.get(outer, None)
     if outer_json is not None:
@@ -146,7 +146,8 @@ def compare_prefix_length(cidr1: str, cidr2: str) -> int:
     return 1
 
 
-def is_cidr_contained_in_cidr(src_cidr: str, dest_cidr: str) -> bool:
+@functools.lru_cache(maxsize=None)
+def is_subset(src_cidr: str, dest_cidr: str) -> bool:
     try:
         src_network = IPNetwork(src_cidr)
         dest_network = IPNetwork(dest_cidr)
@@ -160,6 +161,7 @@ def has_intersection(cidr1: str, cidr2: str) -> bool:
     return _is_valid_cidr_block_set([cidr1, cidr2]) and not IPSet([cidr1]).isdisjoint(IPSet([cidr2]))
 
 
+@functools.lru_cache(maxsize=None)
 def get_cidr_subset(cidr1: str, cidr2: str) -> Optional[str]:
     if _is_valid_cidr_block_set([cidr1, cidr2]):
         ip_set1: IPSet = IPSet([cidr1])
@@ -185,12 +187,6 @@ def get_cidrs_diff(cidr1: str, cidr2: str) -> IPSet:
         return IPSet([cidr1]) - (IPSet([cidr2]))
     else:
         return IPSet()
-
-
-@functools.lru_cache(maxsize=None)
-def is_subset(cidr_subset: str, cidr_set: str) -> bool:
-    return _is_valid_cidr_block_set([cidr_subset, cidr_set]) and \
-           IPSet([cidr_subset]).issubset(IPSet([cidr_set]))
 
 
 def is_ip_address(ip: str) -> bool:

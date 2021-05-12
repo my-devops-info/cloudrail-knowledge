@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from typing import Optional, Type
 
-from cloudrail.knowledge.utils.utils import is_cidr_contained_in_cidr
+from cloudrail.knowledge.utils.utils import is_subset
 from cloudrail.knowledge.context.aws.ec2.ec2_instance import Ec2Instance
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterFilterType
 
@@ -59,7 +59,7 @@ class Ec2InstanceFilterBySubnet(Ec2InstanceFilter):
 
     def passed(self, ec2: Ec2Instance) -> bool:
         return any(ip for ip in ec2.network_resource.private_ip_addresses
-                   if is_cidr_contained_in_cidr(ip, self.instance_subnet))
+                   if is_subset(ip, self.instance_subnet))
 
 
 def ec2_instance_filter_type_to_class(filter_type: ParameterFilterType) -> Optional[Type[Ec2InstanceFilter]]:

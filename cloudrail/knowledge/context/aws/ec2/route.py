@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List
+from typing import List, Optional
 
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
@@ -26,7 +26,7 @@ class Route(AwsResource):
         self.target = target
         self.target_type = target_type
         self.destination = destination
-        self.peering_connection: PeeringConnection = None
+        self.peering_connection: Optional[PeeringConnection] = None
 
     def get_keys(self) -> List[str]:
         return [self.route_table_id, self.destination, self.target_type, self.target]

@@ -55,7 +55,7 @@ class EnsureGlueDataCatalogPolicyNotUseWildcard(AwsBaseRule):
         actions_list = []
         principals_list = []
         return_list = []
-        for policy_statement in item.get_all_statements():
+        for policy_statement in item.statements:
             if policy_statement.effect == StatementEffect.ALLOW and not policy_statement.condition_block:
                 returned_action = ''
                 for action in policy_statement.actions:
