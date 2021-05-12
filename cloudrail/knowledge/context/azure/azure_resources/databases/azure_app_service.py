@@ -8,6 +8,7 @@ class AzureAppService(AzureResource):
         super().__init__(subscription_id, resource_group_name, location,
                          '', AzureResourceType.AZURERM_APP_SERVICE)
         self.name = name
+        self.with_aliases(name)
 
     def get_keys(self) -> List[str]:
         return [self.get_name()]
