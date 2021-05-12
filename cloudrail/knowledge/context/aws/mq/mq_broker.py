@@ -13,12 +13,15 @@ class MqBroker(NetworkEntity):
                  broker_id: str,
                  account: str,
                  region: str,
+                 deployment_mode: str,
                  vpc_config: Optional[NetworkConfiguration]):
         super().__init__(broker_name, account, region, AwsServiceName.AWS_MQ_BROKER)
         self.broker_name: str = broker_name
         self.arn: str = arn
         self.broker_id: str = broker_id
         self.vpc_config: Optional[NetworkConfiguration] = vpc_config
+        self.deployment_mode: str = deployment_mode
+        self.vpc_id: str = None
 
     def get_keys(self) -> List[str]:
         return [self.arn]
