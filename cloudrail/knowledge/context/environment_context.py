@@ -10,6 +10,9 @@ from cloudrail.knowledge.context.aws.apigateway.rest_api_gw import RestApiGw
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_domain import RestApiGwDomain
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_mapping import RestApiGwMapping
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_policy import RestApiGwPolicy
+from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2 import ApiGateway
+from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2_integration import ApiGatewayV2Integration
+from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2_vpc_link import ApiGatewayVpcLink
 from cloudrail.knowledge.context.aws.athena.athena_workgroup import AthenaWorkgroup
 from cloudrail.knowledge.context.aws.autoscaling.launch_configuration import LaunchConfiguration, AutoScalingGroup
 from cloudrail.knowledge.context.aws.autoscaling.launch_template import LaunchTemplate
@@ -301,9 +304,15 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  cloud_directories: List[DirectoryService] = None,
                  roles_last_used: List[RoleLastUsed] = None,
                  batch_compute_environments: List[BatchComputeEnvironment] = None,
-                 mq_brokers: List[MqBroker] = None):
+                 mq_brokers: List[MqBroker] = None,
+                 api_gateways_v2: List[ApiGateway] = None,
+                 api_gateway_v2_integrations: List[ApiGatewayV2Integration] = None,
+                 api_gateway_v2_vpc_links: List[ApiGatewayVpcLink] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.api_gateway_v2_vpc_links = api_gateway_v2_vpc_links or []
+        self.api_gateway_v2_integrations = api_gateway_v2_integrations or []
+        self.api_gateways_v2 = api_gateways_v2 or []
         self.mq_brokers = mq_brokers or []
         self.batch_compute_environments = batch_compute_environments or []
         self.roles_last_used = roles_last_used or []

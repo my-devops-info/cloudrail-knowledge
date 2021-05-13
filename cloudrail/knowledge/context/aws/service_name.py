@@ -138,6 +138,9 @@ class AwsServiceName(Enum):
     AWS_DIRECTORY_SERVICE_DIRECTORY = 'aws_directory_service_directory'
     AWS_BATCH_COMPUTE_ENVIRONMENT = 'aws_batch_compute_environment'
     AWS_MQ_BROKER = 'aws_mq_broker'
+    AWS_APIGATEWAYV_2_API = 'aws_apigatewayv2_api'
+    AWS_APIGATEWAYV_2_INTEGRATION = 'aws_apigatewayv2_integration'
+    AWS_APIGATEWAYV_2_VPC_LINK = 'aws_apigatewayv2_vpc_link'
 
 
 AWS_SERVICES_DOMAIN: str = ".amazonaws.com"
