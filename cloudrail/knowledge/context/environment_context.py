@@ -78,6 +78,8 @@ from cloudrail.knowledge.context.aws.elb.load_balancer_listener import LoadBalan
 from cloudrail.knowledge.context.aws.elb.load_balancer_target import LoadBalancerTarget
 from cloudrail.knowledge.context.aws.elb.load_balancer_target_group import LoadBalancerTargetGroup
 from cloudrail.knowledge.context.aws.elb.load_balancer_target_group_association import LoadBalancerTargetGroupAssociation
+from cloudrail.knowledge.context.aws.emr.emr_cluster import EmrCluster
+from cloudrail.knowledge.context.aws.emr.emr_public_access_config import EmrPublicAccessConfiguration
 from cloudrail.knowledge.context.aws.es.elastic_search_domain import ElasticSearchDomain
 from cloudrail.knowledge.context.aws.es.elastic_search_domain_policy import ElasticSearchDomainPolicy
 from cloudrail.knowledge.context.aws.glacier.glacier_vault import GlacierVault
@@ -307,9 +309,13 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  mq_brokers: List[MqBroker] = None,
                  api_gateways_v2: List[ApiGateway] = None,
                  api_gateway_v2_integrations: List[ApiGatewayV2Integration] = None,
-                 api_gateway_v2_vpc_links: List[ApiGatewayVpcLink] = None):
+                 api_gateway_v2_vpc_links: List[ApiGatewayVpcLink] = None,
+                 emr_clusters: List[EmrCluster] = None,
+                 emr_public_access_configurations: List[EmrPublicAccessConfiguration] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.emr_public_access_configurations = emr_public_access_configurations or []
+        self.emr_clusters = emr_clusters or []
         self.api_gateway_v2_vpc_links = api_gateway_v2_vpc_links or []
         self.api_gateway_v2_integrations = api_gateway_v2_integrations or []
         self.api_gateways_v2 = api_gateways_v2 or []

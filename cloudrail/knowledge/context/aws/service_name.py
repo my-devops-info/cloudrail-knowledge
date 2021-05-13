@@ -141,6 +141,7 @@ class AwsServiceName(Enum):
     AWS_APIGATEWAYV_2_API = 'aws_apigatewayv2_api'
     AWS_APIGATEWAYV_2_INTEGRATION = 'aws_apigatewayv2_integration'
     AWS_APIGATEWAYV_2_VPC_LINK = 'aws_apigatewayv2_vpc_link'
+    AWS_EMR_CLUSTER = 'aws_emr_cluster'
 
 
 AWS_SERVICES_DOMAIN: str = ".amazonaws.com"
