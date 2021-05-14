@@ -1,0 +1,21 @@
+site_name: Cloudrail Knowledge
+
+nav:
+  - Home: 'README.md'
+  - Context:
+    - 'Cloudrail''s Context Model': 'context/README.md'
+    - 'AWS Context': 'context/aws/README.md'
+
+plugins:
+- search
+- mkdocstrings:
+    default_handler: python
+    handlers:
+      python:
+        rendering:
+          show_source: false
+    watch:
+      - cloudrail
+
+theme:
+  name: material

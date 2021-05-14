@@ -6,7 +6,13 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class ApiGatewayMethod(AwsResource):
-
+    """
+        Attributes:
+            rest_api_id: The ID of the associated REST API.
+            resource_id: The API resource ID.
+            http_method: The HTTP Method.
+            integration: A reference to the matching ApiGatewayIntegration based on rest_api_id.
+    """
     def __init__(self, account: str, region: str, rest_api_id: str, resource_id: str, http_method: RestApiMethods):
         super().__init__(account, region, AwsServiceName.AWS_API_GATEWAY_METHOD)
         self.rest_api_id: str = rest_api_id
