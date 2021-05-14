@@ -52,6 +52,12 @@ attributes of special interest will be noted as such.
     rendering:
       show_root_toc_entry: false
 
+## athena
+### AthenaWorkgroup
+::: cloudrail.knowledge.context.aws.athena.athena_workgroup.AthenaWorkgroup
+    rendering:
+      show_root_toc_entry: false
+
 
 Ignore the section below this line, WIP.
 ```
