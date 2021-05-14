@@ -58,6 +58,22 @@ attributes of special interest will be noted as such.
     rendering:
       show_root_toc_entry: false
 
+## autoscaling
+### LaunchConfiguration
+::: cloudrail.knowledge.context.aws.autoscaling.launch_configuration.LaunchConfiguration
+    rendering:
+      show_root_toc_entry: false
+
+### AutoScalingGroup
+::: cloudrail.knowledge.context.aws.autoscaling.launch_configuration.AutoScalingGroup
+    rendering:
+      show_root_toc_entry: false
+
+### LaunchTemplate
+::: cloudrail.knowledge.context.aws.autoscaling.launch_template.LaunchTemplate
+    rendering:
+      show_root_toc_entry: false
+
 
 Ignore the section below this line, WIP.
 ```
