@@ -32,6 +32,26 @@ attributes of special interest will be noted as such.
     rendering:
       show_root_toc_entry: false
 
+### RestApiGw
+::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw.RestApiGw
+    rendering:
+      show_root_toc_entry: false
+
+### RestApiGwDomain
+::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw_domain.RestApiGwDomain
+    rendering:
+      show_root_toc_entry: false
+
+### RestApiGwMapping
+::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw_mapping.RestApiGwMapping
+    rendering:
+      show_root_toc_entry: false
+
+### RestApiGwPolicy
+::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw_policy.RestApiGwPolicy
+    rendering:
+      show_root_toc_entry: false
+
 
 Ignore the section below this line, WIP.
 ```
