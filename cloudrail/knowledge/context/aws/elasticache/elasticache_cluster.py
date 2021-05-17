@@ -6,7 +6,18 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class ElastiCacheCluster(NetworkEntity):
-
+    """
+        Attributes:
+            cluster_name: The name of the cluster.
+            arn: The ARN of the cluster.
+            replication_group_id: The ID of the replication group.
+            security_group_ids: The IDs of the security groups used by this
+                cluster.
+            subnet_group_name: The name of the subnet group used by the cluster.
+            subnet_ids: The IDs of the subnet in the subnet group.
+            is_in_default_vpc: True if the ElasticCache cluster is in the
+                default VPC.
+    """
     def __init__(self,
                  region: str,
                  account: str,
