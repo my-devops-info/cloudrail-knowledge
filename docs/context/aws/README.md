@@ -67,9 +67,28 @@ attributes of special interest will be noted as such.
       show_root_toc_entry: false
 
 ## cloudtrail
-### ::: cloudrail.knowledge.context.aws.cloudtrail.cloudrail
+### ::: cloudrail.knowledge.context.aws.cloudtrail.cloudtrail
     rendering:
       show_root_toc_entry: false
+
+## cloudwatch
+### ::: cloudrail.knowledge.context.aws.cloudwatch.cloud_watch_event_target
+    rendering:
+      show_root_toc_entry: false
+
+### ::: cloudrail.knowledge.context.aws.cloudwatch.cloud_watch_log_group
+    rendering:
+      show_root_toc_entry: false
+
+### ::: cloudrail.knowledge.context.aws.cloudwatch.cloudwatch_logs_destination
+    rendering:
+      show_root_toc_entry: false
+
+### ::: cloudrail.knowledge.context.aws.cloudwatch.cloudwatch_logs_destination_policy
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 
 Ignore the section below this line, WIP.

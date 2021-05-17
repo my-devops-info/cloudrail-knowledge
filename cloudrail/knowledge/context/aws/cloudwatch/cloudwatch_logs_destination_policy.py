@@ -5,7 +5,16 @@ from cloudrail.knowledge.context.aws.iam.policy_statement import PolicyStatement
 
 
 class CloudWatchLogsDestinationPolicy(Policy):
-
+    """
+        Attributes:
+            destination_name: The name of the destination the policy applies to.
+            statements: The list of statements in the policy.
+            uuid: A randomly generated uuid for the policy (ignore, for internal use).
+            raw_document: The raw JSON of the policy.
+            access_analyzer_findings: The results from running IAM Access Analyzer's
+                policy validation API on this policy's JSON.
+            policy_type: The type of the policy (identity, resource, SCP).
+    """
     def __init__(self,
                  destination_name: str,
                  policy_statements: List[PolicyStatement],
