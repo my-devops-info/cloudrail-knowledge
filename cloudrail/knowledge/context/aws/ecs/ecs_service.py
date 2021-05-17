@@ -11,7 +11,17 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class EcsService(NetworkEntity, INetworkConfiguration, IEcsInstance):
-
+    """
+        Attributes:
+            name: The name of the service.
+            launch_type: The launch type of the service.
+            network_conf_list: The list of network configurations set under this
+                service.
+            elb_list: The load balancing configuration defined under this service.
+            task_definition_arn: The ARN of the task definition associated
+                with the service.
+            cluster_name: The name of the cluster this service belongs to.
+    """
     def __init__(self, name: str, launch_type: LaunchType, cluster_arn: str, account: str, region: str,
                  network_conf_list: List[NetworkConfiguration], task_definition_arn: str = None) -> None:
         NetworkEntity.__init__(self, name, account, region, AwsServiceName.AWS_ECS_SERVICE,
