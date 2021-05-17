@@ -4,7 +4,12 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class DaxCluster(AwsResource):
-
+    """
+        Attributes:
+            cluster_name: The name of the DAX cluster.
+            server_side_encryption: True if SSE is enabled.
+            cluster_arn: The ARN of the cluster.
+    """
     def __init__(self,
                  cluster_name: str,
                  server_side_encryption: bool,

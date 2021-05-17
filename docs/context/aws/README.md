@@ -99,6 +99,11 @@ attributes of special interest will be noted as such.
     rendering:
       show_root_toc_entry: false
 
+## dax
+### ::: cloudrail.knowledge.context.aws.dax.dax_cluster
+    rendering:
+      show_root_toc_entry: false
+
 
 
 
