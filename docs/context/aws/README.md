@@ -127,6 +127,10 @@ attributes of special interest will be noted as such.
     rendering:
       show_root_toc_entry: false
 
+## dynamodb
+### ::: cloudrail.knowledge.context.aws.dynamodb.dynamodb_table
+    rendering:
+      show_root_toc_entry: false
 
 
 
