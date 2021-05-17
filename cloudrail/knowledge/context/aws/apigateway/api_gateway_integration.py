@@ -7,6 +7,9 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class IntegrationType(Enum):
+    """
+        The type of integration.
+    """
     HTTP = 'HTTP'
     MOCK = 'MOCK'
     AWS = 'AWS'

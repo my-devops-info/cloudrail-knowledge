@@ -23,7 +23,17 @@ class RuleType(Enum):
 
 
 class NetworkAclRule(AwsResource):
-
+    """
+        Attributes:
+            network_acl_id: The ID of the NACL this rule belongs to.
+            cidr_block: The CIDR block the rule applies to.
+            from_port: The bottom of the port range applicable to the rule.
+            to_port: The top of the port range applicable to the rule.
+            rule_action: The action the rule takes (allow / deny).
+            rule_number: The number of the rule in the NACL table.
+            rule_type: The type of the rule - inbound or outbound.
+            ip_protocol_type: The IP protocol the rule applies to.
+    """
     def __init__(self,
                  region: str,
                  account: str,

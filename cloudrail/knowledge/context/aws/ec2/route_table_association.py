@@ -5,7 +5,11 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class RouteTableAssociation(AwsResource):
-
+    """
+        Attributes:
+            subnet_id: The ID of the subnet to associate the route table to.
+            route_table_id: The route table to associate to the subnet.
+    """
     def __init__(self,
                  subnet_id: str,
                  route_table_id: str,

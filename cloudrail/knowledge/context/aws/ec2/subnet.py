@@ -7,7 +7,20 @@ from cloudrail.knowledge.context.aws.ec2.route_table import RouteTable
 
 
 class Subnet(AwsResource):
-
+    """
+        Attributes:
+            subnet_id: The ID of the subnet.
+            vpc_id: The ID of the VPC the subnet belongs to.
+            vpc: The VPC the subnet bleongs to.
+            cidr_block: The subnet's CIDR block.
+            name: The name of the subnet.
+            availability_zone: The AZ the subnet is in.
+            map_public_ip_on_launch: True if resources should have a public IP
+                assigned to them upon launch.
+            is_default: True if it's the default subnet of a VPC in an AZ.
+            route_table: The main route table associated with this subnet.
+            network_acl: The main NACL associated with this subnet.
+    """
     def __init__(self,
                  subnet_id: str,
                  vpc_id: str,

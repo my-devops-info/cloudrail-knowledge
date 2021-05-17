@@ -14,75 +14,110 @@ attributes of special interest will be noted as such.
 ### ::: cloudrail.knowledge.context.aws.account.account
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ## apigateway
 ### ::: cloudrail.knowledge.context.aws.apigateway.api_gateway_integration
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ### ::: cloudrail.knowledge.context.aws.apigateway.api_gateway_method
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ### ::: cloudrail.knowledge.context.aws.apigateway.api_gateway_method_settings
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ### ::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ### ::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw_domain
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ### ::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw_mapping
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ### ::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw_policy
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ## athena
 ### ::: cloudrail.knowledge.context.aws.athena.athena_workgroup
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ## autoscaling
 ### ::: cloudrail.knowledge.context.aws.autoscaling.launch_configuration
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
 ### ::: cloudrail.knowledge.context.aws.autoscaling.launch_template
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ## cloudfront
 ### ::: cloudrail.knowledge.context.aws.cloudfront.cloud_front_distribution_list
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ### ::: cloudrail.knowledge.context.aws.cloudfront.origin_access_identity
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ## cloudtrail
 ### ::: cloudrail.knowledge.context.aws.cloudtrail.cloudtrail
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ## cloudwatch
 ### ::: cloudrail.knowledge.context.aws.cloudwatch.cloud_watch_event_target
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ### ::: cloudrail.knowledge.context.aws.cloudwatch.cloud_watch_log_group
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ### ::: cloudrail.knowledge.context.aws.cloudwatch.cloudwatch_logs_destination
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ### ::: cloudrail.knowledge.context.aws.cloudwatch.cloudwatch_logs_destination_policy
     rendering:
@@ -94,45 +129,200 @@ attributes of special interest will be noted as such.
 ### ::: cloudrail.knowledge.context.aws.codebuild.codebuild_project
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ### ::: cloudrail.knowledge.context.aws.codebuild.codebuild_report_group
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ## dax
 ### ::: cloudrail.knowledge.context.aws.dax.dax_cluster
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ## dms
 ### ::: cloudrail.knowledge.context.aws.dms.dms_replication_instance
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ### ::: cloudrail.knowledge.context.aws.dms.dms_replication_instance_subnet_group
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ## docdb
 ### ::: cloudrail.knowledge.context.aws.docdb.docdb_cluster
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ### ::: cloudrail.knowledge.context.aws.docdb.docdb_cluster_parameter_group
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ## ds
 ### ::: cloudrail.knowledge.context.aws.ds.directory_service
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 ## dynamodb
 ### ::: cloudrail.knowledge.context.aws.dynamodb.dynamodb_table
     rendering:
       show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
+## ec2
+### ::: cloudrail.knowledge.context.aws.ec2.ec2_image
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
+### ::: cloudrail.knowledge.context.aws.ec2.ec2_instance
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.elastic_ip
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.internet_gateway
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.main_route_table_association
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.nat_gateways
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.network_acl
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.network_acl_rule
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.network_interface
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.peering_connection
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.route
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.route_table
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.route_table_association
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.security_group
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.security_group_rule
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.subnet
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.transit_gateway
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.transit_gateway_route
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.transit_gateway_route_attachment
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.transit_gateway_route_table
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.transit_gateway_route_table_association
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.transit_gateway_route_table_propagation
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
+
+### ::: cloudrail.knowledge.context.aws.ec2.transit_gateway_vpc_attachment
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
 
 Ignore the section below this line, WIP.
 ```

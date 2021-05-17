@@ -5,7 +5,14 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class ElasticIp(AwsResource):
-
+    """
+        Attributes:
+            allocation_id: The ID of the elastic IP's allocation.
+            public_ip: The public IP of the elastic IP. May be "0.0.0.0" to denote
+                that we do not know what it is (usually when the resource is
+                still being built).
+            private_ip: The private IP of the elastic IP, may be None.
+    """
     def __init__(self, allocation_id: str, public_ip: Optional[str], private_ip: Optional[str], region: str, account: str):
         super().__init__(account, region, AwsServiceName.AWS_ELASTIC_IP)
         self.allocation_id: str = allocation_id

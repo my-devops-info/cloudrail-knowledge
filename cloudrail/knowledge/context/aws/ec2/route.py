@@ -18,6 +18,15 @@ class RouteTargetType(Enum):
 
 
 class Route(AwsResource):
+    """
+        Attributes:
+            route_table_id: The ID of the routing table the route belongs to.
+            target: The target of the route (value depends on type).
+            target_type: The type of the route's target.
+            destination: The destination subnet defined for the route.
+            peering_connection: If hte target is a VPC_PEERING_ID, then this is
+                a pointer to the matching connection.
+    """
 
     def __init__(self, route_table_id: str, destination: str, target_type: RouteTargetType,
                  target: str, region: str, account: str):
