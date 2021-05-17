@@ -90,6 +90,17 @@ attributes of special interest will be noted as such.
     selection:
       inherited_members: true
 
+## codebuild
+### ::: cloudrail.knowledge.context.aws.codebuild.codebuild_project
+    rendering:
+      show_root_toc_entry: false
+
+### ::: cloudrail.knowledge.context.aws.codebuild.codebuild_report_group
+    rendering:
+      show_root_toc_entry: false
+
+
+
 
 Ignore the section below this line, WIP.
 ```
