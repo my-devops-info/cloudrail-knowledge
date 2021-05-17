@@ -113,6 +113,16 @@ attributes of special interest will be noted as such.
     rendering:
       show_root_toc_entry: false
 
+## docdb
+### ::: cloudrail.knowledge.context.aws.docdb.docdb_cluster
+    rendering:
+      show_root_toc_entry: false
+
+### ::: cloudrail.knowledge.context.aws.docdb.docdb_cluster_parameter_group
+    rendering:
+      show_root_toc_entry: false
+
+
 
 
 
