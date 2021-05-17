@@ -11,69 +11,60 @@ names are clear and so we do not document them on this page to reduce clutter. I
 attributes of special interest will be noted as such.
 
 ## account
-### Account
-::: cloudrail.knowledge.context.aws.account.account.Account
+### ::: cloudrail.knowledge.context.aws.account.account
     rendering:
       show_root_toc_entry: false
 
 ## apigateway
-### ApiGatewayIntegration
-::: cloudrail.knowledge.context.aws.apigateway.api_gateway_integration.ApiGatewayIntegration
+### ::: cloudrail.knowledge.context.aws.apigateway.api_gateway_integration
     rendering:
       show_root_toc_entry: false
 
-### ApiGatewayMethod
-::: cloudrail.knowledge.context.aws.apigateway.api_gateway_method.ApiGatewayMethod
+### ::: cloudrail.knowledge.context.aws.apigateway.api_gateway_method
     rendering:
       show_root_toc_entry: false
 
-### ApiGatewayMethodSettings
-::: cloudrail.knowledge.context.aws.apigateway.api_gateway_method_settings.ApiGatewayMethodSettings
+### ::: cloudrail.knowledge.context.aws.apigateway.api_gateway_method_settings
     rendering:
       show_root_toc_entry: false
 
-### RestApiGw
-::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw.RestApiGw
+### ::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw
     rendering:
       show_root_toc_entry: false
 
-### RestApiGwDomain
-::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw_domain.RestApiGwDomain
+### ::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw_domain
     rendering:
       show_root_toc_entry: false
 
-### RestApiGwMapping
-::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw_mapping.RestApiGwMapping
+### ::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw_mapping
     rendering:
       show_root_toc_entry: false
 
-### RestApiGwPolicy
-::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw_policy.RestApiGwPolicy
+### ::: cloudrail.knowledge.context.aws.apigateway.rest_api_gw_policy
     rendering:
       show_root_toc_entry: false
 
 ## athena
-### AthenaWorkgroup
-::: cloudrail.knowledge.context.aws.athena.athena_workgroup.AthenaWorkgroup
+### ::: cloudrail.knowledge.context.aws.athena.athena_workgroup
     rendering:
       show_root_toc_entry: false
 
 ## autoscaling
-### LaunchConfiguration
-::: cloudrail.knowledge.context.aws.autoscaling.launch_configuration.LaunchConfiguration
+### ::: cloudrail.knowledge.context.aws.autoscaling.launch_configuration
+    rendering:
+      show_root_toc_entry: false
+### ::: cloudrail.knowledge.context.aws.autoscaling.launch_template
     rendering:
       show_root_toc_entry: false
 
-### AutoScalingGroup
-::: cloudrail.knowledge.context.aws.autoscaling.launch_configuration.AutoScalingGroup
+## cloudfront
+### ::: cloudrail.knowledge.context.aws.cloudfront.cloud_front_distribution_list
     rendering:
       show_root_toc_entry: false
 
-### LaunchTemplate
-::: cloudrail.knowledge.context.aws.autoscaling.launch_template.LaunchTemplate
+### ::: cloudrail.knowledge.context.aws.cloudfront.origin_access_identity
     rendering:
       show_root_toc_entry: false
-
 
 Ignore the section below this line, WIP.
 ```

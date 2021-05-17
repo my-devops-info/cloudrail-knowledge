@@ -5,7 +5,13 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class OriginAccessIdentity(AwsResource):
-
+    """
+        Attributes:
+            oai_id: The ID of this origin access identity.
+            cloudfront_access_identity_path: The access identity's path.
+            iam_arn: The ARN of the IAM entity to use.
+            s3_canonical_user_id: The Amazon S3 canonical user ID for the origin access identity, used when giving the origin access identity read permission to an object in Amazon S3.
+    """
     def __init__(self, account: str, region: str, oai_id: str, cloudfront_access_identity_path: str,
                  iam_arn: str, s3_canonical_user_id: str, tags: Dict[str, str] = None):
         super().__init__(account, region, AwsServiceName.AWS_CLOUDFRONT_ORIGIN_ACCESS_IDENTITY)
