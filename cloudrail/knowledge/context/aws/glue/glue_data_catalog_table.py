@@ -4,7 +4,11 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class GlueDataCatalogTable(AwsResource):
-
+    """
+        Attributes:
+            table_name: The name of the table.
+            database_name: The name of the database.
+    """
     def __init__(self,
                  table_name: str,
                  database_name: str,
