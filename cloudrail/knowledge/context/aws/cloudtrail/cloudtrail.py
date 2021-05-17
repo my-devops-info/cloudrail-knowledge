@@ -4,7 +4,13 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class CloudTrail(AwsResource):
-
+    """
+        Attributes:
+            name: The name of the CloudTrail trail.
+            kms_encryption: True if KMS encryption is used.
+            arn: The ARN of the CloudTrail trail.
+            log_file_validation: True if log file validation is enabled.
+    """
     def __init__(self,
                  name: str,
                  kms_encryption: bool,

@@ -66,6 +66,12 @@ attributes of special interest will be noted as such.
     rendering:
       show_root_toc_entry: false
 
+## cloudtrail
+### ::: cloudrail.knowledge.context.aws.cloudtrail.cloudrail
+    rendering:
+      show_root_toc_entry: false
+
+
 Ignore the section below this line, WIP.
 ```
 * API Gateway
