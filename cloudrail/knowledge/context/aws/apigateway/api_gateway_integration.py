@@ -15,6 +15,15 @@ class IntegrationType(Enum):
 
 
 class ApiGatewayIntegration(AwsResource):
+    """
+    Attributes:
+        rest_api_id: The ID of the associated REST API.
+        resource_id: The API resource ID.
+        request_http_method: The HTTP method used when calling the associated resource.
+        integration_http_method: The integration HTTP method, may be None.
+        integration_type: The integration's input type.
+        uri: The input's URI.
+    """
 
     def __init__(self, account: str, region: str, rest_api_id: str, resource_id: str, request_http_method: RestApiMethods,
                  integration_http_method: RestApiMethods, integration_type: IntegrationType, uri: str):

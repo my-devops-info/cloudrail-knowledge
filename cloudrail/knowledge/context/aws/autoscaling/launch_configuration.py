@@ -9,7 +9,20 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class LaunchConfiguration(AwsResource):
-
+    """
+        Attributes:
+            arn: The ARN of the launch config.
+            image_id: The EC2 Image ID of the instance.
+            instance_type: The Instance Type of the instance to launch.
+            key_name: The Key Name used for the instance.
+            name: The Name of the launch configuration.
+            security_group_ids: The security groups used with the instance.
+            http_tokens: Either "optional" or "required" (if None, means "optional").
+            iam_instance_profile: The IAM Instance Profile to associate with launched instances
+                (may be None).
+            associate_public_ip_address: May be True to associate a public IP address
+                with the launched instances.
+    """
     def __init__(self,
                  arn: str,
                  image_id: str,
@@ -68,7 +81,16 @@ class AutoScalingGroupRawData:
 
 
 class AutoScalingGroup(AwsResource):
-
+    """
+        Attributes:
+            arn: The ARN of the auto-scaling group.
+            target_group_arns: May list the ALB/ELB target groups to be used with this ASG.
+            name: The name of the auto-scaling group.
+            availability_zones: The availability zones to initialize instances in.
+            subnet_ids: The subnets to initialize instances in.
+            launch_configuration: Points to the associated launch configuration, if there is one.
+            launch_template: Points to the associated launch template, if there is one.
+    """
     def __init__(self,
                  arn: str,
                  target_group_arns: List[str],

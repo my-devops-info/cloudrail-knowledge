@@ -5,7 +5,11 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class RestApiGwDomain(AwsResource):
-
+    """
+        Attributes:
+            domain_name: The name of the REST API domain.
+            security_policy: The Transport Layer Security (TLS) version + cipher suite for this DomainName. The valid values are TLS_1_0 and TLS_1_2.
+    """
     def __init__(self,
                  domain_name: str,
                  security_policy: str,

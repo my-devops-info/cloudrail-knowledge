@@ -4,7 +4,7 @@ its deployment. For example, when Terraform is used, Cloudrail can inspect Terra
 that violate company policy and best practices, and stop the CI pipeline accordingly.
 
 The rules use a context model that is included in this repository. This documentation section will cover the
-different aspects of the context model - how it's created, how it's used, and details of every class and field
+different aspects of the context model - how it's created, how it's used, and details of every class and attribute
 in the model.
 
 ## Prerequisites
@@ -67,23 +67,23 @@ and so objects can begin pointing to one another. For example, an
 [Subnet](/cloudrail/knowledge/context/aws/ec2/subnet.py) will point to its VPC.
 
 This makes it a lot easier to write rule code, as you don't need to do any lookups. Finding a subnet's VPC, is just a 
-matter of using its `vpc` field.
+matter of using its `vpc` attribute.
 
 ### Enrichment
 This is one of the coolest parts of Cloudrail and follows the relation assignment. This is where the object model becomes more valuable than just
 representing the input in a graph model. Cloudrail now uses various algorithms to import valuable information into the 
 context model and make it accessible to the rule writer.
 
-For example, want to know if a resource is publicly accessible, and how? Look at the fields exposed by
+For example, want to know if a resource is publicly accessible, and how? Look at the attribute exposed by
 those classes that inherit from [ConnectionInstance](/cloudrail/knowledge/context/aws/aws_connection.py).
 
 Want to know if a policy violates AWS's best practices? Look at
-[Policy](/cloudrail/knowledge/context/aws/iam/policy.py)'s `access_analyzer_findings` field.
+[Policy](/cloudrail/knowledge/context/aws/iam/policy.py)'s `access_analyzer_findings` attribute.
 
 ## How do rules work?
 A rule is a Python class inheriting from [BaseRule](/cloudrail/knowledge/rules/base_rule.py). It has a simple
 `run` function where all the logic is executed. A rule returns a response which includes a list of issues that it found.
-Every issue, has a few fields:
+Every issue, has a few attributes:
 
 * Exposed resource - this is the resource who is exposed (from a security perspective) by the violation found.
 Note that often times the exposed resource is _different_ from the violating resource.
@@ -102,14 +102,19 @@ A rule only decides if a configuration is violating its logic or not. A rule doe
 violation. It is up to a separate mechanism to decide if the violation is an error or a warning, or whether or not 
 to return exit code 1 or 0 in the Cloudrail CLI.
 
-## How do I add resource X or field Y?
-If you're missing a specific object you care about, or you found the object but it's missing a field, you'll need 
-our help in adding it. Since builders, relations assignment, enrichment, etc, are required for every object and many fields,
-this work needs to be done by the Indeni team in the core engine. To request a specific object or field, simply open
-an issue in this repository and we'll get right to it.
+If you're interested in seeing how to write your own custom rule, [check out this video](https://youtu.be/MQfpKDQAW8o).
+
+## How do I add resource X or attribute Y?
+If you're missing a specific object you care about, or you found the object but it's missing an attribute, you'll need 
+our help in adding it. Since builders, relations assignment, enrichment, etc, are required for every object and many 
+attributes, this work needs to be done by the Indeni team in the core engine. To request a specific object or attribute, 
+simply open an issue in this repository and we'll get right to it.
+
+## Further Reading:
+* [Details of the context model](context/README.md)
 
 ## Some notes:
-### Cloudrail only highlights IaC-backed resources by default
+#### Cloudrail only highlights IaC-backed resources by default
 Let's say a rule found a violation in a specific object in the context model and created an issue with an exposed
 resource and violating resource. The issue will only be presented to the user within the CI/CD process if
 either one of the resources (or both) comes from the Terraform plan (or IaC code) submitted for review by the user.
@@ -117,7 +122,7 @@ either one of the resources (or both) comes from the Terraform plan (or IaC code
 In other words, if both exposed and violating resources are not in the IaC code at all, they will be removed from the
 rule output by default. A rule can override this behavior by returning `True` for `filter_non_iac_managed_issues`.
 
-### Cloudrail uses Checkov for some static analysis
+#### Cloudrail uses Checkov for some static analysis
 In some cases, Cloudrail will leverage [Checkov](https://github.com/bridgecrewio/checkov) to do static analysis. This is
 mainly in cases where the context hasn't yet been fully built out. We generally strive to cover all the commonly used
 cloud resources quickly, but allow the use of Checkov rules where the context model doesn't exist yet.
