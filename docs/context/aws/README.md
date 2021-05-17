@@ -104,6 +104,15 @@ attributes of special interest will be noted as such.
     rendering:
       show_root_toc_entry: false
 
+## dms
+### ::: cloudrail.knowledge.context.aws.dms.dms_replication_instance
+    rendering:
+      show_root_toc_entry: false
+
+### ::: cloudrail.knowledge.context.aws.dms.dms_replication_instance_subnet_group
+    rendering:
+      show_root_toc_entry: false
+
 
 
 
