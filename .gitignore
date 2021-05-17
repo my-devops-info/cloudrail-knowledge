@@ -4,3 +4,4 @@ build
 cloudrail_knowledge.egg-info
 dist
 __pycache__/
+/site/
