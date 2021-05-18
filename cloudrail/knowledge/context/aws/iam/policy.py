@@ -166,6 +166,7 @@ class AssumeRolePolicy(Policy):
                  role_arn: str, statements: List[PolicyStatement], raw_document: str):
         self.role_name: str = role_name
         self.role_arn: str = role_arn
+        self.is_allowing_external_assume: bool = None
         super().__init__(account, statements, raw_document)
 
     def get_keys(self) -> List[str]:

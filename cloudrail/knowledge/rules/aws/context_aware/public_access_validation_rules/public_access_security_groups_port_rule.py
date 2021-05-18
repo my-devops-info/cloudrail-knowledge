@@ -1,9 +1,10 @@
 from abc import abstractmethod
 from typing import List, Dict, Set
 
+from cloudrail.knowledge.context.aws.ec2.security_group_rule import SecurityGroupRulePropertyType
 from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
 from cloudrail.knowledge.utils.port_utils import is_all_ports
-from cloudrail.knowledge.utils.utils import is_port_in_range
+from cloudrail.knowledge.utils.utils import is_port_in_range, is_public_ip_range
 from cloudrail.knowledge.context.aws.dms.dms_replication_instance import DmsReplicationInstance
 from cloudrail.knowledge.context.aws.eks.eks_cluster import EksCluster
 from cloudrail.knowledge.context.aws.es.elastic_search_domain import ElasticSearchDomain
@@ -103,7 +104,7 @@ class PublicAccessSecurityGroupsPortRule(AwsBaseRule):
                                        if (not all_ports and not is_all_ports(port_range) and is_port_in_range(port_range, self.port.value)) \
                                        or (all_ports and is_all_ports(port_range)))
                                    and isinstance(con_detail.connection_property, PortConnectionProperty)
-                                   and con_detail.connection_property.cidr_block in ['0.0.0.0/0', '::/0'])
+                                   and con_detail.connection_property.cidr_block in ('0.0.0.0/0', '::/0'))
             if is_allowed and not all_ports:
                 eni_to_sg_rules_map[eni] = self._get_all_allow_in_bound_port_sg(eni)
             elif is_allowed and all_ports:
@@ -112,12 +113,16 @@ class PublicAccessSecurityGroupsPortRule(AwsBaseRule):
 
     def _get_all_allow_in_bound_port_sg(self, eni: NetworkInterface) -> Set[SecurityGroup]:
         return {sg for sg in eni.security_groups for permission in sg.inbound_permissions
-                if permission.is_in_range(self.port.value)}
+                if permission.is_in_range(self.port.value)
+                and permission.property_type == SecurityGroupRulePropertyType.IP_RANGES and
+                is_public_ip_range(permission.property_value)}
 
     @staticmethod
     def _get_all_allow_all_port_range_sg(eni: NetworkInterface) -> Set[SecurityGroup]:
         return {sg for sg in eni.security_groups for permission in sg.inbound_permissions
-                if is_all_ports((permission.from_port, permission.to_port))}
+                if is_all_ports((permission.from_port, permission.to_port))
+                and permission.property_type == SecurityGroupRulePropertyType.IP_RANGES and
+                is_public_ip_range(permission.property_value)}
 
 
 class PublicAccessSecurityGroupsSshPortRule(PublicAccessSecurityGroupsPortRule):

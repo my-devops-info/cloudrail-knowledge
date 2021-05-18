@@ -1,5 +1,5 @@
 import copy
-from typing import List
+from typing import List, Set
 
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
@@ -22,6 +22,7 @@ class SecurityGroup(AwsResource):
         self.vpc: 'Vpc' = None
         self.aliases.add(security_group_id)
         self.has_description: bool = has_description
+        self.used_by: Set[AwsResource] = set()
 
     def get_keys(self) -> List[str]:
         return [self.security_group_id]

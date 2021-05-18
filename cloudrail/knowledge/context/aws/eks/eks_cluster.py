@@ -1,5 +1,6 @@
 from typing import List, Optional
 
+from cloudrail.knowledge.context.aws.ec2.security_group import SecurityGroup
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 from cloudrail.knowledge.context.aws.networking_config.inetwork_configuration import INetworkConfiguration
 from cloudrail.knowledge.context.aws.networking_config.network_configuration import NetworkConfiguration
@@ -33,6 +34,8 @@ class EksCluster(NetworkEntity, INetworkConfiguration):
             security_groups.append(cluster_security_group_id)
         self._network_configuration: NetworkConfiguration = NetworkConfiguration(endpoint_public_access, security_groups, subnet_ids)
         self.port: int = 443
+
+        self.security_group_allowing_public_access: Optional[SecurityGroup] = None
 
     def get_keys(self) -> List[str]:
         return [self.arn]

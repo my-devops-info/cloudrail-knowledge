@@ -1,4 +1,6 @@
 from typing import List, Optional
+
+from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 from cloudrail.knowledge.context.aws.resource_based_policy import ResourceBasedPolicy
 from cloudrail.knowledge.context.aws.s3.s3_bucket_object import S3BucketObject
 from cloudrail.knowledge.context.aws.s3.s3_bucket_versioning import S3BucketVersioning
@@ -29,6 +31,8 @@ class S3Bucket(ConnectionInstance, ResourceBasedPolicy):
         self.encryption_data: Optional[S3BucketEncryption] = None
         self.bucket_objects: List[S3BucketObject] = []
         self.versioning_data: S3BucketVersioning = None
+
+        self.publicly_allowing_resources: List[AwsResource] = []
 
     def get_keys(self) -> List[str]:
         return [self.arn]

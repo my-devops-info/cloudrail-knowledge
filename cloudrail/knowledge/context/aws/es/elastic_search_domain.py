@@ -1,5 +1,6 @@
 from typing import List, Optional
 
+from cloudrail.knowledge.context.aws.indirect_public_connection_data import IndirectPublicConnectionData
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 from cloudrail.knowledge.context.aws.es.elastic_search_domain_policy import ElasticSearchDomainPolicy
 from cloudrail.knowledge.context.aws.networking_config.inetwork_configuration import INetworkConfiguration
@@ -37,6 +38,8 @@ class ElasticSearchDomain(NetworkEntity, INetworkConfiguration):
         if not enforce_https:
             self.ports.append(80)
         self.policy: ElasticSearchDomainPolicy = None
+
+        self.indirect_public_connection_data: Optional[IndirectPublicConnectionData] = None
 
     def get_keys(self) -> List[str]:
         return [self.arn]

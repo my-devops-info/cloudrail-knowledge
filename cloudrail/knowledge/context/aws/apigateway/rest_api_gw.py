@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import List, Optional
 
+from cloudrail.knowledge.context.aws.apigateway.api_gateway_method import ApiGatewayMethod
 from cloudrail.knowledge.context.aws.iam.policy_statement import PolicyStatement
 from cloudrail.knowledge.context.aws.resource_based_policy import ResourceBasedPolicy
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_domain import RestApiGwDomain
@@ -29,6 +30,9 @@ class RestApiGw(ResourceBasedPolicy):
         self.api_gateway_type: ApiGatewayType = api_gateway_type
         self.method_settings: Optional[ApiGatewayMethodSettings] = None
         self.domain: Optional[RestApiGwDomain] = None
+
+        self.is_public: bool = None
+        self.api_gateway_methods: List[ApiGatewayMethod] = []
 
     def get_keys(self) -> List[str]:
         return [self.rest_api_gw_id]

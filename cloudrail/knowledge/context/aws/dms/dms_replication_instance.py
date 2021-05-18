@@ -1,5 +1,6 @@
 from typing import List, Optional
 
+from cloudrail.knowledge.context.aws.ec2.security_group import SecurityGroup
 from cloudrail.knowledge.context.aws.networking_config.inetwork_configuration import INetworkConfiguration
 from cloudrail.knowledge.context.aws.networking_config.network_configuration import NetworkConfiguration
 from cloudrail.knowledge.context.aws.networking_config.network_entity import NetworkEntity
@@ -22,6 +23,8 @@ class DmsReplicationInstance(NetworkEntity, INetworkConfiguration):
         self.is_in_default_vpc: bool = rep_instance_subnet_group_id == 'default' or not self.rep_instance_subnet_group_id
         self.security_group_ids: List[str] = security_group_ids
         self.subnet_ids: Optional[List[str]] = None
+
+        self.security_group_allowing_public_access: Optional[SecurityGroup] = None
 
     def get_keys(self) -> List[str]:
         return [self.arn]
