@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.iam.policy_statement import PolicyStatement
 
 
 class RestApiGwPolicy(Policy):
-
+    """
+        Attributes:
+            rest_api_gw_id: The ID of the REST API Gateway.
+            policy_statements: The statements of the resource policy attached to this gateway.
+            raw_document: The raw JSON of the resource policy.
+    """
     def __init__(self,
                  rest_api_gw_id: str,
                  policy_statements: List[PolicyStatement],

@@ -17,7 +17,12 @@ class ApiGatewayType(Enum):
 
 
 class RestApiGw(ResourceBasedPolicy):
-
+    """
+    Attributes:
+        rest_api_gw_id: The ID of the REST API Gateway.
+        api_gw_name: The name of the API gateway.
+        api_gateway_type: One of EDGE, REGIONAL, PRIVATE.
+    """
     def __init__(self,
                  rest_api_gw_id: str,
                  api_gw_name: str,

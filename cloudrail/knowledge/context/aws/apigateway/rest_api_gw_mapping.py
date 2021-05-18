@@ -4,7 +4,11 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class RestApiGwMapping(AwsResource):
-
+    """
+        Attributes:
+            api_id: The ID of the REST API Gateway.
+            domain_name: The name of the domain.
+    """
     def __init__(self,
                  api_id: str,
                  domain_name: str,

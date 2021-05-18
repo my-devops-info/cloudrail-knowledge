@@ -17,7 +17,15 @@ class RestApiMethods(Enum):
 
 
 class ApiGatewayMethodSettings(AwsResource):
-
+    """
+        Attributes:
+            api_gw_id: The ID of the REST API Gateway.
+            stage_name: The name of the stage.
+            method_path: The method resource path.
+            http_method: The actual HTTP method (GET, etc.).
+            caching_enabled: Set to True if caching is enabled, False or None otherwise.
+            caching_encrypted: Set to True or a KMS ARN is enabled, False or None otherwise.
+    """
     def __init__(self,
                  api_gw_id: str,
                  stage_name: str,
