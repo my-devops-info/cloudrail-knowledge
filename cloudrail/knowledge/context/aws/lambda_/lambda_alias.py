@@ -5,7 +5,16 @@ from cloudrail.knowledge.utils.arn_utils import is_valid_arn
 
 
 class LambdaAlias(AwsResource):
+    """
+        Attributes:
+            arn: The ARN of the Lambda Alias.
+            name: The name of the alias.
+            function_name_or_arn: The name of the Lambda function or its ARN.
+            function_version: The version of the Lambda function this alias
+                is targeting.
+            description: The description of the alias.
 
+    """
     def __init__(self, account: str, region: str, arn: str, name: str, function_name_or_arn: str, function_version: str, description: str = None):
         super().__init__(account, region, AwsServiceName.AWS_LAMBDA_ALIAS)
         self.arn: str = arn
