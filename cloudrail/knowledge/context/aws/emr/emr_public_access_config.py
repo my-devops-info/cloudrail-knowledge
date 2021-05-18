@@ -8,9 +8,9 @@ class EmrPublicAccessConfiguration(AwsResource):
     def __init__(self,
                  account: str,
                  region: str,
-                 public_access: bool):
+                 block_public_access: bool):
         super().__init__(account, region, AwsServiceName.NONE)
-        self.public_access: bool = public_access
+        self.block_public_access: bool = block_public_access
 
     def get_keys(self) -> List[str]:
         return [self.account, self.region]
