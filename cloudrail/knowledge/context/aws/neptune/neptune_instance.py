@@ -1,6 +1,5 @@
-from typing import List, Optional, Dict, Set
+from typing import List, Optional
 
-from cloudrail.knowledge.context.aws.ec2.network_interface import NetworkInterface
 from cloudrail.knowledge.context.aws.ec2.security_group import SecurityGroup
 from cloudrail.knowledge.context.aws.networking_config.inetwork_configuration import INetworkConfiguration
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName

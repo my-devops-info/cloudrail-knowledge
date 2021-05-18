@@ -1,6 +1,5 @@
-from typing import List, Optional, Set, Dict
+from typing import List, Optional
 
-from cloudrail.knowledge.context.aws.ec2.network_interface import NetworkInterface
 from cloudrail.knowledge.context.aws.ec2.security_group import SecurityGroup
 from cloudrail.knowledge.context.aws.indirect_public_connection_data import IndirectPublicConnectionData
 from cloudrail.knowledge.context.aws.kms.kms_key import KmsKey

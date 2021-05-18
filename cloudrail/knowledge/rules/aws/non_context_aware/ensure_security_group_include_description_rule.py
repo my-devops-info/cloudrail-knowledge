@@ -1,7 +1,6 @@
 from typing import List, Dict, Tuple, Set
 
 from cloudrail.knowledge.context.aliases_dict import AliasesDict
-from cloudrail.knowledge.context.aws.networking_config.network_entity import NetworkEntity
 from cloudrail.knowledge.context.aws.ec2.security_group import SecurityGroup
 
 from cloudrail.knowledge.context.aws.ec2.security_group_rule import SecurityGroupRule

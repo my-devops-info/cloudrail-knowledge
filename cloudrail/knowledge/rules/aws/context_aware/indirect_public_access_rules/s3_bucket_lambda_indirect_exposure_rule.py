@@ -1,18 +1,13 @@
-from typing import List, Dict, Tuple
+from typing import List, Dict
 
 from cloudrail.knowledge.context.aws.aws_connection import PolicyEvaluation
-from cloudrail.knowledge.context.aws.lambda_.lambda_function import LambdaFunction
 from cloudrail.knowledge.context.aws.iam.policy import Policy
-from cloudrail.knowledge.context.aws.resource_based_policy import ResourceBasedPolicy
-from cloudrail.knowledge.context.aws.apigateway.api_gateway_method import ApiGatewayMethod
-from cloudrail.knowledge.context.aws.apigateway.rest_api_gw import ApiGatewayType, RestApiGw
 from cloudrail.knowledge.context.aws.s3.s3_bucket import S3Bucket
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
 from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
-from cloudrail.knowledge.utils.policy_evaluator import PolicyEvaluator, is_action_subset_allowed
-from cloudrail.knowledge.utils.policy_utils import is_policy_block_public_access
+from cloudrail.knowledge.utils.policy_evaluator import is_action_subset_allowed
 
 
 class S3BucketLambdaIndirectExposureRule(AwsBaseRule):
@@ -45,9 +40,6 @@ class S3BucketLambdaIndirectExposureRule(AwsBaseRule):
 
     @staticmethod
     def _allows_access_to_buckets(results: PolicyEvaluation, policies: List[Policy]):
-        ##################################
-        ### why is the for loop required????
-        ##################################
         if is_action_subset_allowed(results, 's3:*'):
             for statement in [statement for policy in policies for statement in policy.statements]:
                 if any(resource == '*' for resource in statement.resources) and \
