@@ -7,6 +7,16 @@ from cloudrail.knowledge.context.aws.sqs.sqs_queue_policy import SqsQueuePolicy
 
 
 class SqsQueue(AwsResource):
+    """
+        Attributes:
+            arn: The ARN of the SQS Queue.
+            queue_name: The name of the queue.
+            encrypted_at_rest: True if the queue is encrypted at rest.
+            policy: The resource policy attach to the queue.
+            kms_key: The ID of the KMS Key used to encrypt the queue, if any is used.
+            kms_data: A reference to KmsKey based on the kms_key provided.
+            queue_url: The URL of the queue.
+    """
     def __init__(self,
                  arn: str,
                  queue_name: str,
