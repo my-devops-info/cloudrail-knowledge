@@ -6,7 +6,15 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class KinesisFirehoseStream(NetworkEntity):
-
+    """
+        Attributes:
+            stream_name: The name of the Kinesis Firehose Stream.
+            stream_arn: The ARN of the Kinesis Firehose Stream.
+            encrypted_at_rest: True if the stream is set to be encrypted.
+            es_domain_arn: The ARN of the related ElasticSearch Domain, if any.
+            es_vpc_config: The VPC configuration of the ElasticSearch Domain related
+                to this stream, if any.
+    """
     def __init__(self,
                  stream_name: str,
                  stream_arn: str,

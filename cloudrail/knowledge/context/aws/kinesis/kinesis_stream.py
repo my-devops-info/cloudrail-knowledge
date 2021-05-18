@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class KinesisStream(AwsResource):
-
+    """
+        Attributes:
+            stream_name: The name of the Kinesis Stream.
+            stream_arn: The ARN of the Kinesis Stream.
+            encrypted_at_rest: True if the stream is set to be encrypted at rest.
+    """
     def __init__(self,
                  stream_name: str,
                  stream_arn: str,
