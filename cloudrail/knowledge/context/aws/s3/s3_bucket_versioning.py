@@ -5,7 +5,11 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class S3BucketVersioning(AwsResource):
-
+    """
+        Attributes:
+            bucket_name: The name of the bucket the versioning config applies to.
+            versioning: True if versioning is enabled.
+    """
     def __init__(self,
                  bucket_name: str,
                  versioning: bool,

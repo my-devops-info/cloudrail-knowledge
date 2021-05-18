@@ -10,7 +10,19 @@ class PublicAccessBlockLevel(Enum):
 
 
 class PublicAccessBlockSettings(AwsResource):
-
+    """
+        Attributes:
+            bucket_name_or_account_id: An access block may apply to either a specific
+                bucket or a whole account, this is the identifier to use.
+            block_public_acls: True if the block shouldn't allow public ACLs.
+            ignore_public_acls: True if the block should ignore public ACLs.
+            block_public_policy: True if the block shouldn't allow public policies.
+            restrict_public_buckets: True if the block should enforce restriction
+                on public buckets.
+            access_level: Whether the block is on the account or specific bucket.
+            account_access_block: The account-level access block, if this one
+                targets a bucket only.
+    """
     def __init__(self, bucket_name_or_account_id: str, block_public_acls: bool, ignore_public_acls: bool,
                  block_public_policy: bool, restrict_public_buckets: bool, access_level: PublicAccessBlockLevel,
                  account: str, region: str, account_access_block=None) -> None:
