@@ -1,0 +1,19 @@
+site_name: Cloudrail Knowledge
+
+nav:
+  - Home: 'README.md'
+  - Context:
+    - 'Cloudrail''s Context Model': 'context/README.md'
+    - 'AWS Context': 'context/aws/README.md'
+
+plugins:
+- search
+- mkdocstrings:
+    default_handler: python
+
+theme:
+  name: material
+copyright: 'indeni'
+repo_url: 'https://github.com/indeni/cloudrail-knowledge/'
+repo_name: 'cloudrail-knowledge'
+edit_uri: 'docs/'

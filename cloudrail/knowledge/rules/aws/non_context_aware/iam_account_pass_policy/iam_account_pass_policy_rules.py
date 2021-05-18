@@ -1,12 +1,10 @@
 from typing import Dict, List
 from cloudrail.knowledge.context.aws.iam.iam_password_policy import IamPasswordPolicy
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
-from cloudrail.knowledge.rules.aws.non_context_aware.iam_account_pass_policy.abstract_iam_account_password_policy import AbstractIamAccountPasswordPolicy
+from cloudrail.knowledge.rules.aws.non_context_aware.iam_account_pass_policy.abstract_iam_account_password_policy import \
+    AbstractIamAccountPasswordPolicy
 from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
-
-
-
 
 
 class EnsureIamPasswordExpiration(AbstractIamAccountPasswordPolicy):
@@ -20,11 +18,11 @@ class EnsureIamPasswordExpiration(AbstractIamAccountPasswordPolicy):
 
         issues: List[Issue] = []
         issues_data = self._get_entities_list(env_context, policy_condition)
-        for account, policy in issues_data:
+        for policy in issues_data:
             issues.append(
                 Issue(
                     f'~IAM~. The {policy.get_type()} `{policy.get_friendly_name()}`, '
-                    'does not enforce password expiry on passwords older than 90 days', account, policy))
+                    'does not enforce password expiry on passwords older than 90 days', policy, policy))
 
         return issues
 
@@ -40,11 +38,11 @@ class EnsureIamPasswordMinimumLength(AbstractIamAccountPasswordPolicy):
 
         issues: List[Issue] = []
         issues_data = self._get_entities_list(env_context, policy_condition)
-        for account, policy in issues_data:
+        for policy in issues_data:
             issues.append(
                 Issue(
                     f'~IAM~. The {policy.get_type()} `{policy.get_friendly_name()}`, '
-                    'does not restrict password length to a suitable length (14 characters)', account, policy))
+                    'does not restrict password length to a suitable length (14 characters)', policy, policy))
         return issues
 
 
@@ -59,11 +57,11 @@ class EnsureIamPasswordLowerCharacters(AbstractIamAccountPasswordPolicy):
 
         issues: List[Issue] = []
         issues_data = self._get_entities_list(env_context, policy_condition)
-        for account, policy in issues_data:
+        for policy in issues_data:
             issues.append(
                 Issue(
                     f'~IAM~. The {policy.get_type()} `{policy.get_friendly_name()}`, '
-                    'does not enforce at least one lower case letter', account, policy))
+                    'does not enforce at least one lower case letter', policy, policy))
         return issues
 
 
@@ -78,11 +76,11 @@ class EnsureIamPasswordRequiresNumber(AbstractIamAccountPasswordPolicy):
 
         issues: List[Issue] = []
         issues_data = self._get_entities_list(env_context, policy_condition)
-        for account, policy in issues_data:
+        for policy in issues_data:
             issues.append(
                 Issue(
                     f'~IAM~. The {policy.get_type()} `{policy.get_friendly_name()}`, '
-                    'does not enforce at least one number', account, policy))
+                    'does not enforce at least one number', policy, policy))
         return issues
 
 
@@ -97,11 +95,11 @@ class EnsureIamPasswordNotAllowReuse(AbstractIamAccountPasswordPolicy):
 
         issues: List[Issue] = []
         issues_data = self._get_entities_list(env_context, policy_condition)
-        for account, policy in issues_data:
+        for policy in issues_data:
             issues.append(
                 Issue(
                     f'~IAM~. The {policy.get_type()} `{policy.get_friendly_name()}`, '
-                    'allows for password re-use', account, policy))
+                    'allows for password re-use', policy, policy))
         return issues
 
 
@@ -116,11 +114,11 @@ class EnsureIamPasswordRequiresSymbol(AbstractIamAccountPasswordPolicy):
 
         issues: List[Issue] = []
         issues_data = self._get_entities_list(env_context, policy_condition)
-        for account, policy in issues_data:
+        for policy in issues_data:
             issues.append(
                 Issue(
                     f'~IAM~. The {policy.get_type()} `{policy.get_friendly_name()}`, '
-                    'does not enforce at least one symbol', account, policy))
+                    'does not enforce at least one symbol', policy, policy))
         return issues
 
 
@@ -135,9 +133,9 @@ class EnsureIamPasswordRequiresUpperCase(AbstractIamAccountPasswordPolicy):
 
         issues: List[Issue] = []
         issues_data = self._get_entities_list(env_context, policy_condition)
-        for account, policy in issues_data:
+        for policy in issues_data:
             issues.append(
                 Issue(
                     f'~IAM~. The {policy.get_type()} `{policy.get_friendly_name()}`, '
-                    'does not enforce at least one upper case letter', account, policy))
+                    'does not enforce at least one upper case letter', policy, policy))
         return issues

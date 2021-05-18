@@ -7,7 +7,19 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class LaunchTemplate(AwsResource):
-
+    """
+        Attributes:
+            template_id: The ID of the template.
+            name: The name of the template.
+            http_token: "optional" or "required" (if None, means "optional").
+            image_id: The EC2 Image ID of the instance.
+            security_group_ids: The security groups used with the instance.
+            version_number: The version number of this template.
+            iam_instance_profile: The IAM Instance Profile to associate with launched instances
+                (may be None).
+            network_configurations: The network configuration(s) set in the template (may be None).
+            security_groups: Points to the actual security groups set in security_group_ids.
+    """
     def __init__(self,
                  template_id: str,
                  name: str,

@@ -23,7 +23,10 @@ class DocDbClusterParameterGroup(AwsResource):
         self.parameters: List[DocDbClusterParameter] = parameters
         self.group_name: str = group_name
         self.raw_data: DocDbClusterParameterGroupRawData = DocDbClusterParameterGroupRawData()
-        self.group_arn: str = f'arn:aws:rds:{self.region}:{self.account}:cluster-pg:{self.group_name}'
+        if self.account:
+            self.group_arn: str = f'arn:aws:rds:{self.region}:{self.account}:cluster-pg:{self.group_name}'
+        else:
+            self.arn = None
 
     def get_keys(self) -> List[str]:
         return [self.group_name, self.account, self.region]

@@ -19,7 +19,10 @@ class Workspace(AwsResource):
         self.user_encryption_enabled: bool = user_encryption_enabled
         self.volume_encryption_key: str = volume_encryption_key
         self.keys_data: KmsKey = None
-        self.arn: str = f'arn:aws:workspaces:{self.region}:{self.account}:workspace/{self.workspace_id}'
+        if self.account:
+            self.arn: str = f'arn:aws:workspaces:{self.region}:{self.account}:workspace/{self.workspace_id}'
+        else:
+            self.arn = None
 
     def get_keys(self) -> List[str]:
         return [self.workspace_id]

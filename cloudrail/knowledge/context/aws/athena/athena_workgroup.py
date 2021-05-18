@@ -6,7 +6,15 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class AthenaWorkgroup(AwsResource):
-
+    """
+        Attributes:
+            name: The name of the workgroup.
+            state: DISABLED or ENABLED.
+            encryption_config: True or a KMS ARN if set, False or None otherwise.
+            enforce_workgroup_config: True to enforce Workgroup encryption configuration on clients.
+            encryption_option: Set if encryption is configured, one of SSE_S3, SSE_KMS, CSE_KMS.
+            kms_key: Set if KMS is used for encryption, this is the ARN of the key.
+    """
     def __init__(self,
                  name: str,
                  state: str,
@@ -24,7 +32,10 @@ class AthenaWorkgroup(AwsResource):
         self.encryption_option: str = encryption_option
         self.kms_key: str = kms_key
         self.kms_data: Optional[KmsKey] = None
-        self.arn: str = f'arn:aws:athena:{self.region}:{self.account}:workgroup/{self.name}'
+        if self.account:
+            self.arn: str = f'arn:aws:athena:{self.region}:{self.account}:workgroup/{self.name}'
+        else:
+            self.arn = None
 
     def get_keys(self) -> List[str]:
         return [self.name, self.region, self.account]
