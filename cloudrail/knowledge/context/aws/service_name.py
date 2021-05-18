@@ -142,6 +142,9 @@ class AwsServiceName(Enum):
     AWS_APIGATEWAYV_2_INTEGRATION = 'aws_apigatewayv2_integration'
     AWS_APIGATEWAYV_2_VPC_LINK = 'aws_apigatewayv2_vpc_link'
     AWS_EMR_CLUSTER = 'aws_emr_cluster'
+    AWS_GLOBALACCELERATOR_ACCELERATOR = 'aws_globalaccelerator_accelerator'
+    AWS_GLOBALACCELERATOR_ENDPOINT_GROUP = 'aws_globalaccelerator_endpoint_group'
+    AWS_GLOBALACCELERATOR_LISTENER = 'aws_globalaccelerator_listener'
 
 
 AWS_SERVICES_DOMAIN: str = ".amazonaws.com"

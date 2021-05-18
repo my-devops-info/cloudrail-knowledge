@@ -84,6 +84,9 @@ from cloudrail.knowledge.context.aws.es.elastic_search_domain import ElasticSear
 from cloudrail.knowledge.context.aws.es.elastic_search_domain_policy import ElasticSearchDomainPolicy
 from cloudrail.knowledge.context.aws.glacier.glacier_vault import GlacierVault
 from cloudrail.knowledge.context.aws.glacier.glacier_vault_policy import GlacierVaultPolicy
+from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator import GlobalAccelerator
+from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator_endpoint_group import GlobalAcceleratorEndpointGroup
+from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator_listener import GlobalAcceleratorListener
 from cloudrail.knowledge.context.aws.glue.glue_data_catalog_crawler import GlueCrawler
 from cloudrail.knowledge.context.aws.glue.glue_data_catalog_policy import GlueDataCatalogPolicy
 from cloudrail.knowledge.context.aws.glue.glue_data_catalog_table import GlueDataCatalogTable
@@ -311,9 +314,15 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  api_gateway_v2_integrations: List[ApiGatewayV2Integration] = None,
                  api_gateway_v2_vpc_links: List[ApiGatewayVpcLink] = None,
                  emr_clusters: List[EmrCluster] = None,
-                 emr_public_access_configurations: List[EmrPublicAccessConfiguration] = None):
+                 emr_public_access_configurations: List[EmrPublicAccessConfiguration] = None,
+                 global_accelerators: List[GlobalAccelerator] = None,
+                 global_accelerator_listeners: List[GlobalAcceleratorListener] = None,
+                 global_accelerator_endpoint_groups: List[GlobalAcceleratorEndpointGroup] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.global_accelerator_endpoint_groups = global_accelerator_endpoint_groups or []
+        self.global_accelerator_listeners = global_accelerator_listeners or []
+        self.global_accelerators = global_accelerators or []
         self.emr_public_access_configurations = emr_public_access_configurations or []
         self.emr_clusters = emr_clusters or []
         self.api_gateway_v2_vpc_links = api_gateway_v2_vpc_links or []
