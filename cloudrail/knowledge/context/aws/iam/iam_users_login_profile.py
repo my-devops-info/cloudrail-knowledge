@@ -5,7 +5,10 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class IamUsersLoginProfile(AwsResource):
-
+    """
+        Attributes:
+            name: The name of the user the login profile is for.
+    """
     def __init__(self,
                  name: str,
                  account: str):
