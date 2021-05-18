@@ -8,7 +8,14 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class KmsKey(AwsResource):
-
+    """
+        Attributes:
+            key_id: The ID of the key.
+            arn: The ARN of the key.
+            key_manager: The Key Manager of this key (customer, or AWS).
+            policy: The resource policy of the key, if any is defined.
+            alias_data: The key's alias, if any.
+    """
     def __init__(self,
                  key_id: str,
                  arn: str,
