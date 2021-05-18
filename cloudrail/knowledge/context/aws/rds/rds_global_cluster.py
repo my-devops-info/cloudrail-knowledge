@@ -11,6 +11,11 @@ class RdsGlobalClusterRawData:
 
 
 class RdsGlobalCluster(AwsResource):
+    """
+        Attributes:
+            cluster_id: The ID of the cluster.
+            encrypted_at_rest: True if the cluster is set to be encrypted at rest.
+    """
     def __init__(self,
                  account: str,
                  region: str,
