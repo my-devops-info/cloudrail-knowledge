@@ -55,7 +55,7 @@ class EnsureIamEntitiesPolicyManagedSolely(AwsBaseRule):
     def _are_there_existing_tf_entities(entity: IamIdentity) -> bool:
         return entity.is_managed_by_iac and not entity.is_new_resource() and \
                any((isinstance(policy, ManagedPolicy) and
-                    any(pao.get(policy.get_name()) == EntityOrigin.TERRAFORM for pao in entity.policy_attach_origin_map)
+                    any(pao.get(policy.get_name()) == EntityOrigin.TERRAFORM for pao in entity.get_policies_attach_origin_maps())
                     or (isinstance(policy, InlinePolicy) and policy.is_managed_by_iac)) for policy in entity.get_policies())
 
     @staticmethod
@@ -63,7 +63,7 @@ class EnsureIamEntitiesPolicyManagedSolely(AwsBaseRule):
         affected_policies = []
         for policy in entity.permissions_policies:
             if (isinstance(policy, ManagedPolicy)
-                    and any(pao.get(policy.get_name()) == EntityOrigin.LIVE_ENV for pao in entity.policy_attach_origin_map)):
+                    and any(pao.get(policy.get_name()) == EntityOrigin.LIVE_ENV for pao in entity.get_policies_attach_origin_maps())):
                 affected_policies.append(policy)
             elif isinstance(policy, InlinePolicy) and not policy.is_managed_by_iac:
                 affected_policies.append(policy)

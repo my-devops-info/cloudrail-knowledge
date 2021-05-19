@@ -38,6 +38,9 @@ class IamIdentity(AwsResource, ConnectionInstance, Cloneable):
     def clone(self):
         pass
 
+    def get_policies_attach_origin_maps(self) -> List[Dict]:
+        return self.policy_attach_origin_map
+
     def get_policies(self) -> List[Policy]:
         return self.permissions_policies
 
