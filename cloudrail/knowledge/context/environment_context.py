@@ -21,6 +21,8 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 from cloudrail.knowledge.context.aws.batch.batch_compute_environment import BatchComputeEnvironment
 from cloudrail.knowledge.context.aws.cloudfront.cloud_front_distribution_list import CloudFrontDistribution
 from cloudrail.knowledge.context.aws.cloudfront.origin_access_identity import OriginAccessIdentity
+from cloudrail.knowledge.context.aws.cloudhsmv2.cloudhsm_v2_cluster import CloudHsmV2Cluster
+from cloudrail.knowledge.context.aws.cloudhsmv2.cloudhsm_v2_hsm import CloudHsmV2Hsm
 from cloudrail.knowledge.context.aws.cloudtrail.cloudtrail import CloudTrail
 from cloudrail.knowledge.context.aws.cloudwatch.cloud_watch_event_target import CloudWatchEventTarget
 from cloudrail.knowledge.context.aws.cloudwatch.cloud_watch_log_group import CloudWatchLogGroup
@@ -317,9 +319,13 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  emr_public_access_configurations: List[EmrPublicAccessConfiguration] = None,
                  global_accelerators: List[GlobalAccelerator] = None,
                  global_accelerator_listeners: List[GlobalAcceleratorListener] = None,
-                 global_accelerator_endpoint_groups: List[GlobalAcceleratorEndpointGroup] = None):
+                 global_accelerator_endpoint_groups: List[GlobalAcceleratorEndpointGroup] = None,
+                 cloudhsm_v2_clusters: List[CloudHsmV2Cluster] = None,
+                 cloudhsm_list: List[CloudHsmV2Hsm] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.cloudhsm_list = cloudhsm_list or []
+        self.cloudhsm_v2_clusters = cloudhsm_v2_clusters or []
         self.global_accelerator_endpoint_groups = global_accelerator_endpoint_groups or []
         self.global_accelerator_listeners = global_accelerator_listeners or []
         self.global_accelerators = global_accelerators or []
