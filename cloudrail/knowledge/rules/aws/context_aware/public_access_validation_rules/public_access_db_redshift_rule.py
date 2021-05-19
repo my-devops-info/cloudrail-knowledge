@@ -14,8 +14,7 @@ class PublicAccessDbRedshiftRule(AwsBaseRule):
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
         for redshift in env_context.redshift_clusters:
-            security_groups = next(iter(redshift.public_access_enablers.values()), [])
-            violating_security_group = next(iter(security_groups), None)
+            violating_security_group = redshift.security_group_allowing_public_access
             if violating_security_group:
                 issues.append(Issue(
                     f'~Internet~. '

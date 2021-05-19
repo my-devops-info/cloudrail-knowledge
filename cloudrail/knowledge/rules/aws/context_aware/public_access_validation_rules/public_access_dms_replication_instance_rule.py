@@ -15,8 +15,7 @@ class PublicAccessDmsReplicationInstanceRule(AwsBaseRule):
         issues: List[Issue] = []
 
         for dms_instance in env_context.dms_replication_instances:
-            security_groups = next(iter(dms_instance.public_access_enablers.values()), [])
-            security_group = next(iter(security_groups), None)
+            security_group = dms_instance.security_group_allowing_public_access
             if security_group:
                 issues.append(Issue(
                     f'~Internet~. '

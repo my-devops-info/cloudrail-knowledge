@@ -14,8 +14,7 @@ class PublicAccessEksApiRule(AwsBaseRule):
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
         for eks_cluster in env_context.eks_clusters:
-            security_groups = next(iter(eks_cluster.public_access_enablers.values()), [])
-            violating_security_group = next(iter(security_groups), None)
+            violating_security_group = eks_cluster.security_group_allowing_public_access
             if violating_security_group:
                 issues.append(Issue(
                     f'~Internet~. '

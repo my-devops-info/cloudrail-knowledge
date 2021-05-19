@@ -16,8 +16,7 @@ class PublicAccessDbNeptuneRule(AwsBaseRule):
 
         for neptune_cluster in env_context.neptune_clusters:
             for neptune_instance in neptune_cluster.cluster_instances:
-                security_groups = next(iter(neptune_instance.public_access_enablers.values()), [])
-                security_group = next(iter(security_groups), None)
+                security_group = neptune_instance.security_group_allowing_public_access
                 if security_group:
                     issues.append(Issue(
                         f'~Internet~. '

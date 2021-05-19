@@ -16,8 +16,7 @@ class PublicAccessDbRdsRule(AwsBaseRule):
 
         for rds_cluster in env_context.rds_clusters:
             for rds_instance in rds_cluster.cluster_instances:
-                security_groups = next(iter(rds_instance.public_access_enablers.values()), [])
-                security_group = next(iter(security_groups), None)
+                security_group = rds_instance.security_group_allowing_public_access
                 if security_group:
                     issues.append(Issue(
                         f'~Internet~. '
@@ -35,8 +34,7 @@ class PublicAccessDbRdsRule(AwsBaseRule):
                         rds_cluster, security_group))
 
         for rds_instance in (x for x in env_context.rds_instances if x.db_cluster_id is None):
-            security_groups = next(iter(rds_instance.public_access_enablers.values()), [])
-            security_group = next(iter(security_groups), None)
+            security_group = rds_instance.security_group_allowing_public_access
             if security_group:
                 issues.append(Issue(
                     f"~Internet~. {rds_instance.get_type()} `{rds_instance.get_friendly_name()}` "
