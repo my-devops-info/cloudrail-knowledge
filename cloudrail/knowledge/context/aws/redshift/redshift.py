@@ -18,6 +18,9 @@ class RedshiftCluster(NetworkEntity, INetworkConfiguration):
             security_groups: List of IDs of security groups used by the cluster.
             assign_public_ip: True if to assign a public IP to the cluster.
             encrypted: True if the cluster is set to be encrypted at rest.
+            security_group_allowing_public_access: A security group that allows access from the internet.
+                This value will be None when this resource is not accessible from the internet.
+            indirect_public_connection_data: The data that describes that a publicly-accessible resource can access this resource by a security group of this resource.
     """
     def __init__(self,
                  account: str,

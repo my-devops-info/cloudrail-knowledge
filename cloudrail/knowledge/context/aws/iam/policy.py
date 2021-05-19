@@ -170,7 +170,12 @@ class S3AccessPointPolicy(Policy):
 
 
 class AssumeRolePolicy(Policy):
-
+    """
+        Attributes:
+            role_name: The name of the role that uses this policy.
+            role_arn: The ARN of the role that uses this policy.
+            is_allowing_external_assume: An indication on if this policy can be assumed by a resource outside of this policy's account.
+    """
     def __init__(self, account: str, role_name: str,
                  role_arn: str, statements: List[PolicyStatement], raw_document: str):
         self.role_name: str = role_name

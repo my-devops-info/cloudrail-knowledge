@@ -28,6 +28,7 @@ class S3Bucket(ConnectionInstance, ResourceBasedPolicy):
                 fetched from the live environment and will only include objects
                 that are defined in the infrastructure-as-code reviewed by Cloudrail.
             versioning_data: Configuration of versioning on the bucket.
+            publicly_allowing_resources: ACL's/Policies that expose this bucket to the internet.
     """
     def __init__(self, account: str, bucket_name: str, arn: str, region: str = None,
                  policy: S3Policy = None):

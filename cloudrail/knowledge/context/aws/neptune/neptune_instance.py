@@ -16,6 +16,8 @@ class NeptuneInstance(NetworkEntity, INetworkConfiguration):
             cluster_identifier: The ID of the cluster it belongs to.
             publicly_accessible: True if the instance is set to publicly accessible.
             instance_identifier: The identifier of the instance.
+            security_group_allowing_public_access: A security group that allows access from the internet.
+                This value will be None when this resource is not accessible from the internet.
     """
     def __init__(self,
                  account: str,

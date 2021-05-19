@@ -23,6 +23,8 @@ class EksCluster(NetworkEntity, INetworkConfiguration):
             endpoint_private_access: True if the endpoint allows private access.
             public_access_cidrs: The CIDR blocks public access is allowed from.
             port: The port the endpoint is listening on.
+            security_group_allowing_public_access: A security group that allows access from the internet.
+                This value will be None when this resource is not accessible from the internet.
     """
     def __init__(self,
                  name: str,

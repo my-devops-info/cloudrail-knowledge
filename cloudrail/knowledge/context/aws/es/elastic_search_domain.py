@@ -25,6 +25,7 @@ class ElasticSearchDomain(NetworkEntity, INetworkConfiguration):
                 VPC.
             ports: The ports the ElasticSearch is listening on.
             policy: The resource policy used with the domain.
+            indirect_public_connection_data: The data that describes that a publicly-accessible resource can access this resource by a security group of this resource.
     """
     def __init__(self,
                  domain_id: str,
@@ -40,6 +41,7 @@ class ElasticSearchDomain(NetworkEntity, INetworkConfiguration):
         """
         `ElasticSearch Domain` can either be `Publicly Accessible` and not in any VPC, or it can be `Publicly In-Accessible` if its in a VPC.
         Subsequently, if an `ElasticSearch Domain` does not belong to a subnet then it means it is can only be accessed from within the VPC.
+
         """
         self.encrypt_at_rest_state: bool = encrypt_at_rest_state
         self.encrypt_node_to_node_state: bool = encrypt_node_to_node_state

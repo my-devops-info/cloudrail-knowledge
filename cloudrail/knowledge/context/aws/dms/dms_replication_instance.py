@@ -17,6 +17,8 @@ class DmsReplicationInstance(NetworkEntity, INetworkConfiguration):
             subnet_ids: The actual subnets the DMS is connected to.
             security_group_ids: The IDs of the security groups the DMS is using.
             is_in_default_vpc: True if the DMS instance is in the default VPC.
+            security_group_allowing_public_access: A security group that allows access from the internet.
+                This value will be None when this resource is not accessible from the internet.
     """
     def __init__(self,
                  account: str,
