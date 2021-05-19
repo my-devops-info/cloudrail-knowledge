@@ -85,5 +85,6 @@ class Mergeable:
     def is_tagable(self) -> bool:
         pass
 
+    # pylint: disable=no-self-use
     def exclude_from_invalidation(self):
         return []

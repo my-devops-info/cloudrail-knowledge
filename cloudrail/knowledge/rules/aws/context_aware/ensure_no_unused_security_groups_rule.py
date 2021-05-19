@@ -18,7 +18,6 @@ class EnsureNoUnusedSecurityGroups(BaseRule):
         # Currently, we catch only security groups which are exists, and not ones which are being created.
         # This is in order to avoid scenario in which a security group created, and will be associated using a different infra than TF.
         # In the future, we will add history track for resources, and this condition will not be needed.
-        eni_security_groups_list = self._eni_security_groups(env_context.network_interfaces)
         for security_group in [sg for sg in env_context.security_groups if
                                not sg.used_by
                                and not sg.is_new_resource()
