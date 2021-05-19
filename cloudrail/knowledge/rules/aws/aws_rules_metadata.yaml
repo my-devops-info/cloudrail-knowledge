@@ -3460,6 +3460,23 @@ rules_metadata:
   resource_type:
   - iam
 
+- rule_id: non_car_ami_copy_encrypt_snapshots_at_rest_creating
+  name: Ensure AMI copies being created are set to encrypt snapshots at rest
+  severity: medium
+  description:
+    Cloudrail will review the AMI copies being created in your environment.
+    If a copy is not set to encrypt at rest the destination snapshots of the copies image,
+    Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will identify all AMI copies in the Terraform plan that are going to be created and are not configured to encrypt snapshots at rest.
+  remediation_steps_console: Follow the guide at https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html#ami-copy-encryption to enable encryption for AMI copies.
+  remediation_steps_tf: For the aws_ami_copy resource, set the argument encrypted to true.
+  rule_type: non_context_aware
+  security_layer: encryption
+  resource_type:
+  - compute
+
+
 - rule_id: non_car_cloudtrail_is_enabled_in_all_regions
   cloud_provider: amazon_web_services
   name: Ensure CloudTrail is enabled in all regions

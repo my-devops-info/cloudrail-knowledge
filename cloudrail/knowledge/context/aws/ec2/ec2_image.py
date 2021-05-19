@@ -1,6 +1,7 @@
 from typing import List
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
+from cloudrail.knowledge.context.aws.ec2.ebs_snapshot import EBSSnapshot
 
 
 class Ec2Image(AwsResource):
@@ -12,11 +13,14 @@ class Ec2Image(AwsResource):
     def __init__(self,
                  image_id: str,
                  is_public: bool,
+                 snap_id: str,
                  region: str,
                  account: str):
         super().__init__(account, region, AwsServiceName.NONE)
         self.image_id: str = image_id
         self.is_public: bool = is_public
+        self.snap_id: str = snap_id
+        self.snap_data: EBSSnapshot = None
 
     def get_keys(self) -> List[str]:
         return [self.image_id]

@@ -1,5 +1,6 @@
 /venv/
 .idea
+.vscode/
 build
 cloudrail_knowledge.egg-info
 dist
