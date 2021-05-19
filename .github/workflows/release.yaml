@@ -61,6 +61,7 @@ jobs:
         twine upload dist/*  -u __token__ -p ${{ secrets.PYPI_API_TOKEN }}
 
   build-and-deploy-documentation:
+    needs: release-new-version
     name: Build and Deploy Documentation
     runs-on: ubuntu-latest
     steps:
