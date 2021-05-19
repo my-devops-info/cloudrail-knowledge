@@ -37,6 +37,18 @@ class S3Permission(Enum):
 
 
 class S3ACL(AwsResource):
+    """
+        Attributes:
+            actions: A list of S3 actions included in this S3 ACL, based on
+                the list from the S3Permission supplied.
+            type: The type of the grantee - GROUP or CANONICAL_USER.
+            type_value: The value of the grantee. If type is GROUP, this will be
+                the group identifier. If CANONICAL_USER, this will be the
+                canonical identifier for the user.
+            bucket_name: The bucket to apply the ACL to.
+            owner_id: The owner of this ACL.
+            owner_name: The name of the owner.
+    """
 
     def __init__(self, s3_permission: S3Permission, grantee_type: GranteeTypes, type_value: str, bucket_name: str,
                  account: str, region: str, owner_id: str = None, owner_name: str = None):

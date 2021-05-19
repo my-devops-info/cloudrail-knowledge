@@ -12,7 +12,16 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class EcsCluster(AwsResource):
+    """
+        Attributes:
+            cluster_arn: The ARN of the ECS cluster.
+            cluster_id: The ID of the cluster.
+            cluster_name: The name of the cluster.
+            service_list: The list of services attached to this cluster.
+            event_target_list: The list of CloudWatchEventTargets associated with this
+                cluster.
 
+    """
     def __init__(self,
                  account: str,
                  region: str,

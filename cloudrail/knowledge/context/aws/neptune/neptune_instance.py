@@ -7,7 +7,15 @@ from cloudrail.knowledge.context.aws.networking_config.network_entity import Net
 
 
 class NeptuneInstance(NetworkEntity, INetworkConfiguration):
-
+    """
+        Attributes:
+            name: The name of the instance.
+            arn: The ARN of the instance.
+            port: The port the instance is accessible through.
+            cluster_identifier: The ID of the cluster it belongs to.
+            publicly_accessible: True if the instance is set to publicly accessible.
+            instance_identifier: The identifier of the instance.
+    """
     def __init__(self,
                  account: str,
                  region: str,

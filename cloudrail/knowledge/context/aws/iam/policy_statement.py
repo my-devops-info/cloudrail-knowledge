@@ -19,6 +19,17 @@ class StatementCondition:
 
 
 class PolicyStatement(Cloneable):
+    """
+        Attributes:
+            effect: The effect of the statement (Allow / Deny).
+            actions: The actions covered by the statements.
+            resources: The resources covered by the statement.
+            principal: The principal(s) included.
+            statement_id: The id of the statement.
+            condition_block: List of conditions included in the statement,
+                or None if there aren't any.
+            policy: The policy the statement belong to, if it does.
+    """
     def __init__(self,
                  effect: StatementEffect,
                  actions: List[str],

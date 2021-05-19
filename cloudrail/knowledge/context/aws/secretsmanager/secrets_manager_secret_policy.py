@@ -5,6 +5,12 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class SecretsManagerSecretPolicy(Policy):
+    """
+        Attributes:
+            secret_arn: The ARN of the secret.
+            policy_statements: The statements of the policy.
+            raw_document: The raw JSON of the policy.
+    """
     def __init__(self,
                  secret_arn: str,
                  policy_statements: List[PolicyStatement],

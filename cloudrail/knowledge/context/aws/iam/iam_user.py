@@ -8,7 +8,14 @@ from cloudrail.knowledge.context.aws.iam.policy import Policy
 
 
 class IamUser(IamIdentity):
-
+    """
+        Attributes:
+            name: The name of the user.
+            user_id: The ID of the user.
+            groups: The groups the user belongs to.
+            groups_attach_origin_map: A cache map used to "remember" the origin
+                of user-to-group attachments (whether from live account, IaC, etc.).
+    """
     def __init__(self, account: str, name: str, user_id: str, qualified_arn: str,
                  permission_boundary_arn: Optional[str], arn: str = None):
         super().__init__(account, qualified_arn, arn, AwsServiceName.AWS_IAM_USER)

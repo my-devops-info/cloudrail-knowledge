@@ -31,7 +31,20 @@ class EfsVolume:
 
 
 class EcsTaskDefinition(AwsResource):
-
+    """
+        Attributes:
+            task_arn: The ARN of the task definition.
+            family: The family the definition is a part of.
+            revision: The revision of the task definition.
+            task_role_arn: The IAM Role used by the task.
+            execution_role_arn: The IAM Role used to execute the task.
+            network_mode: The network mode to use with this task.
+            container_definitions: A list (potentially empty) of container
+                definitions.
+            iam_role: The actual IAM Role referenced by execution_role_arn.
+            efs_volume_data: The EFS configuration in the task, if one is configured.
+            is_volume_efs: True if there is EFS configured.
+    """
     def __init__(self, task_arn: str, family: str, revision: str, account: str, region: str, efs_volume_data: List[EfsVolume] = None,
                  task_role_arn: str = None, execution_role_arn: str = None, network_mode: NetworkMode = None, is_volume_efs: bool = False,
                  container_definitions: List[ContainerDefinition] = None) -> None:

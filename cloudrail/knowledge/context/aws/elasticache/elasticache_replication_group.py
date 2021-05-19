@@ -6,7 +6,16 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class ElastiCacheReplicationGroup(NetworkEntity):
-
+    """
+        Attributes:
+            replication_group_id: The ID of this replication group.
+            encrypted_at_rest: True if the group is configured to encrypt at rest.
+            encrypted_in_transit: True if this group is configured to encrypt in transit.
+            subnet_group_name: The name of the subnet group associated with this replication group.
+            subnet_ids: The IDs of the subnet from the subnet group.
+            security_group_ids: The security group IDs used by the cluster.
+            is_in_default_vpc: True if this group is in the default VPC.
+    """
     def __init__(self,
                  replication_group_id: str,
                  encrypted_at_rest: bool,

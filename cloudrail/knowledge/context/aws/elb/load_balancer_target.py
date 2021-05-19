@@ -5,6 +5,14 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class LoadBalancerTarget(AwsResource):
+    """
+        Attributes:
+            target_group_arn: The ARN of the target group this target belongs to.
+            target_health: The health of the target.
+            target_id: The ID of this target.
+            port: The port this target listens on.
+            target_instance: Set to an Ec2Instance of applicable.
+    """
 
     def __init__(self, target_group_arn: str, target_health, target_id: str, port: int, account: str, region: str):
         super().__init__(account, region, AwsServiceName.AWS_LOAD_BALANCER_TARGET_GROUP_ATTACHMENT)

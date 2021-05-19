@@ -6,7 +6,16 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class NetworkAcl(AwsResource):
-
+    """
+        Attributes:
+            network_acl_id: The ID of the NACL.
+            vpc_id: The ID of the VPC the NACL belongs to.
+            is_default: True if this is the default NACL for the subnets.
+            name: The name of the NACL.
+            subnet_ids: List of IDs of subnets the NACL bleongs to.
+            inbound_rules: The inbound/ingress rules defined in the NACL.
+            outbound_rules: The outbound/egress rules defined in the NACL.
+    """
     def __init__(self,
                  network_acl_id: str,
                  vpc_id: str,

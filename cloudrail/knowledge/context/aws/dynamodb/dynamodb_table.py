@@ -19,12 +19,28 @@ class TableFieldType(Enum):
 
 @dataclass
 class TableField:
+    """
+        Attributes:
+            name: The field's name.
+            type: The field type (one of B for Byte, N for Number, S for String).
+    """
     name: str
     type: TableFieldType
 
 
 class DynamoDbTable(AwsResource):
-
+    """
+        Attributes:
+            table_name: The name of the table.
+            table_id: The ID of the table.
+            table_arn: The ARN of the table.
+            billing_mode: One of PROVISIONED or PAY_PER_REQUEST.
+            partition_key: The partition key used.
+            sort_key: The sort key used.
+            write_capacity: The write capacity configured.
+            read_capacity: The read capacity configured.
+            fields_attributes: The list of table field attributes (may be empty).
+    """
     def __init__(self, table_name: str, region: str, account: str, table_id: str, table_arn: str,
                  billing_mode: BillingMode, partition_key: str, sort_key: str = None,
                  write_capacity: int = 0, read_capacity: int = 0, fields_attributes: List[TableField] = None):

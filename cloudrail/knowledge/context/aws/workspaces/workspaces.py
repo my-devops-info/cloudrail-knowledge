@@ -5,7 +5,15 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class Workspace(AwsResource):
-
+    """
+        Attributes:
+            workspace_id: The ID of this workspace.
+            root_encryption_enabled: True if root encryption is enabled.
+            user_encryption_enabled: True if user encryption is enabled.
+            volume_encryption_key: The ID of the KMS key used to encrypt the
+                volume, if any.
+            keys_data: A reference to KmsKey based on the kms_key provided.
+    """
     def __init__(self,
                  region: str,
                  account: str,

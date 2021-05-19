@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class RoleLastUsed(AwsResource):
-
+    """
+        Attributes:
+            role_name: The nameo f the role.
+            arn: The ARN of the role.
+            last_used_date: The last date the role was used in.
+    """
     def __init__(self, account: str,
                  region: str,
                  role_name: str,

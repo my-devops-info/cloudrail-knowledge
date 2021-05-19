@@ -6,7 +6,13 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class CodeBuildProject(NetworkEntity):
-
+    """
+        Attributes:
+            project_name: The name of the project.
+            encryption_key: The KMS ID of the encryption key, if used, or None otherwise.
+            arn: The ARN of the project.
+            vpc_config: The network configuration of the project, if configured.
+    """
     def __init__(self,
                  project_name: str,
                  encryption_key: str,

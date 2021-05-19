@@ -104,4 +104,4 @@ inherits from [Mergeable](/cloudrail/knowledge/context/mergeable.py). You'll not
 [AwsServiceName](/cloudrail/knowledge/context/aws/service_name.py), which helps connect the object to the service it 
 belongs to. The naming convention used is based on Terraform, but that's just for convenience.
 
-If you're interested in AWS, go to the [AWS context class list](aws/README.md).
+If you're interested in AWS, look at the navigation menu to the left and expand the section called AWS Context.
