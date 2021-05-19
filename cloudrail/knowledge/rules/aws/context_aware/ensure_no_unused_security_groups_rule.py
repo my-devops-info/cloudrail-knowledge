@@ -20,9 +20,9 @@ class EnsureNoUnusedSecurityGroups(BaseRule):
         # In the future, we will add history track for resources, and this condition will not be needed.
         eni_security_groups_list = self._eni_security_groups(env_context.network_interfaces)
         for security_group in [sg for sg in env_context.security_groups if
-                               not sg.is_new_resource()
-                               and not sg.is_pseudo
-                               and sg not in eni_security_groups_list]:
+                               not sg.used_by
+                               and not sg.is_new_resource()
+                               and not sg.is_pseudo]:
             issues.append(
                 Issue(
                     f'The {security_group.get_type()} `{security_group.get_friendly_name()}` is not used by any AWS resource'

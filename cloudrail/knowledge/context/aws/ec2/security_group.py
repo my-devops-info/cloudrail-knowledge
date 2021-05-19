@@ -32,7 +32,14 @@ class SecurityGroup(AwsResource):
         self.vpc: 'Vpc' = None
         self.aliases.add(security_group_id)
         self.has_description: bool = has_description
-        self.used_by: Set[AwsResource] = set()
+        self._used_by: Set[AwsResource] = set()
+
+    @property
+    def used_by(self) -> Set[AwsResource]:
+        return {resource for resource in self._used_by if not resource.invalidation}
+
+    def add_usage(self, resource: AwsResource):
+        self._used_by.add(resource)
 
     def get_keys(self) -> List[str]:
         return [self.security_group_id]
@@ -90,4 +97,4 @@ class SecurityGroup(AwsResource):
         return True
 
     def exclude_from_invalidation(self) -> list:
-        return [self.used_by]
+        return [self._used_by]
