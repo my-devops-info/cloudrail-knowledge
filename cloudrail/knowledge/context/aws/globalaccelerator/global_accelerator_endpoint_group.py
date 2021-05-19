@@ -1,4 +1,7 @@
-from typing import List
+from typing import List, Optional, Union
+
+from cloudrail.knowledge.context.aws.ec2.elastic_ip import ElasticIp
+from cloudrail.knowledge.context.aws.elb.load_balancer import LoadBalancer
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
@@ -27,6 +30,7 @@ class GlobalAcceleratorEndpointGroup(AwsResource):
         self.endpoint_config_id: str = endpoint_config_id
         self.client_ip_preservation_enabled: bool = client_ip_preservation_enabled
         self.region: str = region
+        self.endpoint_resource: Optional[Union[LoadBalancer, ElasticIp]] = None
 
     def get_keys(self) -> List[str]:
         return [self.endpoint_arn]
