@@ -88,3 +88,6 @@ class SecurityGroup(AwsResource):
     @property
     def is_tagable(self) -> bool:
         return True
+
+    def exclude_from_invalidation(self) -> list:
+        return [self.used_by]

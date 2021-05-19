@@ -84,3 +84,6 @@ class Mergeable:
     @abstractmethod
     def is_tagable(self) -> bool:
         pass
+
+    def exclude_from_invalidation(self):
+        return []
