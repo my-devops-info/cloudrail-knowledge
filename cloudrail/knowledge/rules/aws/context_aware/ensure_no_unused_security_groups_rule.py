@@ -33,7 +33,3 @@ class EnsureNoUnusedSecurityGroups(BaseRule):
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
         return bool(environment_context.security_groups and environment_context.network_interfaces)
-
-    @staticmethod
-    def _eni_security_groups(enis: AliasesDict[NetworkInterface]) -> list:
-        return flat_list([eni.security_groups for eni in enis if eni.owner])
