@@ -11,6 +11,8 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.PAT_CLOUDRAIL_KNOWLEDGE }}
     - name: get new version
       uses: anothrNick/github-tag-action@master
       id: get_new_tag
@@ -21,8 +23,6 @@ jobs:
     - name: Save version into env var
       run: echo "RELEASE_VERSION=${{steps.get_new_tag.outputs.new_tag}}" >> $GITHUB_ENV
     - name: Update version.py
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAT_CLOUDRAIL_KNOWLEDGE }}
       run: |
         version_file="cloudrail/version.py"
         git config --local user.email "action@github.com"
