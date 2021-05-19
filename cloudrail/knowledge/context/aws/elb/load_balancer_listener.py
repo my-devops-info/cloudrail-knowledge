@@ -11,12 +11,12 @@ class LoadBalancerListener(AwsResource):
                 listener_port: The port this listener listens on.
                 listener_protocol: The protocol the listener listens on.
                 load_balancer_arn: The ARN of the load balancer the listener
-                    is attached to.
+                        is attached to.
                 default_action_type: The default action type of this listener.
                 redirect_action_protocol: The redirect protocol, if the redirect
-                    action is configured (None otherwise).
+                        action is configured (None otherwise).
                 redirect_action_port: The redirect port, if the redirect
-                    action is configured (None otherwise).
+                        action is configured (None otherwise).
 
     """
     def __init__(self,
