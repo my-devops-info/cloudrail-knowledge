@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class CloudWatchLogsDestination(AwsResource):
-
+    """
+        Attributes:
+            name: The name of the destination.
+            arn: THe ARN of the destination.
+            policy: The destination's policy, if configured (may be None).
+    """
     def __init__(self,
                  account: str,
                  region: str,

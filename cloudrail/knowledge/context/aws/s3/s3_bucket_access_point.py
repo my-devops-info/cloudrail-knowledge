@@ -19,7 +19,14 @@ class S3BucketAccessPointNetworkOrigin:
 
 
 class S3BucketAccessPoint(AwsResource):
-
+    """
+        Attributes:
+            bucket_name: The name of the bucket this access point applies to.
+            name: The name of the access point.
+            network_origin: The network-level source of the traffic.
+            arn: The ARN of the access point.
+            policy: The policy applied to the access point.
+    """
     def __init__(self, bucket_name: str, name: str, network_origin: S3BucketAccessPointNetworkOrigin,
                  arn: str, region: str, account: str, policy: S3AccessPointPolicy = None):
         super().__init__(account, region, AwsServiceName.AWS_S3_ACCESS_POINT)

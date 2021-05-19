@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class ElasticSearchDomainPolicy(Policy):
-
+    """
+        Attributes:
+            domain_name: The name of the domain the policy is related to.
+            policy_statements: The statements contained in the policy.
+            raw_document: The raw JSON content of the policy.
+    """
     def __init__(self,
                  domain_name: str,
                  policy_statements: Optional[List[PolicyStatement]],

@@ -5,7 +5,11 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class RedshiftSubnetGroup(AwsResource):
-
+    """
+        Attributes:
+            name: The name of the subnet group.
+            subnet_ids: The IDs of the subnets included in the group.
+    """
     def __init__(self, name: str, subnet_ids: List[str], region: str, account: str):
         super().__init__(account, region, AwsServiceName.AWS_REDSHIFT_SUBNET_GROUP)
         self.name: str = name

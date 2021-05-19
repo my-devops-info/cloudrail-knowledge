@@ -6,7 +6,12 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class EfsPolicy(Policy):
-
+    """
+        Attributes:
+            efs_id: The ID of the EFS the policy is a part of.
+            policy_statements: The statements included in the policy.
+            raw_document: The JSON content of the policy.
+    """
     def __init__(self,
                  efs_id: str,
                  policy_statements: List[PolicyStatement],

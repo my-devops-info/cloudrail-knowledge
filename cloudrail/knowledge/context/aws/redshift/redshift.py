@@ -9,7 +9,16 @@ from cloudrail.knowledge.context.aws.networking_config.network_entity import Net
 
 
 class RedshiftCluster(NetworkEntity, INetworkConfiguration):
-
+    """
+        Attributes:
+            db_name: The name of the database.
+            cluster_identifier: The ID for the cluster.
+            port: The port used by the cluster.
+            subnet_group_name: The name of the subnet group used by the cluster.
+            security_groups: List of IDs of security groups used by the cluster.
+            assign_public_ip: True if to assign a public IP to the cluster.
+            encrypted: True if the cluster is set to be encrypted at rest.
+    """
     def __init__(self,
                  account: str,
                  region: str,

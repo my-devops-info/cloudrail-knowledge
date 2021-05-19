@@ -14,7 +14,13 @@ class RouteTableRawData:
 
 
 class RouteTable(AwsResource):
-
+    """
+        Attributes:
+            route_table_id: The ID of the routing table.
+            vpc_id: The VPC the RT belongs to.
+            name: The name of the RT.
+            routes: A list of routes in this table.
+    """
     def __init__(self,
                  route_table_id: str,
                  vpc_id: str,

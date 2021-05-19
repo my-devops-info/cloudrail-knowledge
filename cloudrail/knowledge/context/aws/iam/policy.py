@@ -15,6 +15,15 @@ class PolicyType(str, Enum):
 
 
 class Policy(AwsResource, Cloneable):
+    """
+        Attributes:
+            statements: The list of statements in the policy.
+            uuid: A randomly generated uuid for the policy (ignore, for internal use).
+            raw_document: The raw JSON of the policy.
+            access_analyzer_findings: The results from running IAM Access Analyzer's
+                policy validation API on this policy's JSON.
+            policy_type: The type of the policy (identity, resource, SCP).
+    """
     def __init__(self,
                  account: str,
                  statements: List[PolicyStatement],

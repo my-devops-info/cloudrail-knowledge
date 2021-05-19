@@ -8,7 +8,15 @@ from cloudrail.knowledge.utils.utils import hash_list
 
 
 class LambdaPolicyStatements(Policy):
-
+    """
+        Attributes:
+            function_name: The name of the Lambda Function the policy statements are for.
+            statements: The statements themselves.
+            qualifier: A Lambda Function may have a qualified set, this will be it
+                (or None).
+            lambda_func_arn: The ARN of the Lambda Funciton these policy statements
+                are for.
+    """
     def __init__(self, account: str, region: str, function_name: str,
                  statements: List[PolicyStatement], qualifier: str = None):
         super().__init__(account, statements, None, AwsServiceName.AWS_LAMBDA_PERMISSION)

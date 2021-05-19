@@ -8,6 +8,16 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class DmsReplicationInstance(NetworkEntity, INetworkConfiguration):
+    """
+        Attributes:
+            name: The name of the DMS replication instance.
+            arn: The ARN of the instance.
+            publicly_accessible: True if the DMS is set to be publicly accessible.
+            rep_instance_subnet_group_id: Replication instance subnet group ID.
+            subnet_ids: The actual subnets the DMS is connected to.
+            security_group_ids: The IDs of the security groups the DMS is using.
+            is_in_default_vpc: True if the DMS instance is in the default VPC.
+    """
     def __init__(self,
                  account: str,
                  region: str,

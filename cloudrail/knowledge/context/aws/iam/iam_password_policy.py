@@ -4,7 +4,23 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class IamPasswordPolicy(AwsResource):
-
+    """
+        Attributes:
+            min_pass_length: The minimum length required for passwords.
+            require_low_case_characters: True if lower cases characters are required
+                according to the policy.
+            require_upper_case_characters: True if upper cases characters are required
+                according to the policy.
+            require_numbers: True if number characters are required
+                according to the policy.
+            require_symbols: True if symbol characters are required
+                according to the policy.
+            allow_users_to_change_pass: True if users can change their password.
+            max_pass_age: The maximum age of a password before it needs to be
+                replaced.
+            password_reuse_prevention: Number of passwords kept in history that cannot
+                be repeated.
+    """
     def __init__(self,
                  min_pass_length: int,
                  require_low_case_characters: bool,

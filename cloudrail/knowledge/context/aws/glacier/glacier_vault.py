@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class GlacierVault(AwsResource):
-
+    """
+        Attributes:
+            vault_name: The name of the vualt.
+            arn: The ARN of the vault.
+            policy: The resource policy used by the vault.
+    """
     def __init__(self,
                  vault_name: str,
                  arn: str,

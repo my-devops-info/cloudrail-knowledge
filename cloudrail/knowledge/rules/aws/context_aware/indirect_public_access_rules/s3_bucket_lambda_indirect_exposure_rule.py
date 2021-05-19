@@ -36,7 +36,9 @@ class S3BucketLambdaIndirectExposureRule(AwsBaseRule):
         return issues
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
-        return bool(environment_context.s3_buckets and environment_context.lambda_function_list)
+        return bool(environment_context.s3_buckets
+                    and environment_context.lambda_function_list
+                    and environment_context.api_gateway_methods)
 
     @staticmethod
     def _allows_access_to_buckets(results: PolicyEvaluation, policies: List[Policy]):

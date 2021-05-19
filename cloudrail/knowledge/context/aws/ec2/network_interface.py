@@ -7,6 +7,28 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class NetworkInterface(ConnectionInstance, AwsResource):
+    """
+        Represents a network interface that can be assigned to a specific
+        network-bound resource. Sometimes NetworkInterfaces may be auto-generated
+        by Cloudrail to provide more data in the context.
+
+        Attributes:
+            eni_id: The ID of the elastic network interface.
+            subnet_id: The ID of the subnet it's attached to.
+            subnet: The actual Subnet object if found.
+            primary_ip_address: The primary IP address attached to the interface.
+            secondary_ip_addresses: List of secondary IP addresses attached to the
+                interface, if any exist.
+            public_ip_address: The public IP address of the interface, if it has one.
+            ipv6_ip_addresses: The IPv6 addresses of the interface, if they are configured.
+            security_groups_ids: The security groups attached to the interface
+            security_groups: The actual SGs the interface uses.
+            description: The description set for the interface, if any.
+            is_primary: True if it's the primary interface for the resource it
+                is attached to.
+            availability_zone: The AZ this interface is in.
+            owner: The resource that owns this interface.
+    """
     def __init__(self,
                  eni_id: str,
                  subnet_id: str,

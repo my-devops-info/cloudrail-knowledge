@@ -6,7 +6,13 @@ from cloudrail.knowledge.context.aws.networking_config.network_resource import N
 
 
 class NetworkEntity(AwsResource):
+    """
+        This class is the parent of all resources that have a network connection.
 
+        Attributes:
+            name: Name of the network entity.
+            network_resource: Networking information of the entity.
+    """
     def __init__(self, name: str, account: str, region: str, tf_resource_type: AwsServiceName,
                  aws_service_attributes: AwsServiceAttributes = None) -> None:
         super().__init__(account, region, tf_resource_type, aws_service_attributes)

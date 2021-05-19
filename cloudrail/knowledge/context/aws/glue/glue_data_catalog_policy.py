@@ -4,7 +4,11 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class GlueDataCatalogPolicy(Policy):
-
+    """
+        Attributes:
+            policy_statements: The policy's statements.
+            raw_document: The raw JSON of the policy.
+    """
     def __init__(self,
                  policy_statements: Optional[List[PolicyStatement]],
                  raw_document: str,

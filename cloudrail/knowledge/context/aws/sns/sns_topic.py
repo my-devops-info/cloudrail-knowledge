@@ -6,7 +6,14 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class SnsTopic(AwsResource):
-
+    """
+        Attributes:
+            sns_arn: The ARN of this topic.
+            sns_name: The name of this SNS topic.
+            encrypted_at_rest: True if the topic is set to be encrypted at rest.
+            kms_key: The ID of the KMS Key used to encrypt the topic, if any is used.
+            kms_data: A reference to KmsKey based on the kms_key provided.
+    """
     def __init__(self,
                  sns_arn: str,
                  sns_name: str,

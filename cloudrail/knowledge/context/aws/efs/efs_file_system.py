@@ -5,7 +5,15 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class ElasticFileSystem(AwsResource):
-
+    """
+        Attributes:
+            creation_token: When an EFS is being created, this is used to ensure
+                only one EFS is created.
+            efs_id: The ID of the EFS.
+            arn: The ARN of the EFS.
+            encrypted: True if the EFS is encrypted.
+            policy: The EFS's resource policy, may be None.
+    """
     def __init__(self,
                  creation_token: str,
                  efs_id: str,

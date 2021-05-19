@@ -9,7 +9,23 @@ from cloudrail.knowledge.context.aws.networking_config.network_entity import Net
 
 
 class ElasticSearchDomain(NetworkEntity, INetworkConfiguration):
-
+    """
+        Attributes:
+            domain_id: The ID of the ElasticSearch Domain.
+            domain_name: The name of the domain.
+            arn: The ARN of the domain.
+            enforce_https: True if only HTTPS is allowed.
+            subnet_ids: The IDs of the subnets the domain is attached to, if any.
+            security_group_ids: The IDs of the security groups used with the ElasticSearch
+                Domain, if any.
+            encrypt_at_rest_state: True if encryption at rest is enabled.
+            encrypt_node_to_node_state: True if node-to-node traffic is encrypted.
+            is_public: True if the ElasticSearch Domain is public.
+            is_in_vpc: True if the ElasticSearch Domain is accessible at a specific
+                VPC.
+            ports: The ports the ElasticSearch is listening on.
+            policy: The resource policy used with the domain.
+    """
     def __init__(self,
                  domain_id: str,
                  domain_name: str,

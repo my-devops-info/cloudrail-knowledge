@@ -6,7 +6,15 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class CloudWatchEventTarget(AwsResource):
-
+    """
+        Attributes:
+            name: The name of the CloudWatch Event Target.
+            rule_name: The name of the rule used with the target.
+            target_id: The ID of this traget.
+            role_arn: The ARN of the role used to send the events, may be None.
+            cluster_arn: If an ECS cluster is targeted, this is the ARN of the ECS cluster.
+            ecs_target_list: If an ECS cluster is targeted, lists the ECS targets.
+    """
     def __init__(self,
                  account: str,
                  region: str,

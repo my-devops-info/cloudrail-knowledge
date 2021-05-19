@@ -6,7 +6,13 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class TransitGateway(AwsResource):
-
+    """
+        Attributes:
+            name: The name of the Transit Gateway.
+            tgw_id: The Transit Gateway's ID.
+            state: The state of the TGW, one of available | deleted | deleting | modifying | pending.
+            route_tables: The routing tables connected to this transit gateway.
+    """
     def __init__(self, name: str, tgw_id: str, state: str, region: str, account: str):
         super().__init__(account, region, AwsServiceName.AWS_TRANSIT_GATEWAY)
         self.name: str = name

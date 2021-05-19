@@ -5,7 +5,11 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class ElastiCacheSubnetGroup(AwsResource):
-
+    """
+        Attributes:
+            subnet_group_name: The name of the subnet group.
+            subnet_ids: The IDs of the subnets included in this group.
+    """
     def __init__(self,
                  account: str,
                  region: str,

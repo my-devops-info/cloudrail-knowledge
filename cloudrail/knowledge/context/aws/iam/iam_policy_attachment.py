@@ -5,7 +5,17 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class IamPolicyAttachment(AwsResource):
+    """
+        Attributes:
+            policy_arn: The ARN of the policy to attach.
+            users: The list of users to attach the policy to, may be empty
+                or None.
+            roles: The list of roles to attach the policy to, may be empty
+                or None.
+            groups: The list of groups to attach the policy to, may be empty
+                or None.
 
+    """
     def __init__(self, account: str,
                  policy_arn: str,
                  attachment_name: str,

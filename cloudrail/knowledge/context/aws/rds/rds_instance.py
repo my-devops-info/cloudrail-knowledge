@@ -10,6 +10,25 @@ from cloudrail.knowledge.context.aws.networking_config.network_entity import Net
 
 
 class RdsInstance(NetworkEntity, INetworkConfiguration):
+    """
+        Attributes:
+            name: The name of the instance.
+            arn: The ARN of the instance.
+            port: The port the instance is listening on.
+            publicly_accessible: True if the database is configured to have
+                a public IP address.
+            db_subnet_group_name: The name of the SB subnet group.
+            security_group_ids: The IDs of the security groups in use
+                with the instance.
+            db_cluster_id: The cluster ID, if this instance is part of a cluster,
+                or None otherwise.
+            encrypted_at_rest: True is encryption at rest is enabled.
+            performance_insights_enabled: True if performance insights is enabled.
+            performance_insights_kms_key: The ARN of the KMS Key used to encrypt
+                the performance insights, if any is used.
+            performance_insights_kms_data: The actual KMS Key object, if a KMS key
+                is used to encrypt performance insights.
+    """
     def __init__(self,
                  account: str,
                  region: str,

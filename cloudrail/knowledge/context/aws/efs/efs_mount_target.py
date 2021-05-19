@@ -13,7 +13,14 @@ class MountTargetSecurityGroups:
 
 
 class EfsMountTarget(NetworkEntity):
-
+    """
+        Attributes:
+            efs_id: The ID of the EFS the mount target belongs to.
+            mount_target_id: The ID of the mount target.
+            eni_id: The ID of the elastic network interface the target is using.
+            subnet_id: The ID of the subnet the EFS Mount Target is on.
+            security_groups_ids: The security groups protecting the target.
+    """
     def __init__(self,
                  account: str,
                  region: str,

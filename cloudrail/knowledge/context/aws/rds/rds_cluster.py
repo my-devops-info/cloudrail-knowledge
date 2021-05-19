@@ -8,6 +8,18 @@ from cloudrail.knowledge.context.aws.rds.rds_instance import RdsInstance
 
 
 class RdsCluster(ConnectionInstance, AwsResource):
+    """
+        Attributes:
+            cluster_id: The ID of the cluster.
+            arn: The ARN of the RDS cluster.
+            port: The port the cluster is configured to listen to.
+            db_subnet_group_name: The name of DB subnet group used.
+            security_group_ids: The IDs of the security groups used by this
+                database.
+            is_in_default_vpc: True if the RDS is in the default VPC.
+            encrypted_at_rest: True if the database is configured to be encrypted
+                at rest.
+    """
     def __init__(self,
                  account: str,
                  region: str,
