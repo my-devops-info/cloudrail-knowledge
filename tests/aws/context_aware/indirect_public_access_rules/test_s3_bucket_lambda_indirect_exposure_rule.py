@@ -1,4 +1,3 @@
-
 # import unittest
 #
 # from cloudrail.knowledge.context.environment_context import EnvironmentContext
