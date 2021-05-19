@@ -28,8 +28,11 @@ class ElasticIp(AwsResource):
         return '{0}vpc/home?region={1}#Addresses:public-ip={2}'\
             .format(self.AWS_CONSOLE_URL, self.region, self.public_ip)
 
-    def get_arn(self) -> str:
-        pass
+    def get_arn(self) -> Optional[str]:
+        if self.account:
+            return f'arn:aws:ec2:us-east-1:{self.account}:elastic-ip/{self.allocation_id}'
+        else:
+            return None
 
     @property
     def is_tagable(self) -> bool:
