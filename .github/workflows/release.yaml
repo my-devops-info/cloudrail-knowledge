@@ -21,6 +21,8 @@ jobs:
     - name: Save version into env var
       run: echo "RELEASE_VERSION=${{steps.get_new_tag.outputs.new_tag}}" >> $GITHUB_ENV
     - name: Update version.py
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT_CLOUDRAIL_KNOWLEDGE }}
       run: |
         version_file="cloudrail/version.py"
         git config --local user.email "action@github.com"
