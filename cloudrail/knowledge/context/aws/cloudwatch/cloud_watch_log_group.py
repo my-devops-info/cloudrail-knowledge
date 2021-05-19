@@ -6,7 +6,15 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class CloudWatchLogGroup(AwsResource):
-
+    """
+        Attributes:
+            name: The name of the CloudWatch Log Group.
+            kms_encryption: KMS key ID is used, or None if not.
+            kms_data: A pointer to the actual KMS key, if used.
+            arn: The ARN of the Log Group.
+            retention_in_days: If configured, this is the retention of the log
+                data in days. May be None.
+    """
     def __init__(self,
                  name: str,
                  kms_encryption: str,

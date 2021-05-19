@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class DbSubnetGroup(AwsResource):
-
+    """
+        Attributes:
+            name: The name of the subnet group.
+            subnet_ids: The IDs of the subnets in the group.
+            db_subnet_group_arn: The ARN of the subnet group.
+    """
     def __init__(self, name: str, subnet_ids: List[str], region: str, account: str, db_subnet_group_arn: str):
         super().__init__(account, region, AwsServiceName.AWS_DB_SUBNET_GROUP)
         self.name: str = name

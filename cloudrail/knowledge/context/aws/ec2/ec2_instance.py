@@ -27,6 +27,9 @@ class AssociatePublicIpAddress(Enum):
 
 @dataclass
 class Ec2RawData:
+    """
+        Internal implementation detail, ignore.
+    """
     subnet_id: Optional[str] = None
     private_ip_address: Optional[str] = None  # Why is this singular?
     public_ip_address: Optional[str] = None
@@ -36,7 +39,20 @@ class Ec2RawData:
 
 
 class Ec2Instance(NetworkEntity, AwsClient):
-
+    """
+        Attributes:
+            instance_id: The ID of the instance.
+            name: The name of the EC2 instance, if set.
+            network_interfaces_ids: The network interfaces attached to the
+                intance.
+            state: The state of the instance.
+            image_id: The ID of the AMI used for EC2.
+            image_data: A pointer to the Ec2Image if found.
+            iam_profile_arn: The IAM profile assigned to this image, if one is assigned.
+            iam_profile_id: The ID of the IAM profile.
+            http_tokens: The HTTP tokens setting - optional or required.
+            availability_zone: The availability zone the EC2 is in, if configured.
+    """
     def __init__(self,
                  account: str,
                  region: str,

@@ -8,7 +8,22 @@ from cloudrail.knowledge.context.aws.iam.iam_identity import IamIdentity
 
 
 class Role(IamIdentity):
-
+    """
+        Attributes:
+            role_name: THe name of the role.
+            instance_profile_ids: The IDs of the instance profiles the role
+                is used in.
+            role_id: The role's ID.
+            permission_boundary_arn: The ARN of the permission boundary if one
+                applies (may be None).
+            creation_date: The date of creation of the role.
+            arn: The ARN of the role.
+            assume_role_policy: The assume role policy.
+            policy_evaluation_result_map: A caching of the policy evaluation
+                for the role.
+            last_used_date: Last date the role was used (comes from an API call
+                made to the AWS IAM API).
+    """
     def __init__(self, account: str,
                  qualified_arn: str,
                  role_name: str,

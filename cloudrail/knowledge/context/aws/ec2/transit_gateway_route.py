@@ -17,7 +17,16 @@ class TransitGatewayRouteType(Enum):
 
 
 class TransitGatewayRoute(AwsResource):
-
+    """
+        Attributes:
+            destination_cidr_block: The destination CIDR block the route
+                is targeting.
+            state: The state of the route (active or blackhole).
+            route_type: The type of the route (static or propagated).
+            attachment_ids: The IDs of the attachment to the transit gateway.
+            route_table_id: The routing table the route belongs to.
+            vpc_attachment: The attachment of the transit gateway to a VPC.
+    """
     def __init__(self,
                  destination_cidr_block: str,
                  state: TransitGatewayRouteState,

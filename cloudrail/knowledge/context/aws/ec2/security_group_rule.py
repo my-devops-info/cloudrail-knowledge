@@ -21,7 +21,22 @@ class ConnectionType(Enum):
 
 
 class SecurityGroupRule(AwsResource):
-
+    """
+        Attributes:
+            from_port: The bottom part of the port range the rule applies to.
+            to_port: The top part of te port range the rule applies to.
+            ip_protocol: The IP protocol used in the rule.
+            property_type: The type of the rule, depending if it's targeting an IP
+                destination, another security gruop, or a prefix list.
+            property_value:
+                If the type is SECURITY_GROUP_ID, then this is the GroupId.
+                If the type is IP_RANGES, then this is the CIDR block.
+                If the type is PREFIX_LIST_ID, then this is the Prefix List ID.
+            has_description: True if the rule has a description set that is not
+                a canned one (like "Managed by Terraform").
+            connection_type: The type of the rule - inbound or outbound.
+            security_group_id: The SG the rule belongs to.
+    """
     def __init__(self, from_port: int, to_port: int, ip_protocol: str, property_type: SecurityGroupRulePropertyType,
                  property_value: str, has_description: bool, connection_type: ConnectionType,
                  security_group_id: str, region: str, account: str):

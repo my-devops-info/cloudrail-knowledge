@@ -4,7 +4,11 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class Ec2Image(AwsResource):
-
+    """
+        Attributes:
+            image_id: The ID of the EC2 image (AMI ID).
+            is_public: True if the image is publicly shared.
+    """
     def __init__(self,
                  image_id: str,
                  is_public: bool,

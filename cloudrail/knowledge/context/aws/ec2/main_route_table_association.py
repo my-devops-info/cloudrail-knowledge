@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class MainRouteTableAssociation(AwsResource):
-
+    """
+        Attributes:
+            vpc_id: The VPC the route table is the main one for.
+            route_table_id: The ID of the route table that is to be the
+                main one for the VPC.
+    """
     def __init__(self,
                  vpc_id: str,
                  route_table_id: str,

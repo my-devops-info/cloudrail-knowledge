@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class IamGroupMembership(AwsResource):
-
+    """
+        Attributes:
+            name: The name of the group membership.
+            group: The group the users belong to.
+            users: The list of users who are members of the designated group.
+    """
     def __init__(self, account: str, name: str, group: str, users: List[str]):
         super().__init__(account=account, region=self.GLOBAL_REGION, tf_resource_type=AwsServiceName.AWS_IAM_GROUP_MEMBERSHIP)
         self.name: str = name

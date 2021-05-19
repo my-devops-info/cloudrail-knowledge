@@ -6,7 +6,12 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class IamInstanceProfile(AwsResource):
-
+    """
+        Attributes:
+            role_name: The name of the role.
+            iam_instance_profile_id: The ID of the instance profile.
+            ec2_instance_data: The Ec2Instance using this profile.
+    """
     def __init__(self, account: str, region: str, role_name: str, iam_instance_profile_id: str):
         super().__init__(account, region, AwsServiceName.AWS_IAM_INSTANCE_PROFILE)
         self.role_name: str = role_name

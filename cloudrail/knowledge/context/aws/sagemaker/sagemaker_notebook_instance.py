@@ -6,7 +6,15 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class SageMakerNotebookInstance(AwsResource):
-
+    """
+        Attributes:
+            name: The name of the notebook instance.
+            arn: The ARN of the notebook instance.
+            kms_key_id: The ID of the KMS Key used to encrypted the notebook instance,
+                if any is used.
+            kms_data: A pointer to the actual KMS key referenced by kms_key_id.
+            direct_internet_access: True if direct Internet access is enabled.
+    """
     def __init__(self,
                  name: str,
                  arn: str,

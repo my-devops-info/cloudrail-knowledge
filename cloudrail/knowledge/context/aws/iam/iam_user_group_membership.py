@@ -5,7 +5,11 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class IamUserGroupMembership(AwsResource):
-
+    """
+        Attributes:
+            user: The user the membership is focused on.
+            groups: The groups the user should be a member of.
+    """
     def __init__(self, account: str, user: str, groups: List[str]):
         super().__init__(account=account, region=self.GLOBAL_REGION,
                          tf_resource_type=AwsServiceName.AWS_IAM_USER_GROUP_MEMBERSHIP)

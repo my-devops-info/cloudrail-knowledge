@@ -6,7 +6,12 @@ from cloudrail.knowledge.context.aws.ec2.transit_gateway_resource_type import Tr
 
 
 class TransitGatewayRouteAttachment(AwsResource):
-
+    """
+        Attributes:
+            tgw_id: The Transit Gateway the route is to be attached to.
+            resource_type: The type of the resource attached to the TGW.
+            resource_id: The ID of the resource attached to the TGW.
+    """
     def __init__(self,
                  tgw_id: str,
                  resource_type: TransitGatewayResourceType,

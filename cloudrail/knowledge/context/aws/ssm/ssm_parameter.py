@@ -5,7 +5,13 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class SsmParameter(AwsResource):
-
+    """
+        Attributes:
+            name: The name of the SSM parameter.
+            ssm_type: The type of the SSM parameter.
+            kms_key_id: The ID of the KMS Key used to encrypt the parameter, if any is used.
+            kms_data: A reference to KmsKey based on the kms_key provided.
+    """
     def __init__(self,
                  name: str,
                  ssm_type: str,

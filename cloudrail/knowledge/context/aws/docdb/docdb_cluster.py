@@ -6,7 +6,15 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class DocumentDbCluster(AwsResource):
-
+    """
+        Attributes:
+            cluster_identifier: The ID of the DocDB cluster.
+            storage_encrypted: True if the storage is encrypted.
+            parameter_group_name: The name of the DB's paramaeter group.
+            kms_key_id: If KMS is used, this is the ID of the key.
+            kms_data: The actual KMS key in use, if one is used (or None).
+            cluster_arn: The ARN of the cluster.
+    """
     def __init__(self,
                  cluster_identifier: str,
                  storage_encrypted: bool,

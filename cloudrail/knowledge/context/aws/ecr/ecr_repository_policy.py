@@ -6,7 +6,12 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class EcrRepositoryPolicy(Policy):
-
+    """
+        Attributes:
+            repo_name: The repository the policy applies to.
+            policy_statements: The statements included in the policy.
+            raw_document: The raw JSON code of the policy.
+    """
     def __init__(self,
                  repo_name: str,
                  policy_statements: List[PolicyStatement],

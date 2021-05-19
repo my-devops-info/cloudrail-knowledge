@@ -6,7 +6,17 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class LoadBalancerTargetGroup(AwsResource):
-
+    """
+        Attributes:
+            port: The port the target group listens on.
+            protocol: The protocol the target group listens to.
+            vpc_id: The VPC the target group is in.
+            target_group_arn: The ARN of the target group.
+            target_group_name: The name of the target group.
+            target_type: The type of the target, types vary based on the type
+                of the load balancer itself.
+            targets: The targets within this group.
+    """
     def __init__(self,
                  port: int,
                  protocol: str,

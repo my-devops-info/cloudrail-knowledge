@@ -4,7 +4,12 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class DmsReplicationInstanceSubnetGroup(AwsResource):
-
+    """
+        Attributes:
+            rep_subnet_group_id: The ID of this subnet group.
+            subnet_ids: The IDs of the subnets contained in this group.
+            vpc_id: The ID of the VPC the subnets are in.
+    """
     def __init__(self,
                  account: str,
                  region: str,

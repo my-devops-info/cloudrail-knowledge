@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class XrayEncryption(AwsResource):
-
+    """
+        Attributes:
+            key_id: The ID of the KMS key used to encrypt X-Ray data, if any
+                is used.
+            kms_data: A reference to KmsKey based on the kms_id provided.
+    """
     def __init__(self,
                  key_id: Optional[str],
                  region: str,

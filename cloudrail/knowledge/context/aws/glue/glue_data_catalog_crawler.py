@@ -4,7 +4,12 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class GlueCrawler(AwsResource):
-
+    """
+        Attributes:
+            crawler_name: The name of the crawler.
+            database_name: The name of the database.
+            arn: The ARN of the crawler.
+    """
     def __init__(self,
                  crawler_name: str,
                  database_name: str,

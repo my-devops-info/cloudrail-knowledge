@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class EcrRepository(AwsResource):
-
+    """
+        Attributes:
+            repo_name: The name of the ECR repository.
+            arn: The ARN of the repository.
+            policy: The resource policy of the ECR.
+    """
     def __init__(self,
                  repo_name: str,
                  arn: str,

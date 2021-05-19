@@ -7,7 +7,17 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class DirectoryService(NetworkEntity):
-
+    """
+        Attributes:
+            name: The name of the Directory Service.
+            arn: The ARN of the service.
+            vpc_id: The VPC the Directory Service is deployed in.
+            directory_type: The directory's type.
+            vpc_config: The network configuration of the Directory Service.
+            security_group_controller: The Security Group used with this service,
+                may be Cloudrail-generated in case only the rules are defined and
+                no specific SG is configured.
+    """
     def __init__(self,
                  account: str,
                  region: str,

@@ -8,11 +8,25 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 @dataclass
 class PeeringVpcInfo:
+    """
+        Attributes:
+            vpc_id: The ID of the VPC (it may be requester or accepter,
+                depending on what side this is on).
+            cidr_blocks: The CIDR bblocks exposed by the VPC to the peer.
+    """
     vpc_id: str
     cidr_blocks: List[str]
 
 
 class PeeringConnection(AwsResource):
+    """
+        Attributes:
+            peering_id: The ID of the peering connection.
+            requester_vpc_info: The information of the VPC that initiated the peering.
+            accepter_vpc_info: The information of the VPC that received and accepted
+                the peering.
+            status: The status of the peering connection.
+    """
     def __init__(self,
                  peering_id: str,
                  accepter_vpc_info: PeeringVpcInfo,

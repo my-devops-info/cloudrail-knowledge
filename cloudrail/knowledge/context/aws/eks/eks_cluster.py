@@ -7,6 +7,22 @@ from cloudrail.knowledge.context.aws.networking_config.network_entity import Net
 
 
 class EksCluster(NetworkEntity, INetworkConfiguration):
+    """
+        Attributes:
+            name: The name of the EKS Cluster.
+            arn: The ARN of the EKS Cluster.
+            role_arn: The ARN of the role used with the cluster.
+            endpoint: The endpoint of the cluster.
+            security_group_ids: The IDs of the security groups used by nodes
+                in the cluster.
+            cluster_security_group_id: The id of the security group used with
+                the endpoint.
+            subnet_ids: The subnets the nodes are attached to.
+            endpoint_public_access: True if the endpoint allows public access.
+            endpoint_private_access: True if the endpoint allows private access.
+            public_access_cidrs: The CIDR blocks public access is allowed from.
+            port: The port the endpoint is listening on.
+    """
     def __init__(self,
                  name: str,
                  arn: str,

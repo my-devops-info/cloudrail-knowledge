@@ -7,6 +7,9 @@ The rules use a context model that is included in this repository. This document
 different aspects of the context model - how it's created, how it's used, and details of every class and attribute
 in the model.
 
+The code for all rules and context is located in the [cloudrail-knowledge](https://github.com/indeni/cloudrail-knowledge)
+repository.
+
 ## Prerequisites
 You are expected to be able to read and understand Python code. If you wish to submit contributions to this repository, 
 you will also need to know how to write Python code. However the code used to write rules is fairly basic in structure, 
@@ -112,6 +115,7 @@ simply open an issue in this repository and we'll get right to it.
 
 ## Further Reading:
 * [Details of the context model](context/README.md)
+* [How rules work and writing your own](rules/README.md)
 
 ## Some notes:
 #### Cloudrail only highlights IaC-backed resources by default

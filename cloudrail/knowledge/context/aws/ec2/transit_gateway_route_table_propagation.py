@@ -6,7 +6,12 @@ from cloudrail.knowledge.context.aws.ec2.transit_gateway_vpc_attachment import T
 
 
 class TransitGatewayRouteTablePropagation(AwsResource):
-
+    """
+        Attributes:
+            tgw_attachment_id: The TGW attachment ID.
+            tgw_route_table_id: The ID of the route table attached.
+            attachment: The actual attachment.
+    """
     def __init__(self, tgw_attachment_id: str, tgw_route_table_id: str, region: str, account: str):
         super().__init__(account, region, AwsServiceName.AWS_TRANSIT_GATEWAY_ROUTE_TABLE_PROPAGATION)
         self.tgw_attachment_id: str = tgw_attachment_id

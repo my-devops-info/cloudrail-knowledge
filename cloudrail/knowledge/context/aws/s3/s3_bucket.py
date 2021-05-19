@@ -12,7 +12,21 @@ from cloudrail.knowledge.context.aws.s3.s3_bucket_encryption import S3BucketEncr
 
 
 class S3Bucket(ConnectionInstance, ResourceBasedPolicy):
-
+    """
+        Attributes:
+            bucket_name: The name of the bucket.
+            arn: The ARN of the bucket.
+            resource_based_policy: the policy of this S3 bucket.
+            acls: The list of ACLs applied to this bucket.
+            public_access_block_settings: The public access block applied to this
+                bucket specifically, if any (or None).
+            access_points: The access points defined for this bucket.
+            encryption_data: The encryption configuration for this bucket.
+            bucket_objects: A list of objects in this bucket. NOTE: This is not
+                fetched from the live environment and will only include objects
+                that are defined in the infrastructure-as-code reviewed by Cloudrail.
+            versioning_data: Configuration of versioning on the bucket.
+    """
     def __init__(self, account: str, bucket_name: str, arn: str, region: str = None,
                  policy: S3Policy = None):
         ResourceBasedPolicy.__init__(self, account, region, AwsServiceName.AWS_S3_BUCKET,

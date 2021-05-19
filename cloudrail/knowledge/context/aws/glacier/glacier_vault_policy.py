@@ -6,7 +6,12 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class GlacierVaultPolicy(Policy):
-
+    """
+        Attributes:
+            vault_arn: The ARN of the vault the policy applies to.
+            policy_statements: The policy's statements.
+            raw_document: The raw JSON of the policy.
+    """
     def __init__(self,
                  vault_arn: str,
                  policy_statements: List[PolicyStatement],

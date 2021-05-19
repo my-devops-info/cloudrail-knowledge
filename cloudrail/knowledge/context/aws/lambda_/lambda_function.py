@@ -14,6 +14,18 @@ from cloudrail.knowledge.utils.arn_utils import are_arns_intersected, is_valid_a
 
 
 class LambdaFunction(NetworkEntity, ResourceBasedPolicy, AwsClient):
+    """
+        Attributes:
+            arn: The ARN of the function.
+            function_name: The name of the function.
+            lambda_func_version: The version of the function.
+            role_arn: The ARN of the role the Lambda Function is set to use.
+            handler: The function handler in the Lambda code.
+            runtime: The runtime used with the specific Lambda Function.
+            vpc_config: The VPC configuration of the Lambda Function, if one was set.
+            log_group: The matching log group associated with the Lambda Function.
+    """
+
     ARN_PARSER: ArnParser = ArnParser()
 
     def __init__(self, account: str, region: str, arn: str, function_name: str,

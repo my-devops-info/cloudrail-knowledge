@@ -5,7 +5,17 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class S3BucketObject(AwsResource):
+    """
+        NOTE: Cloudrail does not map objects in the live environment. Instead.
+        only onjects specifically defined in infrastructure-as-code will be
+        included as part of the context.
 
+        Attributes:
+            bucket_name: The bucket the object is in.
+            key: The ARN of the key used to encrypt the object, if any.
+            encrypted: True if the object is encrypted.
+            owning_bucket: A pointer to the owning bucket.
+    """
     def __init__(self,
                  bucket_name: str,
                  key: str,

@@ -8,6 +8,13 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 @dataclass
 class OriginConfig:
+    """
+        Attributes:
+            domain_name: The domain name for the origin.
+            origin_id: The ID of the origin.
+            oai_path: An optional path that CloudFront appends to the origin domain name when CloudFront requests content from the origin.
+            origin_access_identity_list: List of OriginAccessIdentity configurations.
+    """
     domain_name: str
     origin_id: str
     oai_path: str
@@ -16,12 +23,29 @@ class OriginConfig:
 
 @dataclass
 class ViewerCertificate:
+    """
+        Attributes:
+            cloudfront_default_certificate: Is this the default certificate.
+            minimum_protocol_version: One of SSLv3 | TLSv1 | TLSv1_2016 | TLSv1.1_2016 | TLSv1.2_2018 | TLSv1.2_2019.
+    """
     cloudfront_default_certificate: bool
     minimum_protocol_version: str
 
 
 @dataclass
 class CacheBehavior:
+    """
+        Attributes:
+            allowed_methods: The list of HTTP methods allowed.
+            cached_methods: The list of HTTP methods whose responses are cached.
+            target_origin_id: The origin this cache is targeting.
+            viewer_protocol_policy: One of allow-all, redirect-to-https, https-only.
+            precedence: The order of the cache behavior.
+            path_partern: The URL pattern to match.
+            trusted_signers: A list of AWS account IDs whose public keys CloudFront can use to validate signed URLs or signed cookies.
+            field_level_encryption_id: The value of ID for the field-level encryption
+                configuration to use, may be None.
+    """
     allowed_methods: List[str]
     cached_methods: List[str]
     target_origin_id: str
@@ -33,7 +57,15 @@ class CacheBehavior:
 
 
 class CloudFrontDistribution(AwsResource, ConnectionInstance):
-
+    """
+        Attributes:
+            arn: The ARN of the CloudFront Distribution.
+            name: The name of the distribution.
+            distribution_id: The ID of the distribution.
+            viewer_cert: An object of type ViewerCertificate representing the viewer certificate
+                 used with this distribution.
+            origin_config_list: A list of OriginConfig, the order is not guaranteed.
+    """
     def __init__(self,
                  arn: str,
                  name: str,
@@ -82,12 +114,23 @@ class CloudFrontDistribution(AwsResource, ConnectionInstance):
         return True
 
     def get_default_behavior(self) -> Optional[CacheBehavior]:
+        """
+            Returns:
+                the default cache behavior.
+        """
         for cache in self._cache_behavior_list:
             if cache.path_pattern == "*":
                 return cache
         return None
 
     def get_ordered_behavior_list(self) -> List[CacheBehavior]:
+        """
+            Returns:
+                A list of CacheBehavior, if caching is configured. The order
+                    of the list is - first the default cache behavior, and then the specific
+                    cache behaviors by their defined order.
+
+        """
         return [cache for cache in self._cache_behavior_list if cache.path_pattern != "*"]
 
     def get_all_cache_behaviors(self):
