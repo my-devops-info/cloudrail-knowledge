@@ -15,11 +15,13 @@ class AzureEnvironmentContext(BaseEnvironmentContext):
                  checkov_results: Dict[str, List[CheckovResult]] = None,
                  resource_groups: AliasesDict[AzureResourceGroup] = None,
                  sql_servers: AliasesDict[AzureSqlServer] = None,
-                 net_security_groups: AliasesDict[AzureNetworkSecurityGroup] = None,
+                 #net_security_groups: AliasesDict[AzureNetworkSecurityGroup] = None,
+                 net_security_groups: List[AzureNetworkSecurityGroup] = None,
                  app_services: AliasesDict[AzureAppService] = None):
         BaseEnvironmentContext.__init__(self)
         self.checkov_results: Dict[str, List[CheckovResult]] = checkov_results or {}
         self.resource_groups: AliasesDict[AzureResourceGroup] = resource_groups or AliasesDict()
         self.sql_servers: AliasesDict[AzureSqlServer] = sql_servers or AliasesDict()
-        self.net_security_groups = AliasesDict[AzureNetworkSecurityGroup] = net_security_groups or AliasesDict()
+        #self.net_security_groups = AliasesDict[AzureNetworkSecurityGroup] = net_security_groups or AliasesDict()
+        self.net_security_groups = net_security_groups or []
         self.app_services: AliasesDict[AzureAppService] = app_services or AliasesDict()

@@ -6,7 +6,7 @@ from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class UnusedNetworkSecurityGroupRuleAz(AzureBaseRule):
+class UnusedNetworkSecurityGroupRule(AzureBaseRule):
 
     def get_id(self) -> str:
         return 'non_car_unused_network_security_group'
