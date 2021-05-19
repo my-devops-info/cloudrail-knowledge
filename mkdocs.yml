@@ -5,6 +5,7 @@ nav:
   - Context:
     - 'Cloudrail''s Context Model': 'context/README.md'
     - 'AWS Context':
+      - 'account': 'context/aws/account/README.md'
       - 'apigateway': 'context/aws/apigateway/README.md'
       - 'athena': 'context/aws/athena/README.md'
       - 'autoscaling': 'context/aws/autoscaling/README.md'
