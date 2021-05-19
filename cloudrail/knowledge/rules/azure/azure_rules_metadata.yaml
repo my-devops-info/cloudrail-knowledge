@@ -842,6 +842,7 @@ rules_metadata:
       - database
 
   - rule_id: non_car_unused_network_security_group
+    cloud_provider: azure
     name: Ensure no unused Network Security Group exists in the subscription
     severity: medium
     description:
