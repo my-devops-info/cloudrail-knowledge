@@ -5,7 +5,15 @@ from cloudrail.knowledge.context.aws.networking_config.network_entity import Net
 
 
 class NatGateways(NetworkEntity):
-
+    """
+        Attributes:
+            nat_gateway_id: The ID of this NAT gateway.
+            allocation_id: The allocation ID used with this NAT gateway.
+            subnet_id: The subnet the NAT is tired to.
+            eni_id: The elastic network interface the NAT gateway is tied to.
+            private_ip: The private IP of the NAT gateway.
+            public_ip: The public IP of the NAT gateway.
+    """
     def __init__(self, nat_gateway_id: str, allocation_id: str, subnet_id: str, eni_id: str,
                  private_ip: str, public_ip: str, account: str, region: str):
         super().__init__(nat_gateway_id, account, region, AwsServiceName.AWS_NAT_GATEWAY)

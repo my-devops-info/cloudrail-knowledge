@@ -8,7 +8,15 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class WorkspaceDirectory(NetworkEntity):
-
+    """
+        Attributes:
+            directory_id: The ID of the Workspace Directory.
+            subnet_ids: A list of IDs of subnets used by the directory, if any.
+            security_group_ids: A list of IDs of security groups used by the directory.
+            workspace_security_groups: The actual security groups referenced by the IDs
+                in security_group_ids.
+            cloud_directory: A reference to the DirectoryService this Workspace connects to.
+    """
     def __init__(self,
                  account: str,
                  region: str,

@@ -9,7 +9,17 @@ from cloudrail.knowledge.utils.utils import get_overlap_cidr
 
 
 class SecurityGroup(AwsResource):
-
+    """
+        Attributes:
+            security_group_id: The ID of the security group.
+            name: The name of the security group.
+            vpc_id: The VPC the SG belongs to.
+            inbound_permissions: The inbound rules included in the security group.
+            outbound_permissions: The outbound rules included in the security group.
+            is_default: True if this is the default SG in the VPC.
+            has_description: True if this SG has a description configured that is not
+                one of the pre-canned ones (like "Managed by Terraform").
+    """
     def __init__(self, security_group_id: str, region: str, account: str,
                  name: str, vpc_id: str, is_default: bool, has_description: bool):
         super().__init__(account, region, AwsServiceName.AWS_SECURITY_GROUP)
@@ -43,6 +53,9 @@ class SecurityGroup(AwsResource):
 
     @staticmethod
     def get_rule_matches(sg_rules1: List[SecurityGroupRule], sg_rules2: List[SecurityGroupRule]) -> List[SecurityGroupRule]:
+        """
+            Finds the overlapping rules (rules from one SG that match the other).
+        """
         rules: List[SecurityGroupRule] = []
         for rule1 in sg_rules1:
             for rule2 in sg_rules2:

@@ -4,7 +4,11 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class IamGroup(IamIdentity):
-
+    """
+        Attributes:
+            name: The name of the IAM Group.
+            group_id: The ID of the group.
+    """
     def __init__(self, account: str, name: str, group_id: str, qualified_arn: str, arn: str = None):
         super().__init__(account, qualified_arn, arn, AwsServiceName.AWS_IAM_GROUP)
         self.name: str = name
@@ -12,6 +16,9 @@ class IamGroup(IamIdentity):
 
     def get_keys(self) -> List[str]:
         return [self.group_id]
+
+    def get_name(self) -> str:
+        return self.name
 
     def get_extra_data(self) -> str:
         policies = 'policies: {}'.format(self.permissions_policies) if self.permissions_policies else ''

@@ -9,11 +9,19 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 @dataclass
 class DocDbClusterParameterGroupRawData:
+    """
+        An internal raw class, you may ignore this.
+    """
     source_id: Optional[str] = None
 
 
 class DocDbClusterParameterGroup(AwsResource):
-
+    """
+        Attributes:
+            group_name: The name of the group.
+            parameters: The parameters in the group.
+            group_arn: The ARN of the group.
+    """
     def __init__(self,
                  parameters: List[DocDbClusterParameter],
                  group_name: str,

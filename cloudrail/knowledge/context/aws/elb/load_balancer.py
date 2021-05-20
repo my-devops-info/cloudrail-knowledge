@@ -34,7 +34,15 @@ class LoadBalancerRawData:
 
 
 class LoadBalancer(NetworkEntity):
-
+    """
+        Attributes:
+            name: The name of the load balancer.
+            scheme_type: The scheme type (internal or internet-facing).
+            load_balancer_type: The type of the load balancer (network or application).
+            load_balancer_arn: The ARN of the load balancer.
+            target_groups: The target groups associated with this LB.
+            listener_ports: The ports the listeners associated with this LB are configured to.
+    """
     def __init__(self, account: str, region: str, name: str, scheme_type: LoadBalancerSchemeType,
                  load_balancer_type: LoadBalancerType, load_balancer_arn: str):
         super().__init__(name, account, region, AwsServiceName.AWS_LOAD_BALANCER)

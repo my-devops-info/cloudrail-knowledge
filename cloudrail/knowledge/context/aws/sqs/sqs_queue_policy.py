@@ -5,6 +5,12 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class SqsQueuePolicy(Policy):
+    """
+        Attributes:
+            queue_name: The name of the queue.
+            policy_statements: The statements of the policy.
+            raw_document: The raw JSON of the policy.
+    """
     def __init__(self,
                  queue_name: str,
                  policy_statements: List[PolicyStatement],

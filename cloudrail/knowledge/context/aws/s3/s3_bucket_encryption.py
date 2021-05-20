@@ -5,7 +5,11 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class S3BucketEncryption(AwsResource):
-
+    """
+        Attributes:
+            bucket_name: The bucket the encryption settings apply to.
+            encrypted: True if encryption is enabled.
+    """
     def __init__(self,
                  bucket_name: str,
                  encrypted: bool,

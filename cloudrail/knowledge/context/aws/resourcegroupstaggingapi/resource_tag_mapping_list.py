@@ -4,7 +4,14 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class ResourceTagMappingList(AwsResource):
+    """
+        This object contains the tags associated with a resource when tags
+        are managed by the resource-group tag-editor feature in AWS.
 
+        Attributes:
+            resource_arn: The ARN of the resource whose tag mapping this
+                object focuses on.
+    """
     def __init__(self,
                  resource_arn: str,
                  region: str,

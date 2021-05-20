@@ -5,7 +5,13 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class LoadBalancerTargetGroupAssociation(AwsResource):
-
+    """
+        Attributes:
+            target_group_arns: The ARNs of the target groups being associated.
+            load_balancer_arn: The ARN of the load balancer the groups are being
+                associated to.
+            port: The port of the target groups.
+    """
     def __init__(self, target_group_arns: List[str], load_balancer_arn: str, port: int, account: str, region: str):
         super().__init__(account, region, AwsServiceName.AWS_LOAD_BALANCER_LISTENER)
         self.target_group_arns: List[str] = target_group_arns

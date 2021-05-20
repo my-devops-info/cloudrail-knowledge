@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class PolicyGroupAttachment(AwsResource):
-
+    """
+        Attributes:
+            policy_arn: The policy to attach to the group.
+            group_id: The ID of the group to attach the policy to.
+            group_name: The name of the group to attach the policy to.
+    """
     def __init__(self, account: str, policy_arn: str, group_id: str, group_name: str):
         super().__init__(account=account, region=self.GLOBAL_REGION, tf_resource_type=AwsServiceName.AWS_IAM_GROUP_POLICY_ATTACHMENT)
         self.policy_arn: str = policy_arn

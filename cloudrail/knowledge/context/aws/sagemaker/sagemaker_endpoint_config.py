@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class SageMakerEndpointConfig(AwsResource):
-
+    """
+        Attributes:
+            sagemaker_endpoint_config_name: The name of the endpoint config.
+            arn: The ARN of the SageMaker Endpoint Config.
+            encrypted: True if encryption is enabled.
+    """
     def __init__(self,
                  sagemaker_endpoint_config_name: str,
                  arn: str,

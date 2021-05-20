@@ -5,7 +5,12 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class KmsKeyPolicy(Policy):
-
+    """
+        Attributes:
+            key_id: The ID of the key.
+            policy_statements: The statements of the policy.
+            raw_document: The raw JSON of the policy.
+    """
     def __init__(self,
                  key_id: str,
                  policy_statements: Optional[List[PolicyStatement]],

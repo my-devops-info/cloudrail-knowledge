@@ -8,7 +8,22 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class NeptuneCluster(ConnectionInstance, AwsResource):
-
+    """
+        Attributes:
+            cluster_identifier: The identifier of the cluster.
+            arn: The ARN of the cluster.
+            encrypted_at_rest: True if the cluster is configured to be encrypted
+                at rest.
+            port: The port the cluster is listening to.
+            db_subnet_group_name: The subnet group's name.
+            security_group_ids: The IDs of the securiry groups used by the cluster,
+                if any.
+            cluster_id: The ID of the cluster.
+            kms_key: The KMS key used for encryption, if any.
+            kms_data: A pointer to the KMS key, if one is used.
+            is_in_default_vpc: True if the cluster is in the default VPC.
+            cluster_instances: The instances of the cluster.
+    """
     def __init__(self,
                  cluster_identifier: str,
                  arn: str,

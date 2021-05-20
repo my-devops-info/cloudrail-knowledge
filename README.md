@@ -15,8 +15,8 @@ evaluate against. You can use this repository for a few purposes:
 3. Build your own custom rules using the same context model existing rules use (for examples see 
    [cloudrail-sample-custom-rules](https://github.com/indeni/cloudrail-sample-custom-rules))
    
-Want to understand how Cloudrail's knowledge works? Jump over to the [Overview](/docs/README.md) in our 
-documentation.
+Want to understand how Cloudrail's knowledge works? Our documentation is available at 
+[https://knowledge.docs.cloudrail.app/](https://knowledge.docs.cloudrail.app/).
 
 ## Contributing
 We welcome all contributions. Simply open an issue and a PR with your additions or changes. Some requirements:

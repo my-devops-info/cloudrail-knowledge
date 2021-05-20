@@ -6,7 +6,12 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class InternetGateway(AwsResource):
-
+    """
+        Attributes:
+            vpc_id: The ID of the VPC the IGW belongs to.
+            igw_id: The ID of the IGW.
+            igw_type: The type of the IGW.
+    """
     def __init__(self, account: str, region: str, vpc_id: str, igw_id: str, igw_type: IgwType,
                  tf_resource_type: AwsServiceName = AwsServiceName.AWS_INTERNET_GATEWAY):
         super().__init__(account, region, tf_resource_type)

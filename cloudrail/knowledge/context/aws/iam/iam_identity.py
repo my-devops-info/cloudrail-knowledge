@@ -9,7 +9,17 @@ from cloudrail.knowledge.context.cloneable import Cloneable
 
 
 class IamIdentity(AwsResource, ConnectionInstance, Cloneable):
-
+    """
+        Attributes:
+            qualified_arn: A Cloudrail-caculated ARN for the role that ensures
+                it's the same whether the role came from infrastructure-as-code
+                (such as Terraform) or the live AWS environment.
+            arn: The ARN of the IAM identity.
+            permissions_policies: One or more policies used to give the IAM entity
+                permissions to take certain actions.
+            permission_boundary: The permission boundary limiting the IAM entity's
+                permissions.
+    """
     def __init__(self, account: str, qualified_arn: str, arn: str, tf_resource_type: AwsServiceName):
         AwsResource.__init__(self, account=account, region=self.GLOBAL_REGION, tf_resource_type=tf_resource_type)
         ConnectionInstance.__init__(self)

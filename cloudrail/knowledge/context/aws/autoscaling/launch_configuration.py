@@ -70,12 +70,24 @@ class LaunchConfiguration(AwsResource):
 
 @dataclass
 class LaunchTemplateData:
+    """
+        Attributes:
+            template_id: The id of the template.
+            version: The number of the version.
+    """
     template_id: str
     version: str
 
 
 @dataclass
 class AutoScalingGroupRawData:
+    """
+        Attributes:
+            launch_configuration_name: The name of the launch configuration
+                as read directly from the live environment.
+            launch_template_data: The launch template data as read directly
+                from the live environment.
+    """
     launch_configuration_name: Optional[str] = None
     launch_template_data: Optional[LaunchTemplateData] = None
 

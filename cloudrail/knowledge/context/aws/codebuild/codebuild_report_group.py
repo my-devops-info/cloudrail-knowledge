@@ -5,7 +5,18 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class CodeBuildReportGroup(AwsResource):
-
+    """
+        Attributes:
+            name: The name of the report group.
+            export_config_type: S3 or NO_EXPORT.
+            export_config_s3_destination_bucket: If S3 type is used, the destination bucket.
+            export_config_s3_destination_encryption_key: If S3 type is used,
+                the encryption key to use.
+            export_config_s3_destination_encryption_disabled: If S3 type is used,
+                whether or not encryption is enabled.
+            export_config_s3_destination_kms_data: If encryption is used, the KMS key
+                used to encrypt.
+    """
     def __init__(self,
                  account: str,
                  region: str,
