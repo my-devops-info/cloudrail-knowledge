@@ -136,6 +136,7 @@ from cloudrail.knowledge.context.aws.s3.s3_bucket_encryption import S3BucketEncr
 from cloudrail.knowledge.context.aws.s3.s3_bucket_object import S3BucketObject
 from cloudrail.knowledge.context.aws.s3.s3_bucket_regions import S3BucketRegions
 from cloudrail.knowledge.context.aws.s3.s3_bucket_versioning import S3BucketVersioning
+from cloudrail.knowledge.context.aws.s3outposts.s3outpost_endpoint import S3OutpostEndpoint
 from cloudrail.knowledge.context.aws.sagemaker.sagemaker_endpoint_config import SageMakerEndpointConfig
 from cloudrail.knowledge.context.aws.sagemaker.sagemaker_notebook_instance import SageMakerNotebookInstance
 from cloudrail.knowledge.context.aws.secretsmanager.secrets_manager_secret import SecretsManagerSecret
@@ -321,9 +322,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  global_accelerator_listeners: List[GlobalAcceleratorListener] = None,
                  global_accelerator_endpoint_groups: List[GlobalAcceleratorEndpointGroup] = None,
                  cloudhsm_v2_clusters: List[CloudHsmV2Cluster] = None,
-                 cloudhsm_list: List[CloudHsmV2Hsm] = None):
+                 cloudhsm_list: List[CloudHsmV2Hsm] = None,
+                 s3outpost_endpoints: List[S3OutpostEndpoint] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.s3outpost_endpoints = s3outpost_endpoints or []
         self.cloudhsm_list = cloudhsm_list or []
         self.cloudhsm_v2_clusters = cloudhsm_v2_clusters or []
         self.global_accelerator_endpoint_groups = global_accelerator_endpoint_groups or []

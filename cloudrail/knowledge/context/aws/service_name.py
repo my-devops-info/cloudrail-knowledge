@@ -147,6 +147,7 @@ class AwsServiceName(Enum):
     AWS_GLOBALACCELERATOR_LISTENER = 'aws_globalaccelerator_listener'
     AWS_CLOUDHSM_V_2_CLUSTER = 'aws_cloudhsm_v2_cluster'
     AWS_CLOUDHSM_V_2_HSM = 'aws_cloudhsm_v2_hsm'
+    AWS_S_3_OUTPOSTS_ENDPOINT = 'aws_s3outposts_endpoint'
 
 
 AWS_SERVICES_DOMAIN: str = ".amazonaws.com"
