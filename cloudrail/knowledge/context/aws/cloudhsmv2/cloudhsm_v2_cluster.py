@@ -9,7 +9,7 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 class CloudHsmV2Cluster(NetworkEntity):
     """
     Attributes:
-        hsm_type: The HSM typr of the cluster.
+        hsm_type: The HSM type of the cluster.
         subnet_ids: The subnet IDs used for the cluster.
         vpc_id: The VPC ID used for the HSM cluster.
         security_group_id: The security group id which is used for the HSM cluster.

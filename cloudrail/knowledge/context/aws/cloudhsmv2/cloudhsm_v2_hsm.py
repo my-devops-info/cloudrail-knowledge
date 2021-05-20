@@ -4,6 +4,16 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class CloudHsmV2Hsm(AwsResource):
+    """
+    Attributes:
+        cluster_id: The HSM cluster ID.
+        hsm_id: The HSM ID.
+        subnet_id: The subnet ID in which this HSM operates.
+        availability_zone: The availability zone in which this HSM operates.
+        hsm_state: The HSM readiness state.
+        account: The account ID in which this HSM cluster operates.
+        region: The region in which this HSM cluster operates.
+    """
 
     def __init__(self,
                  cluster_id: str,
