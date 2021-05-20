@@ -8,6 +8,17 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class ApiGateway(NetworkEntity):
+    """
+    Attributes:
+        account: The account ID in which this resource operates.
+        region: The region name in which this resource operates.
+        api_gw_id: Thr API GW ID.
+        arn: The ARN of the API GW.
+        api_gw_name: The API GW name.
+        protocol_type: The protocol type of the API GW.
+        api_gw_integration: A reference to the matching ApiGatewayV2Integration based on api_gw_id.
+        vpc_link: A reference to the matching ApiGatewayVpcLink based on api_gw_id.
+    """
 
     def __init__(self,
                  account: str,

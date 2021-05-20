@@ -5,6 +5,14 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class BatchComputeEnvironment(NetworkEntity):
+    """
+    Attributes:
+        compute_name: The name of the Batch Compute resource.
+        arn: The ARN of Batch Compute resource.
+        account: The account ID in which this resource operates.
+        region: The region name in which this resource operates.
+        vpc_config: Some networking information used by this resource.
+    """
 
     def __init__(self,
                  compute_name: str,

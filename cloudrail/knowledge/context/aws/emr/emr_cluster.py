@@ -5,6 +5,15 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class EmrCluster(NetworkEntity):
+    """
+    Attributes:
+        account: The account ID in which this resource operates.
+        region: The region name in which this resource operates.
+        cluster_name: The EMR cluster resource name.
+        arn: The ARN of the EMR cluster resource.
+        cluster_id: The ID of the EMR cluster resource.
+        vpc_config: Networking information used by the resource.
+    """
 
     def __init__(self,
                  account: str,

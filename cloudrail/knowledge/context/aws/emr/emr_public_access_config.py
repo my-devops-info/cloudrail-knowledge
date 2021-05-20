@@ -4,6 +4,12 @@ from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
 
 class EmrPublicAccessConfiguration(AwsResource):
+    """
+    Attributes:
+        account: The account ID in which this resource operates.
+        region: The region name in which this resource operates.
+        block_public_access: Does the EMR cluster being created into this region will block public access or not.
+    """
 
     def __init__(self,
                  account: str,

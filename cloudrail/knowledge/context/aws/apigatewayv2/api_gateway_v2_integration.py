@@ -7,6 +7,17 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class ApiGatewayV2Integration(AwsResource):
+    """
+    Attributes:
+        account: The account ID in which this resource operates.
+        region: The region name in which this resource operates.
+        rest_api_id: The API GW ID.
+        connection_id: The ID of the VPC link used by the API GW.
+        integration_id: The ID of the integration used by the API GW.
+        integration_http_method: API GW method used by the API GW.
+        integration_type: The API GW integration type.
+        uri: The input's URI.
+    """
 
     def __init__(self, account: str, region: str, rest_api_id: str, connection_id: Optional[str], integration_id: str,
                  integration_http_method: RestApiMethods, integration_type: IntegrationType, uri: str):

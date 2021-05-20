@@ -6,6 +6,17 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class MqBroker(NetworkEntity):
+    """
+    Attributes:
+        account: The account ID in which this resource operates.
+        region: The region name in which this resource operates.
+        broker_name: The MQ broker resource name.
+        arn: The ARN of the MQ broker resource.
+        broker_id: The ID of the MQ broker resource.
+        deployment_mode: Deployment mode of the MQ broker.
+        vpc_id: The VPC ID in which the MQ broker is deployed.
+        vpc_config: Networking information used by the resource.
+    """
 
     def __init__(self,
                  broker_name: str,

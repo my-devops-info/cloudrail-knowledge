@@ -5,6 +5,16 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class ApiGatewayVpcLink(AwsResource):
+    """
+    Attributes:
+        account: The account ID in which this resource operates.
+        region: The region name in which this resource operates.
+        vpc_link_id: The ID of the VPC link.
+        name: The name of the VPC link.
+        arn: The ARN of the VPC link.
+        security_group_ids: List of security groups ID's used by the VPC link.
+        subnet_ids: List of subnet ID's used by the VPC link.
+    """
 
     def __init__(self,
                  account: str,

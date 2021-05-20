@@ -6,6 +6,14 @@ from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
 class S3OutpostEndpoint(NetworkEntity):
+    """
+    Attributes:
+        account: The account ID in which this resource operates.
+        region: The region name in which this resource operates.
+        outpost_id: The ID of the S3 outpost endpoint resource.
+        arn: The ARN of the S3 outpost endpoint resource.
+        vpc_config: Networking information used by the resource.
+    """
 
     def __init__(self,
                  outpost_id: str,
