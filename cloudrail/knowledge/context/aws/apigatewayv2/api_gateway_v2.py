@@ -2,7 +2,6 @@ from typing import List, Optional
 
 from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2_integration import ApiGatewayV2Integration
 from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2_vpc_link import ApiGatewayVpcLink
-from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 from cloudrail.knowledge.context.aws.networking_config.network_configuration import NetworkConfiguration
 from cloudrail.knowledge.context.aws.networking_config.network_entity import NetworkEntity
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
