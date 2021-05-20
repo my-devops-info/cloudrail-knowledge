@@ -137,7 +137,7 @@ class PublicAccessSecurityGroupsPortRule(AwsBaseRule):
 
     def _is_connection_open_on_port(self, connection_property: PortConnectionProperty):
         return any(port_range for port_range in connection_property.ports
-                   if (self.port != KnownPorts.ALL and is_port_in_range(port_range, self.port.value))
+                   if (self.port != KnownPorts.ALL and not is_all_ports(port_range) and is_port_in_range(port_range, self.port.value))
                    or (self.port == KnownPorts.ALL and is_all_ports(port_range)))
 
 
