@@ -20,12 +20,12 @@ class PolicyEvaluation(DataClassJsonMixin):
     permission_boundary_denied_actions: Set[str] = field(default_factory=set)
 
 
-class ConnectionDirectionType(Enum):
+class ConnectionDirectionType(str, Enum):
     INBOUND = 'inbound'
     OUTBOUND = 'outbound'
 
 
-class ConnectionType(Enum):
+class ConnectionType(str, Enum):
     PRIVATE = 'private'
     PUBLIC = 'public'
 
