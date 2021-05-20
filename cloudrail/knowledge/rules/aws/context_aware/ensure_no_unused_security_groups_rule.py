@@ -1,11 +1,8 @@
 from typing import Dict, List
 
-from cloudrail.knowledge.context.aliases_dict import AliasesDict
-from cloudrail.knowledge.context.aws.ec2.network_interface import NetworkInterface
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.base_rule import BaseRule, Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
-from cloudrail.knowledge.utils.utils import flat_list
 
 
 class EnsureNoUnusedSecurityGroups(BaseRule):
