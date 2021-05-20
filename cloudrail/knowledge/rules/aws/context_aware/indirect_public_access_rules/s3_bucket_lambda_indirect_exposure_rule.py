@@ -1,4 +1,3 @@
-import functools
 from typing import List, Dict
 
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw import RestApiGw
@@ -34,7 +33,6 @@ class S3BucketLambdaIndirectExposureRule(AwsBaseRule):
                     and environment_context.api_gateway_methods)
 
     @staticmethod
-    @functools.lru_cache(maxsize=None)
     def _is_api_gateway_public(rest_api_gw_id: str, api_gateways: List[RestApiGw]) -> bool:
         for api_gateway in api_gateways:
             if api_gateway.rest_api_gw_id == rest_api_gw_id:
