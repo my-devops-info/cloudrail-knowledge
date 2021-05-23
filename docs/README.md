@@ -1,7 +1,8 @@
 # Overview
-[Cloudrail](https://www.indeni.com/cloudrail) is a tool for doing security analysis of infrastructure-as-code before 
-its deployment. For example, when Terraform is used, Cloudrail can inspect Terraform plans and identify configurations 
-that violate company policy and best practices, and stop the CI pipeline accordingly.
+[Cloudrail](https://www.indeni.com/cloudrail) is a tool for automating security for your Infrastructure-as-Code. For an IaC like Terraform, Cloudrail inspects your Terraform plan and validates misconfigurations using policy-as-code. Cloudrail can be integrated into your CI pipeline to automate security analysis across your organization.
+Cloudrail's Policy-as-Code structure is unique as each rule will validate both your live infrastructure and IaC. Effectively, you can consolidate your cloud infrastructure analysis for live state and build state with Cloudrail's Policy-as-Code framework.
+
+![Cloudrail UI example](imgs/ui_example.png)
 
 The rules use a context model that is included in this repository. This documentation section will cover the
 different aspects of the context model - how it's created, how it's used, and details of every class and attribute
@@ -32,15 +33,15 @@ be written on top of it.
    
 ## How does Cloudrail's context model work?
 For every cloud environment supported by Cloudrail, there's an environment context. For example, there's one for 
-[AWS](/cloudrail/knowledge/context/aws) and one for [Azure](/cloudrail/knowledge/context/azure). In it, you'll find 
+[AWS](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/context/aws) and one for [Azure](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/context/azure). In it, you'll find 
 objects representing various resources supported by the specific cloud environment.
 
 ### Builders
 Cloudrail has Builders. They're not included in this repository for simplicty, but they are simple to understand: a 
 builder parses some sort of input and generate objects in the environment context as a result. For example, there's a
-Terraform builder which converts an `aws_s3_bucket` into a [S3Bucket](/cloudrail/knowledge/context/aws/s3/s3_bucket.py).
+Terraform builder which converts an `aws_s3_bucket` into a [S3Bucket](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/context/aws/s3/s3_bucket.py).
 There's also an Azure builder which takes API outputs from Azure and converts them into objects, such as the
-[AzureSqlServer](/cloudrail/knowledge/context/azure/azure_resources/databases/azure_sql_server.py) resource.
+[AzureSqlServer](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/context/azure/azure_resources/databases/azure_sql_server.py) resource.
 
 These builders allow Cloudrail to support various input sources and eventually cover all IaC languages (CloudFormation,
 ARM, Bicep, Pulumi, etc.) and allows the rules to "not care" about the source of the input. The rule is the same whether
@@ -54,7 +55,7 @@ However, as we said, one of Cloudrail's biggest advantages is in its ability to 
 the input came from, right?
 
 And so, Cloudrail runs a merging operation that allows it to take several contexts and merge them into one. To do that, 
-it uses the "keys" concept. You might notice that every [Mergeable](/cloudrail/knowledge/context/mergeable.py) has a 
+it uses the "keys" concept. You might notice that every [Mergeable](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/context/mergeable.py) has a 
 `get_keys` function. This is used to determine if two objects, in two separate environment contexts, are actually the 
 same one and should be merged.
 
@@ -66,8 +67,8 @@ Once merging is done, there's one, unified context model, representing the entir
 ### RelationsAssigner
 After the context is merged, Cloudrail begins "connecting the dots". At this phase, the model becomes a "graph model" 
 and so objects can begin pointing to one another. For example, an 
-[IAMIdentiy](/cloudrail/knowledge/context/aws/iam/iam_identity.py) will point to its policies, or a 
-[Subnet](/cloudrail/knowledge/context/aws/ec2/subnet.py) will point to its VPC.
+[IAMIdentiy](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/context/aws/iam/iam_identity.py) will point to its policies, or a 
+[Subnet](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/context/aws/ec2/subnet.py) will point to its VPC.
 
 This makes it a lot easier to write rule code, as you don't need to do any lookups. Finding a subnet's VPC, is just a 
 matter of using its `vpc` attribute.
@@ -78,13 +79,13 @@ representing the input in a graph model. Cloudrail now uses various algorithms t
 context model and make it accessible to the rule writer.
 
 For example, want to know if a resource is publicly accessible, and how? Look at the attribute exposed by
-those classes that inherit from [ConnectionInstance](/cloudrail/knowledge/context/aws/aws_connection.py).
+those classes that inherit from [ConnectionInstance](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/context/aws/aws_connection.py).
 
 Want to know if a policy violates AWS's best practices? Look at
-[Policy](/cloudrail/knowledge/context/aws/iam/policy.py)'s `access_analyzer_findings` attribute.
+[Policy](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/context/aws/iam/policy.py)'s `access_analyzer_findings` attribute.
 
 ## How do rules work?
-A rule is a Python class inheriting from [BaseRule](/cloudrail/knowledge/rules/base_rule.py). It has a simple
+A rule is a Python class inheriting from [BaseRule](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/rules/base_rule.py). It has a simple
 `run` function where all the logic is executed. A rule returns a response which includes a list of issues that it found.
 Every issue, has a few attributes:
 
@@ -96,8 +97,8 @@ that needs to be fixed.
 look when fixing it.
   
 Rules are registered for execution via the metadata files (such as 
-[aws_rules_metadata.yaml](/cloudrail/knowledge/rules/aws/aws_rules_metadata.yaml) and 
-[azure_rules_metadata.yaml](/cloudrail/knowledge/rules/azure/azure_rules_metadata.yaml)). Cloudrail loads the
+[aws_rules_metadata.yaml](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/rules/aws/aws_rules_metadata.yaml) and 
+[azure_rules_metadata.yaml](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/rules/azure/azure_rules_metadata.yaml)). Cloudrail loads the
 metadata information and uses it to build a list of rules to run. It also uses this metadata to show
 the user information about each rule.
 

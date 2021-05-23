@@ -10,7 +10,7 @@ analyzed.
 ## The Mergeable
 
 All context classes inherit, either directly or indirectly, from the 
-[Mergeable](/cloudrail/knowledge/context/mergeable.py) class. This class implement certain basic concepts needed
+[Mergeable](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/context/mergeable.py) class. This class implements certain basic concepts needed
 to build the context. Specifically:
 
 
@@ -28,7 +28,9 @@ rules be consistent, without a requirement to do any of these calculations on th
 
 * `tags` - these are the tags assigned to this resource, whether in the live environment or infrastructure-as-code. Note 
 that Cloudrail refrains from collecting most content under tags and so there may be many tags whose name appears 
-  correctly, but the value is a result of a hashing function.
+  correctly, but the value is a result of a hashing function. For example, if you use a tag
+  called "my-project-aspect" with the value "foobar-1", Cloudrail will see the tag name but
+  will not collect the value "foobar-1".
   
 
 * `aliases` - a context object always has a name. But, sometimes it may be referred by more than one name. If this is 
@@ -99,9 +101,9 @@ to join the effort, we're hiring!)
 
 ### Amazon Web Services (AWS)
 
-All context objects for AWS inherit from [AwsResource](/cloudrail/knowledge/context/aws/aws_resource.py), which in turn 
-inherits from [Mergeable](/cloudrail/knowledge/context/mergeable.py). You'll notice that it has an attribute of type 
-[AwsServiceName](/cloudrail/knowledge/context/aws/service_name.py), which helps connect the object to the service it 
+All context objects for AWS inherit from [AwsResource](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/context/aws/aws_resource.py), which in turn 
+inherits from [Mergeable](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/context/mergeable.py). You'll notice that it has an attribute of type 
+[AwsServiceName](https://github.com/indeni/cloudrail-knowledge/tree/main/cloudrail/knowledge/context/aws/service_name.py), which helps connect the object to the service it 
 belongs to. The naming convention used is based on Terraform, but that's just for convenience.
 
 If you're interested in AWS, look at the navigation menu to the left and expand the section called AWS Context.
