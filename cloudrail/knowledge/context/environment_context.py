@@ -145,6 +145,7 @@ from cloudrail.knowledge.context.aws.sns.sns_topic import SnsTopic
 from cloudrail.knowledge.context.aws.sqs.sqs_queue import SqsQueue
 from cloudrail.knowledge.context.aws.sqs.sqs_queue_policy import SqsQueuePolicy
 from cloudrail.knowledge.context.aws.ssm.ssm_parameter import SsmParameter
+from cloudrail.knowledge.context.aws.worklink.worklink_fleet import WorkLinkFleet
 from cloudrail.knowledge.context.aws.workspaces.workspace_directory import WorkspaceDirectory
 from cloudrail.knowledge.context.aws.workspaces.workspaces import Workspace
 from cloudrail.knowledge.context.aws.xray.xray_encryption import XrayEncryption
@@ -323,9 +324,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  global_accelerator_endpoint_groups: List[GlobalAcceleratorEndpointGroup] = None,
                  cloudhsm_v2_clusters: List[CloudHsmV2Cluster] = None,
                  cloudhsm_list: List[CloudHsmV2Hsm] = None,
-                 s3outpost_endpoints: List[S3OutpostEndpoint] = None):
+                 s3outpost_endpoints: List[S3OutpostEndpoint] = None,
+                 worklink_fleets: List[WorkLinkFleet] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.worklink_fleets = worklink_fleets or []
         self.s3outpost_endpoints = s3outpost_endpoints or []
         self.cloudhsm_list = cloudhsm_list or []
         self.cloudhsm_v2_clusters = cloudhsm_v2_clusters or []
