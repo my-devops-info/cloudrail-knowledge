@@ -89,6 +89,7 @@ from cloudrail.knowledge.context.aws.glacier.glacier_vault_policy import Glacier
 from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator import GlobalAccelerator
 from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator_endpoint_group import GlobalAcceleratorEndpointGroup
 from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator_listener import GlobalAcceleratorListener
+from cloudrail.knowledge.context.aws.glue.glue_connection import GlueConnection
 from cloudrail.knowledge.context.aws.glue.glue_data_catalog_crawler import GlueCrawler
 from cloudrail.knowledge.context.aws.glue.glue_data_catalog_policy import GlueDataCatalogPolicy
 from cloudrail.knowledge.context.aws.glue.glue_data_catalog_table import GlueDataCatalogTable
@@ -325,9 +326,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  cloudhsm_v2_clusters: List[CloudHsmV2Cluster] = None,
                  cloudhsm_list: List[CloudHsmV2Hsm] = None,
                  s3outpost_endpoints: List[S3OutpostEndpoint] = None,
-                 worklink_fleets: List[WorkLinkFleet] = None):
+                 worklink_fleets: List[WorkLinkFleet] = None,
+                 glue_connections: List[GlueConnection] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.glue_connections = glue_connections or []
         self.worklink_fleets = worklink_fleets or []
         self.s3outpost_endpoints = s3outpost_endpoints or []
         self.cloudhsm_list = cloudhsm_list or []

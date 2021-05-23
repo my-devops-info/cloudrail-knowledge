@@ -122,6 +122,7 @@ class AwsServiceName(Enum):
     AWS_KINESIS_STREAM = 'aws_kinesis_stream'
     AWS_GLUE_CRAWLER = 'aws_glue_crawler'
     AWS_GLUE_CATALOG_TABLE = 'aws_glue_catalog_table'
+    AWS_GLUE_CONNECTION = 'aws_glue_connection'
     AWS_XRAY_ENCRYPTION_CONFIG = 'aws_xray_encryption_config'
     AWS_KINESIS_FIREHOSE_DELIVERY_STREAM = 'aws_kinesis_firehose_delivery_stream'
     AWS_IAM_ACCOUNT_PASSWORD_POLICY = 'aws_iam_account_password_policy'
