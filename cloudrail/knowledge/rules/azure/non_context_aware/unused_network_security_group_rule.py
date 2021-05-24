@@ -13,7 +13,7 @@ class UnusedNetworkSecurityGroupRule(AzureBaseRule):
 
     def execute(self, env_context: AzureEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
-        for nsg in env_context.net_security_groups.values():
+        for nsg in env_context.net_security_groups:
             if not nsg.subnets and not nsg.network_interfaces:
                 issues.append(
                     Issue(
