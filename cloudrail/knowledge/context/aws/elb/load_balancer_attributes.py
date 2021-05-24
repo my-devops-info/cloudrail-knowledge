@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List
 
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
