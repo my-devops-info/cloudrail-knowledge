@@ -70,6 +70,12 @@ plugins:
 
 theme:
   name: material
+  logo: assets/cloudrail_small_logo.svg
+  favicon: assets/favicon.ico
+
+extra_css:
+  - stylesheets/extra.css
+
 copyright: 'indeni'
 repo_url: 'https://github.com/indeni/cloudrail-knowledge/'
 repo_name: 'cloudrail-knowledge'
