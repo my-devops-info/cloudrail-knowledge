@@ -12,7 +12,7 @@ class ApiGateway(NetworkEntity):
     Attributes:
         account: The account ID in which this resource operates.
         region: The region name in which this resource operates.
-        api_gw_id: Thr API GW ID.
+        api_gw_id: The API GW ID.
         arn: The ARN of the API GW.
         api_gw_name: The API GW name.
         protocol_type: The protocol type of the API GW.
