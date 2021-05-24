@@ -70,6 +70,7 @@ from cloudrail.knowledge.context.aws.elasticache.elasticache_replication_group i
 from cloudrail.knowledge.context.aws.elasticache.elasticache_cluster import ElastiCacheCluster
 from cloudrail.knowledge.context.aws.elasticache.elasticache_subnet_group import ElastiCacheSubnetGroup
 from cloudrail.knowledge.context.aws.elb.load_balancer import LoadBalancer
+from cloudrail.knowledge.context.aws.elb.load_balancer_attributes import LoadBalancerAttributes
 from cloudrail.knowledge.context.aws.elb.load_balancer_listener import LoadBalancerListener
 from cloudrail.knowledge.context.aws.elb.load_balancer_target import LoadBalancerTarget
 from cloudrail.knowledge.context.aws.elb.load_balancer_target_group import LoadBalancerTargetGroup
@@ -297,9 +298,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  efs_mount_targets: List[EfsMountTarget] = None,
                  workspaces_directories: List[WorkspaceDirectory] = None,
                  cloud_directories: List[DirectoryService] = None,
-                 roles_last_used: List[RoleLastUsed] = None):
+                 roles_last_used: List[RoleLastUsed] = None,
+                 load_balancers_attributes: List[LoadBalancerAttributes] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.load_balancers_attributes = load_balancers_attributes or []
         self.roles_last_used = roles_last_used or []
         self.cloud_directories = cloud_directories or []
         self.workspaces_directories = workspaces_directories or []
