@@ -2,17 +2,16 @@ from typing import Optional, List
 from cloudrail.knowledge.context.azure.azure_resources.azure_resource import AzureResource
 from cloudrail.knowledge.context.azure.azure_resources.constants.azure_resource_type import AzureResourceType
 
+
 class AzureNetworkSecurityGroup(AzureResource):
 
-    def __init__(self, subscription_id: str, resource_group_name: str, location: str, name: str,
-                network_interfaces=None,
-                subnets=None) -> None:
-        super().__init__(subscription_id, resource_group_name, location,
-                         'Microsoft.Network/networkSecurityGroups', AzureResourceType.AZURERM_NETWORK_SECURITY_GROUP)
-        self.name = name
-        self.with_aliases(name)
-        self.subnets = subnets or []
-        self.network_interfaces = network_interfaces or []
+    def __init__(self, subscription_id: str, security_group_id: str, resource_group_name: str, location: str, name: str) -> None:
+        super().__init__(subscription_id, resource_group_name, location, AzureResourceType.AZURERM_NETWORK_SECURITY_GROUP)
+        self.security_group_id: str = security_group_id
+        self.name: str = name
+        self.with_aliases(security_group_id)
+        self.subnets = []
+        self.network_interfaces = []
 
     def get_keys(self) -> List[str]:
         return [self.get_name()]

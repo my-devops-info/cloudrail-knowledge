@@ -5,8 +5,7 @@ from cloudrail.knowledge.context.azure.azure_resources.constants.azure_resource_
 
 class AzureAppService(AzureResource):
     def __init__(self, subscription_id: str, resource_group_name: str, location: str, name: str) -> None:
-        super().__init__(subscription_id, resource_group_name, location,
-                         'App Service', AzureResourceType.AZURERM_APP_SERVICE)
+        super().__init__(subscription_id, resource_group_name, location, AzureResourceType.AZURERM_APP_SERVICE)
         self.name = name
         self.with_aliases(name)
 
