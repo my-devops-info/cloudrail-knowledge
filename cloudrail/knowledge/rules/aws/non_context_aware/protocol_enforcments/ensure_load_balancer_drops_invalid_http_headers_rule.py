@@ -1,5 +1,6 @@
 from typing import List, Dict
 
+from cloudrail.knowledge.context.aws.elb.load_balancer import LoadBalancerType
 from cloudrail.knowledge.context.environment_context import EnvironmentContext
 from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
 from cloudrail.knowledge.rules.base_rule import Issue
@@ -15,10 +16,11 @@ class EnsureLoadBalancerDropsInvalidHttpHeadersRule(AwsBaseRule):
         issues: List[Issue] = []
 
         for lb in env_context.load_balancers:
-            if lb.load_balancer_attributes and not lb.load_balancer_attributes.drop_invalid_header_fields:
-                issues.append(
-                    Issue(
-                        f'The {lb.get_type()} `{lb.get_friendly_name()}` does not drop invalid HTTP headers', lb, lb))
+            if lb.load_balancer_type == LoadBalancerType.APPLICATION and lb.load_balancer_attributes:
+                if not lb.load_balancer_attributes.drop_invalid_header_fields:
+                    issues.append(
+                        Issue(
+                            f'The {lb.get_type()} `{lb.get_friendly_name()}` does not drop invalid HTTP headers', lb, lb))
         return issues
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
