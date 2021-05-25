@@ -9,3 +9,5 @@ class AzureResourceType(Enum):
     AZURERM_SQL_FIREWALL_RULE = 'azurerm_sql_firewall_rule'
     AZURERM_APP_SERVICE = 'azurerm_app_service'
     AZURERM_NETWORK_SECURITY_GROUP = 'azurerm_network_security_group'
+    AZURERM_SUBNET_NETWORK_SECURITY_GROUP_ASSOCIATION = 'azurerm_subnet_network_security_group_association'
+    AZURERM_SUBNET = 'azurerm_subnet'
