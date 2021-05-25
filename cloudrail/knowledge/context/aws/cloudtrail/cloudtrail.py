@@ -10,6 +10,7 @@ class CloudTrail(AwsResource):
             kms_encryption: True if KMS encryption is used.
             arn: The ARN of the CloudTrail trail.
             log_file_validation: True if log file validation is enabled.
+            is_multi_region_trail: An indication if the trail is created in the current region or in all regions.
     """
     def __init__(self,
                  name: str,
@@ -17,12 +18,14 @@ class CloudTrail(AwsResource):
                  arn: str,
                  log_file_validation: bool,
                  region: str,
-                 account: str):
+                 account: str,
+                 is_multi_region_trail: bool):
         super().__init__(account, region, AwsServiceName.AWS_CLOUDTRAIL)
         self.name: str = name
         self.kms_encryption: bool = kms_encryption
         self.arn: str = arn
         self.log_file_validation: bool = log_file_validation
+        self.is_multi_region_trail: bool = is_multi_region_trail
 
     def get_keys(self) -> List[str]:
         return [self.arn]

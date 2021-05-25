@@ -3459,3 +3459,21 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
+
+- rule_id: non_car_cloudtrail_is_enabled_in_all_regions
+  cloud_provider: amazon_web_services
+  name: Ensure CloudTrail is enabled in all regions
+  severity: medium
+  description:
+    Cloudrail will review the CloudTrail configuration in your environment.
+    If it is not enabled in all regions, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the CloudTrail configuration within your AWS account and Terraform plan to check if it is enabled in all regions.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-a-trail-using-the-console-first-time.html>
+    to create a trail that logs events in all regions.
+  remediation_steps_tf: For the aws_cloudtrail resource, set the is_multi_region_trail parameter to true.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - logging
