@@ -122,6 +122,7 @@ class AwsServiceName(Enum):
     AWS_KINESIS_STREAM = 'aws_kinesis_stream'
     AWS_GLUE_CRAWLER = 'aws_glue_crawler'
     AWS_GLUE_CATALOG_TABLE = 'aws_glue_catalog_table'
+    AWS_GLUE_CONNECTION = 'aws_glue_connection'
     AWS_XRAY_ENCRYPTION_CONFIG = 'aws_xray_encryption_config'
     AWS_KINESIS_FIREHOSE_DELIVERY_STREAM = 'aws_kinesis_firehose_delivery_stream'
     AWS_IAM_ACCOUNT_PASSWORD_POLICY = 'aws_iam_account_password_policy'
@@ -136,6 +137,19 @@ class AwsServiceName(Enum):
     AWS_SAGEMAKER_ENDPOINT_CONFIGURATION = 'aws_sagemaker_endpoint_configuration'
     AWS_SAGEMAKER_NOTEBOOK_INSTANCE = 'aws_sagemaker_notebook_instance'
     AWS_DIRECTORY_SERVICE_DIRECTORY = 'aws_directory_service_directory'
+    AWS_BATCH_COMPUTE_ENVIRONMENT = 'aws_batch_compute_environment'
+    AWS_MQ_BROKER = 'aws_mq_broker'
+    AWS_APIGATEWAYV_2_API = 'aws_apigatewayv2_api'
+    AWS_APIGATEWAYV_2_INTEGRATION = 'aws_apigatewayv2_integration'
+    AWS_APIGATEWAYV_2_VPC_LINK = 'aws_apigatewayv2_vpc_link'
+    AWS_EMR_CLUSTER = 'aws_emr_cluster'
+    AWS_GLOBALACCELERATOR_ACCELERATOR = 'aws_globalaccelerator_accelerator'
+    AWS_GLOBALACCELERATOR_ENDPOINT_GROUP = 'aws_globalaccelerator_endpoint_group'
+    AWS_GLOBALACCELERATOR_LISTENER = 'aws_globalaccelerator_listener'
+    AWS_CLOUDHSM_V_2_CLUSTER = 'aws_cloudhsm_v2_cluster'
+    AWS_CLOUDHSM_V_2_HSM = 'aws_cloudhsm_v2_hsm'
+    AWS_S_3_OUTPOSTS_ENDPOINT = 'aws_s3outposts_endpoint'
+    AWS_WORKLINK_FLEET = 'aws_worklink_fleet'
 
 
 AWS_SERVICES_DOMAIN: str = ".amazonaws.com"
