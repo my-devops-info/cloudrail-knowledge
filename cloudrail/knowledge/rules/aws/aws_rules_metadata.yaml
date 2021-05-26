@@ -3459,3 +3459,21 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
+
+- rule_id: non_car_ecr_image_scanning_on_push_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure ECR image scanning on push is enabled
+  severity: medium
+  description:
+    Cloudrail will review the ECR repositories configuration in your environment.
+    If a repository is not configured to scan images on push, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the ECR repositories configuration within your AWS account and Terraform plan to check if image scanning on push is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html>
+    to configure image scanning on push for an ECR repository.
+  remediation_steps_tf: For the aws_ecr_repository resource, in the image_scanning_configuration block, set the scan_on_push parameter to true.
+  rule_type: non_context_aware
+  security_layer: storage
+  resource_type:
+  - code
