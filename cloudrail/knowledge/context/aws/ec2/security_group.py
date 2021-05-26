@@ -1,6 +1,7 @@
 import copy
 from typing import List, Set
 
+from cloudrail.knowledge.context.aws.ec2.network_interface import NetworkInterface
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 from cloudrail.knowledge.context.aws.ec2.security_group_rule import SecurityGroupRule, SecurityGroupRulePropertyType
@@ -37,7 +38,8 @@ class SecurityGroup(AwsResource):
 
     @property
     def used_by(self) -> Set[AwsResource]:
-        return {resource for resource in self._used_by if not resource.invalidation}
+        return {resource for resource in self._used_by if not resource.is_invalidated and
+                (not isinstance(resource, NetworkInterface) or (resource.owner and not resource.owner.is_invalidated))}
 
     def add_usage(self, resource: AwsResource):
         self._used_by.add(resource)

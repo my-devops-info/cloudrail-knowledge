@@ -63,6 +63,10 @@ class Mergeable:
     def add_invalidation(self, reason: str) -> None:
         self.invalidation.append(reason)
 
+    @property
+    def is_invalidated(self) -> bool:
+        return bool(self.invalidation)
+
     @abstractmethod
     def get_friendly_name(self) -> str:
         pass
