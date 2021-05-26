@@ -10,13 +10,19 @@ from cloudrail.knowledge.context.aws.apigateway.rest_api_gw import RestApiGw
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_domain import RestApiGwDomain
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_mapping import RestApiGwMapping
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_policy import RestApiGwPolicy
+from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2 import ApiGateway
+from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2_integration import ApiGatewayV2Integration
+from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2_vpc_link import ApiGatewayVpcLink
 from cloudrail.knowledge.context.aws.athena.athena_workgroup import AthenaWorkgroup
 from cloudrail.knowledge.context.aws.autoscaling.launch_configuration import LaunchConfiguration, AutoScalingGroup
 from cloudrail.knowledge.context.aws.autoscaling.launch_template import LaunchTemplate
 from cloudrail.knowledge.context.aws.aws_client import AwsClient
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
+from cloudrail.knowledge.context.aws.batch.batch_compute_environment import BatchComputeEnvironment
 from cloudrail.knowledge.context.aws.cloudfront.cloud_front_distribution_list import CloudFrontDistribution
 from cloudrail.knowledge.context.aws.cloudfront.origin_access_identity import OriginAccessIdentity
+from cloudrail.knowledge.context.aws.cloudhsmv2.cloudhsm_v2_cluster import CloudHsmV2Cluster
+from cloudrail.knowledge.context.aws.cloudhsmv2.cloudhsm_v2_hsm import CloudHsmV2Hsm
 from cloudrail.knowledge.context.aws.cloudtrail.cloudtrail import CloudTrail
 from cloudrail.knowledge.context.aws.cloudwatch.cloud_watch_event_target import CloudWatchEventTarget
 from cloudrail.knowledge.context.aws.cloudwatch.cloud_watch_log_group import CloudWatchLogGroup
@@ -74,10 +80,16 @@ from cloudrail.knowledge.context.aws.elb.load_balancer_listener import LoadBalan
 from cloudrail.knowledge.context.aws.elb.load_balancer_target import LoadBalancerTarget
 from cloudrail.knowledge.context.aws.elb.load_balancer_target_group import LoadBalancerTargetGroup
 from cloudrail.knowledge.context.aws.elb.load_balancer_target_group_association import LoadBalancerTargetGroupAssociation
+from cloudrail.knowledge.context.aws.emr.emr_cluster import EmrCluster
+from cloudrail.knowledge.context.aws.emr.emr_public_access_config import EmrPublicAccessConfiguration
 from cloudrail.knowledge.context.aws.es.elastic_search_domain import ElasticSearchDomain
 from cloudrail.knowledge.context.aws.es.elastic_search_domain_policy import ElasticSearchDomainPolicy
 from cloudrail.knowledge.context.aws.glacier.glacier_vault import GlacierVault
 from cloudrail.knowledge.context.aws.glacier.glacier_vault_policy import GlacierVaultPolicy
+from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator import GlobalAccelerator
+from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator_endpoint_group import GlobalAcceleratorEndpointGroup
+from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator_listener import GlobalAcceleratorListener
+from cloudrail.knowledge.context.aws.glue.glue_connection import GlueConnection
 from cloudrail.knowledge.context.aws.glue.glue_data_catalog_crawler import GlueCrawler
 from cloudrail.knowledge.context.aws.glue.glue_data_catalog_policy import GlueDataCatalogPolicy
 from cloudrail.knowledge.context.aws.glue.glue_data_catalog_table import GlueDataCatalogTable
@@ -104,6 +116,7 @@ from cloudrail.knowledge.context.aws.kms.kms_key_policy import KmsKeyPolicy
 from cloudrail.knowledge.context.aws.lambda_.lambda_alias import LambdaAlias
 from cloudrail.knowledge.context.aws.lambda_.lambda_function import LambdaFunction
 from cloudrail.knowledge.context.aws.lambda_.lambda_policy_statements import LambdaPolicyStatements
+from cloudrail.knowledge.context.aws.mq.mq_broker import MqBroker
 from cloudrail.knowledge.context.aws.neptune.neptune_cluster import NeptuneCluster
 from cloudrail.knowledge.context.aws.neptune.neptune_instance import NeptuneInstance
 from cloudrail.knowledge.context.aws.networking_config.network_entity import NetworkEntity
@@ -124,6 +137,7 @@ from cloudrail.knowledge.context.aws.s3.s3_bucket_encryption import S3BucketEncr
 from cloudrail.knowledge.context.aws.s3.s3_bucket_object import S3BucketObject
 from cloudrail.knowledge.context.aws.s3.s3_bucket_regions import S3BucketRegions
 from cloudrail.knowledge.context.aws.s3.s3_bucket_versioning import S3BucketVersioning
+from cloudrail.knowledge.context.aws.s3outposts.s3outpost_endpoint import S3OutpostEndpoint
 from cloudrail.knowledge.context.aws.sagemaker.sagemaker_endpoint_config import SageMakerEndpointConfig
 from cloudrail.knowledge.context.aws.sagemaker.sagemaker_notebook_instance import SageMakerNotebookInstance
 from cloudrail.knowledge.context.aws.secretsmanager.secrets_manager_secret import SecretsManagerSecret
@@ -132,6 +146,7 @@ from cloudrail.knowledge.context.aws.sns.sns_topic import SnsTopic
 from cloudrail.knowledge.context.aws.sqs.sqs_queue import SqsQueue
 from cloudrail.knowledge.context.aws.sqs.sqs_queue_policy import SqsQueuePolicy
 from cloudrail.knowledge.context.aws.ssm.ssm_parameter import SsmParameter
+from cloudrail.knowledge.context.aws.worklink.worklink_fleet import WorkLinkFleet
 from cloudrail.knowledge.context.aws.workspaces.workspace_directory import WorkspaceDirectory
 from cloudrail.knowledge.context.aws.workspaces.workspaces import Workspace
 from cloudrail.knowledge.context.aws.xray.xray_encryption import XrayEncryption
@@ -297,9 +312,39 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  efs_mount_targets: List[EfsMountTarget] = None,
                  workspaces_directories: List[WorkspaceDirectory] = None,
                  cloud_directories: List[DirectoryService] = None,
-                 roles_last_used: List[RoleLastUsed] = None):
+                 roles_last_used: List[RoleLastUsed] = None,
+                 batch_compute_environments: List[BatchComputeEnvironment] = None,
+                 mq_brokers: List[MqBroker] = None,
+                 api_gateways_v2: List[ApiGateway] = None,
+                 api_gateway_v2_integrations: List[ApiGatewayV2Integration] = None,
+                 api_gateway_v2_vpc_links: List[ApiGatewayVpcLink] = None,
+                 emr_clusters: List[EmrCluster] = None,
+                 emr_public_access_configurations: List[EmrPublicAccessConfiguration] = None,
+                 global_accelerators: List[GlobalAccelerator] = None,
+                 global_accelerator_listeners: List[GlobalAcceleratorListener] = None,
+                 global_accelerator_endpoint_groups: List[GlobalAcceleratorEndpointGroup] = None,
+                 cloudhsm_v2_clusters: List[CloudHsmV2Cluster] = None,
+                 cloudhsm_list: List[CloudHsmV2Hsm] = None,
+                 s3outpost_endpoints: List[S3OutpostEndpoint] = None,
+                 worklink_fleets: List[WorkLinkFleet] = None,
+                 glue_connections: List[GlueConnection] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.glue_connections = glue_connections or []
+        self.worklink_fleets = worklink_fleets or []
+        self.s3outpost_endpoints = s3outpost_endpoints or []
+        self.cloudhsm_list = cloudhsm_list or []
+        self.cloudhsm_v2_clusters = cloudhsm_v2_clusters or []
+        self.global_accelerator_endpoint_groups = global_accelerator_endpoint_groups or []
+        self.global_accelerator_listeners = global_accelerator_listeners or []
+        self.global_accelerators = global_accelerators or []
+        self.emr_public_access_configurations = emr_public_access_configurations or []
+        self.emr_clusters = emr_clusters or []
+        self.api_gateway_v2_vpc_links = api_gateway_v2_vpc_links or []
+        self.api_gateway_v2_integrations = api_gateway_v2_integrations or []
+        self.api_gateways_v2 = api_gateways_v2 or []
+        self.mq_brokers = mq_brokers or []
+        self.batch_compute_environments = batch_compute_environments or []
         self.roles_last_used = roles_last_used or []
         self.cloud_directories = cloud_directories or []
         self.workspaces_directories = workspaces_directories or []
@@ -441,11 +486,8 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
         self.invalidated_resources = invalidated_resources or set()
 
     @functools.lru_cache(maxsize=None)
-    def get_all_nodes_interfaces(self) -> AliasesDict[NetworkInterface]:
-        network_interfaces = []
-        for network_resource in self.get_all_nodes_resources():
-            network_interfaces.extend(network_resource.network_interfaces)
-        return AliasesDict(*network_interfaces)
+    def get_used_network_interfaces(self) -> AliasesDict[NetworkInterface]:
+        return AliasesDict(*[eni for eni in self.network_interfaces if eni.owner])
 
     @functools.lru_cache(maxsize=None)
     def get_all_nodes_resources(self) -> List[NetworkResource]:
