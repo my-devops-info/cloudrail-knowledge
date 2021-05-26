@@ -15,3 +15,9 @@
       show_root_toc_entry: false
     selection:
       inherited_members: true
+
+## ::: cloudrail.knowledge.context.aws.glue.glue_connection
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
