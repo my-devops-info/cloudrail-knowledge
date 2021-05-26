@@ -3534,3 +3534,22 @@ rules_metadata:
   security_layer: storage
   resource_type:
   - code
+
+- rule_id: non_car_rds_clusters_backup_retention_policy
+  cloud_provider: amazon_web_services
+  name: Ensure RDS clusters have a backup retention policy
+  severity: medium
+  description:
+    Cloudrail will review the RDS clusters configuration in your environment.
+    If a cluster is not configured with a backup retention policy, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the RDS clusters within your AWS account and Terraform plan to check if if they have a backup retention policy.
+  remediation_steps_console:
+    Follow the guide at
+    <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupRetention> in
+    order to set the backup retention period to a positive nonzero value.
+  remediation_steps_tf: For the aws_rds_cluster resource, set the backup_retention_period argument to a value higher than 0.
+  rule_type: non_context_aware
+  security_layer: disaster_recovery
+  resource_type:
+  - database

@@ -14,11 +14,11 @@ class RdsCluster(ConnectionInstance, AwsResource):
             arn: The ARN of the RDS cluster.
             port: The port the cluster is configured to listen to.
             db_subnet_group_name: The name of DB subnet group used.
-            security_group_ids: The IDs of the security groups used by this
-                database.
+            security_group_ids: The IDs of the security groups used by this database.
             is_in_default_vpc: True if the RDS is in the default VPC.
-            encrypted_at_rest: True if the database is configured to be encrypted
-                at rest.
+            encrypted_at_rest: True if the database is configured to be encrypted at rest.
+            backup_retention_period: Number of days to retain backup for the RDS cluster.
+
     """
     def __init__(self,
                  account: str,
@@ -28,7 +28,8 @@ class RdsCluster(ConnectionInstance, AwsResource):
                  port: int,
                  db_subnet_group_name: str,
                  security_group_ids: List[str],
-                 encrypted_at_rest: bool):
+                 encrypted_at_rest: bool,
+                 backup_retention_period: int):
         ConnectionInstance.__init__(self)
         AwsResource.__init__(self, account, region, AwsServiceName.AWS_RDS_CLUSTER)
         self.cluster_id: str = cluster_id
@@ -39,6 +40,7 @@ class RdsCluster(ConnectionInstance, AwsResource):
         self.cluster_instances: List[RdsInstance] = []
         self.security_group_ids: List[str] = security_group_ids
         self.encrypted_at_rest: bool = encrypted_at_rest
+        self.backup_retention_period: int = backup_retention_period
 
     def get_keys(self) -> List[str]:
         return [self.arn]
