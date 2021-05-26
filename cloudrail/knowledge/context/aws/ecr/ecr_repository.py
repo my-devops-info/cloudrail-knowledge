@@ -11,18 +11,21 @@ class EcrRepository(AwsResource):
             arn: The ARN of the repository.
             policy: The resource policy of the ECR.
             image_tag_mutability: Image tag mutability setting for the ECR repository.
+            is_image_scan_on_push: An indication whether images are scanned after being pushed to the ECR repository.
     """
     def __init__(self,
                  repo_name: str,
                  arn: str,
                  region: str,
                  account: str,
-                 image_tag_mutability: str):
+                 image_tag_mutability: str,
+                 is_image_scan_on_push: bool):
         super().__init__(account, region, AwsServiceName.AWS_ECR_REPOSITORY)
         self.repo_name: str = repo_name
         self.arn: str = arn
         self.policy: EcrRepositoryPolicy = None
         self.image_tag_mutability: str = image_tag_mutability
+        self.is_image_scan_on_push: bool = is_image_scan_on_push
 
     def get_keys(self) -> List[str]:
         return [self.arn]

@@ -3477,3 +3477,40 @@ rules_metadata:
   security_layer: storage
   resource_type:
   - code
+
+- rule_id: non_car_elasticache_redis_cluster_automatic_backup_turned_on
+  cloud_provider: amazon_web_services
+  name: Ensure ElastiCache Redis clusters have automatic backup turned on
+  severity: medium
+  description:
+    Cloudrail will review the ElastiCache Redis clusters configuration in your environment.
+    If a Redis cluster has automatic backup turned off, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the ElastiCache Redis clusters within your AWS account and
+    Terraform plan to check if if they have automatic backup turned on.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-automatic.html>
+    in order to enable automatic backups for a ElastiCache Redis cluster.
+  remediation_steps_tf: For the aws_elasticache_cluster resource, set the snapshot_retention_limit argument to a value higher than 0.
+  rule_type: non_context_aware
+  security_layer: disaster_recovery
+  resource_type:
+  - database
+
+- rule_id: non_car_ecr_image_scanning_on_push_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure ECR image scanning on push is enabled
+  severity: medium
+  description:
+    Cloudrail will review the ECR repositories configuration in your environment.
+    If a repository is not configured to scan images on push, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the ECR repositories configuration within your AWS account and Terraform plan to check if image scanning on push is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html>
+    to configure image scanning on push for an ECR repository.
+  remediation_steps_tf: For the aws_ecr_repository resource, in the image_scanning_configuration block, set the scan_on_push parameter to true.
+  rule_type: non_context_aware
+  security_layer: storage
+  resource_type:
+  - code
