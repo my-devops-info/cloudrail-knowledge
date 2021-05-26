@@ -16,7 +16,7 @@ class EnsureDynamoDbTableEncryptedAtRestWithCustomerManagedCmkRule(AwsBaseRule):
         issues: List[Issue] = []
 
         for table in env_context.dynamodb_table_list:
-            if not table.server_side_encryption or (table.server_side_encryption and table.kms_data.key_manager != KeyManager.CUSTOMER):
+            if not table.server_side_encryption or table.kms_data.key_manager != KeyManager.CUSTOMER:
                 issues.append(
                     Issue(
                         f'The {table.get_type()} `{table.get_friendly_name()}` '
