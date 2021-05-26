@@ -32,6 +32,7 @@ class TestEnsureSecurityGroupIncludeDescriptionRule(unittest.TestCase):
         security_group.inbound_permissions = inbound_permissions
         security_group.outbound_permissions = outbound_permissions
         network_interface.add_security_group(security_group)
+        network_interface.owner = codebuild_project
         network_resource.network_interfaces.append(network_interface)
         codebuild_project.network_resource = network_resource
         context = EnvironmentContext(codebuild_projects=[codebuild_project], security_groups=AliasesDict(security_group))
@@ -57,6 +58,7 @@ class TestEnsureSecurityGroupIncludeDescriptionRule(unittest.TestCase):
         security_group.inbound_permissions = inbound_permissions
         security_group.outbound_permissions = outbound_permissions
         network_interface.add_security_group(security_group)
+        network_interface.owner = codebuild_project
         network_resource.network_interfaces.append(network_interface)
         codebuild_project.network_resource = network_resource
         context = EnvironmentContext(codebuild_projects=[codebuild_project], security_groups=AliasesDict(security_group))
@@ -83,6 +85,7 @@ class TestEnsureSecurityGroupIncludeDescriptionRule(unittest.TestCase):
         security_group.inbound_permissions = inbound_permissions
         security_group.outbound_permissions = outbound_permissions
         network_interface.add_security_group(security_group)
+        network_interface.owner = codebuild_project
         network_resource.network_interfaces.append(network_interface)
         codebuild_project.network_resource = network_resource
         context = EnvironmentContext(codebuild_projects=[codebuild_project], security_groups=AliasesDict(security_group))
@@ -109,6 +112,7 @@ class TestEnsureSecurityGroupIncludeDescriptionRule(unittest.TestCase):
         security_group.inbound_permissions = inbound_permissions
         security_group.outbound_permissions = outbound_permissions
         network_interface.add_security_group(security_group)
+        network_interface.owner = codebuild_project
         network_resource.network_interfaces.append(network_interface)
         codebuild_project.network_resource = network_resource
         context = EnvironmentContext(codebuild_projects=[codebuild_project], security_groups=AliasesDict(security_group))
@@ -136,6 +140,7 @@ class TestEnsureSecurityGroupIncludeDescriptionRule(unittest.TestCase):
         security_group.inbound_permissions = inbound_permissions
         security_group.outbound_permissions = outbound_permissions
         network_interface.add_security_group(security_group)
+        network_interface.owner = codebuild_project
         network_resource.network_interfaces.append(network_interface)
         codebuild_project.network_resource = network_resource
         context = EnvironmentContext(codebuild_projects=[codebuild_project], security_groups=AliasesDict(security_group))
