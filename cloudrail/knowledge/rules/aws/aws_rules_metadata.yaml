@@ -3460,6 +3460,24 @@ rules_metadata:
   resource_type:
   - iam
 
+- rule_id: non_car_ecr_image_tags_immutable
+  cloud_provider: amazon_web_services
+  name: Ensure ECR repository image tags are immutable
+  severity: medium
+  description:
+    Cloudrail will review the ECR repositories configuration in your environment.
+    If a repository is not configured with immutable tags, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the ECR repositories configuration within your AWS account and Terraform plan to check if image tags are set to immutable.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-create.html>
+    in order to configure Tag immutability for an ECR repository.
+  remediation_steps_tf: For the aws_ecr_repository resource, set the image_tag_mutability parameter to "IMMUTABLE".
+  rule_type: non_context_aware
+  security_layer: storage
+  resource_type:
+  - code
+
 - rule_id: non_car_elasticache_redis_cluster_automatic_backup_turned_on
   cloud_provider: amazon_web_services
   name: Ensure ElastiCache Redis clusters have automatic backup turned on
