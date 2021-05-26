@@ -6,6 +6,7 @@ from cloudrail.knowledge.rules.azure.non_context_aware.unused_network_security_g
 from cloudrail.knowledge.rules.base_rule import RuleResultType
 from cloudrail.knowledge.context.aliases_dict import AliasesDict
 from cloudrail.knowledge.context.azure.azure_resources.nsg.azure_nsg import AzureNetworkSecurityGroup
+#from cloudrail.knowledge.context.azure.azure_resources.nsg.azure_nsg_nic_association import AzureNsgNicAssociation
 
 
 class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
@@ -14,7 +15,7 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
 
     def test_non_car_unused_network_security_group_fail(self):
         # Arrange
-        nsg = AzureNetworkSecurityGroup("subscr","rg","westeu","mynsg")
+        nsg = AzureNetworkSecurityGroup("subscr", "nsg-id", "rg", "westeu", "mynsg")
         context = AzureEnvironmentContext(net_security_groups=AliasesDict(*[nsg]))
         #context = AzureEnvironmentContext(net_security_groups=[nsg])
         # Act
@@ -25,7 +26,8 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
 
     def test_non_car_unused_network_security_group_pass_with_nic(self):
         # Arrange
-        nsg = AzureNetworkSecurityGroup("subscr","rg","westeu","mynsg",["mynic"])
+        nsg = AzureNetworkSecurityGroup("subscr", "nsg-id", "rg", "westeu", "mynsg")
+        nsg.network_interfaces=["mynic"]
         context = AzureEnvironmentContext(net_security_groups=AliasesDict(*[nsg]))
         # Act
         result = self.rule.run(context, {})
@@ -35,17 +37,20 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
 
     def test_non_car_unused_network_security_group_pass_with_snet(self):
         # Arrange
-        nsg = AzureNetworkSecurityGroup("subscr","rg","westeu","mynsg",[],["mysubnet"])
+        nsg = AzureNetworkSecurityGroup("subscr", "nsg-id", "rg", "westeu", "mynsg")
+        nsg.subnets=["mysubnet"]
         context = AzureEnvironmentContext(net_security_groups=AliasesDict(*[nsg]))
         # Act
         result = self.rule.run(context, {})
         # Assert
         self.assertEqual(RuleResultType.SUCCESS, result.status)
         self.assertEqual(0, len(result.issues))
-
+        
     def test_non_car_unused_network_security_group_pass_with_nic_snet(self):
         # Arrange
-        nsg = AzureNetworkSecurityGroup("subscr","rg","westeu","mynsg",["mynic"],["mysubnet"])
+        nsg = AzureNetworkSecurityGroup("subscr", "nsg-id", "rg", "westeu", "mynsg")
+        nsg.network_interfaces=["mynic"]
+        nsg.subnets=["mysubnet"]
         context = AzureEnvironmentContext(net_security_groups=AliasesDict(*[nsg]))
         # Act
         result = self.rule.run(context, {})
