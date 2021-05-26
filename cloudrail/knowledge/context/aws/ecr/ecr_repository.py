@@ -15,12 +15,16 @@ class EcrRepository(AwsResource):
             encryption_type: The type of encryption used by the ECR repository.
             kms_key_id: The KMS key ID used to encrypt the ECR repository, if the encryption type is KMS.
             kms_data: The actual KmsKey object referenced by the KMS ID.
+            image_tag_mutability: Image tag mutability setting for the ECR repository.
+            is_image_scan_on_push: An indication whether images are scanned after being pushed to the ECR repository.
     """
     def __init__(self,
                  repo_name: str,
                  arn: str,
                  region: str,
                  account: str,
+                 image_tag_mutability: str,
+                 is_image_scan_on_push: bool,
                  encryption_type: str,
                  kms_key_id: Optional[str]):
         super().__init__(account, region, AwsServiceName.AWS_ECR_REPOSITORY)
@@ -30,6 +34,8 @@ class EcrRepository(AwsResource):
         self.encryption_type: str = encryption_type
         self.kms_key_id: str = kms_key_id
         self.kms_data: Optional[KmsKey] = None
+        self.image_tag_mutability: str = image_tag_mutability
+        self.is_image_scan_on_push: bool = is_image_scan_on_push
 
     def get_keys(self) -> List[str]:
         return [self.arn]

@@ -17,6 +17,8 @@ class ElastiCacheCluster(NetworkEntity):
             subnet_ids: The IDs of the subnet in the subnet group.
             is_in_default_vpc: True if the ElasticCache cluster is in the
                 default VPC.
+            snapshot_retention_limit: Number of days for which ElastiCache will retain automatic cache cluster snapshots before deleting them.
+            engine: Name of the cache engine to be used for the ElasticCache cluster
     """
     def __init__(self,
                  region: str,
@@ -25,6 +27,8 @@ class ElastiCacheCluster(NetworkEntity):
                  arn: str,
                  replication_group_id: Optional[str],
                  security_group_ids: Optional[list],
+                 snapshot_retention_limit: Optional[int],
+                 engine: str,
                  subnet_group_name: Optional[str] = 'default'):
         super().__init__(cluster_name, account, region, AwsServiceName.AWS_ELASTICACHE_CLUSTER)
         self.replication_group_id: str = replication_group_id
@@ -34,6 +38,8 @@ class ElastiCacheCluster(NetworkEntity):
         self.subnet_group_name: Optional[str] = subnet_group_name
         self.subnet_ids: Optional[List[str]] = None
         self.is_in_default_vpc: bool = self.subnet_group_name == 'default'
+        self.snapshot_retention_limit: Optional[int] = snapshot_retention_limit
+        self.engine: str = engine
 
     def get_keys(self) -> List[str]:
         return [self.get_arn()]
