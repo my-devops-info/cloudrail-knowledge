@@ -5,8 +5,7 @@ from cloudrail.knowledge.context.azure.azure_environment_context import AzureEnv
 from cloudrail.knowledge.rules.azure.non_context_aware.unused_network_security_group_rule import UnusedNetworkSecurityGroupRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
 from cloudrail.knowledge.context.aliases_dict import AliasesDict
-from cloudrail.knowledge.context.azure.azure_resources.nsg.azure_nsg import AzureNetworkSecurityGroup
-#from cloudrail.knowledge.context.azure.azure_resources.nsg.azure_nsg_nic_association import AzureNsgNicAssociation
+from cloudrail.knowledge.context.azure.network.azure_nsg import AzureNetworkSecurityGroup
 
 
 class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):

@@ -17,7 +17,6 @@ class UnusedNetworkSecurityGroupRule(AzureBaseRule):
             if not nsg.subnets and not nsg.network_interfaces:
                 issues.append(
                     Issue(
-                        f'~{nsg.get_type()}~. '
                         f'{nsg.get_type()}  `{nsg.get_friendly_name()}` is unused',
                         nsg,
                         nsg))

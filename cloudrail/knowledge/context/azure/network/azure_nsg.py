@@ -1,9 +1,19 @@
 from typing import Optional, List
-from cloudrail.knowledge.context.azure.azure_resources.azure_resource import AzureResource
-from cloudrail.knowledge.context.azure.azure_resources.constants.azure_resource_type import AzureResourceType
+from cloudrail.knowledge.context.azure.azure_resource import AzureResource
+from cloudrail.knowledge.context.azure.constants.azure_resource_type import AzureResourceType
 
 
 class AzureNetworkSecurityGroup(AzureResource):
+    """
+        Attributes:
+            subscription_id: The subscription id.
+            security_group_id: The network security group id.
+            resource_group_name: Resource group name whcih the NSG belongs to.
+            location: Azure location.
+            name: The NSG name
+            network_interfaces: List of network interfaces which the NSG connected to (if any)
+            subnets: List of subnets which the NSG connected to (if any)
+    """
 
     def __init__(self, subscription_id: str, security_group_id: str, resource_group_name: str, location: str, name: str,
                 network_interfaces=None,

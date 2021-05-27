@@ -1,10 +1,16 @@
 from typing import List, Optional
 
-from cloudrail.knowledge.context.azure.azure_resources.azure_resource import AzureResource
-from cloudrail.knowledge.context.azure.azure_resources.constants.azure_resource_type import AzureResourceType
+from cloudrail.knowledge.context.azure.azure_resource import AzureResource
+from cloudrail.knowledge.context.azure.constants.azure_resource_type import AzureResourceType
 
 
 class AzureSubnet(AzureResource):
+    """
+        Attributes:
+            subscription_id: The subscription id.
+            subnet_id: The subnet id.
+            resource_group: Resource group name whcih the NSG belongs to.
+    """
 
     def __init__(self, subscription_id: str, subnet_id: str, resource_group: str):
         super().__init__(subscription_id, resource_group, None, AzureResourceType.AZURERM_NETWORK_SECURITY_GROUP)
