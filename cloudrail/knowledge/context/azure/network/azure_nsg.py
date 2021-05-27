@@ -27,7 +27,7 @@ class AzureNetworkSecurityGroup(AzureResource):
 
     def get_keys(self) -> List[str]:
         return [self.security_group_id]
-    
+
     def get_id(self) -> str:
         return self.security_group_id
 
