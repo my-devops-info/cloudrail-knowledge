@@ -3460,6 +3460,24 @@ rules_metadata:
   resource_type:
   - iam
 
+- rule_id: non_car_cloudfront_distribution_using_waf
+  cloud_provider: amazon_web_services
+  name: Ensure CloudFront distribution is using WAF
+  severity: medium
+  description:
+    Cloudrail will review the CloudFront distributions in your environment.
+    If a distribution is not using AWS WAF, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the CloudFront distributions within your AWS account and Terraform plan to check if they are configured to use WAF.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-awswaf.html>
+    in order to assign an AWS WAF Web ACL to the CloudFront distribution.
+  remediation_steps_tf: For the aws_cloudfront_distribution resource, set the web_acl_id parameter to a WAF Web ACL ARN value.
+  rule_type: non_context_aware
+  security_layer: networking
+  resource_type:
+  - content_delivery
+
 - rule_id: non_car_alb_drops_invalid_http_headers
   cloud_provider: amazon_web_services
   name: Ensure Load Balancer drops invalid HTTP headers
