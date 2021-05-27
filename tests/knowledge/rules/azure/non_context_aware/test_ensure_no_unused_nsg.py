@@ -16,7 +16,6 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
         # Arrange
         nsg = AzureNetworkSecurityGroup("subscr", "nsg-id", "rg", "westeu", "mynsg")
         context = AzureEnvironmentContext(net_security_groups=AliasesDict(*[nsg]))
-        #context = AzureEnvironmentContext(net_security_groups=[nsg])
         # Act
         result = self.rule.run(context, {})
         # Assert
