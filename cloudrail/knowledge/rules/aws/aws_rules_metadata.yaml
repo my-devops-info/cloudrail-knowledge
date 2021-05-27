@@ -3459,3 +3459,151 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - iam
+
+- rule_id: non_car_cloudtrail_is_enabled_in_all_regions
+  cloud_provider: amazon_web_services
+  name: Ensure CloudTrail is enabled in all regions
+  severity: medium
+  description:
+    Cloudrail will review the CloudTrail configuration in your environment.
+    If it is not enabled in all regions, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the CloudTrail configuration within your AWS account and Terraform plan to check if it is enabled in all regions.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-create-a-trail-using-the-console-first-time.html>
+    to create a trail that logs events in all regions.
+  remediation_steps_tf: For the aws_cloudtrail resource, set the is_multi_region_trail parameter to true.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - logging
+
+- rule_id: non_car_cloudfront_distribution_using_waf
+  cloud_provider: amazon_web_services
+  name: Ensure CloudFront distribution is using WAF
+  severity: medium
+  description:
+    Cloudrail will review the CloudFront distributions in your environment.
+    If a distribution is not using AWS WAF, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the CloudFront distributions within your AWS account and Terraform plan to check if they are configured to use WAF.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-awswaf.html>
+    in order to assign an AWS WAF Web ACL to the CloudFront distribution.
+  remediation_steps_tf: For the aws_cloudfront_distribution resource, set the web_acl_id parameter to a WAF Web ACL ARN value.
+  rule_type: non_context_aware
+  security_layer: networking
+  resource_type:
+  - content_delivery
+
+- rule_id: non_car_alb_drops_invalid_http_headers
+  cloud_provider: amazon_web_services
+  name: Ensure Load Balancer drops invalid HTTP headers
+  severity: medium
+  description:
+    Cloudrail will review the Load Balancers in your environment.
+    If a Load Balancer is not set drop invalid HTTP headers, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the Load Balancers within your AWS account and Terraform plan to check if they are configured to drop invalid HTTP headers.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancers.html>
+    to enable the Drop invalid header fields parameter.
+  remediation_steps_tf: For the aws_lb resource, set the drop_invalid_header_fields parameter to true.
+  rule_type: non_context_aware
+  security_layer: networking
+  resource_type:
+  - network
+
+- rule_id: non_car_dynamodb_tables_encrypted_at_rest_with_customer_managed_CMK
+  cloud_provider: amazon_web_services
+  name: Ensure DynamoDB tables are encrypted at rest with customer-managed CMK
+  severity: low
+  description:
+    Cloudrail will review the DynamoDB tables in your environment.
+    If a table is not set to be encrypted at rest using a customer-managed CMK, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will identify DynamoDB tables within your AWS account and Terraform plan
+    that are not configured to be encrypted at rest using a customer-managed CMK.
+  remediation_steps_console: Follow the guide at <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/encryption.tutorial.html>
+    to set DynamoDB table encryption using a customer-managed CMK.
+  remediation_steps_tf: For the aws_dynamodb_table resource, set kms_key_arn argument,
+    in server_side_encryption block, to use a customer-managed CMK ARN.
+  rule_type: non_context_aware
+  security_layer: encryption
+  resource_type:
+  - database
+
+- rule_id: non_car_ecr_repositories_encrypted_at_rest_with_customer_managed_cmk
+  cloud_provider: amazon_web_services
+  name: Ensure ECR repositories being created are set to be encrypted at rest using customer-managed CMK
+  severity: low
+  description:
+    Cloudrail will review the ECR repositories being created in your environment.
+    If a repository is not set to be encrypted at rest using a customer-managed CMK, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will identify all ECR repositories in the Terraform plan that are going to be created and
+    are not configured to be encrypted at rest using a customer-managed CMK.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonECR/latest/userguide/encryption-at-rest.html> to create
+    an ECR repository with encryption at rest using a customer-managed CMK.
+  remediation_steps_tf:
+    For the aws_ecr_repository resource, set kms_key argument, in encryption_configuration block, to use a customer-managed CMK ARN.
+  rule_type: non_context_aware
+  security_layer: encryption
+  resource_type:
+  - compute
+
+- rule_id: non_car_ecr_image_tags_immutable
+  cloud_provider: amazon_web_services
+  name: Ensure ECR repository image tags are immutable
+  severity: medium
+  description:
+    Cloudrail will review the ECR repositories configuration in your environment.
+    If a repository is not configured with immutable tags, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the ECR repositories configuration within your AWS account and Terraform plan to check if image tags are set to immutable.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-create.html>
+    in order to configure Tag immutability for an ECR repository.
+  remediation_steps_tf: For the aws_ecr_repository resource, set the image_tag_mutability parameter to "IMMUTABLE".
+  rule_type: non_context_aware
+  security_layer: storage
+  resource_type:
+  - code
+
+- rule_id: non_car_elasticache_redis_cluster_automatic_backup_turned_on
+  cloud_provider: amazon_web_services
+  name: Ensure ElastiCache Redis clusters have automatic backup turned on
+  severity: medium
+  description:
+    Cloudrail will review the ElastiCache Redis clusters configuration in your environment.
+    If a Redis cluster has automatic backup turned off, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the ElastiCache Redis clusters within your AWS account and
+    Terraform plan to check if if they have automatic backup turned on.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-automatic.html>
+    in order to enable automatic backups for a ElastiCache Redis cluster.
+  remediation_steps_tf: For the aws_elasticache_cluster resource, set the snapshot_retention_limit argument to a value higher than 0.
+  rule_type: non_context_aware
+  security_layer: disaster_recovery
+  resource_type:
+  - database
+
+- rule_id: non_car_ecr_image_scanning_on_push_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure ECR image scanning on push is enabled
+  severity: medium
+  description:
+    Cloudrail will review the ECR repositories configuration in your environment.
+    If a repository is not configured to scan images on push, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the ECR repositories configuration within your AWS account and Terraform plan to check if image scanning on push is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-scanning.html>
+    to configure image scanning on push for an ECR repository.
+  remediation_steps_tf: For the aws_ecr_repository resource, in the image_scanning_configuration block, set the scan_on_push parameter to true.
+  rule_type: non_context_aware
+  security_layer: storage
+  resource_type:
+  - code

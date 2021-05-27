@@ -1,3 +1,4 @@
+import json
 import uuid
 from enum import Enum
 from typing import List, Dict
@@ -35,6 +36,8 @@ class Policy(AwsResource, Cloneable):
         self._init_statements()
         self.uuid: str = str(uuid.uuid4())
         self.raw_document = raw_document
+        if isinstance(self.raw_document, dict):
+            self.raw_document = json.dumps(self.raw_document)
         self.access_analyzer_findings = []
         self.policy_type = policy_type
 

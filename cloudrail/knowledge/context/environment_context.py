@@ -76,6 +76,7 @@ from cloudrail.knowledge.context.aws.elasticache.elasticache_replication_group i
 from cloudrail.knowledge.context.aws.elasticache.elasticache_cluster import ElastiCacheCluster
 from cloudrail.knowledge.context.aws.elasticache.elasticache_subnet_group import ElastiCacheSubnetGroup
 from cloudrail.knowledge.context.aws.elb.load_balancer import LoadBalancer
+from cloudrail.knowledge.context.aws.elb.load_balancer_attributes import LoadBalancerAttributes
 from cloudrail.knowledge.context.aws.elb.load_balancer_listener import LoadBalancerListener
 from cloudrail.knowledge.context.aws.elb.load_balancer_target import LoadBalancerTarget
 from cloudrail.knowledge.context.aws.elb.load_balancer_target_group import LoadBalancerTargetGroup
@@ -327,9 +328,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  cloudhsm_list: List[CloudHsmV2Hsm] = None,
                  s3outpost_endpoints: List[S3OutpostEndpoint] = None,
                  worklink_fleets: List[WorkLinkFleet] = None,
-                 glue_connections: List[GlueConnection] = None):
+                 glue_connections: List[GlueConnection] = None,
+                 load_balancers_attributes: List[LoadBalancerAttributes] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.load_balancers_attributes = load_balancers_attributes or []
         self.glue_connections = glue_connections or []
         self.worklink_fleets = worklink_fleets or []
         self.s3outpost_endpoints = s3outpost_endpoints or []
