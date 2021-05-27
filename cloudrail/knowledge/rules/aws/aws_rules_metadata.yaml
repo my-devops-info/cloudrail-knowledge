@@ -3460,6 +3460,25 @@ rules_metadata:
   resource_type:
   - iam
 
+- rule_id: non_car_dynamodb_tables_encrypted_at_rest_with_customer_managed_CMK
+  cloud_provider: amazon_web_services
+  name: Ensure DynamoDB tables are encrypted at rest with customer-managed CMK
+  severity: low
+  description:
+    Cloudrail will review the DynamoDB tables in your environment.
+    If a table is not set to be encrypted at rest using a customer-managed CMK, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will identify DynamoDB tables within your AWS account and Terraform plan
+    that are not configured to be encrypted at rest using a customer-managed CMK.
+  remediation_steps_console: Follow the guide at <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/encryption.tutorial.html>
+    to set DynamoDB table encryption using a customer-managed CMK.
+  remediation_steps_tf: For the aws_dynamodb_table resource, set kms_key_arn argument,
+    in server_side_encryption block, to use a customer-managed CMK ARN.
+  rule_type: non_context_aware
+  security_layer: encryption
+  resource_type:
+  - database
+
 - rule_id: non_car_ecr_repositories_encrypted_at_rest_with_customer_managed_cmk
   cloud_provider: amazon_web_services
   name: Ensure ECR repositories being created are set to be encrypted at rest using customer-managed CMK
