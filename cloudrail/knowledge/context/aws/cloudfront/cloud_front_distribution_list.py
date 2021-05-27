@@ -65,6 +65,7 @@ class CloudFrontDistribution(AwsResource, ConnectionInstance):
             viewer_cert: An object of type ViewerCertificate representing the viewer certificate
                  used with this distribution.
             origin_config_list: A list of OriginConfig, the order is not guaranteed.
+            web_acl_id: The ID of the AWS WAF web ACL, to associate with this distribution.
     """
     def __init__(self,
                  arn: str,
@@ -74,6 +75,7 @@ class CloudFrontDistribution(AwsResource, ConnectionInstance):
                  viewer_cert: ViewerCertificate,
                  cache_behavior_list: List[CacheBehavior],
                  origin_config_list: List[OriginConfig],
+                 web_acl_id: str,
                  tags: Dict[str, str] = None):
         super().__init__(account=account, region=self.GLOBAL_REGION, tf_resource_type=AwsServiceName.AWS_CLOUDFRONT_DISTRIBUTION_LIST,
                          aws_service_attributes=AwsServiceAttributes(AwsServiceType.CLOUDFRONT.value))
@@ -84,6 +86,7 @@ class CloudFrontDistribution(AwsResource, ConnectionInstance):
         self.viewer_cert: ViewerCertificate = viewer_cert
         self._cache_behavior_list: List[CacheBehavior] = cache_behavior_list
         self.origin_config_list: List[OriginConfig] = origin_config_list
+        self.web_acl_id: str = web_acl_id
         if tags:
             self.tags = tags
 
@@ -112,6 +115,10 @@ class CloudFrontDistribution(AwsResource, ConnectionInstance):
     @property
     def is_tagable(self) -> bool:
         return True
+
+    @property
+    def is_waf_enabled(self) -> bool:
+        return self.web_acl_id and 'aws_cloudfront_distribution' not in self.web_acl_id
 
     def get_default_behavior(self) -> Optional[CacheBehavior]:
         """
