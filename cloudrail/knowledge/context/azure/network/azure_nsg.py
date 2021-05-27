@@ -26,7 +26,10 @@ class AzureNetworkSecurityGroup(AzureResource):
         self.network_interfaces = network_interfaces or []
 
     def get_keys(self) -> List[str]:
-        return [self.get_name()]
+        return [self.security_group_id]
+    
+    def get_id(self) -> str:
+        return self.security_group_id
 
     def get_name(self) -> str:
         return self.name
