@@ -1,10 +1,17 @@
 from typing import Optional, List
-from cloudrail.knowledge.context.azure.azure_resources.azure_resource import AzureResource
-from cloudrail.knowledge.context.azure.azure_resources.constants.azure_resource_type import AzureResourceType
+from cloudrail.knowledge.context.azure.azure_resource import AzureResource
+from cloudrail.knowledge.context.azure.constants.azure_resource_type import AzureResourceType
 
 
 class AzureResourceGroup(AzureResource):
-    # todo - add CM/TF builders
+    """
+        Attributes:
+            subscription_id: The subscription id.
+            resource_group_name: The name of the resource group.
+            resource_group_id: Resource group ID.
+            location: Azure location.
+    """
+
     def __init__(self, subscription_id: str, resource_group_name: str, resource_group_id: str, location: str) -> None:
         super().__init__(subscription_id, resource_group_name, location, AzureResourceType.AZURERM_RESOURCE_GROUP)
         self.resource_group_id: str = resource_group_id
