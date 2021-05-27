@@ -2,8 +2,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List
+from typing import List, Optional
 
+from cloudrail.knowledge.context.aws.elb.load_balancer_attributes import LoadBalancerAttributes
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 from cloudrail.knowledge.context.aws.networking_config.network_entity import NetworkEntity
 from cloudrail.knowledge.context.aws.elb.load_balancer_target_group import LoadBalancerTargetGroup
@@ -51,8 +52,8 @@ class LoadBalancer(NetworkEntity):
         self.load_balancer_arn: str = load_balancer_arn
         self.target_groups: List[LoadBalancerTargetGroup] = []
         self.listener_ports: List[int] = []
-
         self.raw_data = LoadBalancerRawData()
+        self.load_balancer_attributes: Optional[LoadBalancerAttributes] = None
 
     def get_keys(self) -> List[str]:
         return [self.load_balancer_arn]

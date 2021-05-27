@@ -3460,6 +3460,24 @@ rules_metadata:
   resource_type:
   - iam
 
+- rule_id: non_car_alb_drops_invalid_http_headers
+  cloud_provider: amazon_web_services
+  name: Ensure Load Balancer drops invalid HTTP headers
+  severity: medium
+  description:
+    Cloudrail will review the Load Balancers in your environment.
+    If a Load Balancer is not set drop invalid HTTP headers, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the Load Balancers within your AWS account and Terraform plan to check if they are configured to drop invalid HTTP headers.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancers.html>
+    to enable the Drop invalid header fields parameter.
+  remediation_steps_tf: For the aws_lb resource, set the drop_invalid_header_fields parameter to true.
+  rule_type: non_context_aware
+  security_layer: networking
+  resource_type:
+  - network
+
 - rule_id: non_car_dynamodb_tables_encrypted_at_rest_with_customer_managed_CMK
   cloud_provider: amazon_web_services
   name: Ensure DynamoDB tables are encrypted at rest with customer-managed CMK
