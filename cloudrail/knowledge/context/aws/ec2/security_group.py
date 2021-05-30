@@ -101,3 +101,9 @@ class SecurityGroup(AwsResource):
 
     def exclude_from_invalidation(self) -> list:
         return [self._used_by]
+
+    def custom_invalidation(self) -> List[str]:
+        invalidation_reasons = []
+        if self._used_by and not self.used_by:
+            invalidation_reasons.append('Security group used only by invalidated resources')
+        return invalidation_reasons
