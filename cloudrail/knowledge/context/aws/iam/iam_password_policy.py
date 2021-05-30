@@ -45,7 +45,10 @@ class IamPasswordPolicy(AwsResource):
         return [self.account]
 
     def get_name(self) -> str:
-        return self.account + ' policy'
+        if self.account:
+            return self.account + ' policy'
+        else:
+            return 'The account'
 
     def get_type(self, is_plural: bool = False) -> str:
         return 'IAM Password Policy'
