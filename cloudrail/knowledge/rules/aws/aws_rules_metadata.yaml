@@ -3607,3 +3607,22 @@ rules_metadata:
   security_layer: storage
   resource_type:
   - code
+
+- rule_id: non_car_ecs_cluster_container_insights_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure ECS cluster has container insights enabled
+  severity: medium
+  description:
+    Cloudrail will review the ECS clusters configuration in your environment.
+    If a cluster is not configured to enable container insights, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the ECS clusters configuration within your AWS account and Terraform plan to check if container insights is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/deploy-container-insights-ECS-cluster.html>
+    in order to enable container insights for an ECS cluster.
+  remediation_steps_tf:
+    For the aws_ecs_cluster resource, in the setting block, set the name argument to containerInsights and the value argument to enabled.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - compute
