@@ -2,7 +2,6 @@ from typing import List, Optional
 
 from cloudrail.knowledge.context.aws.aws_connection import ConnectionInstance
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
-from cloudrail.knowledge.context.aws.ec2.security_group import SecurityGroup
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 
 
@@ -54,7 +53,7 @@ class NetworkInterface(ConnectionInstance, AwsResource):
         self.is_primary: bool = is_primary
         self.availability_zone: str = availability_zone
         self.subnet: 'Subnet' = None
-        self.security_groups: List[SecurityGroup] = []
+        self.security_groups: List['SecurityGroup'] = []
         self.owner: Optional[AwsResource] = None
         self.aliases.add(eni_id)
 
@@ -110,6 +109,6 @@ class NetworkInterface(ConnectionInstance, AwsResource):
     def is_tagable(self) -> bool:
         return True
 
-    def add_security_group(self, security_group: SecurityGroup):
+    def add_security_group(self, security_group: 'SecurityGroup'):
         self.security_groups.append(security_group)
         security_group.add_usage(self)
