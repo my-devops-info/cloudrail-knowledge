@@ -1,13 +1,16 @@
 from typing import Optional, List
+
+from cloudrail.knowledge.context.azure.azure_resources.app_service.azure_ftps_state import FtpsState
 from cloudrail.knowledge.context.azure.azure_resources.azure_resource import AzureResource
 from cloudrail.knowledge.context.azure.azure_resources.constants.azure_resource_type import AzureResourceType
 
 
 class AzureAppService(AzureResource):
-    def __init__(self, subscription_id: str, resource_group_name: str, location: str, name: str) -> None:
+    def __init__(self, subscription_id: str, resource_group_name: str, location: str, name: str, ftps_state: FtpsState) -> None:
         super().__init__(subscription_id, resource_group_name, location,
                          'App Service', AzureResourceType.AZURERM_APP_SERVICE)
-        self.name = name
+        self.name: str = name
+        self.ftps_state: FtpsState = ftps_state
         self.with_aliases(name)
 
     def get_keys(self) -> List[str]:
