@@ -31,6 +31,7 @@ class RdsInstance(NetworkEntity, INetworkConfiguration):
             security_group_allowing_public_access: A security group that allows access from the internet.
                 This value will be None when this resource is not accessible from the internet.
             indirect_public_connection_data: The data that describes that a publicly-accessible resource can access this resource by a security group of this resource.
+            backup_retention_period: Number of days to retain backups.
     """
     def __init__(self,
                  account: str,
@@ -56,6 +57,7 @@ class RdsInstance(NetworkEntity, INetworkConfiguration):
         self.performance_insights_kms_key: Optional[str] = performance_insights_kms_key
         self.performance_insights_enabled: bool = performance_insights_enabled
         self.performance_insights_kms_data: Optional[KmsKey] = None
+        self.backup_retention_period: Optional[int] = None
 
         self.indirect_public_connection_data: Optional[IndirectPublicConnectionData] = None
         self.security_group_allowing_public_access: Optional[SecurityGroup] = None
