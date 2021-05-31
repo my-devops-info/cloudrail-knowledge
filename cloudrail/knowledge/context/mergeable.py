@@ -63,6 +63,10 @@ class Mergeable:
     def add_invalidation(self, reason: str) -> None:
         self.invalidation.append(reason)
 
+    @property
+    def is_invalidated(self) -> bool:
+        return bool(self.invalidation)
+
     @abstractmethod
     def get_friendly_name(self) -> str:
         pass
@@ -87,4 +91,13 @@ class Mergeable:
 
     # pylint: disable=no-self-use
     def exclude_from_invalidation(self):
+        """
+        A list of attributes that should be excluded from the invalidation process
+        """
+        return []
+
+    def custom_invalidation(self) -> List[str]:
+        """
+        A list of manual reasons why this resource should be invalidated
+        """
         return []
