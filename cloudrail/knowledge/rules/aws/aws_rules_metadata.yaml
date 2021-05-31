@@ -3626,3 +3626,21 @@ rules_metadata:
   security_layer: logging
   resource_type:
   - compute
+
+- rule_id: non_car_ec2_instance_is_ebs_optimized
+  cloud_provider: amazon_web_services
+  name: Ensure EC2 instance is EBS optimized
+  severity: medium
+  description:
+    Cloudrail will review the EC2 instances configuration in your environment.
+    If it is not configured to be EBS-optimized, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the EC2 instances configuration within your AWS account and Terraform plan to check if it is configured to be EBS optimized.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html> to enable EBS optimization for an EC2 instance.
+  remediation_steps_tf:
+    For the aws_instance resource, set the ebs_optimized parameter to true.
+  rule_type: non_context_aware
+  security_layer: storage
+  resource_type:
+  - compute

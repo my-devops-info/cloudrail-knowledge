@@ -1,6 +1,6 @@
 import functools
 from dataclasses import dataclass
-from typing import List, Dict, Union, TypeVar, Callable, Set
+from typing import List, Dict, Optional, Union, TypeVar, Callable, Set
 from cloudrail.knowledge.context.aliases_dict import AliasesDict
 from cloudrail.knowledge.context.aws.account.account import Account
 from cloudrail.knowledge.context.aws.apigateway.api_gateway_integration import ApiGatewayIntegration
@@ -39,6 +39,7 @@ from cloudrail.knowledge.context.aws.ds.directory_service import DirectoryServic
 from cloudrail.knowledge.context.aws.dynamodb.dynamodb_table import DynamoDbTable
 from cloudrail.knowledge.context.aws.ec2.ec2_image import Ec2Image
 from cloudrail.knowledge.context.aws.ec2.ec2_instance import Ec2Instance
+from cloudrail.knowledge.context.aws.ec2.ec2_instance_type import Ec2InstanceType
 from cloudrail.knowledge.context.aws.ec2.elastic_ip import ElasticIp
 from cloudrail.knowledge.context.aws.ec2.internet_gateway import InternetGateway
 from cloudrail.knowledge.context.aws.ec2.main_route_table_association import MainRouteTableAssociation
@@ -329,9 +330,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  s3outpost_endpoints: List[S3OutpostEndpoint] = None,
                  worklink_fleets: List[WorkLinkFleet] = None,
                  glue_connections: List[GlueConnection] = None,
-                 load_balancers_attributes: List[LoadBalancerAttributes] = None):
+                 load_balancers_attributes: List[LoadBalancerAttributes] = None,
+                 ec2_instance_types: List[Ec2InstanceType] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.ec2_instance_types = ec2_instance_types or []
         self.load_balancers_attributes = load_balancers_attributes or []
         self.glue_connections = glue_connections or []
         self.worklink_fleets = worklink_fleets or []
@@ -529,6 +532,14 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
     def get_all_taggable_resources(self) -> List[_TMergeAble]:
         condition: Callable = lambda aws_resource: aws_resource.is_tagable
         return self.get_all_mergeable_resources(condition)
+
+    @functools.lru_cache(maxsize=None)
+    def get_all_ec2_instance_types_with_default_ebs_optimization(self) -> Optional[List[Ec2InstanceType]]:
+        if self.accounts:
+            condition: Callable = lambda resource: isinstance(resource, Ec2InstanceType) and resource.ebs_info.ebs_optimized_support == 'default'
+            return self.get_all_mergeable_resources(condition)
+        else:
+            return []
 
     def get_all_mergeable_resources(self, condition: Callable = lambda resource: True) -> List[_TMergeAble]:
         all_resources: List[Mergeable] = []

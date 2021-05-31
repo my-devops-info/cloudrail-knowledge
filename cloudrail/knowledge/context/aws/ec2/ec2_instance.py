@@ -52,6 +52,8 @@ class Ec2Instance(NetworkEntity, AwsClient):
             iam_profile_id: The ID of the IAM profile.
             http_tokens: The HTTP tokens setting - optional or required.
             availability_zone: The availability zone the EC2 is in, if configured.
+            instance_type: The Instance type (i.e. 'm5.8xlarge').
+            ebs_optimized: Indication whether the EC2 instance has EBS optimization enabled of not.
     """
     def __init__(self,
                  account: str,
@@ -65,7 +67,9 @@ class Ec2Instance(NetworkEntity, AwsClient):
                  http_tokens: str,
                  iam_profile_id: Optional[str],
                  availability_zone: Optional[str],
-                 tags: dict):
+                 tags: dict,
+                 instance_type: str,
+                 ebs_optimized: bool):
         NetworkEntity.__init__(self, name or instance_id, account, region, AwsServiceName.AWS_EC2_INSTANCE,
                                AwsServiceAttributes(aws_service_type=AwsServiceType.EC2.value, region=region))
         AwsClient.__init__(self)
@@ -82,6 +86,8 @@ class Ec2Instance(NetworkEntity, AwsClient):
         self.raw_data: Ec2RawData = Ec2RawData()
         if tags:
             self.tags.update(tags)
+        self.instance_type: str = instance_type
+        self.ebs_optimized: bool = ebs_optimized
 
     def __str__(self):
         name_or_id_msg = 'Instance Name: {}'.format(
