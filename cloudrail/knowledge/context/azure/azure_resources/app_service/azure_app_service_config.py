@@ -1,4 +1,3 @@
-from enum import Enum
 from typing import Optional, List
 
 from cloudrail.knowledge.context.azure.azure_resources.app_service.azure_ftps_state import FtpsState
