@@ -20,6 +20,9 @@ class RdsCluster(ConnectionInstance, AwsResource):
             encrypted_at_rest: True if the database is configured to be encrypted
                 at rest.
             backup_retention_period: Number of days to retain backups.
+            engine_type: The Database engine name to be used for this RDS cluster.
+            engine_version: The Database engine version to be used for this RDS cluster.
+            iam_database_authentication_enabled: An indication whether authentication to the RDS cluster using IAM entities is enabled.
     """
     def __init__(self,
                  account: str,
@@ -30,7 +33,10 @@ class RdsCluster(ConnectionInstance, AwsResource):
                  db_subnet_group_name: str,
                  security_group_ids: List[str],
                  encrypted_at_rest: bool,
-                 backup_retention_period: int):
+                 backup_retention_period: int,
+                 engine_type: str,
+                 engine_version: str,
+                 iam_database_authentication_enabled: bool):
         ConnectionInstance.__init__(self)
         AwsResource.__init__(self, account, region, AwsServiceName.AWS_RDS_CLUSTER)
         self.cluster_id: str = cluster_id
@@ -42,6 +48,9 @@ class RdsCluster(ConnectionInstance, AwsResource):
         self.security_group_ids: List[str] = security_group_ids
         self.encrypted_at_rest: bool = encrypted_at_rest
         self.backup_retention_period: int = backup_retention_period
+        self.engine_type: str = engine_type
+        self.engine_version: str = engine_version
+        self.iam_database_authentication_enabled: bool = iam_database_authentication_enabled
 
     def get_keys(self) -> List[str]:
         return [self.arn]

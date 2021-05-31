@@ -3688,3 +3688,23 @@ rules_metadata:
   security_layer: iam
   resource_type:
   - content_delivery
+
+- rule_id: non_car_rds_database_iam_authentication_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure RDS database has IAM authentication enabled
+  severity: medium
+  description:
+    Cloudrail will review RDS instances and clusters configuration in your environment.
+    If IAM authentication is not enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the configuration of RDS instances and clusters within your AWS
+    account and Terraform plan to check if IAM authentication is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.Enabling.html>
+    in order to enable IAM database authentication for the RDS instance or cluster.
+  remediation_steps_tf:
+    For the aws_db_instance or aws_rds_cluster resources, set the iam_database_authentication_enabled argument to true.
+  rule_type: non_context_aware
+  security_layer: iam
+  resource_type:
+  - database
