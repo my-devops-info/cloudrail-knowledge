@@ -13,6 +13,7 @@ class AzureResource(Mergeable):
         self.resource_group_name: Optional[str] = None
         self.location: str = None
         self.tf_resource_type: AzureResourceType = resource_type
+        self.tenant_id: str = None
 
     @abstractmethod
     def get_keys(self) -> List[str]:
