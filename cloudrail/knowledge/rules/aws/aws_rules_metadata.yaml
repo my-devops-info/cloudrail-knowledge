@@ -3729,3 +3729,22 @@ rules_metadata:
   security_layer: logging
   resource_type:
   - logging
+
+- rule_id: non_car_api_gateway_xray_tracing_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure API Gateway has X-Ray tracing enabled
+  severity: medium
+  description:
+    Cloudrail will review API Gateway stages configuration in your environment.
+    If a stage is not configured to have X-Ray tracing enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the API Gateway stages configuration within your AWS account and Terraform plan to check X-Ray tracing is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-enabling-xray.html>
+    in order to enable X-Ray tracing for the API Gateway.
+  remediation_steps_tf:
+    For the aws_api_gateway_stage resource, set the xray_tracing_enabled argument to true.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - content_delivery

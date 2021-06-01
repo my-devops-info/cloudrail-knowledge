@@ -6,6 +6,7 @@ from cloudrail.knowledge.context.aws.account.account import Account
 from cloudrail.knowledge.context.aws.apigateway.api_gateway_integration import ApiGatewayIntegration
 from cloudrail.knowledge.context.aws.apigateway.api_gateway_method import ApiGatewayMethod
 from cloudrail.knowledge.context.aws.apigateway.api_gateway_method_settings import ApiGatewayMethodSettings
+from cloudrail.knowledge.context.aws.apigateway.api_gateway_stage import ApiGatewayStage
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw import RestApiGw
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_domain import RestApiGwDomain
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_mapping import RestApiGwMapping
@@ -333,9 +334,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  glue_connections: List[GlueConnection] = None,
                  load_balancers_attributes: List[LoadBalancerAttributes] = None,
                  ec2_instance_types: List[Ec2InstanceType] = None,
-                 aws_config_aggregators: List[ConfigAggregator] = None):
+                 aws_config_aggregators: List[ConfigAggregator] = None,
+                 rest_api_stages: List[ApiGatewayStage] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.rest_api_stages = rest_api_stages or []
         self.aws_config_aggregators = aws_config_aggregators or []
         self.ec2_instance_types = ec2_instance_types or []
         self.load_balancers_attributes = load_balancers_attributes or []

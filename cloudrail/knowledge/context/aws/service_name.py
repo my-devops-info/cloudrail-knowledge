@@ -151,6 +151,7 @@ class AwsServiceName(Enum):
     AWS_S_3_OUTPOSTS_ENDPOINT = 'aws_s3outposts_endpoint'
     AWS_WORKLINK_FLEET = 'aws_worklink_fleet'
     AWS_CONFIG_CONFIGURATION_AGGREGATOR = 'aws_config_configuration_aggregator'
+    AWS_API_GATEWAY_STAGE = 'aws_api_gateway_stage'
 
 
 AWS_SERVICES_DOMAIN: str = ".amazonaws.com"
