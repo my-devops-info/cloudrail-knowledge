@@ -4,6 +4,7 @@ from cloudrail.knowledge.context.azure.constants.azure_resource_type import Azur
 from cloudrail.knowledge.context.azure.network.azure_nic import AzureNic
 from cloudrail.knowledge.context.azure.network.azure_subnet import AzureSubnet
 
+
 class AzureNetworkSecurityGroup(AzureResource):
     """
         Attributes:

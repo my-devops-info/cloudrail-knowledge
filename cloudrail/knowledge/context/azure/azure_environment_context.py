@@ -21,17 +21,17 @@ class AzureEnvironmentContext(BaseEnvironmentContext):
                  checkov_results: Dict[str, List[CheckovResult]] = None,
                  resource_groups: AliasesDict[AzureResourceGroup] = None,
                  sql_servers: AliasesDict[AzureSqlServer] = None,
-                 net_security_groups: List[AzureNetworkSecurityGroup] = None,
+                 net_security_groups: AliasesDict[AzureNetworkSecurityGroup] = None,
                  app_services: AliasesDict[AzureAppService] = None,
                  subnet_network_security_group_association: List[AzureSecurityGroupToSubnetAssociation] = None,
                  subnets: AliasesDict[AzureSubnet] = None,
                  nic_network_security_group_association: List[AzureNetworkSecurityGroupToNicAssociation] = None,
-                 network_interfaces: List[AzureNic] = None):
+                 network_interfaces: AliasesDict[AzureNic] = None):
         BaseEnvironmentContext.__init__(self)
         self.checkov_results: Dict[str, List[CheckovResult]] = checkov_results or {}
         self.resource_groups: AliasesDict[AzureResourceGroup] = resource_groups or AliasesDict()
         self.sql_servers: AliasesDict[AzureSqlServer] = sql_servers or AliasesDict()
-        self.net_security_groups: List[AzureNetworkSecurityGroup] = net_security_groups or []
+        self.net_security_groups: AliasesDict[AzureNetworkSecurityGroup] = net_security_groups or AliasesDict()
         self.app_services: AliasesDict[AzureAppService] = app_services or AliasesDict()
         self.subnet_network_security_group_association: List[AzureSecurityGroupToSubnetAssociation] = subnet_network_security_group_association or []
         self.subnets: AliasesDict[AzureSubnet] = subnets or AliasesDict()

@@ -16,8 +16,8 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
 
     def test_non_car_unused_network_security_group_fail(self):
         # Arrange
-        nsg = AzureNetworkSecurityGroup("subscr", "nsg-id", "rg", "westeu", "mynsg")
-        context = AzureEnvironmentContext(net_security_groups=AliasesDict(*[nsg]))
+        nsg = AzureNetworkSecurityGroup("nsg-id", "mynsg")
+        context = AzureEnvironmentContext(net_security_groups=AliasesDict(nsg))
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -26,9 +26,9 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
 
     def test_non_car_unused_network_security_group_pass_with_nic(self):
         # Arrange
-        nsg = AzureNetworkSecurityGroup("subscr", "nsg-id", "rg", "westeu", "mynsg")
-        nsg.network_interfaces = AzureNic("subscr", "nic-id", "rg", "westeu")
-        context = AzureEnvironmentContext(net_security_groups=AliasesDict(*[nsg]))
+        nsg = AzureNetworkSecurityGroup("nsg-id", "mynsg")
+        nsg.network_interfaces = AzureNic("nic-id")
+        context = AzureEnvironmentContext(net_security_groups=AliasesDict(nsg))
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -37,9 +37,9 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
 
     def test_non_car_unused_network_security_group_pass_with_snet(self):
         # Arrange
-        nsg = AzureNetworkSecurityGroup("subscr", "nsg-id", "rg", "westeu", "mynsg")
-        nsg.subnets = AzureSubnet("subscr", "subnet-id", "rg")
-        context = AzureEnvironmentContext(net_security_groups=AliasesDict(*[nsg]))
+        nsg = AzureNetworkSecurityGroup("nsg-id", "mynsg")
+        nsg.subnets = AzureSubnet("subnet-id")
+        context = AzureEnvironmentContext(net_security_groups=AliasesDict(nsg))
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -48,10 +48,10 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
         
     def test_non_car_unused_network_security_group_pass_with_nic_snet(self):
         # Arrange
-        nsg = AzureNetworkSecurityGroup("subscr", "nsg-id", "rg", "westeu", "mynsg")
-        nsg.network_interfaces = AzureNic("subscr", "nic-id", "rg", "westeu")
-        nsg.subnets = AzureSubnet("subscr", "subnet-id", "rg")
-        context = AzureEnvironmentContext(net_security_groups=AliasesDict(*[nsg]))
+        nsg = AzureNetworkSecurityGroup("nsg-id", "mynsg")
+        nsg.network_interfaces = AzureNic("nic-id")
+        nsg.subnets = AzureSubnet("subnet-id")
+        context = AzureEnvironmentContext(net_security_groups=AliasesDict(nsg))
         # Act
         result = self.rule.run(context, {})
         # Assert
