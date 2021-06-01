@@ -8,7 +8,11 @@ rules_metadata:
       If a database server is set to be public, Cloudrail will highlight it as a violation.
     human_readable_logic: Cloudrail will review all of the Azure database servers declared in Terraform, and those already
       existing in the Azure environment, to determine if any of them is set to have public access enabled.
-    remediation_steps_console: Missing!
+    remediation_steps_console: Follow the guides at https://docs.microsoft.com/en-us/azure/azure-sql/database/connectivity-settings,
+      https://docs.microsoft.com/en-us/azure/postgresql/howto-deny-public-network-access,
+      https://docs.microsoft.com/en-us/azure/mysql/howto-deny-public-network-access,
+      https://docs.microsoft.com/en-us/azure/mariadb/howto-deny-public-network-access,
+      in order to disable public network access for the database.
     remediation_steps_tf: In the database server resource (such as azurerm_postgresql_server, azurerm_mssql_server, etc.),
       set public_network_access_enabled to false.
     rule_type: non_context_aware
