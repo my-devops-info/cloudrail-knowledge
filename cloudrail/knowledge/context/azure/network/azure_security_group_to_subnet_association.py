@@ -7,14 +7,12 @@ from cloudrail.knowledge.context.azure.constants.azure_resource_type import Azur
 class AzureSecurityGroupToSubnetAssociation(AzureResource):
     """
         Attributes:
-            subscription_id: The subscription id.
             subnet_id: The subnet id which needs to be connected to the NSG.
             network_security_group_id: The network security group id which needs to be connected to the subnet.
     """
 
-    def __init__(self, subscription_id: str, subnet_id: str, security_group_id: str):
-        super().__init__(subscription_id, None, None, AzureResourceType.AZURERM_SUBNET_NETWORK_SECURITY_GROUP_ASSOCIATION)
-        self.subscription_id: str = subscription_id
+    def __init__(self, subnet_id: str, security_group_id: str):
+        super().__init__(AzureResourceType.AZURERM_SUBNET_NETWORK_SECURITY_GROUP_ASSOCIATION)
         self.subnet_id: str = subnet_id
         self.security_group_id = security_group_id
 

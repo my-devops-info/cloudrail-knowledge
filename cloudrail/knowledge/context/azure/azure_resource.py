@@ -7,11 +7,11 @@ from cloudrail.knowledge.context.azure.constants.azure_resource_type import Azur
 
 class AzureResource(Mergeable):
 
-    def __init__(self, subscription_id: str, resource_group_name: Optional[str], location: str, resource_type: AzureResourceType):
+    def __init__(self, resource_type: AzureResourceType):
         super().__init__()
-        self.subscription_id: str = subscription_id
-        self.resource_group_name: Optional[str] = resource_group_name
-        self.location: str = location
+        self.subscription_id: str = None
+        self.resource_group_name: Optional[str] = None
+        self.location: str = None
         self.tf_resource_type: AzureResourceType = resource_type
 
     @abstractmethod

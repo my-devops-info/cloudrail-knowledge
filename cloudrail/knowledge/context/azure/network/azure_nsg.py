@@ -7,19 +7,17 @@ from cloudrail.knowledge.context.azure.network.azure_subnet import AzureSubnet
 class AzureNetworkSecurityGroup(AzureResource):
     """
         Attributes:
-            subscription_id: The subscription id.
             security_group_id: The network security group id.
-            resource_group_name: Resource group name whcih the NSG belongs to.
-            location: Azure location.
             name: The NSG name
             network_interfaces: List of network interfaces which the NSG connected to (if any)
             subnets: List of subnets which the NSG connected to (if any)
     """
 
-    def __init__(self, subscription_id: str, security_group_id: str, resource_group_name: str, location: str, name: str,
-                network_interfaces: AzureNic = None,
-                subnets: AzureSubnet = None) -> None:
-        super().__init__(subscription_id, resource_group_name, location, AzureResourceType.AZURERM_NETWORK_SECURITY_GROUP)
+    def __init__(self, security_group_id: str,
+                 name: str,
+                 network_interfaces: AzureNic = None,
+                 subnets: AzureSubnet = None) -> None:
+        super().__init__(AzureResourceType.AZURERM_NETWORK_SECURITY_GROUP)
         self.security_group_id: str = security_group_id
         self.name: str = name
         self.with_aliases(security_group_id)

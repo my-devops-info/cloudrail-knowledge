@@ -7,16 +7,12 @@ from cloudrail.knowledge.context.azure.constants.azure_resource_type import Azur
 class AzureSubnet(AzureResource):
     """
         Attributes:
-            subscription_id: The subscription id.
             subnet_id: The subnet id.
-            resource_group: Resource group name whcih the NSG belongs to.
     """
 
-    def __init__(self, subscription_id: str, subnet_id: str, resource_group: str):
-        super().__init__(subscription_id, resource_group, None, AzureResourceType.AZURERM_NETWORK_SECURITY_GROUP)
-        self.subscription_id: str = subscription_id
+    def __init__(self, subnet_id: str):
+        super().__init__(AzureResourceType.AZURERM_NETWORK_SECURITY_GROUP)
         self.subnet_id: str = subnet_id
-        self.resource_group = resource_group
         self.with_aliases(subnet_id)
 
     def get_cloud_resource_url(self) -> Optional[str]:

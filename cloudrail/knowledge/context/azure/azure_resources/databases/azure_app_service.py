@@ -4,8 +4,8 @@ from cloudrail.knowledge.context.azure.constants.azure_resource_type import Azur
 
 
 class AzureAppService(AzureResource):
-    def __init__(self, subscription_id: str, resource_group_name: str, location: str, name: str) -> None:
-        super().__init__(subscription_id, resource_group_name, location, AzureResourceType.AZURERM_APP_SERVICE)
+    def __init__(self, name: str) -> None:
+        super().__init__(AzureResourceType.AZURERM_APP_SERVICE)
         self.name = name
         self.with_aliases(name)
 

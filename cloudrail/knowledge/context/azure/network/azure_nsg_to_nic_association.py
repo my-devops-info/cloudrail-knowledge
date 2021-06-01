@@ -7,14 +7,12 @@ from cloudrail.knowledge.context.azure.constants.azure_resource_type import Azur
 class AzureNetworkSecurityGroupToNicAssociation(AzureResource):
     """
         Attributes:
-            subscription_id: The subscription id.
             nic_id: The network interface id which needs to be connected to the NSG.
             network_security_group_id: The network security group id which needs to be connected to the NIC.
     """
 
-    def __init__(self, subscription_id: str, nic_id: str, network_security_group_id: str):
-        super().__init__(subscription_id, None, None, AzureResourceType.AZURERM_NETWORK_INTERFACE_SECURITY_GROUP_ASSOCIATION)
-        self.subscription_id: str = subscription_id
+    def __init__(self, nic_id: str, network_security_group_id: str):
+        super().__init__(AzureResourceType.AZURERM_NETWORK_INTERFACE_SECURITY_GROUP_ASSOCIATION)
         self.nic_id: str = nic_id
         self.network_security_group_id = network_security_group_id
 
