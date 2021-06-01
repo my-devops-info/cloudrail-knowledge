@@ -1,7 +1,8 @@
 from typing import Optional, List
 from cloudrail.knowledge.context.azure.azure_resource import AzureResource
 from cloudrail.knowledge.context.azure.constants.azure_resource_type import AzureResourceType
-
+from cloudrail.knowledge.context.azure.network.azure_nic import AzureNic
+from cloudrail.knowledge.context.azure.network.azure_subnet import AzureSubnet
 
 class AzureNetworkSecurityGroup(AzureResource):
     """
@@ -16,8 +17,8 @@ class AzureNetworkSecurityGroup(AzureResource):
     """
 
     def __init__(self, subscription_id: str, security_group_id: str, resource_group_name: str, location: str, name: str,
-                network_interfaces=None,
-                subnets=None) -> None:
+                network_interfaces: AzureNic = None,
+                subnets: AzureSubnet = None) -> None:
         super().__init__(subscription_id, resource_group_name, location, AzureResourceType.AZURERM_NETWORK_SECURITY_GROUP)
         self.security_group_id: str = security_group_id
         self.name: str = name
