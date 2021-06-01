@@ -3,6 +3,8 @@ from typing import List, Dict
 from cloudrail.knowledge.context.aliases_dict import AliasesDict
 from cloudrail.knowledge.context.azure.azure_resource_group import AzureResourceGroup
 from cloudrail.knowledge.context.azure.azure_resources.databases.azure_app_service import AzureAppService
+from cloudrail.knowledge.context.azure.azure_resources.azure_resource_group import AzureResourceGroup
+from cloudrail.knowledge.context.azure.azure_resources.web_app.azure_app_service import AzureAppService
 from cloudrail.knowledge.context.azure.azure_resources.databases.azure_sql_server import AzureSqlServer
 from cloudrail.knowledge.context.azure.network.azure_nsg import AzureNetworkSecurityGroup
 from cloudrail.knowledge.context.azure.network.azure_security_group_to_subnet_association import \
