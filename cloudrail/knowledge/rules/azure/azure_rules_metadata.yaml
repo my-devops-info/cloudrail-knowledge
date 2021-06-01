@@ -844,3 +844,20 @@ rules_metadata:
     security_layer: disaster_recovery
     resource_type:
       - database
+
+  - rule_id: non_car_function_app_enforces_ftps_only
+    cloud_provider: azure
+    name: Ensure Function App enforces FTPS only
+    severity: medium
+    description: Cloudrail will review the Function App configuration in your environment.
+     If a function app is not enforcing FTPS only, Cloudrail will highlight it as a violation.
+    human_readable_logic: Cloudrail will review the Function Apps configuration within your Azure subscription and       Terraform plan to check if they are enforcing FTPS only.
+    remediation_steps_console: Follow the guide at
+     https://docs.microsoft.com/en-us/azure/app-service/deploy-ftp?tabs=portal#enforce-ftps in order to select
+      FTPS Only in FTP state.
+    remediation_steps_tf: For the azurerm_function_app resource, set the site_config block with
+       ftps_state argument set to "FtpsOnly".
+    rule_type: non_context_aware
+    security_layer: networking
+    resource_type:
+      - compute
