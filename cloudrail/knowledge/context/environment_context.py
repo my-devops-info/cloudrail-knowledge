@@ -30,6 +30,7 @@ from cloudrail.knowledge.context.aws.cloudwatch.cloudwatch_logs_destination impo
 from cloudrail.knowledge.context.aws.cloudwatch.cloudwatch_logs_destination_policy import CloudWatchLogsDestinationPolicy
 from cloudrail.knowledge.context.aws.codebuild.codebuild_project import CodeBuildProject
 from cloudrail.knowledge.context.aws.codebuild.codebuild_report_group import CodeBuildReportGroup
+from cloudrail.knowledge.context.aws.configservice.config_aggregator import ConfigAggregator
 from cloudrail.knowledge.context.aws.dax.dax_cluster import DaxCluster
 from cloudrail.knowledge.context.aws.dms.dms_replication_instance import DmsReplicationInstance
 from cloudrail.knowledge.context.aws.dms.dms_replication_instance_subnet_group import DmsReplicationInstanceSubnetGroup
@@ -331,9 +332,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  worklink_fleets: List[WorkLinkFleet] = None,
                  glue_connections: List[GlueConnection] = None,
                  load_balancers_attributes: List[LoadBalancerAttributes] = None,
-                 ec2_instance_types: List[Ec2InstanceType] = None):
+                 ec2_instance_types: List[Ec2InstanceType] = None,
+                 aws_config_aggregators: List[ConfigAggregator] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.aws_config_aggregators = aws_config_aggregators or []
         self.ec2_instance_types = ec2_instance_types or []
         self.load_balancers_attributes = load_balancers_attributes or []
         self.glue_connections = glue_connections or []
