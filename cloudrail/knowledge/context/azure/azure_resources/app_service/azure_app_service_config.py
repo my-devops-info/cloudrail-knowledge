@@ -6,6 +6,11 @@ from cloudrail.knowledge.context.azure.azure_resources.constants.azure_resource_
 
 
 class AzureAppServiceConfig(AzureResource):
+    """
+        Attributes:
+            name: The name of the AppService to which this config belongs
+            ftps_state: The FTPS state defined in this config. Either AllAllowed, FTPSOnly or Disabled
+    """
     def __init__(self, subscription_id: str, resource_group_name: str, location: str, name: str, ftps_state: FtpsState) -> None:
         super().__init__(subscription_id, resource_group_name, location,
                          'App Service Config', AzureResourceType.NONE)
