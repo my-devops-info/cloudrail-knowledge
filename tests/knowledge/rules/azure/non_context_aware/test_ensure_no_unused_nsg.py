@@ -35,7 +35,7 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
         self.assertEqual(RuleResultType.SUCCESS, result.status)
         self.assertEqual(0, len(result.issues))
 
-    def test_non_car_unused_network_security_group_pass_with_snet(self):
+    def test_non_car_unused_network_security_group_pass_with_subnet(self):
         # Arrange
         nsg = AzureNetworkSecurityGroup("nsg-id", "mynsg")
         nsg.subnets = AzureSubnet("subnet-id")
@@ -46,7 +46,7 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
         self.assertEqual(RuleResultType.SUCCESS, result.status)
         self.assertEqual(0, len(result.issues))
         
-    def test_non_car_unused_network_security_group_pass_with_nic_snet(self):
+    def test_non_car_unused_network_security_group_pass_with_nic_subnet(self):
         # Arrange
         nsg = AzureNetworkSecurityGroup("nsg-id", "mynsg")
         nsg.network_interfaces = AzureNic("nic-id")

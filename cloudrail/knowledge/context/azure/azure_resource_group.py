@@ -6,10 +6,7 @@ from cloudrail.knowledge.context.azure.constants.azure_resource_type import Azur
 class AzureResourceGroup(AzureResource):
     """
         Attributes:
-            subscription_id: The subscription id.
-            resource_group_name: The name of the resource group.
             resource_group_id: Resource group ID.
-            location: Azure location.
     """
 
     def __init__(self, resource_group_id: str) -> None:
