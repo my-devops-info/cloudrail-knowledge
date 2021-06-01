@@ -12,8 +12,8 @@ class AzureResourceGroup(AzureResource):
             location: Azure location.
     """
 
-    def __init__(self, subscription_id: str, resource_group_name: str, resource_group_id: str, location: str) -> None:
-        super().__init__(subscription_id, resource_group_name, location, AzureResourceType.AZURERM_RESOURCE_GROUP)
+    def __init__(self, resource_group_id: str) -> None:
+        super().__init__(AzureResourceType.AZURERM_RESOURCE_GROUP)
         self.resource_group_id: str = resource_group_id
 
     def get_keys(self) -> List[str]:
