@@ -3748,3 +3748,23 @@ rules_metadata:
   security_layer: logging
   resource_type:
   - content_delivery
+
+- rule_id: non_car_cloudfront_distribution_access_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure CloudFront distribution has access logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the CloudFront distributions configuration in your environment.
+    If a distribution has access logging disabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the CloudFront distributions configuration within your AWS account and Terraform plan to check if access logging is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html>
+    in order to enabled access logs for the CloudFront distribution.
+  remediation_steps_tf:
+    For the aws_cloudfront_distribution resource, configure the logging_config block with bucket
+    argument set to the S3 bucket name for storing access logs.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - content_delivery

@@ -21,6 +21,7 @@ from cloudrail.knowledge.context.aws.aws_client import AwsClient
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 from cloudrail.knowledge.context.aws.batch.batch_compute_environment import BatchComputeEnvironment
 from cloudrail.knowledge.context.aws.cloudfront.cloud_front_distribution_list import CloudFrontDistribution
+from cloudrail.knowledge.context.aws.cloudfront.cloudfront_distribution_logging import CloudfrontDistributionLogging
 from cloudrail.knowledge.context.aws.cloudfront.origin_access_identity import OriginAccessIdentity
 from cloudrail.knowledge.context.aws.cloudhsmv2.cloudhsm_v2_cluster import CloudHsmV2Cluster
 from cloudrail.knowledge.context.aws.cloudhsmv2.cloudhsm_v2_hsm import CloudHsmV2Hsm
@@ -335,9 +336,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  load_balancers_attributes: List[LoadBalancerAttributes] = None,
                  ec2_instance_types: List[Ec2InstanceType] = None,
                  aws_config_aggregators: List[ConfigAggregator] = None,
-                 rest_api_stages: List[ApiGatewayStage] = None):
+                 rest_api_stages: List[ApiGatewayStage] = None,
+                 cloudfront_log_settings: List[CloudfrontDistributionLogging] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.cloudfront_log_settings = cloudfront_log_settings or []
         self.rest_api_stages = rest_api_stages or []
         self.aws_config_aggregators = aws_config_aggregators or []
         self.ec2_instance_types = ec2_instance_types or []
