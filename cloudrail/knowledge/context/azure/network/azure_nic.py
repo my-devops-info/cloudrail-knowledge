@@ -26,7 +26,7 @@ class AzureNic(AzureResource):
 
     @property
     def is_tagable(self) -> bool:
-        return False
+        return True
 
     def get_keys(self) -> List[str]:
         return [self.get_id()]
