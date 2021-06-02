@@ -1,7 +1,22 @@
-from typing import List
+from dataclasses import dataclass
+from typing import List, Optional
 
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
+
+
+@dataclass
+class LoadBalancerAccessLogs:
+    """
+        Attributes:
+            bucket: The S3 bucket to store logs into.
+            prefix: The S3 bucket prefix (optional).
+            enable: Indication if access logs are enabled.
+
+    """
+    bucket: str
+    prefix: str
+    enabled: bool
 
 
 class LoadBalancerAttributes(AwsResource):
@@ -14,10 +29,12 @@ class LoadBalancerAttributes(AwsResource):
                  account: str,
                  region: str,
                  load_balancer_arn: str,
-                 drop_invalid_header_fields: bool):
+                 drop_invalid_header_fields: bool,
+                 access_logs: Optional[LoadBalancerAccessLogs]):
         super().__init__(account, region, AwsServiceName.AWS_LOAD_BALANCER)
         self.load_balancer_arn: str = load_balancer_arn
         self.drop_invalid_header_fields: bool = drop_invalid_header_fields
+        self.access_logs: Optional[LoadBalancerAccessLogs] = access_logs
 
     def get_keys(self) -> List[str]:
         return [self.load_balancer_arn, 'attributes']

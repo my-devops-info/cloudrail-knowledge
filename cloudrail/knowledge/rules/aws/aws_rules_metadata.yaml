@@ -3826,3 +3826,23 @@ rules_metadata:
   security_layer: logging
   resource_type:
   - database
+
+- rule_id: non_car_elb_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure ELB has logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the Elastic Load Balancers configuration in your environment.
+    If a load balancer does not have logging enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the Elasticsearch Domains configuration within your AWS account and Terraform plan to check if logging is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html> or
+    <https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-access-logs.html>
+    in order to enable access logs for the load balancer.
+  remediation_steps_tf:
+    For the aws_lb resource, set the access_logs block with enabled argument set to true and the bucket argument set to the S3 bucket name.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - network
