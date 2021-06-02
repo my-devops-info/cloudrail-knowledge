@@ -16,7 +16,7 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
 
     def test_non_car_unused_network_security_group_fail(self):
         # Arrange
-        nsg = AzureNetworkSecurityGroup("nsg-id", "mynsg")
+        nsg = create_empty_entity(AzureNetworkSecurityGroup)
         context = AzureEnvironmentContext(net_security_groups=AliasesDict(nsg))
         # Act
         result = self.rule.run(context, {})
@@ -26,8 +26,8 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
 
     def test_non_car_unused_network_security_group_pass_with_nic(self):
         # Arrange
-        nsg = AzureNetworkSecurityGroup("nsg-id", "mynsg")
-        nsg.network_interfaces = AzureNic("nic-id")
+        nsg = create_empty_entity(AzureNetworkSecurityGroup)
+        nsg.network_interfaces = create_empty_entity(AzureNic)
         context = AzureEnvironmentContext(net_security_groups=AliasesDict(nsg))
         # Act
         result = self.rule.run(context, {})
@@ -37,8 +37,8 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
 
     def test_non_car_unused_network_security_group_pass_with_subnet(self):
         # Arrange
-        nsg = AzureNetworkSecurityGroup("nsg-id", "mynsg")
-        nsg.subnets = AzureSubnet("subnet-id")
+        nsg = create_empty_entity(AzureNetworkSecurityGroup)
+        nsg.subnets = create_empty_entity(AzureSubnet)
         context = AzureEnvironmentContext(net_security_groups=AliasesDict(nsg))
         # Act
         result = self.rule.run(context, {})
@@ -48,9 +48,9 @@ class TestUnusedNetworkSecurityGroupRuleAz(unittest.TestCase):
         
     def test_non_car_unused_network_security_group_pass_with_nic_subnet(self):
         # Arrange
-        nsg = AzureNetworkSecurityGroup("nsg-id", "mynsg")
-        nsg.network_interfaces = AzureNic("nic-id")
-        nsg.subnets = AzureSubnet("subnet-id")
+        nsg = create_empty_entity(AzureNetworkSecurityGroup)
+        nsg.network_interfaces = create_empty_entity(AzureNic)
+        nsg.subnets = create_empty_entity(AzureSubnet)
         context = AzureEnvironmentContext(net_security_groups=AliasesDict(nsg))
         # Act
         result = self.rule.run(context, {})

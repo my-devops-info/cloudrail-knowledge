@@ -1,35 +1,31 @@
 from typing import Optional, List
 from cloudrail.knowledge.context.azure.azure_resource import AzureResource
 from cloudrail.knowledge.context.azure.constants.azure_resource_type import AzureResourceType
-from cloudrail.knowledge.context.azure.network.azure_nic import AzureNic
-from cloudrail.knowledge.context.azure.network.azure_subnet import AzureSubnet
 
 
 class AzureNetworkSecurityGroup(AzureResource):
     """
         Attributes:
-            security_group_id: The network security group id.
             name: The NSG name
-            network_interfaces: List of network interfaces which the NSG connected to (if any)
-            subnets: List of subnets which the NSG connected to (if any)
+            network_interface_ids: List of network interface ids which the NSG connected to (if any)
+            subnet_ids: List of subnet ids which the NSG connected to (if any)
     """
 
-    def __init__(self, security_group_id: str,
+    def __init__(self,
                  name: str,
-                 network_interfaces: AzureNic = None,
-                 subnets: AzureSubnet = None) -> None:
+                 network_interface_ids: Optional[List[str]] = None,
+                 subnet_ids: Optional[List[str]] = None) -> None:
         super().__init__(AzureResourceType.AZURERM_NETWORK_SECURITY_GROUP)
-        self.security_group_id: str = security_group_id
         self.name: str = name
-        self.with_aliases(security_group_id)
-        self.subnets = subnets or []
-        self.network_interfaces = network_interfaces or []
+
+        self.network_interface_ids: List[str] = network_interface_ids or []
+        self.subnet_ids: List[str] = subnet_ids or []
+
+        self.subnets: List['AzureSubnet'] = []
+        self.network_interfaces: List['AzureNic'] = []
 
     def get_keys(self) -> List[str]:
-        return [self.security_group_id]
-
-    def get_id(self) -> str:
-        return self.security_group_id
+        return [self.get_id()]
 
     def get_name(self) -> str:
         return self.name
@@ -43,3 +39,6 @@ class AzureNetworkSecurityGroup(AzureResource):
     @property
     def is_tagable(self) -> bool:
         return True
+
+    def exclude_from_invalidation(self) -> list:
+        return [self.subnets, self.network_interfaces]

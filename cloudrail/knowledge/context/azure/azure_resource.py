@@ -14,6 +14,7 @@ class AzureResource(Mergeable):
         self.location: str = None
         self.tf_resource_type: AzureResourceType = resource_type
         self.tenant_id: str = None
+        self._id: str = None
 
     @abstractmethod
     def get_keys(self) -> List[str]:
@@ -32,3 +33,9 @@ class AzureResource(Mergeable):
     @abstractmethod
     def is_tagable(self) -> bool:
         pass
+
+    def get_id(self) -> str:
+        return self._id
+
+    def set_id(self, _id: str):
+        self._id = _id
