@@ -24,13 +24,14 @@ class LambdaFunction(NetworkEntity, ResourceBasedPolicy, AwsClient):
             runtime: The runtime used with the specific Lambda Function.
             vpc_config: The VPC configuration of the Lambda Function, if one was set.
             log_group: The matching log group associated with the Lambda Function.
+            xray_tracing_enabled: Indication if X-Ray tracing is enabled for incoming requests.
     """
 
     ARN_PARSER: ArnParser = ArnParser()
 
     def __init__(self, account: str, region: str, arn: str, function_name: str,
                  lambda_func_version: str, role_arn: str, handler: str,
-                 runtime: str, vpc_config: NetworkConfiguration):
+                 runtime: str, vpc_config: NetworkConfiguration, xray_tracing_enabled: bool):
         NetworkEntity.__init__(self, function_name, account, region, AwsServiceName.AWS_LAMBDA_FUNCTION,
                                AwsServiceAttributes(aws_service_type=AwsServiceType.LAMBDA.value, region=region))
         ResourceBasedPolicy.__init__(self, account, region, AwsServiceName.AWS_LAMBDA_FUNCTION,
@@ -47,6 +48,7 @@ class LambdaFunction(NetworkEntity, ResourceBasedPolicy, AwsClient):
         self.vpc_config: NetworkConfiguration = vpc_config
         self.lambda_func_alias: Optional[LambdaAlias] = None
         self.log_group: CloudWatchLogGroup = None
+        self.xray_tracing_enabled: bool = xray_tracing_enabled
 
     def get_keys(self) -> List[str]:
         return [self.get_arn()]
