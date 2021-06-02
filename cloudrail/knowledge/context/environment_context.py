@@ -92,6 +92,7 @@ from cloudrail.knowledge.context.aws.es.elastic_search_domain_policy import Elas
 from cloudrail.knowledge.context.aws.glacier.glacier_vault import GlacierVault
 from cloudrail.knowledge.context.aws.glacier.glacier_vault_policy import GlacierVaultPolicy
 from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator import GlobalAccelerator
+from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator_attributes import GlobalAcceleratorAttribute
 from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator_endpoint_group import GlobalAcceleratorEndpointGroup
 from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator_listener import GlobalAcceleratorListener
 from cloudrail.knowledge.context.aws.glue.glue_connection import GlueConnection
@@ -337,9 +338,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  ec2_instance_types: List[Ec2InstanceType] = None,
                  aws_config_aggregators: List[ConfigAggregator] = None,
                  rest_api_stages: List[ApiGatewayStage] = None,
-                 cloudfront_log_settings: List[CloudfrontDistributionLogging] = None):
+                 cloudfront_log_settings: List[CloudfrontDistributionLogging] = None,
+                 global_accelerator_attributes: List[GlobalAcceleratorAttribute] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.global_accelerator_attributes = global_accelerator_attributes or []
         self.cloudfront_log_settings = cloudfront_log_settings or []
         self.rest_api_stages = rest_api_stages or []
         self.aws_config_aggregators = aws_config_aggregators or []
