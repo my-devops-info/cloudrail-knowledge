@@ -21,7 +21,8 @@ class AzureNic(AzureResource):
         self.security_group: AzureNetworkSecurityGroup = None
 
     def get_cloud_resource_url(self) -> Optional[str]:
-        pass
+        return f'https://portal.azure.com/#@{self.tenant_id}/resource/subscriptions/{self.subscription_id}/resourceGroups/' \
+               f'{self.resource_group_name}/providers/Microsoft.Network/networkInterfaces/{self.name}/overview'
 
     @property
     def is_tagable(self) -> bool:

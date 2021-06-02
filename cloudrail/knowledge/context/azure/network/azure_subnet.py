@@ -21,7 +21,7 @@ class AzureSubnet(AzureResource):
         self.security_group: AzureNetworkSecurityGroup = None
 
     def get_cloud_resource_url(self) -> Optional[str]:
-        pass
+        pass  # Requires VNET
 
     @property
     def is_tagable(self) -> bool:

@@ -23,7 +23,8 @@ class AzureResourceGroup(AzureResource):
         return self.resource_group_name
 
     def get_cloud_resource_url(self) -> Optional[str]:
-        pass  # todo
+        return f'https://portal.azure.com/#@{self.tenant_id}/resource/subscriptions/' \
+               f'{self.subscription_id}/resourceGroups/{self.resource_group_name}/overview'
 
     def get_friendly_name(self) -> str:
         return self.get_name()
