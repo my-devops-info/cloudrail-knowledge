@@ -54,6 +54,7 @@ class Ec2Instance(NetworkEntity, AwsClient):
             availability_zone: The availability zone the EC2 is in, if configured.
             instance_type: The Instance type (i.e. 'm5.8xlarge').
             ebs_optimized: Indication whether the EC2 instance has EBS optimization enabled of not.
+            monitoring_enabled: Indication if the launched EC2 instance will have detailed monitoring enabled.
     """
     def __init__(self,
                  account: str,
@@ -69,7 +70,8 @@ class Ec2Instance(NetworkEntity, AwsClient):
                  availability_zone: Optional[str],
                  tags: dict,
                  instance_type: str,
-                 ebs_optimized: bool):
+                 ebs_optimized: bool,
+                 monitoring_enabled: bool):
         NetworkEntity.__init__(self, name or instance_id, account, region, AwsServiceName.AWS_EC2_INSTANCE,
                                AwsServiceAttributes(aws_service_type=AwsServiceType.EC2.value, region=region))
         AwsClient.__init__(self)
@@ -88,6 +90,7 @@ class Ec2Instance(NetworkEntity, AwsClient):
             self.tags.update(tags)
         self.instance_type: str = instance_type
         self.ebs_optimized: bool = ebs_optimized
+        self.monitoring_enabled: bool = monitoring_enabled
 
     def __str__(self):
         name_or_id_msg = 'Instance Name: {}'.format(
