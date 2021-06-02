@@ -3806,3 +3806,23 @@ rules_metadata:
   security_layer: logging
   resource_type:
   - compute
+
+- rule_id: non_car_elasticsearch_domain_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure Elasticsearch Domain has logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the Elasticsearch Domains configuration in your environment.
+    If a domain does not have logging enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the Elasticsearch Domains configuration within your AWS account and Terraform plan to check if logging is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createdomain-configure-slow-logs.html>
+    in order to configure log publishing for the Elasticsearch domain.
+  remediation_steps_tf:
+    For the aws_elasticsearch_domain resource, set the log_publishing_options block with enabled argument set to true,
+    log_type argument set to any of the valid values, and cloudwatch_log_group_arn argument set to the ARN of the CloudWatch Log Group.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - database
