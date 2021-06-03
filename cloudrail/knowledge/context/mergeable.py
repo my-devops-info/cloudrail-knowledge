@@ -85,6 +85,10 @@ class Mergeable:
         return self.origin == EntityOrigin.TERRAFORM
 
     @property
+    def is_managed_by_terraform(self) -> bool:
+        return self.origin == EntityOrigin.TERRAFORM
+
+    @property
     @abstractmethod
     def is_tagable(self) -> bool:
         pass
