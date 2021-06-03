@@ -1,18 +1,18 @@
 from typing import Optional, List
 
 from cloudrail.knowledge.context.azure.azure_resource import AzureResource
-from cloudrail.knowledge.context.azure.azure_resources.app_service.azure_ftps_state import FtpsState
-from cloudrail.knowledge.context.azure.azure_resources.constants.azure_resource_type import AzureResourceType
+from cloudrail.knowledge.context.azure.azure_resources.web_app.azure_ftps_state import FtpsState
+from cloudrail.knowledge.context.azure.constants.azure_resource_type import AzureResourceType
 
 
-class AzureAppService(AzureResource):
+class AzureAppServiceConfig(AzureResource):
     """
         Attributes:
-            name: The name of this AppService
-            ftps_state: The FTPS state of this AppService config. Either AllAllowed, FTPSOnly or Disabled
+            name: The name of the AppService to which this config belongs
+            ftps_state: The FTPS state defined in this config. Either AllAllowed, FTPSOnly or Disabled
     """
     def __init__(self, name: str, ftps_state: FtpsState) -> None:
-        super().__init__(AzureResourceType.AZURERM_APP_SERVICE)
+        super().__init__(AzureResourceType.NONE)
         self.name: str = name
         self.ftps_state: FtpsState = ftps_state
         self.with_aliases(name)

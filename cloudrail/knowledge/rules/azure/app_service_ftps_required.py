@@ -1,7 +1,7 @@
 from typing import List, Dict
 
 from cloudrail.knowledge.context.azure.azure_environment_context import AzureEnvironmentContext
-from cloudrail.knowledge.context.azure.azure_resources.app_service.azure_app_service import FtpsState
+from cloudrail.knowledge.context.azure.azure_resources.web_app.azure_ftps_state import FtpsState
 from cloudrail.knowledge.rules.azure.azure_base_rule import AzureBaseRule
 from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
@@ -18,7 +18,7 @@ class AppServiceFtpsRequired(AzureBaseRule):
                 issues.append(
                     Issue(
                         f'~{app_service.get_type()}~. '
-                        f'The {app_service.get_type()} `{app_service.get_friendly_name()}` has FTPS state: {app_service.ftps_state.value}',
+                        f'The web app `{app_service.get_friendly_name()}` is not enforcing FTPS only or does not have FTP disabled',
                         app_service,
                         app_service))
         return issues

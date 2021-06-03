@@ -4,8 +4,8 @@ from parameterized import parameterized
 
 from cloudrail.knowledge.context.aliases_dict import AliasesDict
 from cloudrail.knowledge.context.azure.azure_environment_context import AzureEnvironmentContext
-from cloudrail.knowledge.context.azure.azure_resources.app_service.azure_app_service import AzureAppService
-from cloudrail.knowledge.context.azure.azure_resources.app_service.azure_ftps_state import FtpsState
+from cloudrail.knowledge.context.azure.azure_resources.web_app.azure_app_service import AzureAppService
+from cloudrail.knowledge.context.azure.azure_resources.web_app.azure_ftps_state import FtpsState
 from cloudrail.knowledge.rules.azure.app_service_ftps_required import AppServiceFtpsRequired
 from cloudrail.knowledge.rules.base_rule import RuleResultType
 from cloudrail.dev_tools.rule_test_utils import create_empty_entity
