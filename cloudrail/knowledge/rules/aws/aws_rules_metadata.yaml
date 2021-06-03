@@ -3966,3 +3966,23 @@ rules_metadata:
   security_layer: logging
   resource_type:
   - content_delivery
+
+- rule_id: non_car_s3_bucket_access_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure S3 bucket has access logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the S3 buckets configuration in your environment.
+    If a bucket does not have access logging enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the configuration of S3 buckets within your AWS account and Terraform plan to check if access logging is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html>
+    in order to enable server access logging for an S3 bucket.
+  remediation_steps_tf:
+    For the aws_s3_bucket resource, set the logging block with target_bucket argument
+    set to the name of an S3 bucket that will receive the log objects.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - storage
