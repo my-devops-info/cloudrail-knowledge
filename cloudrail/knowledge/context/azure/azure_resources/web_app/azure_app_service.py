@@ -1,13 +1,31 @@
+from enum import Enum
 from typing import Optional, List
 from cloudrail.knowledge.context.azure.azure_resources.azure_resource import AzureResource
 from cloudrail.knowledge.context.azure.azure_resources.constants.azure_resource_type import AzureResourceType
 
 
+class FtpState(Enum):
+    ALL_ALLOWED = 'AllAllowed'
+    FTPS_ONLY = 'FtpsOnly'
+    DISABLED = 'Disabled'
+
+
+class SiteConfig:
+
+    def __init__(self, ftp_state: FtpState) -> None:
+        super().__init__()
+        self.ftp_state: FtpState = ftp_state
+
+
 class AzureAppService(AzureResource):
-    def __init__(self, subscription_id: str, resource_group_name: str, location: str, name: str) -> None:
+
+    def __init__(self, subscription_id: str, resource_group_name: str, location: str, name: str,
+                 app_service_plan_id: str, site_config: SiteConfig = None) -> None:
         super().__init__(subscription_id, resource_group_name, location,
                          'App Service', AzureResourceType.AZURERM_APP_SERVICE)
         self.name = name
+        self.app_service_plan_id: str = app_service_plan_id
+        self.site_config: SiteConfig = site_config
         self.with_aliases(name)
 
     def get_keys(self) -> List[str]:
