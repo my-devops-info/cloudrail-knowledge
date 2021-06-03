@@ -14,17 +14,19 @@ class EnsureElasticsearchDomainLoggingEnabledRule(AwsBaseRule):
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
 
-        for es in env_context.elastic_search_domains:
-            if not es.log_publishing_options:
+        for es_domain in env_context.elastic_search_domains:
+            if not es_domain.log_publishing_options:
                 issues.append(
                     Issue(
-                        f'The {es.get_type()} `{es.get_friendly_name()}` does not have logging configured at all', es, es))
+                        f'The {es_domain.get_type()} `{es_domain.get_friendly_name()}` does not have'
+                        f' logging configured at all', es_domain, es_domain))
             else:
-                for log in es.log_publishing_options:
+                for log in es_domain.log_publishing_options:
                     if not log.enabled:
                         issues.append(
                             Issue(
-                                f'The {es.get_type()} `{es.get_friendly_name()}` does not have logging enabled for log type: {log.log_type}', es, es))
+                                f'The {es_domain.get_type()} `{es_domain.get_friendly_name()}` does not have '
+                                f'logging enabled for log type: {log.log_type}', es_domain, es_domain))
         return issues
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
