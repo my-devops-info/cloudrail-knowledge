@@ -73,4 +73,4 @@ class IamPrivilegeEscalationPolicyRule(AwsBaseRule):
                                                   for esc_action in esc_action_list)
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
-        return bool(environment_context.accounts)
+        return bool(environment_context.get_all_iam_entities())
