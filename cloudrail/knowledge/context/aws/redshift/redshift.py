@@ -1,5 +1,7 @@
 from typing import List, Optional
 
+from cloudrail.knowledge.context.aws.redshift.redshift_logging import RedshiftLogging
+
 from cloudrail.knowledge.context.aws.ec2.security_group import SecurityGroup
 from cloudrail.knowledge.context.aws.indirect_public_connection_data import IndirectPublicConnectionData
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
@@ -38,7 +40,7 @@ class RedshiftCluster(NetworkEntity, INetworkConfiguration):
         self.subnet_group_name: str = subnet_group_name
         self.network_configuration: NetworkConfiguration = NetworkConfiguration(assign_public_ip, security_groups, None)
         self.encrypted: bool = encrypted
-
+        self.logs_config: Optional[RedshiftLogging] = None
         self.indirect_public_connection_data: Optional[IndirectPublicConnectionData] = None
         self.security_group_allowing_public_access: Optional[SecurityGroup] = None
 

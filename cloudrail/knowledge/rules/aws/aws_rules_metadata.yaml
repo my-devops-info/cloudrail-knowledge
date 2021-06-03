@@ -3926,3 +3926,22 @@ rules_metadata:
   security_layer: logging
   resource_type:
   - database
+
+- rule_id: non_car_redshift_cluster_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure Redshift clusters have logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the Redshift clusters configuration in your environment.
+    If a cluster does not have logging enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the configuration of Redshift clusters within your AWS account and Terraform plan to check if logging is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/redshift/latest/mgmt/db-auditing.html> in order to enable logging to an S3 bucket.
+  remediation_steps_tf:
+    For the aws_redshift_cluster resource, set the logging block with enable argument set to true
+    and bucket_name argument to the S3 bucket name to store the logs.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - database

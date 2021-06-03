@@ -133,6 +133,7 @@ from cloudrail.knowledge.context.aws.rds.rds_cluster import RdsCluster
 from cloudrail.knowledge.context.aws.rds.rds_global_cluster import RdsGlobalCluster
 from cloudrail.knowledge.context.aws.rds.rds_instance import RdsInstance
 from cloudrail.knowledge.context.aws.redshift.redshift import RedshiftCluster
+from cloudrail.knowledge.context.aws.redshift.redshift_logging import RedshiftLogging
 from cloudrail.knowledge.context.aws.redshift.redshift_subnet_group import RedshiftSubnetGroup
 from cloudrail.knowledge.context.aws.resourcegroupstaggingapi.resource_tag_mapping_list import ResourceTagMappingList
 from cloudrail.knowledge.context.aws.s3.public_access_block_settings import PublicAccessBlockSettings
@@ -339,9 +340,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  aws_config_aggregators: List[ConfigAggregator] = None,
                  rest_api_stages: List[ApiGatewayStage] = None,
                  cloudfront_log_settings: List[CloudfrontDistributionLogging] = None,
-                 global_accelerator_attributes: List[GlobalAcceleratorAttribute] = None):
+                 global_accelerator_attributes: List[GlobalAcceleratorAttribute] = None,
+                 redshift_logs: List[RedshiftLogging] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.redshift_logs = redshift_logs or []
         self.global_accelerator_attributes = global_accelerator_attributes or []
         self.cloudfront_log_settings = cloudfront_log_settings or []
         self.rest_api_stages = rest_api_stages or []
