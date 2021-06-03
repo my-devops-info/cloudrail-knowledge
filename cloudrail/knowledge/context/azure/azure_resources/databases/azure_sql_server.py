@@ -7,7 +7,7 @@ class AzureSqlServer(AzureResource):
     """
         Attributes:
             server_name: The name of the SQL server
-            public_network_access_enable: An indication on if public network access is enabled
+            public_network_access_enable: An indication on if public network access is enabled.
     """
 
     def __init__(self, server_name: str, public_network_access_enable: bool) -> None:
