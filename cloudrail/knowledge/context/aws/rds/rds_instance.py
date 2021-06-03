@@ -66,7 +66,7 @@ class RdsInstance(NetworkEntity, INetworkConfiguration):
         self.engine_type: str = engine_type
         self.engine_version: str = engine_version
         self.iam_database_authentication_enabled: Optional[bool] = None
-
+        self.cloudwatch_logs_exports: Optional[list] = None
         self.indirect_public_connection_data: Optional[IndirectPublicConnectionData] = None
         self.security_group_allowing_public_access: Optional[SecurityGroup] = None
 

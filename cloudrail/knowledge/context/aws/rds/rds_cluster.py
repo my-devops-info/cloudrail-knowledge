@@ -36,7 +36,8 @@ class RdsCluster(ConnectionInstance, AwsResource):
                  backup_retention_period: int,
                  engine_type: str,
                  engine_version: str,
-                 iam_database_authentication_enabled: bool):
+                 iam_database_authentication_enabled: bool,
+                 cloudwatch_logs_exports: Optional[list]):
         ConnectionInstance.__init__(self)
         AwsResource.__init__(self, account, region, AwsServiceName.AWS_RDS_CLUSTER)
         self.cluster_id: str = cluster_id
@@ -51,6 +52,7 @@ class RdsCluster(ConnectionInstance, AwsResource):
         self.engine_type: str = engine_type
         self.engine_version: str = engine_version
         self.iam_database_authentication_enabled: bool = iam_database_authentication_enabled
+        self.cloudwatch_logs_exports: Optional[list] = cloudwatch_logs_exports
 
     def get_keys(self) -> List[str]:
         return [self.arn]
