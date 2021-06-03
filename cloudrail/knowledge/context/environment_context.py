@@ -14,6 +14,7 @@ from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_policy import RestAp
 from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2 import ApiGateway
 from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2_integration import ApiGatewayV2Integration
 from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2_vpc_link import ApiGatewayVpcLink
+from cloudrail.knowledge.context.aws.athena.athena_database import AthenaDatabase
 from cloudrail.knowledge.context.aws.athena.athena_workgroup import AthenaWorkgroup
 from cloudrail.knowledge.context.aws.autoscaling.launch_configuration import LaunchConfiguration, AutoScalingGroup
 from cloudrail.knowledge.context.aws.autoscaling.launch_template import LaunchTemplate
@@ -343,9 +344,11 @@ class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under 
                  cloudfront_log_settings: List[CloudfrontDistributionLogging] = None,
                  global_accelerator_attributes: List[GlobalAcceleratorAttribute] = None,
                  redshift_logs: List[RedshiftLogging] = None,
-                 s3_bucket_logs: List[S3BucketLogging] = None):
+                 s3_bucket_logs: List[S3BucketLogging] = None,
+                 athena_databases: List[AthenaDatabase] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.athena_databases = athena_databases or []
         self.s3_bucket_logs = s3_bucket_logs or []
         self.redshift_logs = redshift_logs or []
         self.global_accelerator_attributes = global_accelerator_attributes or []

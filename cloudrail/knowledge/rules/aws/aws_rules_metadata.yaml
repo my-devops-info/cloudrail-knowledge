@@ -3986,3 +3986,23 @@ rules_metadata:
   security_layer: logging
   resource_type:
   - storage
+
+- rule_id: non_car_athena_database_encrypted_at_rest
+  cloud_provider: amazon_web_services
+  name: Ensure Athena database is encrypted at rest
+  severity: medium
+  description:
+    Cloudrail will review the Athena database configuration.
+    If a database is not configured to be encrypted at rest, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the Athena databases configuration in your Terraform plan to check if encryption at rest is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/athena/latest/ug/creating-tables-based-on-encrypted-datasets-in-s3.html>
+    in order to encrypt the Athena database.
+  remediation_steps_tf:
+    For the aws_athena_database resource, set the encryption_configuration block
+    with the encryption_option argument set to either “SSE_S3”, “SSE_KMS”, or “CSE_KMS”.
+  rule_type: non_context_aware
+  security_layer: encryption
+  resource_type:
+  - database
