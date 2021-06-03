@@ -1,6 +1,19 @@
-from typing import List
+from typing import List, Optional
+from dataclasses import dataclass
+
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
+
+
+@dataclass
+class AccessLogsSettings:
+    """
+        Attributes:
+            destination_arn: The ARN of either Cloudwatch log group or Kinesis Data Firehose delivery stream to receive the access logs.
+            format: The formatting and values recorded in the logs.
+    """
+    destination_arn: str
+    format: str
 
 
 class ApiGatewayStage(AwsResource):
@@ -11,15 +24,17 @@ class ApiGatewayStage(AwsResource):
             xray_tracing_enabled: An indication if active tracing with X-ray is enabled.
     """
     def __init__(self,
-                 account:str,
+                 account: str,
                  region: str,
                  api_gw_id: str,
                  stage_name: str,
-                 xray_tracing_enabled: bool):
+                 xray_tracing_enabled: bool,
+                 access_logs: Optional[AccessLogsSettings]):
         super().__init__(account, region, AwsServiceName.AWS_API_GATEWAY_STAGE)
         self.api_gw_id: str = api_gw_id
         self.stage_name: str = stage_name
         self.xray_tracing_enabled: bool = xray_tracing_enabled
+        self.access_logs: Optional[AccessLogsSettings] = access_logs
 
     def get_keys(self) -> List[str]:
         return [self.api_gw_id]

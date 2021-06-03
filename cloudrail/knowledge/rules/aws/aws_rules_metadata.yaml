@@ -3945,3 +3945,24 @@ rules_metadata:
   security_layer: logging
   resource_type:
   - database
+
+- rule_id: non_car_rest_api_gateway_access_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure REST API Gateway has access logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the REST API Gateways configuration in your environment.
+    If a stage does not have access logging enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the configuration of REST API Gateways within your AWS account
+    and Terraform plan to check if logging is enabled for all stages.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html>
+    in order to enable logging for a REST API Gateway stage.
+  remediation_steps_tf:
+    For the aws_api_gateway_stage resource, set the access_log_settings block with destination_arn argument set to the ARN
+    of a CloudWatch Log Group and set the format argument to a valid log format.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - content_delivery
