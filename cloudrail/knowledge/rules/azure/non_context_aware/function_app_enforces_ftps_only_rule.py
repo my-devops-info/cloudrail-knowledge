@@ -1,6 +1,5 @@
 from typing import Dict, List
 from cloudrail.knowledge.context.azure.azure_environment_context import AzureEnvironmentContext
-from cloudrail.knowledge.context.azure.webapp.azure_app_service import FtpState
 from cloudrail.knowledge.context.azure.webapp.constants import FtpState
 from cloudrail.knowledge.rules.azure.azure_base_rule import AzureBaseRule
 from cloudrail.knowledge.rules.base_rule import Issue
