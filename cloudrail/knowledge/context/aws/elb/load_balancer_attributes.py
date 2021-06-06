@@ -24,6 +24,7 @@ class LoadBalancerAttributes(AwsResource):
         Attributes:
             load_balancer_arn: The ARN of the load balancer.
             drop_invalid_header_fields: An indication if the application load balancer remove invalid http headers or send to the targets as is.
+            access_logs: Block of settings for this load balancer access logs.
     """
     def __init__(self,
                  account: str,

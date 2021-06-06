@@ -32,7 +32,7 @@ class Ec2InstanceType(AwsResource):
         self.ebs_info: EbsInfo = ebs_info
 
     def get_keys(self) -> List[str]:
-        return [self.instance_type, self.region]
+        return [self.instance_type, self.region, self.account]
 
     def get_name(self) -> str:
         return f'Instance Type {self.instance_type} of region {self.region}'

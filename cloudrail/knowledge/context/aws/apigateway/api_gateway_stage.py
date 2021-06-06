@@ -22,6 +22,7 @@ class ApiGatewayStage(AwsResource):
             api_gw_id: The ID of the REST API Gateway.
             stage_name: The name of the stage.
             xray_tracing_enabled: An indication if active tracing with X-ray is enabled.
+            access_logs: Block information about the access logs settings of the REST API Gateway stage (if any configured).
     """
     def __init__(self,
                  account: str,

@@ -67,6 +67,7 @@ class CloudFrontDistribution(AwsResource, ConnectionInstance):
                  used with this distribution.
             origin_config_list: A list of OriginConfig, the order is not guaranteed.
             web_acl_id: The ID of the AWS WAF web ACL, to associate with this distribution.
+            logs_settings: The logs settings of the CloudFront Distribution, if configured.
     """
     def __init__(self,
                  arn: str,

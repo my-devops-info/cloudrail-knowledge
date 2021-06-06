@@ -25,6 +25,7 @@ class RestApiGw(ResourceBasedPolicy):
         api_gateway_type: One of EDGE, REGIONAL, PRIVATE.
         is_public: An indication on if this resource is accessible from the internet.
         api_gateway_methods: The ApiGatewayMethods associated with this gateway.
+        api_gw_stages: The stages associated with this REST API Gateway.
     """
     def __init__(self,
                  rest_api_gw_id: str,
