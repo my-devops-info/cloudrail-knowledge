@@ -164,6 +164,7 @@ from cloudrail.knowledge.context.base_environment_context import BaseEnvironment
 from cloudrail.knowledge.context.mergeable import Mergeable
 from cloudrail.knowledge.context.unknown_block import UnknownBlock
 
+
 _TMergeAble = TypeVar('_TMergeAble', bound=Mergeable)
 
 
