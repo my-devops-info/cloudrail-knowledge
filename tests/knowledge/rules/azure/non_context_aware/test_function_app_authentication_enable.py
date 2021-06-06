@@ -16,7 +16,7 @@ class TestFunctionAppAuthenticationEnable(TestCase):
 
     def test_ftps_enabled(self):
         # Arrange
-        auth_settings: AuthSettings = AuthSettings(True, False)
+        auth_settings: AuthSettings = AuthSettings(True)
         func_app: AzureFunctionApp = create_empty_entity(AzureFunctionApp)
         func_app.auth_settings = auth_settings
         func_app.name = 'my-func-app'
@@ -29,7 +29,7 @@ class TestFunctionAppAuthenticationEnable(TestCase):
 
     def test_ftps_disabled(self):
         # Arrange
-        auth_settings: AuthSettings = AuthSettings(False, False)
+        auth_settings: AuthSettings = AuthSettings(False)
         func_app: AzureFunctionApp = create_empty_entity(AzureFunctionApp)
         func_app.auth_settings = auth_settings
         func_app.name = 'my-func-app'
