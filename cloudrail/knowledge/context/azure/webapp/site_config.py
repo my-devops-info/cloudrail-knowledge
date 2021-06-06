@@ -1,4 +1,4 @@
-from cloudrail.knowledge.context.azure.azure_resources.web_app.constants import FtpState
+from cloudrail.knowledge.context.azure.webapp.constants import FtpState
 
 
 class SiteConfig:

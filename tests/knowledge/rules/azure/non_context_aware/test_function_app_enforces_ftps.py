@@ -8,10 +8,10 @@ from cloudrail.knowledge.context.azure.azure_environment_context import AzureEnv
 
 from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 
-from cloudrail.knowledge.context.azure.webapp.azure_app_service import FtpState, AzureAppService
+from cloudrail.knowledge.context.azure.webapp.azure_app_service import AzureAppService
 from cloudrail.knowledge.context.azure.azure_resources.web_app.azure_app_service import AzureAppService
-from cloudrail.knowledge.context.azure.azure_resources.web_app.site_config import SiteConfig
-from cloudrail.knowledge.context.azure.azure_resources.web_app.constants import FtpState
+from cloudrail.knowledge.context.azure.webapp.site_config import SiteConfig
+from cloudrail.knowledge.context.azure.webapp.constants import FtpState
 from cloudrail.knowledge.rules.azure.non_context_aware.function_app_enforces_ftps_only_rule import FunctionAppEnforcesFtpsOnlyRule
 
 
