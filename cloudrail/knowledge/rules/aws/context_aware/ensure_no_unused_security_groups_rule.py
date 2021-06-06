@@ -16,7 +16,7 @@ class EnsureNoUnusedSecurityGroups(BaseRule):
         # This is in order to avoid scenario in which a security group created, and will be associated using a different infra than TF.
         # In the future, we will add history track for resources, and this condition will not be needed.
         for security_group in [sg for sg in env_context.security_groups if
-                               not sg.used_by
+                               not sg.is_used
                                and not sg.is_new_resource()
                                and not sg.is_pseudo]:
             issues.append(
