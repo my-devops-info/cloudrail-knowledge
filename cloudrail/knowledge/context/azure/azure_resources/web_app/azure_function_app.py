@@ -1,15 +1,20 @@
 from typing import Optional, List
-from cloudrail.knowledge.context.azure.azure_resources.azure_resource import AzureResource
-from cloudrail.knowledge.context.azure.azure_resources.constants.azure_resource_type import AzureResourceType
+
+from cloudrail.knowledge.context.azure.azure_resource import AzureResource
 from cloudrail.knowledge.context.azure.azure_resources.web_app.auth_settings import AuthSettings
+from cloudrail.knowledge.context.azure.constants.azure_resource_type import AzureResourceType
+
+"""
+    Attributes:
+        name: Function app resource name.
+        auth_settings: Function app authentication settings.
+"""
 
 
 class AzureFunctionApp(AzureResource):
 
-    def __init__(self, subscription_id: str, resource_group_name: str, location: str, name: str,
-                 auth_settings: AuthSettings) -> None:
-        super().__init__(subscription_id, resource_group_name, location,
-                         'Microsoft.Web', AzureResourceType.AZURERM_FUNCTION_APP)
+    def __init__(self, name: str, auth_settings: AuthSettings) -> None:
+        super().__init__(AzureResourceType.AZURERM_FUNCTION_APP)
         self.name = name
         self.auth_settings: AuthSettings = auth_settings
         self.with_aliases(name)
