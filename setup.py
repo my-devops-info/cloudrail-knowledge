@@ -1,6 +1,6 @@
 import sys
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 from cloudrail.version import __version__
 
 with open('requirements.txt') as requirements_file:
@@ -26,7 +26,7 @@ setup(
     author='Indeni',
     author_email='engineering@indeni.com',
     url='https://github.com/indeni/cloudrail-knowledge',
-    packages=find_packages(include=['cloudrail.*', 'cloudrail.knowledge.*', 'cloudrail.dev_tools.*']),
+    packages=find_namespace_packages(include=['cloudrail.*']),
     package_data={'': ['aws_rules_metadata.yaml',
                        'azure_rules_metadata.yaml']},
     include_package_data=True,
