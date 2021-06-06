@@ -7,7 +7,7 @@ from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class AppServiceFtpsRequired(AzureBaseRule):
+class AppServiceFtpsRequiredRule(AzureBaseRule):
     def get_id(self) -> str:
         return 'non_car_azure_app_service_ftps_required'
 

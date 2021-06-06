@@ -6,14 +6,14 @@ from cloudrail.knowledge.context.aliases_dict import AliasesDict
 from cloudrail.knowledge.context.azure.azure_environment_context import AzureEnvironmentContext
 from cloudrail.knowledge.context.azure.webapp.azure_app_service import AzureAppService
 from cloudrail.knowledge.context.azure.webapp.azure_ftps_state import FtpsState
-from cloudrail.knowledge.rules.azure.non_context_aware.app_service_ftps_required import AppServiceFtpsRequired
+from cloudrail.knowledge.rules.azure.non_context_aware.app_service_ftps_required_rule import AppServiceFtpsRequiredRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
 from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 
 
 class TestAppServiceFtpsRequired(unittest.TestCase):
     def setUp(self):
-        self.rule = AppServiceFtpsRequired()
+        self.rule = AppServiceFtpsRequiredRule()
 
     @parameterized.expand(
         [
