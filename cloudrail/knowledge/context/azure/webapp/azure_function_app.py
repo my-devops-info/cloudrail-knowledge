@@ -4,15 +4,13 @@ from cloudrail.knowledge.context.azure.azure_resource import AzureResource
 from cloudrail.knowledge.context.azure.webapp.auth_settings import AuthSettings
 from cloudrail.knowledge.context.azure.constants.azure_resource_type import AzureResourceType
 
-"""
-    Attributes:
-        name: Function app resource name.
-        auth_settings: Function app authentication settings.
-"""
-
 
 class AzureFunctionApp(AzureResource):
-
+    """
+        Attributes:
+            name: Function app resource name.
+            auth_settings: Function app authentication settings.
+    """
     def __init__(self, name: str, auth_settings: AuthSettings) -> None:
         super().__init__(AzureResourceType.AZURERM_FUNCTION_APP)
         self.name = name
