@@ -33,4 +33,6 @@ class AbstractIamAccountPasswordPolicy(AwsBaseRule):
         return issues
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
-        return bool(environment_context.accounts)
+        return bool(environment_context.users
+                    and environment_context.users_login_profile
+                    and environment_context.iam_account_pass_policies)
