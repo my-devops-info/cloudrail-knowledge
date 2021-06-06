@@ -15,7 +15,7 @@ class EnsureGlobalAccelerationFlowLogsEnabledRule(AwsBaseRule):
         issues: List[Issue] = []
 
         for gac in env_context.global_accelerators:
-            if gac.attributes and not gac.attributes.flow_logs_enabled:
+            if not gac.attributes or not gac.attributes.flow_logs_enabled:
                 issues.append(
                     Issue(
                         f'The {gac.get_type()} `{gac.get_friendly_name()}` does not have flow logs enabled', gac, gac))
