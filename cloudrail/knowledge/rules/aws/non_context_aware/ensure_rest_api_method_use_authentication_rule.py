@@ -18,8 +18,8 @@ class EnsureRestApiMethodUseAuthenticationRule(AwsBaseRule):
                 if method.authorization == 'NONE':
                     issues.append(
                         Issue(
-                            f'The {rest_api.get_type()} `{rest_api.get_friendly_name()}` is not requiring authorization for the method'
-                            f'{method.get_friendly_name()}', rest_api, method))
+                            f'The {rest_api.get_type()} `{rest_api.get_friendly_name()}` is not requiring authorization for the method '
+                            f'`{method.get_friendly_name()}`', rest_api, method))
             return issues
 
     def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
