@@ -9,7 +9,7 @@ from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterT
 
 class AppServiceFtpsRequiredRule(AzureBaseRule):
     def get_id(self) -> str:
-        return 'non_car_azure_app_service_ftps_required'
+        return 'non_car_ftps_should_be_required_in_web_app'
 
     def execute(self, env_context: AzureEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
