@@ -27,9 +27,6 @@ class AzureAppService(AzureResource):
         return f'https://portal.azure.com/#@{self.tenant_id}/resource/subscriptions/{self.subscription_id}/resourceGroups/' \
                f'{self.resource_group_name}/providers/Microsoft.Web/sites/{self.name}/appServices'
 
-    def get_friendly_name(self) -> str:
-        return self.get_name()
-
     @property
     def is_tagable(self) -> bool:
         return True
