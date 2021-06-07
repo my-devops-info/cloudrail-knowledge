@@ -15,7 +15,6 @@ class AzureAppService(AzureResource):
         super().__init__(AzureResourceType.AZURERM_APP_SERVICE)
         self.name: str = name
         self.ftps_state: FtpsState = ftps_state
-        self.with_aliases(name)
 
     def get_keys(self) -> List[str]:
         return [self.get_name()]
