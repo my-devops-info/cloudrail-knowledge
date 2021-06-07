@@ -13,3 +13,4 @@ class AzureResourceType(Enum):
     AZURERM_NETWORK_INTERFACE_SECURITY_GROUP_ASSOCIATION = 'azurerm_network_interface_security_group_association'
     AZURERM_SUBNET = 'azurerm_subnet'
     AZURERM_NETWORK_INTERFACE = 'azurerm_network_interface'
+    AZURERM_FUNCTION_APP = 'azurerm_function_app'

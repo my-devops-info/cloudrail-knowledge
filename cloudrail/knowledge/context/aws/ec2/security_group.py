@@ -37,9 +37,13 @@ class SecurityGroup(AwsResource):
         self._used_by: Set[AwsResource] = set()
 
     @property
-    def used_by(self) -> Set[AwsResource]:
-        return {resource for resource in self._used_by if not resource.is_invalidated and
-                (not isinstance(resource, NetworkInterface) or (resource.owner and not resource.owner.is_invalidated))}
+    def is_used(self) -> bool:
+        """
+        This property returns true if any resource is using this security group, including invalidated resources.
+
+        Note: Network interfaces that use this security group, but are not attached to a resource, will not count.
+        """
+        return any(resource for resource in self._used_by if not isinstance(resource, NetworkInterface) or resource.owner)
 
     def add_usage(self, resource: AwsResource):
         self._used_by.add(resource)
@@ -101,9 +105,3 @@ class SecurityGroup(AwsResource):
 
     def exclude_from_invalidation(self) -> list:
         return [self._used_by]
-
-    def custom_invalidation(self) -> List[str]:
-        invalidation_reasons = []
-        if self._used_by and not self.used_by:
-            invalidation_reasons.append('Security group used only by invalidated resources')
-        return invalidation_reasons
