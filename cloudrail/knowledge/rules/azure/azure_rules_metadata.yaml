@@ -878,3 +878,21 @@ rules_metadata:
     security_layer: networking
     resource_type:
       - compute
+
+  - rule_id: non_car_authentication_enabled_in_function_app
+    cloud_provider: azure
+    name: Ensure authentication is enabled in Function Apps
+    severity: medium
+    description: Cloudrail will review the Function Apps configuration in your environment.
+      If a function does not have authentication enabled, Cloudrail will highlight it as a violation.
+    human_readable_logic: Cloudrail will review the Function Apps configuration within your Azure subscription and
+      Terraform plan to check if authentication is enabled.
+    remediation_steps_console: Follow the guide at
+      https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings?tabs=portal#auth
+      in order to enable authentication for the Function App.
+    remediation_steps_tf: For the azurerm_function_app resource,
+      set the auth_settings block with enabled argument set to true.
+    rule_type: non_context_aware
+    security_layer: networking
+    resource_type:
+      - compute

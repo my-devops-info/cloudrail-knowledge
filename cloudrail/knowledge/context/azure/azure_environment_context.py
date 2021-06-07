@@ -1,6 +1,7 @@
 from typing import List, Dict
 
 from cloudrail.knowledge.context.aliases_dict import AliasesDict
+from cloudrail.knowledge.context.azure.webapp.azure_function_app import AzureFunctionApp
 from cloudrail.knowledge.context.azure.azure_resource_group import AzureResourceGroup
 from cloudrail.knowledge.context.azure.webapp.azure_app_service import AzureAppService
 from cloudrail.knowledge.context.azure.databases.azure_sql_server import AzureSqlServer
@@ -26,7 +27,8 @@ class AzureEnvironmentContext(BaseEnvironmentContext):
                  subnet_network_security_group_association: List[AzureSecurityGroupToSubnetAssociation] = None,
                  subnets: AliasesDict[AzureSubnet] = None,
                  nic_network_security_group_association: List[AzureNetworkSecurityGroupToNicAssociation] = None,
-                 network_interfaces: AliasesDict[AzureNic] = None):
+                 network_interfaces: AliasesDict[AzureNic] = None,
+                 function_apps: AliasesDict[AzureFunctionApp] = None):
         BaseEnvironmentContext.__init__(self)
         self.checkov_results: Dict[str, List[CheckovResult]] = checkov_results or {}
         self.resource_groups: AliasesDict[AzureResourceGroup] = resource_groups or AliasesDict()
@@ -37,3 +39,4 @@ class AzureEnvironmentContext(BaseEnvironmentContext):
         self.subnets: AliasesDict[AzureSubnet] = subnets or AliasesDict()
         self.nic_network_security_group_association: List[AzureNetworkSecurityGroupToNicAssociation] = nic_network_security_group_association or []
         self.network_interfaces: AliasesDict[AzureNic] = network_interfaces or AliasesDict()
+        self.function_apps: AliasesDict[AzureFunctionApp] = function_apps or AliasesDict()

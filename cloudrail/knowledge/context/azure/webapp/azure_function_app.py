@@ -1,22 +1,24 @@
 from typing import Optional, List
 
 from cloudrail.knowledge.context.azure.azure_resource import AzureResource
-from cloudrail.knowledge.context.azure.webapp.site_config import SiteConfig
+from cloudrail.knowledge.context.azure.webapp.auth_settings import AuthSettings
 from cloudrail.knowledge.context.azure.constants.azure_resource_type import AzureResourceType
 
 
-class AzureAppService(AzureResource):
-
-    def __init__(self, name: str, app_service_plan_id: str,
-                 site_config: SiteConfig = None) -> None:
-        super().__init__(AzureResourceType.AZURERM_APP_SERVICE)
+class AzureFunctionApp(AzureResource):
+    """
+        Attributes:
+            name: Function app resource name.
+            auth_settings: Function app authentication settings.
+    """
+    def __init__(self, name: str, auth_settings: AuthSettings) -> None:
+        super().__init__(AzureResourceType.AZURERM_FUNCTION_APP)
         self.name = name
-        self.app_service_plan_id: str = app_service_plan_id
-        self.site_config: SiteConfig = site_config
+        self.auth_settings: AuthSettings = auth_settings
         self.with_aliases(name)
 
     def get_keys(self) -> List[str]:
-        return [self.get_name()]
+        return [self.subscription_id, self.name, self.location]
 
     def get_name(self) -> str:
         return self.name
@@ -29,4 +31,4 @@ class AzureAppService(AzureResource):
 
     @property
     def is_tagable(self) -> bool:
-        return False
+        return True
