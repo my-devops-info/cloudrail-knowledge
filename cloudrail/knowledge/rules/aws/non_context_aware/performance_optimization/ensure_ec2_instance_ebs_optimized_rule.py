@@ -13,7 +13,7 @@ class EnsureEc2InstanceEbsOptimizedRule(AwsBaseRule):
     def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
         instance_types_default_optimized = env_context.get_all_ec2_instance_types_with_default_ebs_optimization()
-        instance_types = [type.instance_type for type in instance_types_default_optimized]
+        instance_types = [ec2_inst_type.instance_type for ec2_inst_type in instance_types_default_optimized]
         for instance in env_context.ec2s:
             if (instance_types_default_optimized and instance.instance_type not in instance_types and not instance.ebs_optimized)\
                     or (not instance_types_default_optimized and not instance.ebs_optimized):

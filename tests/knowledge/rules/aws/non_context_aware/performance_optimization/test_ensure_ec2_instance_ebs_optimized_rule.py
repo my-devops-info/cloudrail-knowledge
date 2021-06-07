@@ -17,8 +17,7 @@ class TestEnsureEc2InstanceEbsOptimizedRule(unittest.TestCase):
     def test_non_car_ec2_instance_is_ebs_optimized_fail(self):
         # Arrange
         ec2: Ec2Instance = create_empty_entity(Ec2Instance)
-        ec2_instance_type = Ec2InstanceType('11111111', 'us-east-1', 't2.micro',
-                                            EbsInfo('default', 'supported'))
+        ec2_instance_type = Ec2InstanceType('t2.micro', EbsInfo('default', 'supported'))
         account: Account = create_empty_entity(Account)
         account.account = '11111111'
         ec2.instance_type = 't3.micro'
@@ -33,8 +32,7 @@ class TestEnsureEc2InstanceEbsOptimizedRule(unittest.TestCase):
     def test_non_car_ec2_instance_is_ebs_optimized__no_list_ebs_not_optimized__fail(self):
         # Arrange
         ec2: Ec2Instance = create_empty_entity(Ec2Instance)
-        ec2_instance_type = Ec2InstanceType('11111111', 'us-east-1', 't2.micro',
-                                            EbsInfo('default', 'supported'))
+        ec2_instance_type = Ec2InstanceType('t2.micro', EbsInfo('default', 'supported'))
         account: Account = create_empty_entity(Account)
         account.account = '11111111'
         ec2.instance_type = 't3.micro'
@@ -49,8 +47,7 @@ class TestEnsureEc2InstanceEbsOptimizedRule(unittest.TestCase):
     def test_non_car_ec2_instance_is_ebs_optimized__in_list__pass(self):
         # Arrange
         ec2: Ec2Instance = create_empty_entity(Ec2Instance)
-        ec2_instance_type = Ec2InstanceType('11111111', 'us-east-1', 't2.micro',
-                                            EbsInfo('default', 'supported'))
+        ec2_instance_type = Ec2InstanceType('t2.micro', EbsInfo('default', 'supported'))
         account: Account = create_empty_entity(Account)
         account.account = '11111111'
         ec2.instance_type = 't2.micro'
@@ -65,8 +62,7 @@ class TestEnsureEc2InstanceEbsOptimizedRule(unittest.TestCase):
     def test_non_car_ec2_instance_is_ebs_optimized__not_in_list_optimized__pass(self):
         # Arrange
         ec2: Ec2Instance = create_empty_entity(Ec2Instance)
-        ec2_instance_type = Ec2InstanceType('11111111', 'us-east-1', 't2.micro',
-                                            EbsInfo('default', 'supported'))
+        ec2_instance_type = Ec2InstanceType('t2.micro', EbsInfo('default', 'supported'))
         account: Account = create_empty_entity(Account)
         account.account = '11111111'
         ec2.instance_type = 't3.micro'
@@ -81,8 +77,7 @@ class TestEnsureEc2InstanceEbsOptimizedRule(unittest.TestCase):
     def test_non_car_ec2_instance_is_ebs_optimized__no_list__pass(self):
         # Arrange
         ec2: Ec2Instance = create_empty_entity(Ec2Instance)
-        ec2_instance_type = Ec2InstanceType('11111111', 'us-east-1', 't2.micro',
-                                            EbsInfo('default', 'supported'))
+        ec2_instance_type = Ec2InstanceType('t2.micro', EbsInfo('default', 'supported'))
         account: Account = create_empty_entity(Account)
         account.account = '11111111'
         ec2.instance_type = 't3.micro'
