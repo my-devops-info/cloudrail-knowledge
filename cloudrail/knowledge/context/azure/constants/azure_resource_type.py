@@ -14,3 +14,4 @@ class AzureResourceType(Enum):
     AZURERM_SUBNET = 'azurerm_subnet'
     AZURERM_NETWORK_INTERFACE = 'azurerm_network_interface'
     AZURERM_FUNCTION_APP = 'azurerm_function_app'
+    AZURERM_VIRTUAL_NETWORK_GATEWAY = 'azurerm_virtual_network_gateway'

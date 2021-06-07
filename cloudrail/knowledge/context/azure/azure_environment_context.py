@@ -1,6 +1,7 @@
 from typing import List, Dict
 
 from cloudrail.knowledge.context.aliases_dict import AliasesDict
+from cloudrail.knowledge.context.azure.network.azure_vnet_gateway import AzureVirtualNetworkGateway
 from cloudrail.knowledge.context.azure.webapp.azure_function_app import AzureFunctionApp
 from cloudrail.knowledge.context.azure.azure_resource_group import AzureResourceGroup
 from cloudrail.knowledge.context.azure.webapp.azure_app_service import AzureAppService
@@ -30,7 +31,8 @@ class AzureEnvironmentContext(BaseEnvironmentContext):
                  network_interfaces: AliasesDict[AzureNic] = None,
                  app_services: AliasesDict[AzureAppService] = None,
                  app_service_configs: AliasesDict[AzureAppServiceConfig] = None,
-                 function_apps: AliasesDict[AzureFunctionApp] = None):
+                 function_apps: AliasesDict[AzureFunctionApp] = None,
+                 vnet_gateways: AliasesDict[AzureVirtualNetworkGateway] = None):
         BaseEnvironmentContext.__init__(self)
         self.checkov_results: Dict[str, List[CheckovResult]] = checkov_results or {}
         self.resource_groups: AliasesDict[AzureResourceGroup] = resource_groups or AliasesDict()
@@ -43,3 +45,4 @@ class AzureEnvironmentContext(BaseEnvironmentContext):
         self.network_interfaces: AliasesDict[AzureNic] = network_interfaces or AliasesDict()
         self.app_service_configs: AliasesDict[AzureAppServiceConfig] = app_service_configs or AliasesDict()
         self.function_apps: AliasesDict[AzureFunctionApp] = function_apps or AliasesDict()
+        self.vnet_gateways: AliasesDict[AzureVirtualNetworkGateway] = vnet_gateways or AliasesDict()

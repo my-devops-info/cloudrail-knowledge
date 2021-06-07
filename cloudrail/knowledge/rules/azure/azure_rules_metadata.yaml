@@ -909,3 +909,20 @@ rules_metadata:
     security_layer: networking
     resource_type:
       - compute
+
+  - rule_id: non_car_vpn_gateway_disallow_basic_sku
+    cloud_provider: azure
+    name: Ensure Azure VPN gateways don't use the basic SKU
+    severity: medium
+    description:
+      The Azure VPN Gateway has different SKUs to choose from, each with different capabilities.
+      The "basic" one is lacking many features and will generally not support anything beyond the smallest
+      load.
+    human_readable_logic:
+      Cloudrail will review all of the VPN gateways in your Azure environment. If any uses the "basic" SKU, Cloudrail will raise a violation.
+    remediation_steps_console: Change the SKU of the VPN gateway by deleting the old one and creating a new one with a different SKU.
+    remediation_steps_tf: Change the 'sku' in the azurerm_virtual_network_gateway to a value that is not "Basic".
+    rule_type: non_context_aware
+    security_layer: networking
+    resource_type:
+    - network
