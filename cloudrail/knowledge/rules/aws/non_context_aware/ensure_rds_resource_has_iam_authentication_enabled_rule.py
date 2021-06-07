@@ -36,30 +36,26 @@ class EnsureRdsResourceIamAuthenticationEnabledRule(AwsBaseRule):
             if not rds_resource.engine_version:
                 return True
             elif 'mysql' in rds_resource.engine_type.lower():
-                return self._check_version(rds_resource.engine_version, supported_mysql_versions, 'mysql')
+                return self._check_version(rds_resource, rds_resource.engine_version, supported_mysql_versions)
             elif 'postgresql' in rds_resource.engine_type.lower():
-                return self._check_version(rds_resource.engine_version, supported_postgres_versions, 'postgresql')
+                return self._check_version(rds_resource, rds_resource.engine_version, supported_postgres_versions)
             else:
                 return False
 
-    def _check_version(self, rds_ver: str, supported_ver_list: list, engine_type: str) -> bool:
-        if version.parse(rds_ver) < version.parse(supported_ver_list[0]):
+    @staticmethod
+    def _check_version(resource: RdsInstance, rds_ver: str, supported_ver_list: list) -> bool:
+        if resource.is_managed_by_iac \
+                and any(((version.parse(rds_ver).major, version.parse(rds_ver).minor) ==
+                         (version.parse(ver).major, version.parse(ver).minor))
+                        or ((version.parse(rds_ver).major == version.parse(ver).major)
+                            and version.parse(rds_ver).minor >= 0) for ver in supported_ver_list)\
+                and version.parse(rds_ver).micro == 0:
+            return True
+        elif version.parse(rds_ver) < version.parse(supported_ver_list[0]):
             return False
         elif version.parse(rds_ver) > version.parse(supported_ver_list[-1]):
             return True
         else:
-            if engine_type == 'mysql':
-                return any((version.parse(rds_ver) >= version.parse(ver)) for ver in supported_ver_list[1:-1]
-                           if self._mysql_condition(rds_ver, ver))
-            else:
-                return any((version.parse(rds_ver) >= version.parse(ver)) for ver in supported_ver_list[1:-1]
-                           if self._postgresql_condition(rds_ver, ver))
-
-    @staticmethod
-    def _mysql_condition(rds_ver: str, supported_ver: str) -> bool:
-        return (version.parse(rds_ver).major, version.parse(rds_ver).minor) == \
-               (version.parse(supported_ver).major, version.parse(supported_ver).minor)
-
-    @staticmethod
-    def _postgresql_condition(rds_ver: str, supported_ver: str) -> bool:
-        return version.parse(rds_ver).major == version.parse(supported_ver).major
+            return any((version.parse(rds_ver) >= version.parse(ver)) for ver in supported_ver_list
+                       if (version.parse(rds_ver).major, version.parse(rds_ver).minor) ==
+                       (version.parse(ver).major, version.parse(ver).minor))

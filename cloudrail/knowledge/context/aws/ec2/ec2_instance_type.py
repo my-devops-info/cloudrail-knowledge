@@ -23,16 +23,14 @@ class Ec2InstanceType(AwsResource):
     """
 
     def __init__(self,
-                 account: str,
-                 region: str,
                  instance_type: str,
                  ebs_info: EbsInfo):
-        super().__init__(account, region, AwsServiceName.NONE)
+        super().__init__(None, AwsResource.GLOBAL_REGION, AwsServiceName.NONE)
         self.instance_type: str = instance_type
         self.ebs_info: EbsInfo = ebs_info
 
     def get_keys(self) -> List[str]:
-        return [self.instance_type, self.region, self.account]
+        pass
 
     def get_name(self) -> str:
         return f'Instance Type {self.instance_type} of region {self.region}'
