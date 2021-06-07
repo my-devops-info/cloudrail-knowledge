@@ -15,7 +15,6 @@ class AzureAppServiceConfig(AzureResource):
         super().__init__(AzureResourceType.NONE)
         self.name: str = name
         self.ftps_state: FtpsState = ftps_state
-        self.with_aliases(name)
 
     def get_keys(self) -> List[str]:
         return [self.get_name()]
@@ -26,9 +25,6 @@ class AzureAppServiceConfig(AzureResource):
     def get_cloud_resource_url(self) -> Optional[str]:
         return f'https://portal.azure.com/#@{self.tenant_id}/resource/subscriptions/{self.subscription_id}/resourceGroups/' \
                f'{self.resource_group_name}/providers/Microsoft.Web/sites/{self.name}/configuration'
-
-    def get_friendly_name(self) -> str:
-        return self.get_name()
 
     @property
     def is_tagable(self) -> bool:
