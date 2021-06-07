@@ -878,3 +878,34 @@ rules_metadata:
     security_layer: networking
     resource_type:
       - compute
+
+  - rule_id: non_car_ftps_should_be_required_in_web_app
+    cloud_provider: azure
+    name: FTPS should be required in your Web App
+    severity: medium
+    description: Cloudrail will review the App service configuration in your environment. If an app has FTP enabled and is not enforcing FTPS only, Cloudrail will highlight it as a violation.
+    human_readable_logic: Cloudrail will review the App services configuration within your Azure subscription and Terraform plan to check if they are enforcing FTPS only or if they have FTP disabled.
+    remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/app-service/deploy-ftp?tabs=portal#enforce-ftps in order to disable FTP or select FTPS Only in FTP state.
+    remediation_steps_tf: For the azurerm_app_service resource, set the site_config block with ftps_state argument set to “FtpsOnly” to enforce FTPS or to “Disabled” if you want to disable FTP.
+    rule_type: non_context_aware
+    security_layer: networking
+    resource_type:
+      - compute
+
+  - rule_id: non_car_authentication_enabled_in_function_app
+    cloud_provider: azure
+    name: Ensure authentication is enabled in Function Apps
+    severity: medium
+    description: Cloudrail will review the Function Apps configuration in your environment.
+      If a function does not have authentication enabled, Cloudrail will highlight it as a violation.
+    human_readable_logic: Cloudrail will review the Function Apps configuration within your Azure subscription and
+      Terraform plan to check if authentication is enabled.
+    remediation_steps_console: Follow the guide at
+      https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings?tabs=portal#auth
+      in order to enable authentication for the Function App.
+    remediation_steps_tf: For the azurerm_function_app resource,
+      set the auth_settings block with enabled argument set to true.
+    rule_type: non_context_aware
+    security_layer: networking
+    resource_type:
+      - compute

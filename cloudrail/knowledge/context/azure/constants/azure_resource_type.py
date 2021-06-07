@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class AzureResourceType(Enum):
-
+    NONE = 'none'
     AZURERM_RESOURCE_GROUP = 'azurerm_resource_group'
     AZURERM_SQL_SERVER = 'azurerm_sql_server'
     AZURERM_MSSQL_SERVER = 'azurerm_mssql_server'
@@ -13,3 +13,4 @@ class AzureResourceType(Enum):
     AZURERM_NETWORK_INTERFACE_SECURITY_GROUP_ASSOCIATION = 'azurerm_network_interface_security_group_association'
     AZURERM_SUBNET = 'azurerm_subnet'
     AZURERM_NETWORK_INTERFACE = 'azurerm_network_interface'
+    AZURERM_FUNCTION_APP = 'azurerm_function_app'

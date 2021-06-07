@@ -38,7 +38,7 @@ class EnsureSecurityGroupIncludeDescriptionRule(AwsBaseRule):
         security_group_rules_without_desc = set()
 
         for security_group in security_groups:
-            if not security_group.used_by:
+            if not security_group.is_used:
                 continue
 
             if not security_group.has_description:
