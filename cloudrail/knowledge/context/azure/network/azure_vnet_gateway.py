@@ -31,7 +31,8 @@ class AzureVirtualNetworkGateway(AzureResource):
         return self.name
 
     def get_cloud_resource_url(self) -> Optional[str]:
-        pass  ### TODO: Add URL
+        return f'https://portal.azure.com/#@{self.tenant_id}/resource/subscriptions/{self.subscription_id}/resourceGroups/' \
+               f'{self.resource_group_name}/providers/Microsoft.Network/virtualNetworkGateways/{self.name}/overview'
 
     def get_friendly_name(self) -> str:
         return self.get_name()
