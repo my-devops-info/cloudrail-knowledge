@@ -58,6 +58,7 @@ class ResourceType(str, Enum):
     QUEUING = 'queuing'
     NOTIFICATION = 'notification'
     STREAMING = 'streaming'
+    SECURITY_SERVICES = 'security_services'
 
 
 @dataclass
