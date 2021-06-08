@@ -1,10 +1,11 @@
 import functools
-from typing import List, Dict, Union, TypeVar, Callable, Set
+from typing import List, Dict, Optional, Union, TypeVar, Callable, Set
 from cloudrail.knowledge.context.aliases_dict import AliasesDict
 from cloudrail.knowledge.context.aws.account.account import Account
 from cloudrail.knowledge.context.aws.apigateway.api_gateway_integration import ApiGatewayIntegration
 from cloudrail.knowledge.context.aws.apigateway.api_gateway_method import ApiGatewayMethod
 from cloudrail.knowledge.context.aws.apigateway.api_gateway_method_settings import ApiGatewayMethodSettings
+from cloudrail.knowledge.context.aws.apigateway.api_gateway_stage import ApiGatewayStage
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw import RestApiGw
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_domain import RestApiGwDomain
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_mapping import RestApiGwMapping
@@ -12,6 +13,7 @@ from cloudrail.knowledge.context.aws.apigateway.rest_api_gw_policy import RestAp
 from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2 import ApiGateway
 from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2_integration import ApiGatewayV2Integration
 from cloudrail.knowledge.context.aws.apigatewayv2.api_gateway_v2_vpc_link import ApiGatewayVpcLink
+from cloudrail.knowledge.context.aws.athena.athena_database import AthenaDatabase
 from cloudrail.knowledge.context.aws.athena.athena_workgroup import AthenaWorkgroup
 from cloudrail.knowledge.context.aws.autoscaling.launch_configuration import LaunchConfiguration, AutoScalingGroup
 from cloudrail.knowledge.context.aws.autoscaling.launch_template import LaunchTemplate
@@ -19,6 +21,7 @@ from cloudrail.knowledge.context.aws.aws_client import AwsClient
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 from cloudrail.knowledge.context.aws.batch.batch_compute_environment import BatchComputeEnvironment
 from cloudrail.knowledge.context.aws.cloudfront.cloud_front_distribution_list import CloudFrontDistribution
+from cloudrail.knowledge.context.aws.cloudfront.cloudfront_distribution_logging import CloudfrontDistributionLogging
 from cloudrail.knowledge.context.aws.cloudfront.origin_access_identity import OriginAccessIdentity
 from cloudrail.knowledge.context.aws.cloudhsmv2.cloudhsm_v2_cluster import CloudHsmV2Cluster
 from cloudrail.knowledge.context.aws.cloudhsmv2.cloudhsm_v2_hsm import CloudHsmV2Hsm
@@ -29,6 +32,7 @@ from cloudrail.knowledge.context.aws.cloudwatch.cloudwatch_logs_destination impo
 from cloudrail.knowledge.context.aws.cloudwatch.cloudwatch_logs_destination_policy import CloudWatchLogsDestinationPolicy
 from cloudrail.knowledge.context.aws.codebuild.codebuild_project import CodeBuildProject
 from cloudrail.knowledge.context.aws.codebuild.codebuild_report_group import CodeBuildReportGroup
+from cloudrail.knowledge.context.aws.configservice.config_aggregator import ConfigAggregator
 from cloudrail.knowledge.context.aws.dax.dax_cluster import DaxCluster
 from cloudrail.knowledge.context.aws.dms.dms_replication_instance import DmsReplicationInstance
 from cloudrail.knowledge.context.aws.dms.dms_replication_instance_subnet_group import DmsReplicationInstanceSubnetGroup
@@ -38,6 +42,7 @@ from cloudrail.knowledge.context.aws.ds.directory_service import DirectoryServic
 from cloudrail.knowledge.context.aws.dynamodb.dynamodb_table import DynamoDbTable
 from cloudrail.knowledge.context.aws.ec2.ec2_image import Ec2Image
 from cloudrail.knowledge.context.aws.ec2.ec2_instance import Ec2Instance
+from cloudrail.knowledge.context.aws.ec2.ec2_instance_type import Ec2InstanceType
 from cloudrail.knowledge.context.aws.ec2.elastic_ip import ElasticIp
 from cloudrail.knowledge.context.aws.ec2.internet_gateway import InternetGateway
 from cloudrail.knowledge.context.aws.ec2.main_route_table_association import MainRouteTableAssociation
@@ -87,6 +92,7 @@ from cloudrail.knowledge.context.aws.es.elastic_search_domain_policy import Elas
 from cloudrail.knowledge.context.aws.glacier.glacier_vault import GlacierVault
 from cloudrail.knowledge.context.aws.glacier.glacier_vault_policy import GlacierVaultPolicy
 from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator import GlobalAccelerator
+from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator_attributes import GlobalAcceleratorAttribute
 from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator_endpoint_group import GlobalAcceleratorEndpointGroup
 from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator_listener import GlobalAcceleratorListener
 from cloudrail.knowledge.context.aws.glue.glue_connection import GlueConnection
@@ -127,6 +133,7 @@ from cloudrail.knowledge.context.aws.rds.rds_cluster import RdsCluster
 from cloudrail.knowledge.context.aws.rds.rds_global_cluster import RdsGlobalCluster
 from cloudrail.knowledge.context.aws.rds.rds_instance import RdsInstance
 from cloudrail.knowledge.context.aws.redshift.redshift import RedshiftCluster
+from cloudrail.knowledge.context.aws.redshift.redshift_logging import RedshiftLogging
 from cloudrail.knowledge.context.aws.redshift.redshift_subnet_group import RedshiftSubnetGroup
 from cloudrail.knowledge.context.aws.resourcegroupstaggingapi.resource_tag_mapping_list import ResourceTagMappingList
 from cloudrail.knowledge.context.aws.s3.public_access_block_settings import PublicAccessBlockSettings
@@ -134,6 +141,7 @@ from cloudrail.knowledge.context.aws.s3.s3_acl import S3ACL
 from cloudrail.knowledge.context.aws.s3.s3_bucket import S3Bucket
 from cloudrail.knowledge.context.aws.s3.s3_bucket_access_point import S3BucketAccessPoint
 from cloudrail.knowledge.context.aws.s3.s3_bucket_encryption import S3BucketEncryption
+from cloudrail.knowledge.context.aws.s3.s3_bucket_logging import S3BucketLogging
 from cloudrail.knowledge.context.aws.s3.s3_bucket_object import S3BucketObject
 from cloudrail.knowledge.context.aws.s3.s3_bucket_regions import S3BucketRegions
 from cloudrail.knowledge.context.aws.s3.s3_bucket_versioning import S3BucketVersioning
@@ -315,9 +323,25 @@ class AwsEnvironmentContext(BaseEnvironmentContext):
                  s3outpost_endpoints: List[S3OutpostEndpoint] = None,
                  worklink_fleets: List[WorkLinkFleet] = None,
                  glue_connections: List[GlueConnection] = None,
-                 load_balancers_attributes: List[LoadBalancerAttributes] = None):
+                 load_balancers_attributes: List[LoadBalancerAttributes] = None,
+                 ec2_instance_types: List[Ec2InstanceType] = None,
+                 aws_config_aggregators: List[ConfigAggregator] = None,
+                 rest_api_stages: List[ApiGatewayStage] = None,
+                 cloudfront_log_settings: List[CloudfrontDistributionLogging] = None,
+                 global_accelerator_attributes: List[GlobalAcceleratorAttribute] = None,
+                 redshift_logs: List[RedshiftLogging] = None,
+                 s3_bucket_logs: List[S3BucketLogging] = None,
+                 athena_databases: List[AthenaDatabase] = None):
         BaseEnvironmentContext.__init__(self, invalidated_resources=invalidated_resources, unknown_blocks=unknown_blocks,
                                         managed_resources_summary=managed_resources_summary)
+        self.athena_databases = athena_databases or []
+        self.s3_bucket_logs = s3_bucket_logs or []
+        self.redshift_logs = redshift_logs or []
+        self.global_accelerator_attributes = global_accelerator_attributes or []
+        self.cloudfront_log_settings = cloudfront_log_settings or []
+        self.rest_api_stages = rest_api_stages or []
+        self.aws_config_aggregators = aws_config_aggregators or []
+        self.ec2_instance_types = ec2_instance_types or []
         self.load_balancers_attributes = load_balancers_attributes or []
         self.glue_connections = glue_connections or []
         self.worklink_fleets = worklink_fleets or []
@@ -515,6 +539,14 @@ class AwsEnvironmentContext(BaseEnvironmentContext):
     def get_all_taggable_resources(self) -> List[_TMergeAble]:
         condition: Callable = lambda aws_resource: aws_resource.is_tagable
         return self.get_all_mergeable_resources(condition)
+
+    @functools.lru_cache(maxsize=None)
+    def get_all_ec2_instance_types_with_default_ebs_optimization(self) -> Optional[List[Ec2InstanceType]]:
+        if self.accounts:
+            condition: Callable = lambda resource: isinstance(resource, Ec2InstanceType) and resource.ebs_info.ebs_optimized_support == 'default'
+            return self.get_all_mergeable_resources(condition)
+        else:
+            return []
 
     def get_all_mergeable_resources(self, condition: Callable = lambda resource: True) -> List[_TMergeAble]:
         all_resources: List[Mergeable] = []
