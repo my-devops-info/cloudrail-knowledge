@@ -16,7 +16,7 @@ class EnsureCodeBuildProjectsEncryptedRule(AwsBaseRule):
         issues: List[Issue] = []
 
         for project in env_context.codebuild_projects:
-            if project.kms_data.key_manager != KeyManager.CUSTOMER:
+            if not project.kms_data or project.kms_data.key_manager != KeyManager.CUSTOMER:
                 issues.append(
                     Issue(
                         f'The {project.get_type()} project `{project.get_friendly_name()}` '

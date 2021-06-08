@@ -16,7 +16,7 @@ class EnsureXrayEncryptionCmkRule(AwsBaseRule):
         issues: List[Issue] = []
 
         for xray in env_context.xray_encryption_configurations:
-            if (xray.key_id and xray.kms_data.key_manager != KeyManager.CUSTOMER) \
+            if xray.kms_data is None or (xray.key_id and xray.kms_data.key_manager != KeyManager.CUSTOMER) \
                  or not xray.key_id:
                 issues.append(
                     Issue(f'The {xray.get_type()} config is not set to encrypt at rest using customer-managed CMK',

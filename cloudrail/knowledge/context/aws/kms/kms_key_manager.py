@@ -9,8 +9,6 @@ class KeyManager(Enum):
 
         CUSTOMER - key is managed by the Customer
 
-        NONE - key is unmanaged
     """
     AWS = 'AWS'
     CUSTOMER = 'CUSTOMER'
-    NONE = 'NONE'
