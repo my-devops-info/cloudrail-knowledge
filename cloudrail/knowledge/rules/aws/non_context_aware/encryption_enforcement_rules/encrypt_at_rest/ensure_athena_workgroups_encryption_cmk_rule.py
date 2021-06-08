@@ -17,7 +17,9 @@ class EnsureAthenaWorkgroupsEncryptionCmkRule(AwsBaseRule):
 
         for workgroup in env_context.athena_workgroups:
             if workgroup.is_new_resource():
-                if workgroup.encryption_option == 'SSE_S3' or (workgroup.kms_data and workgroup.kms_data.key_manager != KeyManager.CUSTOMER):
+                if workgroup.encryption_option == 'SSE_S3' \
+                        or workgroup.kms_data is None \
+                        or workgroup.kms_data.key_manager != KeyManager.CUSTOMER:
                     issues.append(
                         Issue(
                             f'The {workgroup.get_type()} `{workgroup.get_friendly_name()}` is set to use encrypt at rest '
