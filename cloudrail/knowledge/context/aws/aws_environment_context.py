@@ -158,7 +158,7 @@ from cloudrail.knowledge.context.unknown_block import UnknownBlock
 _TMergeAble = TypeVar('_TMergeAble', bound=Mergeable)
 
 
-class AwsEnvironmentContext(BaseEnvironmentContext): # todo - need to remove under aws folder
+class AwsEnvironmentContext(BaseEnvironmentContext):
     def __init__(self,
                  vpcs: AliasesDict[Vpc] = None,
                  subnets: AliasesDict[Subnet] = None,
