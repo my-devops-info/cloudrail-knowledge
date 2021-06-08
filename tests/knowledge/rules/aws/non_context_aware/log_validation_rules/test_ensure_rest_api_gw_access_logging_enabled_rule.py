@@ -3,7 +3,7 @@ import unittest
 from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aws.apigateway.api_gateway_stage import AccessLogsSettings, ApiGatewayStage
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw import RestApiGw
-from cloudrail.knowledge.context.environment_context import EnvironmentContext
+from cloudrail.knowledge.context.aws.aws_environment_context import AwsEnvironmentContext
 from cloudrail.knowledge.rules.aws.non_context_aware.log_validation_rules.ensure_rest_api_gw_access_logging_enabled_rule import \
     EnsureRestApiGwAccessLoggingEnabledRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
@@ -18,7 +18,7 @@ class TestEnsureRestApiGwAccessLoggingEnabledRule(unittest.TestCase):
         rest_api_gw: RestApiGw = create_empty_entity(RestApiGw)
         rest_api_stage: ApiGatewayStage = create_empty_entity(ApiGatewayStage)
         rest_api_gw.api_gw_stages = [rest_api_stage]
-        context = EnvironmentContext(rest_api_gw=[rest_api_gw], rest_api_stages=[rest_api_stage])
+        context = AwsEnvironmentContext(rest_api_gw=[rest_api_gw], rest_api_stages=[rest_api_stage])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -34,7 +34,7 @@ class TestEnsureRestApiGwAccessLoggingEnabledRule(unittest.TestCase):
         stage_access_logs.format = 'some_format'
         rest_api_stage.access_logs = stage_access_logs
         rest_api_gw.api_gw_stages = [rest_api_stage]
-        context = EnvironmentContext(rest_api_gw=[rest_api_gw], rest_api_stages=[rest_api_stage])
+        context = AwsEnvironmentContext(rest_api_gw=[rest_api_gw], rest_api_stages=[rest_api_stage])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -50,7 +50,7 @@ class TestEnsureRestApiGwAccessLoggingEnabledRule(unittest.TestCase):
         stage_access_logs.format = 'some_format'
         rest_api_stage.access_logs = stage_access_logs
         rest_api_gw.api_gw_stages = []
-        context = EnvironmentContext(rest_api_gw=[rest_api_gw], rest_api_stages=[rest_api_stage])
+        context = AwsEnvironmentContext(rest_api_gw=[rest_api_gw], rest_api_stages=[rest_api_stage])
         # Act
         result = self.rule.run(context, {})
         # Assert

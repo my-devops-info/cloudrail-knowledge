@@ -4,7 +4,7 @@ from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aws.account.account import Account
 from cloudrail.knowledge.context.aws.ec2.ec2_instance import Ec2Instance
 from cloudrail.knowledge.context.aws.ec2.ec2_instance_type import EbsInfo, Ec2InstanceType
-from cloudrail.knowledge.context.environment_context import EnvironmentContext
+from cloudrail.knowledge.context.aws.aws_environment_context import AwsEnvironmentContext
 from cloudrail.knowledge.rules.aws.non_context_aware.performance_optimization.ensure_ec2_instance_ebs_optimized_rule import \
     EnsureEc2InstanceEbsOptimizedRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
@@ -22,7 +22,7 @@ class TestEnsureEc2InstanceEbsOptimizedRule(unittest.TestCase):
         account.account = '11111111'
         ec2.instance_type = 't3.micro'
         ec2.ebs_optimized = False
-        context = EnvironmentContext(ec2s=[ec2], accounts=[account], ec2_instance_types=[ec2_instance_type])
+        context = AwsEnvironmentContext(ec2s=[ec2], accounts=[account], ec2_instance_types=[ec2_instance_type])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -37,7 +37,7 @@ class TestEnsureEc2InstanceEbsOptimizedRule(unittest.TestCase):
         account.account = '11111111'
         ec2.instance_type = 't3.micro'
         ec2.ebs_optimized = False
-        context = EnvironmentContext(ec2s=[ec2], ec2_instance_types=[ec2_instance_type])
+        context = AwsEnvironmentContext(ec2s=[ec2], ec2_instance_types=[ec2_instance_type])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -52,7 +52,7 @@ class TestEnsureEc2InstanceEbsOptimizedRule(unittest.TestCase):
         account.account = '11111111'
         ec2.instance_type = 't2.micro'
         ec2.ebs_optimized = False
-        context = EnvironmentContext(ec2s=[ec2], accounts=[account], ec2_instance_types=[ec2_instance_type])
+        context = AwsEnvironmentContext(ec2s=[ec2], accounts=[account], ec2_instance_types=[ec2_instance_type])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -67,7 +67,7 @@ class TestEnsureEc2InstanceEbsOptimizedRule(unittest.TestCase):
         account.account = '11111111'
         ec2.instance_type = 't3.micro'
         ec2.ebs_optimized = True
-        context = EnvironmentContext(ec2s=[ec2], accounts=[account], ec2_instance_types=[ec2_instance_type])
+        context = AwsEnvironmentContext(ec2s=[ec2], accounts=[account], ec2_instance_types=[ec2_instance_type])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -82,7 +82,7 @@ class TestEnsureEc2InstanceEbsOptimizedRule(unittest.TestCase):
         account.account = '11111111'
         ec2.instance_type = 't3.micro'
         ec2.ebs_optimized = True
-        context = EnvironmentContext(ec2s=[ec2], ec2_instance_types=[ec2_instance_type])
+        context = AwsEnvironmentContext(ec2s=[ec2], ec2_instance_types=[ec2_instance_type])
         # Act
         result = self.rule.run(context, {})
         # Assert

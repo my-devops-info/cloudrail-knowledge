@@ -3,7 +3,7 @@ import unittest
 from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aws.apigateway.api_gateway_method import ApiGatewayMethod
 from cloudrail.knowledge.context.aws.apigateway.rest_api_gw import RestApiGw
-from cloudrail.knowledge.context.environment_context import EnvironmentContext
+from cloudrail.knowledge.context.aws.aws_environment_context import AwsEnvironmentContext
 from cloudrail.knowledge.rules.aws.non_context_aware.ensure_rest_api_method_use_authentication_rule import EnsureRestApiMethodUseAuthenticationRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
 
@@ -18,7 +18,7 @@ class TestEnsureRestApiMethodUseAuthenticationRule(unittest.TestCase):
         api_method: ApiGatewayMethod = create_empty_entity(ApiGatewayMethod)
         api_method.authorization = 'NONE'
         rest_api_gw.api_gateway_methods = [api_method]
-        context = EnvironmentContext(rest_api_gw=[rest_api_gw], api_gateway_methods=[api_method])
+        context = AwsEnvironmentContext(rest_api_gw=[rest_api_gw], api_gateway_methods=[api_method])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -31,7 +31,7 @@ class TestEnsureRestApiMethodUseAuthenticationRule(unittest.TestCase):
         api_method: ApiGatewayMethod = create_empty_entity(ApiGatewayMethod)
         api_method.authorization = 'AWS_IAM'
         rest_api_gw.api_gateway_methods = [api_method]
-        context = EnvironmentContext(rest_api_gw=[rest_api_gw], api_gateway_methods=[api_method])
+        context = AwsEnvironmentContext(rest_api_gw=[rest_api_gw], api_gateway_methods=[api_method])
         # Act
         result = self.rule.run(context, {})
         # Assert

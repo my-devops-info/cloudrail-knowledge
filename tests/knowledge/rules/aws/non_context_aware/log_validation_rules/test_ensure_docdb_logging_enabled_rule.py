@@ -1,7 +1,7 @@
 import unittest
 
 from cloudrail.knowledge.context.aws.docdb.docdb_cluster import DocumentDbCluster
-from cloudrail.knowledge.context.environment_context import EnvironmentContext
+from cloudrail.knowledge.context.aws.aws_environment_context import AwsEnvironmentContext
 from cloudrail.knowledge.rules.aws.non_context_aware.log_validation_rules.ensure_docdb_logging_enabled_rule import EnsureDocdbLoggingEnabledRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
 from cloudrail.dev_tools.rule_test_utils import create_empty_entity
@@ -15,7 +15,7 @@ class TestEnsureDocdbLoggingEnabledRule(unittest.TestCase):
         # Arrange
         docdb_cluster: DocumentDbCluster = create_empty_entity(DocumentDbCluster)
         docdb_cluster.enabled_cloudwatch_logs_exports = []
-        context = EnvironmentContext(docdb_cluster=[docdb_cluster])
+        context = AwsEnvironmentContext(docdb_cluster=[docdb_cluster])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -26,7 +26,7 @@ class TestEnsureDocdbLoggingEnabledRule(unittest.TestCase):
         # Arrange
         docdb_cluster: DocumentDbCluster = create_empty_entity(DocumentDbCluster)
         docdb_cluster.enabled_cloudwatch_logs_exports = ["audit"]
-        context = EnvironmentContext(docdb_cluster=[docdb_cluster])
+        context = AwsEnvironmentContext(docdb_cluster=[docdb_cluster])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -37,7 +37,7 @@ class TestEnsureDocdbLoggingEnabledRule(unittest.TestCase):
         # Arrange
         docdb_cluster: DocumentDbCluster = create_empty_entity(DocumentDbCluster)
         docdb_cluster.enabled_cloudwatch_logs_exports = ["profiler", "audit"]
-        context = EnvironmentContext(docdb_cluster=[docdb_cluster])
+        context = AwsEnvironmentContext(docdb_cluster=[docdb_cluster])
         # Act
         result = self.rule.run(context, {})
         # Assert

@@ -1,7 +1,7 @@
 import unittest
 
 from cloudrail.knowledge.context.aws.ecs.ecs_cluster import EcsCluster
-from cloudrail.knowledge.context.environment_context import EnvironmentContext
+from cloudrail.knowledge.context.aws.aws_environment_context import AwsEnvironmentContext
 from cloudrail.knowledge.rules.aws.non_context_aware.ensure_ecs_cluster_enable_container_insights_rule import \
     EnsureEcsClusterEnableContainerInsightsRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
@@ -16,7 +16,7 @@ class TestEnsureEcsClusterEnableContainerInsightsRule(unittest.TestCase):
         # Arrange
         ecs_cluster: EcsCluster = create_empty_entity(EcsCluster)
         ecs_cluster.is_container_insights_enabled = False
-        context = EnvironmentContext(ecs_cluster_list=[ecs_cluster])
+        context = AwsEnvironmentContext(ecs_cluster_list=[ecs_cluster])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -27,7 +27,7 @@ class TestEnsureEcsClusterEnableContainerInsightsRule(unittest.TestCase):
         # Arrange
         ecs_cluster: EcsCluster = create_empty_entity(EcsCluster)
         ecs_cluster.is_container_insights_enabled = True
-        context = EnvironmentContext(ecs_cluster_list=[ecs_cluster])
+        context = AwsEnvironmentContext(ecs_cluster_list=[ecs_cluster])
         # Act
         result = self.rule.run(context, {})
         # Assert

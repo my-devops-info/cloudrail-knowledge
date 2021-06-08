@@ -2,7 +2,7 @@ import unittest
 
 from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aws.ec2.ec2_instance import Ec2Instance
-from cloudrail.knowledge.context.environment_context import EnvironmentContext
+from cloudrail.knowledge.context.aws.aws_environment_context import AwsEnvironmentContext
 from cloudrail.knowledge.rules.aws.non_context_aware.log_validation_rules.ensure_ec2_instance_detailed_monitoring_enabled_rule import \
     EnsureEc2InstanceDetailedMonitoringEnabledRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
@@ -16,7 +16,7 @@ class TestEnsureEc2InstanceDetailedMonitoringEnabledRule(unittest.TestCase):
         # Arrange
         ec2: Ec2Instance = create_empty_entity(Ec2Instance)
         ec2.monitoring_enabled = False
-        context = EnvironmentContext(ec2s=[ec2])
+        context = AwsEnvironmentContext(ec2s=[ec2])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -27,7 +27,7 @@ class TestEnsureEc2InstanceDetailedMonitoringEnabledRule(unittest.TestCase):
         # Arrange
         ec2: Ec2Instance = create_empty_entity(Ec2Instance)
         ec2.monitoring_enabled = True
-        context = EnvironmentContext(ec2s=[ec2])
+        context = AwsEnvironmentContext(ec2s=[ec2])
         # Act
         result = self.rule.run(context, {})
         # Assert

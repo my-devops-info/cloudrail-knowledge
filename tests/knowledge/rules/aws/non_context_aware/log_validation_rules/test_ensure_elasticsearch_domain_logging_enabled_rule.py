@@ -2,7 +2,7 @@ import unittest
 
 from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.aws.es.elastic_search_domain import ElasticSearchDomain, LogPublishingOptions
-from cloudrail.knowledge.context.environment_context import EnvironmentContext
+from cloudrail.knowledge.context.aws.aws_environment_context import AwsEnvironmentContext
 from cloudrail.knowledge.rules.aws.non_context_aware.log_validation_rules.ensure_elasticsearch_domain_logging_enabled_rule import \
     EnsureElasticsearchDomainLoggingEnabledRule
 from cloudrail.knowledge.rules.base_rule import RuleResultType
@@ -19,7 +19,7 @@ class TestEnsureElasticsearchDomainLoggingEnabledRule(unittest.TestCase):
         log_publish_options.enabled = False
         log_publish_options.log_type = 'Some_type'
         es_domain.log_publishing_options = [log_publish_options]
-        context = EnvironmentContext(elastic_search_domains=[es_domain])
+        context = AwsEnvironmentContext(elastic_search_domains=[es_domain])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -31,7 +31,7 @@ class TestEnsureElasticsearchDomainLoggingEnabledRule(unittest.TestCase):
         # Arrange
         es_domain: ElasticSearchDomain = create_empty_entity(ElasticSearchDomain)
         es_domain.log_publishing_options = []
-        context = EnvironmentContext(elastic_search_domains=[es_domain])
+        context = AwsEnvironmentContext(elastic_search_domains=[es_domain])
         # Act
         result = self.rule.run(context, {})
         # Assert
@@ -46,7 +46,7 @@ class TestEnsureElasticsearchDomainLoggingEnabledRule(unittest.TestCase):
         log_publish_options.enabled = True
         log_publish_options.log_type = 'Some_type'
         es_domain.log_publishing_options = [log_publish_options]
-        context = EnvironmentContext(elastic_search_domains=[es_domain])
+        context = AwsEnvironmentContext(elastic_search_domains=[es_domain])
         # Act
         result = self.rule.run(context, {})
         # Assert
