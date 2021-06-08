@@ -49,6 +49,7 @@ class EnsureRdsResourceIamAuthenticationEnabledRule(AwsBaseRule):
             return False
         elif version.parse(rds_ver) > version.parse(supported_ver_list[-1]):
             return True
+        return None
 
     def _check_versions_inside_list(self, rds_ver: str, supported_ver_list: list):
         rds_version = rds_ver.split('.')
