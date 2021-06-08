@@ -18,7 +18,7 @@ class VpnGatewayDisallowBasicSkuRule(AzureBaseRule):
             if vnet_gw.gateway_type == VirtualNetworkGatewayType.VPN and vnet_gw.sku_tier == 'Basic':
                 issues.append(
                     Issue(
-                        f'{vnet_gw.get_type()}  `{vnet_gw.get_friendly_name()}` uses "basic" SKU',
+                        f'{vnet_gw.get_type()} `{vnet_gw.get_friendly_name()}` uses "basic" SKU',
                         vnet_gw,
                         vnet_gw))
         return issues
