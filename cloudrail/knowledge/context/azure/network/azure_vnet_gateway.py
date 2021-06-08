@@ -34,9 +34,6 @@ class AzureVirtualNetworkGateway(AzureResource):
         return f'https://portal.azure.com/#@{self.tenant_id}/resource/subscriptions/{self.subscription_id}/resourceGroups/' \
                f'{self.resource_group_name}/providers/Microsoft.Network/virtualNetworkGateways/{self.name}/overview'
 
-    def get_friendly_name(self) -> str:
-        return self.get_name()
-
     @property
     def is_tagable(self) -> bool:
         return True
