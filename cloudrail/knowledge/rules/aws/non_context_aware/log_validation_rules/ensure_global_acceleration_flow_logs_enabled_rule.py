@@ -11,7 +11,7 @@ class EnsureGlobalAccelerationFlowLogsEnabledRule(AwsBaseRule):
     def get_id(self) -> str:
         return 'non_car_global_accelerator_flow_logs_enabled'
 
-    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+    def execute(self, env_context: AwsEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
 
         for gac in env_context.global_accelerators:
@@ -21,5 +21,5 @@ class EnsureGlobalAccelerationFlowLogsEnabledRule(AwsBaseRule):
                         f'The {gac.get_type()} `{gac.get_friendly_name()}` does not have flow logs enabled', gac, gac))
         return issues
 
-    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+    def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.global_accelerators)

@@ -11,7 +11,7 @@ class EnsureNeptuneClusterLoggingEnabledRule(AwsBaseRule):
     def get_id(self) -> str:
         return 'non_car_neptune_cluster_logging_enabled'
 
-    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+    def execute(self, env_context: AwsEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
 
         for neptune_cluster in env_context.neptune_clusters:
@@ -22,5 +22,5 @@ class EnsureNeptuneClusterLoggingEnabledRule(AwsBaseRule):
                         neptune_cluster, neptune_cluster))
         return issues
 
-    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+    def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.neptune_clusters)

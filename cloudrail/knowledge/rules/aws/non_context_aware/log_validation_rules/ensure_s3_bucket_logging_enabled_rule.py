@@ -11,7 +11,7 @@ class EnsureS3BucketLoggingEnabledRule(AwsBaseRule):
     def get_id(self) -> str:
         return 'non_car_s3_bucket_access_logging_enabled'
 
-    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+    def execute(self, env_context: AwsEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
 
         for s3_bucket in env_context.s3_buckets:
@@ -21,5 +21,5 @@ class EnsureS3BucketLoggingEnabledRule(AwsBaseRule):
                         f'The {s3_bucket.get_type()} `{s3_bucket.get_friendly_name()}` does not have access logging enabled', s3_bucket, s3_bucket))
         return issues
 
-    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+    def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.s3_buckets)

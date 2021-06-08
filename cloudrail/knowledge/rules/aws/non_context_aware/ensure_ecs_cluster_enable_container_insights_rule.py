@@ -10,7 +10,7 @@ class EnsureEcsClusterEnableContainerInsightsRule(AwsBaseRule):
     def get_id(self) -> str:
         return 'non_car_ecs_cluster_container_insights_enabled'
 
-    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+    def execute(self, env_context: AwsEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
 
         for cluster in env_context.ecs_cluster_list:
@@ -20,5 +20,5 @@ class EnsureEcsClusterEnableContainerInsightsRule(AwsBaseRule):
                         f'The {cluster.get_type()} `{cluster.get_friendly_name()}` has container insights disabled', cluster, cluster))
             return issues
 
-    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+    def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.ecs_cluster_list)

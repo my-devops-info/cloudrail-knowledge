@@ -11,7 +11,7 @@ class EnsureLoadBalancerLoggingEnabledRule(AwsBaseRule):
     def get_id(self) -> str:
         return 'non_car_elb_logging_enabled'
 
-    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+    def execute(self, env_context: AwsEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
 
         for load_balancer in env_context.load_balancers:
@@ -23,5 +23,5 @@ class EnsureLoadBalancerLoggingEnabledRule(AwsBaseRule):
                             load_balancer, load_balancer))
         return issues
 
-    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+    def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.load_balancers)

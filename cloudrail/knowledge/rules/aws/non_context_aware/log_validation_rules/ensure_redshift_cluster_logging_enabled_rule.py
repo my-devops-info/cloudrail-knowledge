@@ -11,7 +11,7 @@ class EnsureRedshiftClusterLoggingEnabledRule(AwsBaseRule):
     def get_id(self) -> str:
         return 'non_car_redshift_cluster_logging_enabled'
 
-    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+    def execute(self, env_context: AwsEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
 
         for redshift_cluster in env_context.redshift_clusters:
@@ -22,5 +22,5 @@ class EnsureRedshiftClusterLoggingEnabledRule(AwsBaseRule):
                         redshift_cluster, redshift_cluster))
         return issues
 
-    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+    def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.redshift_clusters)

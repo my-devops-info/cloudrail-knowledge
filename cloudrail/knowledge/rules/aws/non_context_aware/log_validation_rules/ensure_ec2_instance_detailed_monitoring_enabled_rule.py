@@ -11,7 +11,7 @@ class EnsureEc2InstanceDetailedMonitoringEnabledRule(AwsBaseRule):
     def get_id(self) -> str:
         return 'non_car_ec2_instance_detailed_monitoring_enabled'
 
-    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+    def execute(self, env_context: AwsEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
 
         for ec2 in env_context.ec2s:
@@ -21,5 +21,5 @@ class EnsureEc2InstanceDetailedMonitoringEnabledRule(AwsBaseRule):
                         f'The {ec2.get_type()} `{ec2.get_friendly_name()}` has detailed monitoring disabled', ec2, ec2))
         return issues
 
-    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+    def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.ec2s)

@@ -11,7 +11,7 @@ class EnsureDocdbLoggingEnabledRule(AwsBaseRule):
     def get_id(self) -> str:
         return 'non_car_docdb_logging_enabled'
 
-    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+    def execute(self, env_context: AwsEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
 
         for cluster in env_context.docdb_cluster:
@@ -21,5 +21,5 @@ class EnsureDocdbLoggingEnabledRule(AwsBaseRule):
                         f'The {cluster.get_type()} `{cluster.get_friendly_name()}` has logging disabled', cluster, cluster))
         return issues
 
-    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+    def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.docdb_cluster)

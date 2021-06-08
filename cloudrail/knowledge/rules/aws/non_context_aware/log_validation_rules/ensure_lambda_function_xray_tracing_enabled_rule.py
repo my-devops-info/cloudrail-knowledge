@@ -10,7 +10,7 @@ class EnsureLambdaFunctionXrayTracingEnabledRule(AwsBaseRule):
     def get_id(self) -> str:
         return 'non_car_lambda_function_xray_tracing_enabled'
 
-    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+    def execute(self, env_context: AwsEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
 
         for lambda_func in env_context.lambda_function_list:
@@ -21,5 +21,5 @@ class EnsureLambdaFunctionXrayTracingEnabledRule(AwsBaseRule):
                         lambda_func, lambda_func))
             return issues
 
-    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+    def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.lambda_function_list)

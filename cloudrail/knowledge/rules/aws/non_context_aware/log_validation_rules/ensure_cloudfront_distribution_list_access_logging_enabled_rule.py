@@ -11,7 +11,7 @@ class EnsureCloudfrontDistributionListAccessLoggingEnabledRule(AwsBaseRule):
     def get_id(self) -> str:
         return 'non_car_cloudfront_distribution_access_logging_enabled'
 
-    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+    def execute(self, env_context: AwsEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
 
         for cloudfront in env_context.cloudfront_distribution_list:
@@ -21,5 +21,5 @@ class EnsureCloudfrontDistributionListAccessLoggingEnabledRule(AwsBaseRule):
                         f'The {cloudfront.get_type()} `{cloudfront.get_friendly_name()}` has access logging disabled', cloudfront, cloudfront))
         return issues
 
-    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+    def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.cloudfront_distribution_list)

@@ -10,7 +10,7 @@ class EnsureRestApiMethodUseAuthenticationRule(AwsBaseRule):
     def get_id(self) -> str:
         return 'non_car_api_gateway_methods_use_authentication'
 
-    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+    def execute(self, env_context: AwsEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
 
         for rest_api in env_context.rest_api_gw:
@@ -22,5 +22,5 @@ class EnsureRestApiMethodUseAuthenticationRule(AwsBaseRule):
                             f'`{method.get_friendly_name()}`', rest_api, method))
             return issues
 
-    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+    def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.rest_api_gw and environment_context.api_gateway_methods)

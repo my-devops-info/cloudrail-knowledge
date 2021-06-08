@@ -10,7 +10,7 @@ class EnsureEc2InstanceEbsOptimizedRule(AwsBaseRule):
     def get_id(self) -> str:
         return 'non_car_ec2_instance_is_ebs_optimized'
 
-    def execute(self, env_context: EnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
+    def execute(self, env_context: AwsEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
         instance_types_default_optimized = env_context.get_all_ec2_instance_types_with_default_ebs_optimization()
         instance_types = [ec2_inst_type.instance_type for ec2_inst_type in instance_types_default_optimized]
@@ -22,5 +22,5 @@ class EnsureEc2InstanceEbsOptimizedRule(AwsBaseRule):
                         f'The {instance.get_type()} `{instance.get_friendly_name()}` is not EBS optimized', instance, instance))
             return issues
 
-    def should_run_rule(self, environment_context: EnvironmentContext) -> bool:
+    def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.ec2s)
