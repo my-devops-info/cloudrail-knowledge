@@ -13,7 +13,7 @@ class FunctionAppClientCertificateModeRule(AzureBaseRule):
 
     def execute(self, env_context: AzureEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
-        for func_app in env_context.function_apps.values():
+        for func_app in env_context.function_apps:
             if func_app.client_cert_mode != FieldMode.REQUIRED:
                 issues.append(
                     Issue(
