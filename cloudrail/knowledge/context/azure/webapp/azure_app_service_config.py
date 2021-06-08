@@ -5,14 +5,14 @@ from cloudrail.knowledge.context.azure.webapp.azure_ftps_state import FtpsState
 from cloudrail.knowledge.context.azure.constants.azure_resource_type import AzureResourceType
 
 
-class AzureAppService(AzureResource):
+class AzureAppServiceConfig(AzureResource):
     """
         Attributes:
-            name: The name of this AppService
-            ftps_state: The FTPS state of this AppService config. Either AllAllowed, FTPSOnly or Disabled
+            name: The name of the AppService to which this config belongs
+            ftps_state: The FTPS state defined in this config. Either AllAllowed, FTPSOnly or Disabled
     """
     def __init__(self, name: str, ftps_state: FtpsState) -> None:
-        super().__init__(AzureResourceType.AZURERM_APP_SERVICE)
+        super().__init__(AzureResourceType.NONE)
         self.name: str = name
         self.ftps_state: FtpsState = ftps_state
 
@@ -24,8 +24,8 @@ class AzureAppService(AzureResource):
 
     def get_cloud_resource_url(self) -> Optional[str]:
         return f'https://portal.azure.com/#@{self.tenant_id}/resource/subscriptions/{self.subscription_id}/resourceGroups/' \
-               f'{self.resource_group_name}/providers/Microsoft.Web/sites/{self.name}/appServices'
+               f'{self.resource_group_name}/providers/Microsoft.Web/sites/{self.name}/configuration'
 
     @property
     def is_tagable(self) -> bool:
-        return True
+        return False
