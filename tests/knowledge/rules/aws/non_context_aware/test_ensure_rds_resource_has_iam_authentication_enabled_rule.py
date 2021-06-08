@@ -67,6 +67,19 @@ class TestEnsureRdsResourceIamAuthenticationEnabledRule(unittest.TestCase):
         self.assertEqual(RuleResultType.SUCCESS, result.status)
         self.assertEqual(0, len(result.issues))
 
+    def test_non_car_rds_database_iam_authentication_enabled__unsupported_version_5_0_16_pass(self):
+        # Arrange
+        rds_instance: RdsInstance = create_empty_entity(RdsInstance)
+        rds_instance.engine_type = 'mysql'
+        rds_instance.engine_version = '5.0.16'
+        rds_instance.iam_database_authentication_enabled = False
+        context = AwsEnvironmentContext(rds_instances=[rds_instance])
+        # Act
+        result = self.rule.run(context, {})
+        # Assert
+        self.assertEqual(RuleResultType.SUCCESS, result.status)
+        self.assertEqual(0, len(result.issues))
+
     def test_non_car_rds_database_iam_authentication_enabled__unsupported_version_5_6_33__pass(self):
         # Arrange
         rds_instance: RdsInstance = create_empty_entity(RdsInstance)

@@ -29,33 +29,44 @@ class EnsureRdsResourceIamAuthenticationEnabledRule(AwsBaseRule):
 
     def _supported_rds_versions(self, rds_resource: Union[RdsCluster, RdsInstance]) -> bool:
         supported_mysql_versions = ['5.6.34', '5.7.16', '8.0.16']
-        supported_postgres_versions = ['9.5.15', '9.6.11', '10.6', '11', '12', '13']
+        supported_postgres_versions = ['9.5.15', '9.6.11', '10.6.0']
         if isinstance(rds_resource, RdsCluster):
             return True
         else:
             if not rds_resource.engine_version:
                 return True
             elif 'mysql' in rds_resource.engine_type.lower():
-                return self._check_version(rds_resource, rds_resource.engine_version, supported_mysql_versions)
+                return self._check_version(rds_resource.engine_version, supported_mysql_versions)
             elif 'postgresql' in rds_resource.engine_type.lower():
-                return self._check_version(rds_resource, rds_resource.engine_version, supported_postgres_versions)
+                return self._check_version(rds_resource.engine_version, supported_postgres_versions)
             else:
                 return False
 
-    @staticmethod
-    def _check_version(resource: RdsInstance, rds_ver: str, supported_ver_list: list) -> bool:
-        if resource.is_managed_by_iac \
-                and any(((version.parse(rds_ver).major, version.parse(rds_ver).minor) ==
-                         (version.parse(ver).major, version.parse(ver).minor))
-                        or ((version.parse(rds_ver).major == version.parse(ver).major)
-                            and version.parse(rds_ver).minor >= 0) for ver in supported_ver_list)\
-                and version.parse(rds_ver).micro == 0:
+    def _check_version(self, rds_ver: str, supported_ver_list: list) -> bool:
+        if self._check_versions_inside_list(rds_ver, supported_ver_list):
             return True
         elif version.parse(rds_ver) < version.parse(supported_ver_list[0]):
             return False
         elif version.parse(rds_ver) > version.parse(supported_ver_list[-1]):
             return True
-        else:
-            return any((version.parse(rds_ver) >= version.parse(ver)) for ver in supported_ver_list
-                       if (version.parse(rds_ver).major, version.parse(rds_ver).minor) ==
-                       (version.parse(ver).major, version.parse(ver).minor))
+
+    def _check_versions_inside_list(self, rds_ver: str, supported_ver_list: list):
+        rds_version = rds_ver.split('.')
+        for ver in supported_ver_list:
+            supported_version = ver.split('.')
+            res = self.compare_versions(rds_version, supported_version)
+            if res:
+                return True
+        return False
+
+    @staticmethod
+    def compare_versions(rds_version, sup_ver):
+        if rds_version[0] != sup_ver[0]:
+            return False
+        if len(rds_version) > 1:
+            if rds_version[1] != sup_ver[1]:
+                return False
+        if len(rds_version) > 2:
+            if int(rds_version[2]) < int(sup_ver[2]):
+                return False
+        return True
