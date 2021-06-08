@@ -173,7 +173,7 @@ class CheckovResult:
         return CheckovResult(dic['check_id'], dic['file_path'], dic['resource'], dic['start_line'], dic['end_line'])
 
 
-class EnvironmentContext(BaseEnvironmentContext): # todo - need to remove under aws folder
+class AwsEnvironmentContext(BaseEnvironmentContext): # todo - need to remove under aws folder
     def __init__(self,
                  vpcs: AliasesDict[Vpc] = None,
                  subnets: AliasesDict[Subnet] = None,

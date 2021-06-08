@@ -14,7 +14,7 @@ from cloudrail.knowledge.context.azure.network.azure_nsg_to_nic_association impo
     AzureNetworkSecurityGroupToNicAssociation
 from cloudrail.knowledge.context.azure.network.azure_nic import AzureNic
 from cloudrail.knowledge.context.base_environment_context import BaseEnvironmentContext
-from cloudrail.knowledge.context.environment_context import CheckovResult
+from knowledge.context.aws.aws_environment_context import CheckovResult
 
 
 class AzureEnvironmentContext(BaseEnvironmentContext):
