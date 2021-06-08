@@ -60,7 +60,7 @@ nav:
       - 'databases': 'context/azure/databases/README.md'
       - 'network': 'context/azure/network/README.md'
       - 'webapp': 'context/azure/webapp/README.md'
-  - Rules:
+  - 'Contributing Rules':
     - 'How Rules Work': 'rules/README.md'
     - 'Rules'' Evidence Field': 'rules/evidence.md'
     - 'What is considered a "Context Aware Rule"?': 'rules/context-aware.md'
