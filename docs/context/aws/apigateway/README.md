@@ -72,3 +72,9 @@ cloudrail/knowledge/rules/aws/non_context_aware/protocol_enforcments/ensure_api_
       show_root_toc_entry: false
     selection:
       inherited_members: true
+
+## ::: cloudrail.knowledge.context.aws.apigateway.api_gateway_stage
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true

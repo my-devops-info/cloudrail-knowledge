@@ -19,6 +19,7 @@ nav:
       - 'cloudtrail': 'context/aws/cloudtrail/README.md'
       - 'cloudwatch': 'context/aws/cloudwatch/README.md'
       - 'codebuild': 'context/aws/codebuild/README.md'
+      - 'configservice': 'context/aws/configservice/README.md'
       - 'dax': 'context/aws/dax/README.md'
       - 'dms': 'context/aws/dms/README.md'
       - 'docdb': 'context/aws/docdb/README.md'
