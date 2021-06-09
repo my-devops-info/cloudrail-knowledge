@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Optional, Dict
 from cloudrail.knowledge.context.aws.aws_connection import ConnectionInstance
+from cloudrail.knowledge.context.aws.cloudfront.cloudfront_distribution_logging import CloudfrontDistributionLogging
 from cloudrail.knowledge.context.aws.cloudfront.origin_access_identity import OriginAccessIdentity
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName, AwsServiceType, AwsServiceAttributes
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
@@ -66,6 +67,7 @@ class CloudFrontDistribution(AwsResource, ConnectionInstance):
                  used with this distribution.
             origin_config_list: A list of OriginConfig, the order is not guaranteed.
             web_acl_id: The ID of the AWS WAF web ACL, to associate with this distribution.
+            logs_settings: The logs settings of the CloudFront Distribution, if configured.
     """
     def __init__(self,
                  arn: str,
@@ -89,6 +91,7 @@ class CloudFrontDistribution(AwsResource, ConnectionInstance):
         self.web_acl_id: str = web_acl_id
         if tags:
             self.tags = tags
+        self.logs_settings: Optional[CloudfrontDistributionLogging] = None
 
     def get_keys(self) -> List[str]:
         return [self.arn]

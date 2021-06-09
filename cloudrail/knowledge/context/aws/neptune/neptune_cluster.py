@@ -23,6 +23,7 @@ class NeptuneCluster(ConnectionInstance, AwsResource):
             kms_data: A pointer to the KMS key, if one is used.
             is_in_default_vpc: True if the cluster is in the default VPC.
             cluster_instances: The instances of the cluster.
+            cloudwatch_logs_exports: A list of the log types this Neptune cluster is configured to export to Cloudwatch Logs.
     """
     def __init__(self,
                  cluster_identifier: str,
@@ -33,7 +34,8 @@ class NeptuneCluster(ConnectionInstance, AwsResource):
                  port: int,
                  db_subnet_group_name: str,
                  security_group_ids: List[str],
-                 cluster_id: str):
+                 cluster_id: str,
+                 cloudwatch_logs_exports: Optional[list]):
         ConnectionInstance.__init__(self)
         AwsResource.__init__(self, account, region, AwsServiceName.AWS_NEPTUNE_CLUSTER)
         self.cluster_identifier: str = cluster_identifier
@@ -47,6 +49,7 @@ class NeptuneCluster(ConnectionInstance, AwsResource):
         self.cluster_instances: List[NeptuneInstance] = []
         self.security_group_ids: List[str] = security_group_ids
         self.cluster_id: str = cluster_id
+        self.cloudwatch_logs_exports: Optional[list] = cloudwatch_logs_exports
 
     def get_keys(self) -> List[str]:
         return [self.arn]

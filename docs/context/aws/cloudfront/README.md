@@ -33,3 +33,9 @@ cloudrail/knowledge/rules/aws/non_context_aware/encryption_enforcement_rules/enc
       show_root_toc_entry: false
     selection:
       inherited_members: true
+
+## ::: cloudrail.knowledge.context.aws.cloudfront.cloudfront_distribution_logging
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
