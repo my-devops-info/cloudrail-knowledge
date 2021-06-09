@@ -1,11 +1,26 @@
+from dataclasses import dataclass
 from typing import List, Optional
 
-from cloudrail.knowledge.context.aws.indirect_public_connection_data import IndirectPublicConnectionData
-from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 from cloudrail.knowledge.context.aws.es.elastic_search_domain_policy import ElasticSearchDomainPolicy
+from cloudrail.knowledge.context.aws.indirect_public_connection_data import IndirectPublicConnectionData
 from cloudrail.knowledge.context.aws.networking_config.inetwork_configuration import INetworkConfiguration
 from cloudrail.knowledge.context.aws.networking_config.network_configuration import NetworkConfiguration
 from cloudrail.knowledge.context.aws.networking_config.network_entity import NetworkEntity
+from cloudrail.knowledge.context.aws.service_name import AwsServiceName
+
+
+@dataclass
+class LogPublishingOptions:
+    """
+        Attributes:
+            log_type: The type of Elasticsearch log to publish.
+            cloudwatch_log_group_arn: The ARN of the Cloudwatch log group to publish logs into.
+            enable: Indication if log publishing is enabled.
+
+    """
+    log_type: str
+    cloudwatch_log_group_arn: str
+    enabled: bool
 
 
 class ElasticSearchDomain(NetworkEntity, INetworkConfiguration):
@@ -26,6 +41,7 @@ class ElasticSearchDomain(NetworkEntity, INetworkConfiguration):
             ports: The ports the ElasticSearch is listening on.
             policy: The resource policy used with the domain.
             indirect_public_connection_data: The data that describes that a publicly-accessible resource can access this resource by a security group of this resource.
+            log_publishing_options: Set of data about the publishing logs to CloudWatch, if enabled.
     """
     def __init__(self,
                  domain_id: str,
@@ -37,7 +53,8 @@ class ElasticSearchDomain(NetworkEntity, INetworkConfiguration):
                  encrypt_at_rest_state: bool,
                  encrypt_node_to_node_state: bool,
                  account: str,
-                 region: str):
+                 region: str,
+                 log_publishing_options: Optional[List[LogPublishingOptions]]):
         """
         `ElasticSearch Domain` can either be `Publicly Accessible` and not in any VPC, or it can be `Publicly In-Accessible` if its in a VPC.
         Subsequently, if an `ElasticSearch Domain` does not belong to a subnet then it means it is can only be accessed from within the VPC.
@@ -56,7 +73,7 @@ class ElasticSearchDomain(NetworkEntity, INetworkConfiguration):
         if not enforce_https:
             self.ports.append(80)
         self.policy: ElasticSearchDomainPolicy = None
-
+        self.log_publishing_options: Optional[List[LogPublishingOptions]] = log_publishing_options
         self.indirect_public_connection_data: Optional[IndirectPublicConnectionData] = None
 
     def get_keys(self) -> List[str]:

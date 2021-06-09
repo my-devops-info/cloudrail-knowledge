@@ -29,7 +29,7 @@ class S3BucketObject(AwsResource):
         self.owning_bucket: 'S3Bucket' = None
 
     def get_keys(self) -> List[str]:
-        return [self.bucket_name + self.key]
+        return [self.bucket_name, self.key]
 
     def get_name(self) -> str:
         return self.key

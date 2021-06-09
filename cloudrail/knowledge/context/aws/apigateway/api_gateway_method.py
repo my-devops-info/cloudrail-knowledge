@@ -12,13 +12,15 @@ class ApiGatewayMethod(AwsResource):
             resource_id: The API resource ID.
             http_method: The HTTP Method.
             integration: A reference to the matching ApiGatewayIntegration based on rest_api_id.
+            authorization: The type of authorization used for the method.
     """
-    def __init__(self, account: str, region: str, rest_api_id: str, resource_id: str, http_method: RestApiMethods):
+    def __init__(self, account: str, region: str, rest_api_id: str, resource_id: str, http_method: RestApiMethods, authorization: str):
         super().__init__(account, region, AwsServiceName.AWS_API_GATEWAY_METHOD)
         self.rest_api_id: str = rest_api_id
         self.resource_id: str = resource_id
         self.http_method: RestApiMethods = http_method
         self.integration: Optional[ApiGatewayIntegration] = None
+        self.authorization: str = authorization
 
     def get_keys(self) -> List[str]:
         return [self.rest_api_id, self.resource_id, self.http_method]
