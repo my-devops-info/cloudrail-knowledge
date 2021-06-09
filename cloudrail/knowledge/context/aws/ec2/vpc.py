@@ -74,7 +74,6 @@ class Vpc(AwsResource):
         self.enable_dns_hostnames: Optional[bool] = enable_dns_hostnames
 
         self.default_route_table: Optional[RouteTable] = None
-        self.main_route_table: Optional[RouteTable] = None
         self.endpoints: List[VpcEndpoint] = []
         self.default_security_group: Optional[SecurityGroup] = None
         self.default_nacl: Optional[NetworkAcl] = None
