@@ -909,3 +909,21 @@ rules_metadata:
     security_layer: networking
     resource_type:
       - compute
+
+  - rule_id: non_car_client_certificates_required_in_function_app
+    cloud_provider: azure
+    name: Ensure client certificates are required in Function App
+    severity: medium
+    description: Cloudrail will review the Function Apps configuration in your environment.
+      If a function does not have client certificates mode set to Required, Cloudrail will highlight it as a violation.
+    human_readable_logic: Cloudrail will review the Function Apps configuration within your Azure subscription and
+      Terraform plan to ensure client certificates are required.
+    remediation_steps_console: Follow the guide at
+      https://docs.microsoft.com/en-us/azure/app-service/app-service-web-configure-tls-mutual-auth in order to
+      require client certificates for Function App.
+    remediation_steps_tf: For the azurerm_function_app resource,
+      set the client_cert_mode argument to "Required".
+    rule_type: non_context_aware
+    security_layer: networking
+    resource_type:
+      - compute
