@@ -20,19 +20,22 @@ class RouteTable(AwsResource):
             vpc_id: The VPC the RT belongs to.
             name: The name of the RT.
             routes: A list of routes in this table.
+            is_main_route_table: A flag indicating this is the VPC's main route table.
     """
     def __init__(self,
                  route_table_id: str,
                  vpc_id: str,
                  name: str,
                  region: str,
-                 account: str):
+                 account: str,
+                 is_main_route_table: bool):
         super().__init__(account, region, AwsServiceName.AWS_ROUTE_TABLE)
         self.route_table_id: str = route_table_id
         self.vpc_id: str = vpc_id
         self.name: str = name
         self.aliases.add(route_table_id)
         self.routes: List[Route] = []
+        self.is_main_route_table: bool = is_main_route_table
         self.raw_data: RouteTableRawData = RouteTableRawData()
 
     def get_keys(self) -> List[str]:
