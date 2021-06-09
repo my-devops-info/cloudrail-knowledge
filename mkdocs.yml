@@ -60,6 +60,7 @@ nav:
       - 'databases': 'context/azure/databases/README.md'
       - 'network': 'context/azure/network/README.md'
       - 'webapp': 'context/azure/webapp/README.md'
+      - 'security': 'context/azure/security/README.md'
   - 'Contributing Rules':
     - 'How Rules Work': 'rules/README.md'
     - 'Rules'' Evidence Field': 'rules/evidence.md'
