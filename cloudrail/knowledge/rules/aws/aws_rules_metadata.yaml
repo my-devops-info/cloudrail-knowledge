@@ -4006,3 +4006,24 @@ rules_metadata:
   security_layer: encryption
   resource_type:
   - database
+
+- rule_id: non_car_lambda_public_exposure
+  cloud_provider: amazon_web_services
+  name: Ensure Lambda functions cannot be invoked by anonymous or all AWS authenticated users
+  severity: medium
+  description:
+    Broad permissions in a Lambda function are dangerous and also are potentially expensive as anyone can invoke the function.
+    Best practices suggest use the approach of least privilege.
+    Generally, the correct approach is not to use public Lambda functions but to put them behind an API Gateway.
+  human_readable_logic:
+    Cloudrail will review all Lambda functions, both those defined in the AWS account, and those included in a Terraform plan,
+    to determine if any of the permissions they grant include a “*” or similar principal who can InvokeFunction.
+  remediation_steps_console:
+    Follow the steps in <https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html#permissions-resource-serviceinvoke>
+    Avoid using wildcards in the principal.
+  remediation_steps_tf:
+    In resource aws_lambda_permission avoid using wildcards in the principal.
+  rule_type: non_context_aware
+  security_layer: iam
+  resource_type:
+  - compute
