@@ -16,9 +16,8 @@ class AzureSecurityCenterAutoProvisioning(AzureResource):
         self.with_aliases(self.subscription_id)
 
     def get_cloud_resource_url(self) -> Optional[str]:
-        pass
-        # return f'https://portal.azure.com/#@{self.tenant_id}/resource/subscriptions/{self.subscription_id}/resourceGroups/' \
-        #        f'{self.resource_group_name}/providers/Microsoft.Network/networkInterfaces/{self.name}/overview'
+        return f'https://portal.azure.com/#blade/Microsoft_Azure_Security/PolicyMenuBlade/dataCollection/subscriptionId/' \
+               f'{self.subscription_id}/pricingTier/0'
 
     @property
     def is_tagable(self) -> bool:
