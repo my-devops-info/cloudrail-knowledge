@@ -20,7 +20,7 @@ class EnsureRestApiMethodUseAuthenticationRule(AwsBaseRule):
                         Issue(
                             f'The {rest_api.get_type()} `{rest_api.get_friendly_name()}` is not requiring authorization for the method '
                             f'`{method.get_friendly_name()}`', rest_api, method))
-            return issues
+        return issues
 
     def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.rest_api_gw and environment_context.api_gateway_methods)

@@ -18,7 +18,7 @@ class EnsureEcrRepositoryImageTagsImmutableRule(AwsBaseRule):
                 issues.append(
                     Issue(
                         f'The {ecr.get_type()} `{ecr.get_friendly_name()}` is not configured for image tag immutability', ecr, ecr))
-            return issues
+        return issues
 
     def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.ecr_repositories)

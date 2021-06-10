@@ -18,7 +18,7 @@ class EnsureConfigAggregatorEnabledAllRegionsRule(AwsBaseRule):
                 issues.append(
                     Issue(
                         f'The {aggregator.get_type()} `{aggregator.get_friendly_name()}` is not enabled in all regions', aggregator, aggregator))
-            return issues
+        return issues
 
     def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.aws_config_aggregators)

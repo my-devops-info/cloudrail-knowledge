@@ -18,7 +18,7 @@ class EnsureCloudtrailMultiregionEnabledRule(AwsBaseRule):
                 issues.append(
                     Issue(
                         f'The {cloudtrail.get_type()} `{cloudtrail.get_friendly_name()}` is not enabled in all regions', cloudtrail, cloudtrail))
-            return issues
+        return issues
 
     def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.cloudtrail)

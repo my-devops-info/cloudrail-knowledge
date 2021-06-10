@@ -18,7 +18,7 @@ class EnsureEcsClusterEnableContainerInsightsRule(AwsBaseRule):
                 issues.append(
                     Issue(
                         f'The {cluster.get_type()} `{cluster.get_friendly_name()}` has container insights disabled', cluster, cluster))
-            return issues
+        return issues
 
     def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.ecs_cluster_list)

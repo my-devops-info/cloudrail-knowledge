@@ -5,6 +5,7 @@ from cloudrail.knowledge.context.aws.iam.policy_statement import StatementEffect
 from cloudrail.knowledge.rules.aws.aws_base_rule import AwsBaseRule
 from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
+from cloudrail.knowledge.utils.action_utils import get_intersected_actions
 
 
 class EnsureLambdaFunctionCannotBeInvokedPublicRule(AwsBaseRule):
@@ -30,7 +31,7 @@ class EnsureLambdaFunctionCannotBeInvokedPublicRule(AwsBaseRule):
     def _is_lambda_can_publicly_invoked(lambda_policy: Policy) -> bool:
         return any(statement.effect == StatementEffect.ALLOW
                    and not statement.condition_block
-                   and any(action in ('*', 'lambda:InvokeFunction', 'lambda:*') for action in statement.actions)
+                   and get_intersected_actions(statement.actions, 'lambda:InvokeFunction')
                    and ((any(value in ('*', '*.amazonaws.com') for value in statement.principal.principal_values)
                          or not statement.principal.principal_values))
                    for statement in lambda_policy.statements)

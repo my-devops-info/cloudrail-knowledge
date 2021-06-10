@@ -18,7 +18,7 @@ class EnsureRdsResourceBackupRetentionEnabledRule(AwsBaseRule):
                 issues.append(
                     Issue(
                         f'The {resource.get_type()} `{resource.get_friendly_name()}` does not have a backup retention policy configured', resource, resource))
-            return issues
+        return issues
 
     def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.rds_clusters or environment_context.rds_instances)

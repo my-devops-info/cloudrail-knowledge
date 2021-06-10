@@ -18,7 +18,7 @@ class EnsureEcrImageScanningOnPushEnabledRule(AwsBaseRule):
                 issues.append(
                     Issue(
                         f'The {ecr.get_type()} `{ecr.get_friendly_name()}` is not configured to perform image scan on push', ecr, ecr))
-            return issues
+        return issues
 
     def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.ecr_repositories)

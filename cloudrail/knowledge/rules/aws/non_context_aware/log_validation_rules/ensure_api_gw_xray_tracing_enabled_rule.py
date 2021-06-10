@@ -20,7 +20,7 @@ class EnsureApiGwXrayTracingEnabledRule(AwsBaseRule):
                         Issue(
                             f'The {api_gw.get_type()} `{api_gw.get_friendly_name()}` has'
                             f' X-Ray tracing disabled for stage {stage.get_friendly_name()}', api_gw, stage))
-            return issues
+        return issues
 
     def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.rest_api_gw and environment_context.rest_api_stages)

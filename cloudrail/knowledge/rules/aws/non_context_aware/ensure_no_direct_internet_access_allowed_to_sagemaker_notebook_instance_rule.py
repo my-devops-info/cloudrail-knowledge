@@ -19,7 +19,7 @@ class EnsureNoDirectInternetAccessAllowedToSagemakerNotebookInstanceRule(AwsBase
                     Issue(
                         f'The {sagemaker_instance.get_type()} `{sagemaker_instance.get_friendly_name()}` uses '
                         f'direct internet access', sagemaker_instance, sagemaker_instance))
-            return issues
+        return issues
 
     def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.sagemaker_notebook_instances)

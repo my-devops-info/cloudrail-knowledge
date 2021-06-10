@@ -20,7 +20,7 @@ class EnsureEc2InstanceEbsOptimizedRule(AwsBaseRule):
                 issues.append(
                     Issue(
                         f'The {instance.get_type()} `{instance.get_friendly_name()}` is not EBS optimized', instance, instance))
-            return issues
+        return issues
 
     def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.ec2s)

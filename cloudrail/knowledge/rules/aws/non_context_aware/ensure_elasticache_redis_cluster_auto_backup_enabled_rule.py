@@ -19,7 +19,7 @@ class EnsureElasticacheRedisClusterAutoBackupEnabledRule(AwsBaseRule):
                     Issue(
                         f'The {elasticache_cluster.get_type()} `{elasticache_cluster.get_friendly_name()}` has automatic backups turned off',
                         elasticache_cluster, elasticache_cluster))
-            return issues
+        return issues
 
     def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
         return bool(environment_context.elasticache_clusters)
