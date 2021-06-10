@@ -16,7 +16,7 @@ class FunctionAppUseLatestHttpVersionRule(AzureBaseRule):
             if not func_app.http2_enabled:
                 issues.append(
                     Issue(
-                        f'The {func_app.get_type()} `{func_app.get_friendly_name()}` does not use the latest HTTP version..',
+                        f'The {func_app.get_type()} `{func_app.get_friendly_name()}` does not use the latest HTTP version.',
                         func_app,
                         func_app))
         return issues
