@@ -37,13 +37,17 @@ class Mergeable:
             return ' '.join(words) + 's'
 
     def get_name(self) -> str:
-        pass
+        if hasattr(self, 'name'):
+            return self.name
+        return None
 
     def get_id(self) -> str:
         pass
 
     def get_arn(self) -> str:
-        pass
+        if hasattr(self, 'arn'):
+            return self.arn
+        return None
 
     def get_extra_data(self) -> str:
         pass
