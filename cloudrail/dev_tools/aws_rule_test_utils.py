@@ -15,13 +15,13 @@ def create_network_entity(_type: Type[_T], subnet: Optional[Subnet] = None) -> _
     instance: NetworkEntity = create_empty_entity(_type)
     if not subnet:
         subnet = create_empty_entity(Subnet)
-        subnet.name = 'some-name'
+        subnet.name = 'subnet-name'
     if not subnet.vpc:
         vpc = create_empty_entity(Vpc)
         subnet.vpc = vpc
     if not subnet.network_acl:
         nacl = create_empty_entity(NetworkAcl)
-        nacl.name = 'some-name'
+        nacl.name = 'network-acl-name'
         subnet.network_acl = nacl
     eni = create_empty_entity(NetworkInterface)
     eni.owner = instance
