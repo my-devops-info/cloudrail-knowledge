@@ -11,7 +11,7 @@ from cloudrail.knowledge.context.aws.networking_config.network_entity import Net
 _T = TypeVar('_T', bound=NetworkEntity)
 
 
-def create_network_entity(_type: Type[_T], subnet: Optional[Subnet] = None):
+def create_network_entity(_type: Type[_T], subnet: Optional[Subnet] = None) -> _T:
     instance: NetworkEntity = create_empty_entity(_type)
     if not subnet:
         subnet = create_empty_entity(Subnet)
