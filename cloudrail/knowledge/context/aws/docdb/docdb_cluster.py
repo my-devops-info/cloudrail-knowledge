@@ -14,6 +14,7 @@ class DocumentDbCluster(AwsResource):
             kms_key_id: If KMS is used, this is the ID of the key.
             kms_data: The actual KMS key in use, if one is used (or None).
             cluster_arn: The ARN of the cluster.
+            enabled_cloudwatch_logs_exports: List of log types to export to cloudwatch.
     """
     def __init__(self,
                  cluster_identifier: str,
@@ -22,7 +23,8 @@ class DocumentDbCluster(AwsResource):
                  kms_key_id: str,
                  region: str,
                  account: str,
-                 cluster_arn: str):
+                 cluster_arn: str,
+                 enabled_cloudwatch_logs_exports: list):
         super().__init__(account, region, AwsServiceName.AWS_DOCDB_CLUSTER)
         self.cluster_identifier: str = cluster_identifier
         self.storage_encrypted: bool = storage_encrypted
@@ -30,6 +32,7 @@ class DocumentDbCluster(AwsResource):
         self.kms_key_id: str = kms_key_id
         self.kms_data: Optional[KmsKey] = None
         self.cluster_arn: str = cluster_arn
+        self.enabled_cloudwatch_logs_exports: list = enabled_cloudwatch_logs_exports
 
     def get_keys(self) -> List[str]:
         return [self.account, self.region, self.cluster_identifier]

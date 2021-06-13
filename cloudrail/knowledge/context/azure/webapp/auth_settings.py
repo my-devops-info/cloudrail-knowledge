@@ -1,3 +1,5 @@
+
+
 class AuthSettings:
 
     def __init__(self, enabled: bool) -> None:
