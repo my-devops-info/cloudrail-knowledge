@@ -3607,3 +3607,402 @@ rules_metadata:
   security_layer: storage
   resource_type:
   - code
+
+- rule_id: non_car_ecs_cluster_container_insights_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure ECS cluster has container insights enabled
+  severity: medium
+  description:
+    Cloudrail will review the ECS clusters configuration in your environment.
+    If a cluster is not configured to enable container insights, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the ECS clusters configuration within your AWS account and Terraform plan to check if container insights is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/deploy-container-insights-ECS-cluster.html>
+    in order to enable container insights for an ECS cluster.
+  remediation_steps_tf:
+    For the aws_ecs_cluster resource, in the setting block, set the name argument to containerInsights and the value argument to enabled.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - compute
+
+- rule_id: non_car_ec2_instance_is_ebs_optimized
+  cloud_provider: amazon_web_services
+  name: Ensure EC2 instance is EBS optimized
+  severity: medium
+  description:
+    Cloudrail will review the EC2 instances configuration in your environment.
+    If it is not configured to be EBS-optimized, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the EC2 instances configuration within your AWS account and Terraform plan to check if it is configured to be EBS optimized.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html> to enable EBS optimization for an EC2 instance.
+  remediation_steps_tf:
+    For the aws_instance resource, set the ebs_optimized parameter to true.
+  rule_type: non_context_aware
+  security_layer: storage
+  resource_type:
+  - compute
+
+- rule_id: non_car_rds_instance_and_cluster_backup_retention_policy
+  cloud_provider: amazon_web_services
+  name: Ensure RDS instances and clusters have a backup retention policy
+  severity: medium
+  description:
+    Cloudrail will review the RDS instances and clusters configuration in your environment.
+    If an instance or cluster is not configured with a backup retention policy, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the RDS instances and clusters within your AWS account
+    and Terraform plan to check if if they have a backup retention policy.
+  remediation_steps_console:
+    Follow the guide at
+    <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupRetention>
+    in order to set the backup retention period to a positive nonzero value for RDS instances.
+    Follow the guide at
+    <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html>
+    in order to set the backup retention period to a positive nonzero value for RDS clusters.
+  remediation_steps_tf:
+    For the aws_db_instance or aws_rds_cluster resource, set the backup_retention_period argument to a value higher than 0.
+  rule_type: non_context_aware
+  security_layer: disaster_recovery
+  resource_type:
+  - database
+
+- rule_id: non_car_api_gateway_methods_use_authentication
+  cloud_provider: amazon_web_services
+  name: Ensure API Gateway methods use authentication
+  severity: medium
+  description:
+    Cloudrail will review the API Gateway methods configuration in your environment.
+    If a method is not configured to require authorization, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the API Gateway methods configuration within your AWS account and Terraform plan to check if authorization has been enabled.
+  remediation_steps_console:
+    Follow the guide at
+    <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-method-settings-method-request.html#setup-method-request-authorization>
+    in order to configure the authorization type on the REST API methods.
+  remediation_steps_tf:
+    For the aws_api_gateway_method resource, set the authorization argument to a value other than “NONE”.
+  rule_type: non_context_aware
+  security_layer: iam
+  resource_type:
+  - content_delivery
+
+- rule_id: non_car_rds_database_iam_authentication_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure RDS database has IAM authentication enabled
+  severity: medium
+  description:
+    Cloudrail will review RDS instances and clusters configuration in your environment.
+    If IAM authentication is not enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the configuration of RDS instances and clusters within your AWS
+    account and Terraform plan to check if IAM authentication is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.Enabling.html>
+    in order to enable IAM database authentication for the RDS instance or cluster.
+  remediation_steps_tf:
+    For the aws_db_instance or aws_rds_cluster resources, set the iam_database_authentication_enabled argument to true.
+  rule_type: non_context_aware
+  security_layer: iam
+  resource_type:
+  - database
+
+- rule_id: non_car_config_aggregator_is_enabled_in_all_regions
+  cloud_provider: amazon_web_services
+  name: Ensure Config aggregator is enabled in all regions
+  severity: medium
+  description:
+    Cloudrail will review the Config aggregator configuration in your environment.
+    If it is not enabled in all regions, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the Config aggregator configuration within your AWS account and Terraform plan to
+    check if it is enabled in all regions either at account level or at organization level.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/config/latest/developerguide/setup-aggregator-console.html>
+    to enable Config aggregator in all regions.
+  remediation_steps_tf:
+    For the aws_config_configuration_aggregator resource, in the account_aggregation_source or
+    organization_aggregation_source blocks, set the all_regions parameter to true.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - logging
+
+- rule_id: non_car_api_gateway_xray_tracing_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure API Gateway has X-Ray tracing enabled
+  severity: medium
+  description:
+    Cloudrail will review API Gateway stages configuration in your environment.
+    If a stage is not configured to have X-Ray tracing enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the API Gateway stages configuration within your AWS account and Terraform plan to check X-Ray tracing is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-enabling-xray.html>
+    in order to enable X-Ray tracing for the API Gateway.
+  remediation_steps_tf:
+    For the aws_api_gateway_stage resource, set the xray_tracing_enabled argument to true.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - content_delivery
+
+- rule_id: non_car_cloudfront_distribution_access_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure CloudFront distribution has access logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the CloudFront distributions configuration in your environment.
+    If a distribution has access logging disabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the CloudFront distributions configuration within your AWS account and Terraform plan to check if access logging is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html>
+    in order to enabled access logs for the CloudFront distribution.
+  remediation_steps_tf:
+    For the aws_cloudfront_distribution resource, configure the logging_config block with bucket
+    argument set to the S3 bucket name for storing access logs.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - content_delivery
+
+- rule_id: non_car_docdb_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure DocDB logging is enabled
+  severity: medium
+  description:
+    Cloudrail will review the DocDB clusters configuration in your environment.
+    If a cluster is not configured to export logs to CloudWatch, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the DocDB clusters configuration within your AWS account and Terraform plan to check if logging is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/documentdb/latest/developerguide/event-auditing.html>
+    in order to enable audit and profiler logs export to CloudWatch.
+  remediation_steps_tf:
+    For the aws_docdb_cluster resource, set the enabled_cloudwatch_logs_exports argument to a list containing the values “audit” and “profiler”.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - database
+
+- rule_id: non_car_ec2_instance_detailed_monitoring_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure EC2 instance has detailed monitoring enabled
+  severity: medium
+  description:
+    Cloudrail will review the EC2 instances configuration in your environment.
+    If an instance does not have detailed monitoring configured, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the EC2 instances configuration within your AWS account and Terraform plan to check if detailed monitoring is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch-new.html>
+    in order to enable detailed monitoring for an EC2 instance.
+  remediation_steps_tf:
+    For the aws_instance resource, set the monitoring argument to true.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - compute
+
+- rule_id: non_car_elasticsearch_domain_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure Elasticsearch Domain has logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the Elasticsearch Domains configuration in your environment.
+    If a domain does not have logging enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the Elasticsearch Domains configuration within your AWS account and Terraform plan to check if logging is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createdomain-configure-slow-logs.html>
+    in order to configure log publishing for the Elasticsearch domain.
+  remediation_steps_tf:
+    For the aws_elasticsearch_domain resource, set the log_publishing_options block with enabled argument set to true,
+    log_type argument set to any of the valid values, and cloudwatch_log_group_arn argument set to the ARN of the CloudWatch Log Group.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - database
+
+- rule_id: non_car_elb_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure ELB has logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the Elastic Load Balancers configuration in your environment.
+    If a load balancer does not have logging enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the Elasticsearch Domains configuration within your AWS account and Terraform plan to check if logging is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html> or
+    <https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-access-logs.html>
+    in order to enable access logs for the load balancer.
+  remediation_steps_tf:
+    For the aws_lb resource, set the access_logs block with enabled argument set to true and the bucket argument set to the S3 bucket name.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - network
+
+- rule_id: non_car_global_accelerator_flow_logs_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure Global Accelerator accelerator has flow logs enabled
+  severity: medium
+  description:
+    Cloudrail will review Global Accelerator accelerators configuration in your environment.
+    If an accelerator does not have flow logs enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the configuration of Global Accelerator accelerators
+    within your AWS account and Terraform plan to check if flow logs are enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html>
+    in order to enable flow logs for an accelerator.
+  remediation_steps_tf:
+    For the aws_globalaccelerator_accelerator resource, set the attributes block with flow_logs_enabled argument set to true,
+    flow_logs_s3_bucket argument set to the S3 bucket name, and flow_logs_s3_prefix argument to the prefix used for flow logs.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - network
+
+- rule_id: non_car_lambda_function_xray_tracing_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure Lambda function has X-Ray tracing enabled
+  severity: medium
+  description:
+    Cloudrail will review the Lambda functions configuration in your environment.
+    If a function does not have tracing in Active mode, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the configuration of Lambda functions within your AWS account and Terraform plan to check if X-Ray tracing is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/xray/latest/devguide/xray-services-lambda.html>
+    in order to enable X-Ray tracing for a Lambda function.
+  remediation_steps_tf:
+    For the aws_lambda_function resource, set the tracing_config block with mode argument set to “Active”.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - compute
+
+- rule_id: non_car_neptune_cluster_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure Neptune cluster has logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the Neptune clusters configuration in your environment.
+    If a cluster is not configured to export logs to Cloudwatch, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the configuration of Neptune clusters within your
+    AWS account and Terraform plan to check if Cloudwatch log export is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html>
+    in order to enable log export to Cloudwatch for Neptune cluster.
+  remediation_steps_tf:
+    For the aws_neptune_cluster resource, set enable_cloudwatch_logs_exports argument to a list containing the element “audit”.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - database
+
+- rule_id: non_car_rds_instance_and_cluster_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure RDS instances and clusters have logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the RDS instances and clusters configuration in your environment.
+    If an instance or cluster is not configured to export logs to Cloudwatch, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the configuration of RDS instances and clusters within your
+    AWS account and Terraform plan to check if Cloudwatch log export is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/neptune/latest/userguide/cloudwatch-logs.html>
+    in order to enable log export to Cloudwatch for Neptune cluster.
+  remediation_steps_tf:
+    For the aws_neptune_cluster resource, set enable_cloudwatch_logs_exports argument to a list containing the element “audit”.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - database
+
+- rule_id: non_car_redshift_cluster_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure Redshift clusters have logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the Redshift clusters configuration in your environment.
+    If a cluster does not have logging enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the configuration of Redshift clusters within your AWS account and Terraform plan to check if logging is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/redshift/latest/mgmt/db-auditing.html> in order to enable logging to an S3 bucket.
+  remediation_steps_tf:
+    For the aws_redshift_cluster resource, set the logging block with enable argument set to true
+    and bucket_name argument to the S3 bucket name to store the logs.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - database
+
+- rule_id: non_car_rest_api_gateway_access_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure REST API Gateway has access logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the REST API Gateways configuration in your environment.
+    If a stage does not have access logging enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the configuration of REST API Gateways within your AWS account
+    and Terraform plan to check if logging is enabled for all stages.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html>
+    in order to enable logging for a REST API Gateway stage.
+  remediation_steps_tf:
+    For the aws_api_gateway_stage resource, set the access_log_settings block with destination_arn argument set to the ARN
+    of a CloudWatch Log Group and set the format argument to a valid log format.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - content_delivery
+
+- rule_id: non_car_s3_bucket_access_logging_enabled
+  cloud_provider: amazon_web_services
+  name: Ensure S3 bucket has access logging enabled
+  severity: medium
+  description:
+    Cloudrail will review the S3 buckets configuration in your environment.
+    If a bucket does not have access logging enabled, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the configuration of S3 buckets within your AWS account and Terraform plan to check if access logging is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html>
+    in order to enable server access logging for an S3 bucket.
+  remediation_steps_tf:
+    For the aws_s3_bucket resource, set the logging block with target_bucket argument
+    set to the name of an S3 bucket that will receive the log objects.
+  rule_type: non_context_aware
+  security_layer: logging
+  resource_type:
+  - storage
+
+- rule_id: non_car_athena_database_encrypted_at_rest
+  cloud_provider: amazon_web_services
+  name: Ensure Athena database is encrypted at rest
+  severity: medium
+  description:
+    Cloudrail will review the Athena database configuration.
+    If a database is not configured to be encrypted at rest, Cloudrail will highlight it as a violation.
+  human_readable_logic:
+    Cloudrail will review the Athena databases configuration in your Terraform plan to check if encryption at rest is enabled.
+  remediation_steps_console:
+    Follow the guide at <https://docs.aws.amazon.com/athena/latest/ug/creating-tables-based-on-encrypted-datasets-in-s3.html>
+    in order to encrypt the Athena database.
+  remediation_steps_tf:
+    For the aws_athena_database resource, set the encryption_configuration block
+    with the encryption_option argument set to either “SSE_S3”, “SSE_KMS”, or “CSE_KMS”.
+  rule_type: non_context_aware
+  security_layer: encryption
+  resource_type:
+  - database

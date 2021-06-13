@@ -40,3 +40,9 @@ cloudrail/knowledge/rules/aws/context_aware/disallow_ec2_classic_mode_rule.py
       show_root_toc_entry: false
     selection:
       inherited_members: true
+
+## ::: cloudrail.knowledge.context.aws.redshift.redshift_logging
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
