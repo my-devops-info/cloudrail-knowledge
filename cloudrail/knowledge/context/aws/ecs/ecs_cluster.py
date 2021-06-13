@@ -20,6 +20,7 @@ class EcsCluster(AwsResource):
             service_list: The list of services attached to this cluster.
             event_target_list: The list of CloudWatchEventTargets associated with this
                 cluster.
+            is_container_insights_enabled: Indication if Container Insights enabled for this cluster or not.
 
     """
     def __init__(self,
@@ -27,6 +28,7 @@ class EcsCluster(AwsResource):
                  region: str,
                  cluster_arn: str,
                  cluster_name: str,
+                 is_container_insights_enabled: bool,
                  cluster_id: str = None) -> None:
         super().__init__(account, region, AwsServiceName.AWS_ECS_CLUSTER)
         self.cluster_arn: str = cluster_arn
@@ -35,6 +37,7 @@ class EcsCluster(AwsResource):
         self.service_list: List[EcsService] = []
         self.event_target_list: List[CloudWatchEventTarget] = []
         self.aliases.update({self.cluster_id, self.cluster_arn})
+        self.is_container_insights_enabled: bool = is_container_insights_enabled
 
     def add_services(self, service_list: List[EcsService]):
         for service in service_list:
