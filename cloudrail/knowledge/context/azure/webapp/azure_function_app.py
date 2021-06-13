@@ -3,6 +3,7 @@ from typing import Optional, List
 from cloudrail.knowledge.context.azure.azure_resource import AzureResource
 from cloudrail.knowledge.context.azure.webapp.auth_settings import AuthSettings
 from cloudrail.knowledge.context.azure.constants.azure_resource_type import AzureResourceType
+from cloudrail.knowledge.context.azure.webapp.constants import FieldMode
 
 
 class AzureFunctionApp(AzureResource):
@@ -11,10 +12,11 @@ class AzureFunctionApp(AzureResource):
             name: Function app resource name.
             auth_settings: Function app authentication settings.
     """
-    def __init__(self, name: str, auth_settings: AuthSettings) -> None:
+    def __init__(self, name: str, auth_settings: AuthSettings, client_cert_mode: FieldMode = None) -> None:
         super().__init__(AzureResourceType.AZURERM_FUNCTION_APP)
         self.name = name
         self.auth_settings: AuthSettings = auth_settings
+        self.client_cert_mode: FieldMode = client_cert_mode
         self.with_aliases(name)
 
     def get_keys(self) -> List[str]:

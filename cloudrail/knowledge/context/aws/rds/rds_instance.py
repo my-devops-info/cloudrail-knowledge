@@ -31,6 +31,10 @@ class RdsInstance(NetworkEntity, INetworkConfiguration):
             security_group_allowing_public_access: A security group that allows access from the internet.
                 This value will be None when this resource is not accessible from the internet.
             indirect_public_connection_data: The data that describes that a publicly-accessible resource can access this resource by a security group of this resource.
+            backup_retention_period: Number of days to retain backups.
+            engine_type: The Database engine name to be used for this RDS instance.
+            engine_version: The Database engine version to be used for this RDS instance.
+            iam_database_authentication_enabled: An indication whether authentication to the RDS instance using IAM entities is enabled.
     """
     def __init__(self,
                  account: str,
@@ -44,7 +48,9 @@ class RdsInstance(NetworkEntity, INetworkConfiguration):
                  db_cluster_id: Optional[str],
                  encrypted_at_rest: bool,
                  performance_insights_enabled: bool,
-                 performance_insights_kms_key: Optional[str]):
+                 performance_insights_kms_key: Optional[str],
+                 engine_type: str,
+                 engine_version: str):
         super().__init__(name, account, region, AwsServiceName.AWS_RDS_CLUSTER_INSTANCE)
         self.arn: str = arn
         self.port: int = port
@@ -56,7 +62,11 @@ class RdsInstance(NetworkEntity, INetworkConfiguration):
         self.performance_insights_kms_key: Optional[str] = performance_insights_kms_key
         self.performance_insights_enabled: bool = performance_insights_enabled
         self.performance_insights_kms_data: Optional[KmsKey] = None
-
+        self.backup_retention_period: Optional[int] = None
+        self.engine_type: str = engine_type
+        self.engine_version: str = engine_version
+        self.iam_database_authentication_enabled: Optional[bool] = None
+        self.cloudwatch_logs_exports: Optional[list] = None
         self.indirect_public_connection_data: Optional[IndirectPublicConnectionData] = None
         self.security_group_allowing_public_access: Optional[SecurityGroup] = None
 

@@ -18,10 +18,10 @@ class LaunchConfiguration(AwsResource):
             name: The Name of the launch configuration.
             security_group_ids: The security groups used with the instance.
             http_tokens: Either "optional" or "required" (if None, means "optional").
-            iam_instance_profile: The IAM Instance Profile to associate with launched instances
-                (may be None).
-            associate_public_ip_address: May be True to associate a public IP address
-                with the launched instances.
+            iam_instance_profile: The IAM Instance Profile to associate with launched instances (may be None).
+            associate_public_ip_address: May be True to associate a public IP address with the launched instances.
+            ebs_optimized: Indication whether the EC2 instance has EBS optimization enabled of not.
+            monitoring_enabled: Indication if the launched EC2 instance will have detailed monitoring enabled.
     """
     def __init__(self,
                  arn: str,
@@ -34,7 +34,9 @@ class LaunchConfiguration(AwsResource):
                  iam_instance_profile: Optional[str],
                  region: str,
                  account: str,
-                 associate_public_ip_address: Optional[bool]):
+                 associate_public_ip_address: Optional[bool],
+                 ebs_optimized: bool,
+                 monitoring_enabled: bool):
         super().__init__(account, region, AwsServiceName.AWS_LAUNCH_CONFIGURATION)
         self.arn: str = arn
         self.image_id: str = image_id
@@ -46,6 +48,8 @@ class LaunchConfiguration(AwsResource):
         self.associate_public_ip_address: Optional[bool] = associate_public_ip_address
         self.aliases.add(self.name)
         self.iam_instance_profile: Optional[str] = iam_instance_profile
+        self.ebs_optimized: bool = ebs_optimized
+        self.monitoring_enabled: bool = monitoring_enabled
 
     def get_keys(self) -> List[str]:
         return [self.arn]

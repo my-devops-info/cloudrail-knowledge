@@ -15,10 +15,12 @@ class LaunchTemplate(AwsResource):
             image_id: The EC2 Image ID of the instance.
             security_group_ids: The security groups used with the instance.
             version_number: The version number of this template.
-            iam_instance_profile: The IAM Instance Profile to associate with launched instances
-                (may be None).
+            iam_instance_profile: The IAM Instance Profile to associate with launched instances (may be None).
             network_configurations: The network configuration(s) set in the template (may be None).
             security_groups: Points to the actual security groups set in security_group_ids.
+            instance_type: The Instance type (i.e. 'm5.8xlarge').
+            ebs_optimized: Indication whether the EC2 instance has EBS optimization enabled of not.
+            monitoring_enabled: Indication if the launched EC2 instance will have detailed monitoring enabled.
     """
     def __init__(self,
                  template_id: str,
@@ -30,6 +32,9 @@ class LaunchTemplate(AwsResource):
                  region: str,
                  account: str,
                  iam_instance_profile: Optional[str],
+                 ebs_optimized: bool,
+                 monitoring_enabled: bool,
+                 instance_type: str,
                  network_configurations: List[NetworkConfiguration] = None):
         super().__init__(account, region, AwsServiceName.AWS_LAUNCH_TEMPLATE)
         self.template_id: str = template_id
@@ -41,6 +46,9 @@ class LaunchTemplate(AwsResource):
         self.iam_instance_profile: Optional[str] = iam_instance_profile
         self.network_configurations: List[NetworkConfiguration] = network_configurations or []
         self.security_groups: List[SecurityGroup] = []
+        self.ebs_optimized: bool = ebs_optimized
+        self.monitoring_enabled: bool = monitoring_enabled
+        self.instance_type: str = instance_type
 
     def get_keys(self) -> List[str]:
         return [self.template_id, self.version_number]
