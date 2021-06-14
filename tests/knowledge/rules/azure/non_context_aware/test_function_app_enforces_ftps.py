@@ -5,7 +5,7 @@ from cloudrail.knowledge.rules.base_rule import RuleResultType
 from cloudrail.knowledge.context.azure.azure_environment_context import AzureEnvironmentContext
 from cloudrail.dev_tools.rule_test_utils import create_empty_entity
 from cloudrail.knowledge.context.azure.webapp.site_config import SiteConfig
-from cloudrail.knowledge.context.azure.webapp.constants import FtpState
+from cloudrail.knowledge.context.azure.webapp.constants import FtpsState
 from cloudrail.knowledge.rules.azure.non_context_aware.function_app_enforces_ftps_only_rule import FunctionAppEnforcesFtpsOnlyRule
 
 
@@ -16,7 +16,7 @@ class TestFunctionAppEnforcesFtps(TestCase):
 
     def test_ftps_enabled(self):
         # Arrange
-        site_config: SiteConfig = SiteConfig(FtpState.FTPS_ONLY)
+        site_config: SiteConfig = SiteConfig(FtpsState.FTPS_ONLY)
         app: AzureFunctionApp = create_empty_entity(AzureFunctionApp)
         app.site_config = site_config
         app.name = 'my-app'
