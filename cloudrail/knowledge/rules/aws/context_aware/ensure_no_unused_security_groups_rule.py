@@ -29,4 +29,4 @@ class EnsureNoUnusedSecurityGroups(BaseRule):
         return []
 
     def should_run_rule(self, environment_context: AwsEnvironmentContext) -> bool:
-        return bool(environment_context.security_groups and environment_context.network_interfaces)
+        return bool(environment_context.security_groups)
