@@ -12,7 +12,7 @@ rules_metadata:
       using a customer-managed CMK.
     remediation_steps_console: Follow the guide at <https://docs.aws.amazon.com/documentdb/latest/developerguide/encryption-at-rest.html>
       to enable encryption at rest using a customer-managed CMK.
-    remediation_steps_tf: For the aws_docdb_cluster resource, set the argument storage_encrypted
+    iac_remediation_steps: For the aws_docdb_cluster resource, set the argument storage_encrypted
       to true and set the argument kms_key_id to use a customer-managed CMK ARN.
     rule_type: non_context_aware
     security_layer: encryption

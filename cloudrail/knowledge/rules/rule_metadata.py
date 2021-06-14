@@ -68,7 +68,7 @@ class RuleMetadata:
     logic: str
     categories: List[str]
     severity: RuleSeverity
-    remediation_steps_tf: str
+    iac_remediation_steps: str
     remediation_steps_console: str
     rule_type: RuleType
     security_layer: SecurityLayer

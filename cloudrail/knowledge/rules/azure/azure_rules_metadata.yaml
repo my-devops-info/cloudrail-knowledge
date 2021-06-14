@@ -13,7 +13,7 @@ rules_metadata:
       https://docs.microsoft.com/en-us/azure/mysql/howto-deny-public-network-access,
       https://docs.microsoft.com/en-us/azure/mariadb/howto-deny-public-network-access,
       in order to disable public network access for the database.
-    remediation_steps_tf: In the database server resource (such as azurerm_postgresql_server, azurerm_mssql_server, etc.),
+    iac_remediation_steps: In the database server resource (such as azurerm_postgresql_server, azurerm_mssql_server, etc.),
       set public_network_access_enabled to false.
     rule_type: non_context_aware
     security_layer: networking
@@ -32,7 +32,7 @@ rules_metadata:
       only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/virtual-machines/linux/quick-create-portal
       in order to create a virtual machine with SSH public key authentication instead of password authentication.
-    remediation_steps_tf: For the azurerm_linux_virtual_machine resource, remove admin_password argument and set 
+    iac_remediation_steps: For the azurerm_linux_virtual_machine resource, remove admin_password argument and set 
       disable_password_authentication to true. In admin_ssk_key configuration block, set username and public_key parameters. 
     rule_type: non_context_aware
     security_layer: iam
@@ -50,7 +50,7 @@ rules_metadata:
       in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-enable-existing-clusters#enable-directly-from-aks-cluster-in-the-portal
       in order to enable monitoring for an AKS cluster.
-    remediation_steps_tf: For the azurerm_kubernetes_cluster resource, in addon_profile configuration block,
+    iac_remediation_steps: For the azurerm_kubernetes_cluster resource, in addon_profile configuration block,
       add oms_agent block with enabled argument set to true and log_analytics_workspace_id argument set to
       the ID of the Log Analytics Workspace which the OMS Agent should send data to.
     rule_type: non_context_aware
@@ -69,7 +69,7 @@ rules_metadata:
       your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/aks/kubernetes-walkthrough-portal
       in order to create an AKS cluster with RBAC authentication enabled.
-    remediation_steps_tf: For the azurerm_kubernetes_cluster resource, add a role_based_access_control block 
+    iac_remediation_steps: For the azurerm_kubernetes_cluster resource, add a role_based_access_control block 
       with enabled argument set to true.
     rule_type: non_context_aware
     security_layer: iam
@@ -86,7 +86,7 @@ rules_metadata:
       resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/aks/api-server-authorized-ip-ranges#update-disable-and-find-authorized-ip-ranges-using-azure-portal
       in order to configure the authorized IP ranges that will have access to the AKS API server.
-    remediation_steps_tf: For the azurerm_kubernetes_cluster resource, ensure the api_server_authorized_ip_ranges resource 
+    iac_remediation_steps: For the azurerm_kubernetes_cluster resource, ensure the api_server_authorized_ip_ranges resource 
       is set to a range of authorized IP addresses.
     rule_type: non_context_aware
     security_layer: networking
@@ -104,7 +104,7 @@ rules_metadata:
       cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/aks/use-network-policies 
       in order to create an AKS cluster with a Network Policy.
-    remediation_steps_tf: For the azurerm_kubernetes_cluster resource resource, ensure the network_profile configuration 
+    iac_remediation_steps: For the azurerm_kubernetes_cluster resource resource, ensure the network_profile configuration 
       block is configured.
     rule_type: non_context_aware
     security_layer: networking
@@ -121,7 +121,7 @@ rules_metadata:
       dashboard is disabled. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/aks/kubernetes-dashboard#disable-the-kubernetes-dashboard
       in order to disable the Kubernetes dashboard.
-    remediation_steps_tf: For the azurerm_kubernetes_cluster resource, in the addon_profile block, ensure the kube_dashboard
+    iac_remediation_steps: For the azurerm_kubernetes_cluster resource, in the addon_profile block, ensure the kube_dashboard
       block has the enabled argument set to false.
     rule_type: non_context_aware
     security_layer: networking
@@ -138,7 +138,7 @@ rules_metadata:
       from any IP. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/azure-sql/database/firewall-configure#use-the-azure-portal-to-manage-server-level-ip-firewall-rules
       in order to configured the SQL server firewall rules with specific Start and End IPs.
-    remediation_steps_tf: For the azurerm_mariadb_firewall_rule, azurerm_mariadb_firewall_rule, azurerm_postgresql_firewall_rule,
+    iac_remediation_steps: For the azurerm_mariadb_firewall_rule, azurerm_mariadb_firewall_rule, azurerm_postgresql_firewall_rule,
       and azurerm_mysql_firewall_rule resources, set start_ip_address and end_ip_address arguments to a value other than 
       0.0.0.0 and 255.255.255.255.
     rule_type: non_context_aware
@@ -156,7 +156,7 @@ rules_metadata:
       is being redirected to HTTPS. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-bindings#enforce-https
       in order to enable HTTP redirect to HTTPS by setting the parameter HTTPS Only to ON.
-    remediation_steps_tf: For the azurerm_app_service resource, set the https_only argument to true.
+    iac_remediation_steps: For the azurerm_app_service resource, set the https_only argument to true.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -172,7 +172,7 @@ rules_metadata:
       TLS 1.2 version. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-bindings#enforce-tls-versions
       in order to enforce the use of the latest TLS version by setting the Minimum TLS Version to 1.2.
-    remediation_steps_tf: For the azurerm_app_service resource, in site_conf block, set the min_tls_version argument to 1.2.
+    iac_remediation_steps: For the azurerm_app_service resource, in site_conf block, set the min_tls_version argument to 1.2.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -188,7 +188,7 @@ rules_metadata:
       are not disabled alerts. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/azure-sql/database/threat-detection-overview
       in order to enable all Threat Detection Types for the SQL Server.
-    remediation_steps_tf: For the azurerm_mssql_server_security_alert_policy resource, ensure disabled_alerts arguments is empty.
+    iac_remediation_steps: For the azurerm_mssql_server_security_alert_policy resource, ensure disabled_alerts arguments is empty.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -204,7 +204,7 @@ rules_metadata:
       is enabled. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/mysql/howto-configure-ssl#step-3--enforcing-ssl-connections-in-azure
       in order to enable Enforce SSL connection.
-    remediation_steps_tf: For the azurerm_mysql_server resource, set the ssl_enforcement_enabled argument to true.
+    iac_remediation_steps: For the azurerm_mysql_server resource, set the ssl_enforcement_enabled argument to true.
     rule_type: non_context_aware
     security_layer: encryption
     resource_type:
@@ -220,7 +220,7 @@ rules_metadata:
       is enabled. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/postgresql/concepts-ssl-connection-security#configure-enforcement-of-tls
       in order to enable Enforce SSL connection.
-    remediation_steps_tf: For the azurerm_postgresql_server resource, set the ssl_enforcement_enabled argument to true.
+    iac_remediation_steps: For the azurerm_postgresql_server resource, set the ssl_enforcement_enabled argument to true.
     rule_type: non_context_aware
     security_layer: encryption
     resource_type:
@@ -237,7 +237,7 @@ rules_metadata:
       your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/storage/queues/monitor-queue-storage?tabs=azure-portal
       in order to enable StorageRead, StorageWrite, and StorageDelete.
-    remediation_steps_tf: For the azurerm_storage_account resource, in the queue_properties, logging block, 
+    iac_remediation_steps: For the azurerm_storage_account resource, in the queue_properties, logging block, 
       set delete/read/write arguments to true.
     rule_type: non_context_aware
     security_layer: logging
@@ -254,7 +254,7 @@ rules_metadata:
       type is set to private. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/storage/blobs/anonymous-read-access-configure?tabs=portal#set-the-public-access-level-for-a-container
       in order to change the public access level for the container at set it to 'No public read access'.
-    remediation_steps_tf: For the azurerm_storage_container resource, set the container_access_type argument to private.
+    iac_remediation_steps: For the azurerm_storage_container resource, set the container_access_type argument to private.
     rule_type: non_context_aware
     security_layer: iam
     resource_type:
@@ -271,7 +271,7 @@ rules_metadata:
       cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/storage/common/storage-network-security?tabs=azure-portal#change-the-default-network-access-rule
       in order to change the default network access rule.
-    remediation_steps_tf: For the azurerm_storage_account resource with network_rules block, set the default_action to Deny.
+    iac_remediation_steps: For the azurerm_storage_account resource with network_rules block, set the default_action to Deny.
       For azurerm_storage_account_network_rules resources, ensure the default_action argument is set to Deny.
     rule_type: non_context_aware
     security_layer: networking
@@ -287,7 +287,7 @@ rules_metadata:
       expiration date set. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/key-vault/secrets/about-secrets 
       in order to set an expiration date for Key Vault secrets.
-    remediation_steps_tf: For the azurerm_key_vault_secret resource, set a value for the expiration_date argument.
+    iac_remediation_steps: For the azurerm_key_vault_secret resource, set a value for the expiration_date argument.
     rule_type: non_context_aware
     security_layer: iam
     resource_type:
@@ -303,7 +303,7 @@ rules_metadata:
       and soft deletion enabled. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/key-vault/general/key-vault-recovery?tabs=azure-portal
       in order to enable soft delete and purge protection for the Key Vault.
-    remediation_steps_tf: For the azurerm_key_vault resource, set soft_delete_enabled and purge_protection_enabled 
+    iac_remediation_steps: For the azurerm_key_vault resource, set soft_delete_enabled and purge_protection_enabled 
       arguments to true.
     rule_type: non_context_aware
     security_layer: disaster_recovery
@@ -320,7 +320,7 @@ rules_metadata:
       use of TLS 1.2. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/storage/common/transport-layer-security-configure-minimum-version?tabs=portal#configure-the-minimum-tls-version-for-a-storage-account
       in order to configure the minimum TLS version for a storage account.
-    remediation_steps_tf: For the azurerm_storage_account resource, set the min_tls_version argument to TLS1_2.
+    iac_remediation_steps: For the azurerm_storage_account resource, set the min_tls_version argument to TLS1_2.
     rule_type: non_context_aware
     security_layer: encryption
     resource_type:
@@ -337,7 +337,7 @@ rules_metadata:
       cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/security/fundamentals/data-encryption-best-practices
       in order to implement best practices to pass credentials to Azure VMs.
-    remediation_steps_tf: For the azurerm_virtual_machine resource, in the os_profile block, ensure custom_data argument 
+    iac_remediation_steps: For the azurerm_virtual_machine resource, in the os_profile block, ensure custom_data argument 
       does not include any credentials.
     rule_type: non_context_aware
     security_layer: iam
@@ -354,7 +354,7 @@ rules_metadata:
       This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/mariadb/howto-configure-ssl in 
       order to enable SSL connection for MariaDB.
-    remediation_steps_tf: For the azurerm_mariadb_server resource, set the ssl_enforcement_enabled argument to true.
+    iac_remediation_steps: For the azurerm_mariadb_server resource, set the ssl_enforcement_enabled argument to true.
     rule_type: non_context_aware
     security_layer: encryption
     resource_type:
@@ -370,7 +370,7 @@ rules_metadata:
       public access. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/mariadb/howto-deny-public-network-access
       in order to deny public network access to MariaDB servers.
-    remediation_steps_tf: For the azurerm_mariadb_server resource, set the public_network_access_enabled argument to false.
+    iac_remediation_steps: For the azurerm_mariadb_server resource, set the public_network_access_enabled argument to false.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -385,7 +385,7 @@ rules_metadata:
     human_readable_logic: Cloudrail uses checkov to review Azure Linux Scale Set configuration and ensure it it not using 
       basic authentication. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console:
-    remediation_steps_tf: For the azurerm_linux_virtual_machine_scale_set resource, remove admin_password argument and set 
+    iac_remediation_steps: For the azurerm_linux_virtual_machine_scale_set resource, remove admin_password argument and set 
       disable_password_authentication to true. In admin_ssk_key configuration block, set username and public_key parameters.
     rule_type: non_context_aware
     security_layer: iam
@@ -401,7 +401,7 @@ rules_metadata:
       TLS version of 1.2. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/azure-sql/managed-instance/minimal-tls-version-configure
       in order to set the minimum TLS version to 1.2.
-    remediation_steps_tf: For the azurerm_mssql_server resource, set the minimum_tls_version argument to "1.2".
+    iac_remediation_steps: For the azurerm_mssql_server resource, set the minimum_tls_version argument to "1.2".
     rule_type: non_context_aware
     security_layer: encryption
     resource_type:
@@ -418,7 +418,7 @@ rules_metadata:
       access. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/mysql/howto-deny-public-network-access 
       in order to deny public network access to MySQL servers.
-    remediation_steps_tf: For the azurerm_mysql_server resource, set the public_network_access_enabled argument to false.
+    iac_remediation_steps: For the azurerm_mysql_server resource, set the public_network_access_enabled argument to false.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -433,7 +433,7 @@ rules_metadata:
       TLS version of 1.2. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/mysql/howto-tls-configurations 
       in order to set the minimum TLS version to 1.2.
-    remediation_steps_tf: For the azurerm_mysql_server resource, set the ssl_minimal_tls_version_enforced argument to "TLS1_2".
+    iac_remediation_steps: For the azurerm_mysql_server resource, set the ssl_minimal_tls_version_enforced argument to "TLS1_2".
     rule_type: non_context_aware
     security_layer: encryption
     resource_type:
@@ -449,7 +449,7 @@ rules_metadata:
       of HTTPS protocol. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/storage/common/storage-require-secure-transfer 
       in order to enable secure transfer for the Storage Account.
-    remediation_steps_tf: For the azurerm_storage_account resource, set the enable_https_traffic_only argument to true.
+    iac_remediation_steps: For the azurerm_storage_account resource, set the enable_https_traffic_only argument to true.
     rule_type: non_context_aware
     security_layer: encryption
     resource_type:
@@ -465,7 +465,7 @@ rules_metadata:
       public network access. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/storage/file-sync/file-sync-networking-endpoints?tabs=azure-portal 
       in order to disable public network access to Azure File Sync.
-    remediation_steps_tf: For the azurerm_storage_sync resource, set the incoming_traffic_policy argument to AllowVirtualNetworksOnly.
+    iac_remediation_steps: For the azurerm_storage_sync resource, set the incoming_traffic_policy argument to AllowVirtualNetworksOnly.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -481,7 +481,7 @@ rules_metadata:
       public network access. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/postgresql/howto-deny-public-network-access 
       in order to deny public network access to PostgreSQL servers.
-    remediation_steps_tf: For the azurerm_postgresql_server resource, set the public_network_access_enabled argument to false.
+    iac_remediation_steps: For the azurerm_postgresql_server resource, set the public_network_access_enabled argument to false.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -496,7 +496,7 @@ rules_metadata:
       This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/azure-functions/security-concepts 
       in order to configure Azure Function Apps to use HTTPS only.
-    remediation_steps_tf: For the azurerm_function_app resource, set the https_only argument to true.
+    iac_remediation_steps: For the azurerm_function_app resource, set the https_only argument to true.
     rule_type: non_context_aware
     security_layer: encryption
     resource_type:
@@ -512,7 +512,7 @@ rules_metadata:
       feature is disabled. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/app-service/configure-common#configure-general-settings 
       in order to disable remote debugging for the App Service.
-    remediation_steps_tf: For the azurerm_app_service resource, set the remote_debugging_enabled argument to false.
+    iac_remediation_steps: For the azurerm_app_service resource, set the remote_debugging_enabled argument to false.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -529,7 +529,7 @@ rules_metadata:
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/virtual-network/manage-network-security-group
       in order to modify the Network Security Group and delete the rule that is exposing the UDP ports or restrict the 
       Source IP addresses/CIDR ranges that can reach those UDP ports.
-    remediation_steps_tf: For the azurerm_network_security_group resource, in security_rule block, and/or for azurerm_network_security_rule resource,
+    iac_remediation_steps: For the azurerm_network_security_group resource, in security_rule block, and/or for azurerm_network_security_rule resource,
       delete the rules that are allowing inbound traffic to UDP ports or modify source_address_prefix to restrict which IP
       address can reach the UDP ports.
     rule_type: non_context_aware
@@ -547,7 +547,7 @@ rules_metadata:
       public access. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-private-link
       in order to disable public network access flag and use private endpoints instead.
-    remediation_steps_tf: For the azurerm_redis_cache resource, set the public_network_access_enabled argument to false.
+    iac_remediation_steps: For the azurerm_redis_cache resource, set the public_network_access_enabled argument to false.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -563,7 +563,7 @@ rules_metadata:
       are enabled. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/mysql/howto-restore-server-portal#set-backup-configuration
       in order to enable the Geo-Redundant flag in Backup Redundancy Options.
-    remediation_steps_tf: For the azurerm_mysql_server resource, set the geo_redundant_backup_enabled argument to true.
+    iac_remediation_steps: For the azurerm_mysql_server resource, set the geo_redundant_backup_enabled argument to true.
     rule_type: non_context_aware
     security_layer: disaster_recovery
     resource_type:
@@ -579,7 +579,7 @@ rules_metadata:
       into a Virtual Network. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/container-instances/container-instances-vnet
       in order to deploy Azure Container group into a virtual network.
-    remediation_steps_tf: For the azurerm_container_group resource, set the network_profile_id argument to the Network 
+    iac_remediation_steps: For the azurerm_container_group resource, set the network_profile_id argument to the Network 
       profile ID for deploying to virtual network.
     rule_type: non_context_aware
     security_layer: networking
@@ -597,7 +597,7 @@ rules_metadata:
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-configure-vnet-service-endpoint 
       and https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-configure-firewall in order to restrict the access to 
       Azure Cosmos DB.
-    remediation_steps_tf: For the azurerm_cosmosdb_account resource, set the public_network_access_enabled argument to false,
+    iac_remediation_steps: For the azurerm_cosmosdb_account resource, set the public_network_access_enabled argument to false,
       set is_virtual_network_filter_enabled argument to true, and set virtual_network rule argument or ip_range_filter argument.
     rule_type: non_context_aware
     security_layer: networking
@@ -614,7 +614,7 @@ rules_metadata:
       public access. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-configure-private-endpoints#blocking-public-network-access-during-account-creation
       in order to disable public network access for Cosmos DB account.
-    remediation_steps_tf: For the azurerm_cosmosdb_account resource, set public_network_access_enabled argument to false.
+    iac_remediation_steps: For the azurerm_cosmosdb_account resource, set public_network_access_enabled argument to false.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -630,7 +630,7 @@ rules_metadata:
       are enabled. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/postgresql/howto-restore-server-portal#set-backup-configuration
       in order to enable the Geo-Redundant flag in Backup Redundancy Options.
-    remediation_steps_tf: For the azurerm_postgresql_server resource, set the geo_redundant_backup_enabled argument to true.
+    iac_remediation_steps: For the azurerm_postgresql_server resource, set the geo_redundant_backup_enabled argument to true.
     rule_type: non_context_aware
     security_layer: disaster_recovery
     resource_type:
@@ -646,7 +646,7 @@ rules_metadata:
       public access. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/data-factory/data-factory-private-link?WT.mc_id=Portal-Microsoft_Azure_CreateUIDef#set-up-private-link-for-azure-data-factory
       in order to disable the public endpoint for Data Factory.
-    remediation_steps_tf: For the azurerm_data_factory resource, set public_network_enabled argument to false.
+    iac_remediation_steps: For the azurerm_data_factory resource, set public_network_enabled argument to false.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -662,7 +662,7 @@ rules_metadata:
       public access. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/event-grid/configure-firewall 
       in order to disable public network access.
-    remediation_steps_tf: For the azurerm_eventgrid_domain resource, set the public_network_access_enabled argument to false.
+    iac_remediation_steps: For the azurerm_eventgrid_domain resource, set the public_network_access_enabled argument to false.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -678,7 +678,7 @@ rules_metadata:
       in a virtual network. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/api-management/api-management-using-with-vnet
       in order to configure API Management with virtual networks.
-    remediation_steps_tf: For the azurerm_api_management resource, set the virtual_network_configuration block and subnet_id argument.
+    iac_remediation_steps: For the azurerm_api_management resource, set the virtual_network_configuration block and subnet_id argument.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -694,7 +694,7 @@ rules_metadata:
       public access. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-public-network-access
       in order to set Allow public network access to Disabled.
-    remediation_steps_tf: For the azurerm_iothub resource, set the public_network_access_enabled argument to false.
+    iac_remediation_steps: For the azurerm_iothub resource, set the public_network_access_enabled argument to false.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -710,7 +710,7 @@ rules_metadata:
       action. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/key-vault/general/network-security 
       in order to configure Key Vault firewall and change the default action to "deny".
-    remediation_steps_tf: For the azurerm_key_vault resource, in the network_acls block, set default_action argument to "deny".
+    iac_remediation_steps: For the azurerm_key_vault resource, in the network_acls block, set default_action argument to "deny".
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -726,7 +726,7 @@ rules_metadata:
       This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/key-vault/general/soft-delete-overview#purge-protection
       in order to enable purge protection for the Key Vault.
-    remediation_steps_tf: For the azurerm_key_vault resource, set the purge_protection_enabled argument to true.
+    iac_remediation_steps: For the azurerm_key_vault resource, set the purge_protection_enabled argument to true.
     rule_type: non_context_aware
     security_layer: disaster_recovery
     resource_type:
@@ -742,7 +742,7 @@ rules_metadata:
       This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/key-vault/general/key-vault-recovery?tabs=azure-portal
       in order to enable soft-delete for the Azure Key Vault.
-    remediation_steps_tf: For the azurerm_key_vault resource, set the soft_delete_enabled argument to true.
+    iac_remediation_steps: For the azurerm_key_vault resource, set the soft_delete_enabled argument to true.
     rule_type: non_context_aware
     security_layer: disaster_recovery
     resource_type:
@@ -759,7 +759,7 @@ rules_metadata:
       access. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/azure-sql/database/connectivity-settings
       in order to disable public network access.
-    remediation_steps_tf: For the azurerm_mssql_server resource, set public_network_access_enabled argument to false.
+    iac_remediation_steps: For the azurerm_mssql_server resource, set public_network_access_enabled argument to false.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -775,7 +775,7 @@ rules_metadata:
       enabled. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/aks/private-clusters in order to 
       create private AKS clusters.
-    remediation_steps_tf: For the azurerm_kubernetes_cluster resource, set the private_cluster_enabled to true.
+    iac_remediation_steps: For the azurerm_kubernetes_cluster resource, set the private_cluster_enabled to true.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -791,7 +791,7 @@ rules_metadata:
       public network access. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/search/service-configure-firewall 
       in order to disable the public endpoint for Cognitive Search.
-    remediation_steps_tf: For the azurerm_search_service resource, set the public_network_access_enabled argument to false.
+    iac_remediation_steps: For the azurerm_search_service resource, set the public_network_access_enabled argument to false.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -807,7 +807,7 @@ rules_metadata:
       enabled. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/mysql/howto-database-threat-protection-portal 
       in order to enable Threat protection.
-    remediation_steps_tf: For the azurerm_mysql_server resource, in threat_detection_policy block, set enabled argument to true.
+    iac_remediation_steps: For the azurerm_mysql_server resource, in threat_detection_policy block, set enabled argument to true.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -823,7 +823,7 @@ rules_metadata:
       enabled. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/postgresql/howto-database-threat-protection-portal 
       in order to enable Threat protection.
-    remediation_steps_tf: For the azurerm_postgresql_server resource, in threat_detection_policy block, set enabled argument to true.
+    iac_remediation_steps: For the azurerm_postgresql_server resource, in threat_detection_policy block, set enabled argument to true.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -839,7 +839,7 @@ rules_metadata:
       are enabled. This rule will only review Terraform content and not any resources in your cloud environment.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/mariadb/howto-restore-server-portal#set-backup-configuration 
       in order to enable the Geo-Redundant flag in Backup Redundancy Options.
-    remediation_steps_tf: For the azurerm_mariadb_server resource, set the geo_redundant_backup_enabled to true.
+    iac_remediation_steps: For the azurerm_mariadb_server resource, set the geo_redundant_backup_enabled to true.
     rule_type: non_context_aware
     security_layer: disaster_recovery
     resource_type:
@@ -856,7 +856,7 @@ rules_metadata:
       Cloudrail will review all of the Network Security Groups defined in your subscription.
       For each Network Security Group which is present, but not attached to any network interfaces, Cloudrail will raise a violation.
     remediation_steps_console: Delete the unused Network Security Group from your Azure Portal.
-    remediation_steps_tf: Remove the unused azurerm_network_security_group resource, from your TF template.
+    iac_remediation_steps: Remove the unused azurerm_network_security_group resource, from your TF template.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -872,7 +872,7 @@ rules_metadata:
     remediation_steps_console: Follow the guide at
      https://docs.microsoft.com/en-us/azure/app-service/deploy-ftp?tabs=portal#enforce-ftps in order to select
       FTPS Only in FTP state.
-    remediation_steps_tf: For the azurerm_function_app resource, set the site_config block with
+    iac_remediation_steps: For the azurerm_function_app resource, set the site_config block with
        ftps_state argument set to "FtpsOnly".
     rule_type: non_context_aware
     security_layer: networking
@@ -886,7 +886,7 @@ rules_metadata:
     description: Cloudrail will review the App service configuration in your environment. If an app has FTP enabled and is not enforcing FTPS only, Cloudrail will highlight it as a violation.
     human_readable_logic: Cloudrail will review the App services configuration within your Azure subscription and Terraform plan to check if they are enforcing FTPS only or if they have FTP disabled.
     remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/app-service/deploy-ftp?tabs=portal#enforce-ftps in order to disable FTP or select FTPS Only in FTP state.
-    remediation_steps_tf: For the azurerm_app_service resource, set the site_config block with ftps_state argument set to “FtpsOnly” to enforce FTPS or to “Disabled” if you want to disable FTP.
+    iac_remediation_steps: For the azurerm_app_service resource, set the site_config block with ftps_state argument set to “FtpsOnly” to enforce FTPS or to “Disabled” if you want to disable FTP.
     rule_type: non_context_aware
     security_layer: networking
     resource_type:
@@ -903,7 +903,7 @@ rules_metadata:
     remediation_steps_console: Follow the guide at
       https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings?tabs=portal#auth
       in order to enable authentication for the Function App.
-    remediation_steps_tf: For the azurerm_function_app resource,
+    iac_remediation_steps: For the azurerm_function_app resource,
       set the auth_settings block with enabled argument set to true.
     rule_type: non_context_aware
     security_layer: networking
@@ -921,7 +921,7 @@ rules_metadata:
     remediation_steps_console: Follow the guide at
       https://docs.microsoft.com/en-us/azure/app-service/app-service-web-configure-tls-mutual-auth in order to
       require client certificates for Function App.
-    remediation_steps_tf: For the azurerm_function_app resource,
+    iac_remediation_steps: For the azurerm_function_app resource,
       set the client_cert_mode argument to "Required".
     rule_type: non_context_aware
     security_layer: networking

@@ -65,7 +65,7 @@ Every rule has metadata information that is required:
     Cloudrail will look at the permissions to identify if the Bucket is accessible.”
   
 
-* **remediation_steps_tf** - the remediation steps to take within the Terraform code
+* **iac_remediation_steps** - the remediation steps to take within the Terraform code
     to resolve the issue identified by this rule.
   
 
