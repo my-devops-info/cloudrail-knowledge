@@ -927,3 +927,16 @@ rules_metadata:
     security_layer: networking
     resource_type:
       - compute
+
+  - rule_id: non_car_email_notification_high_severity_alerts_enabled
+    cloud_provider: azure
+    name: Ensure Email notification for high severity alerts is enabled
+    severity: medium
+    description: Cloudrail will review the Security Center configuration in your environment. If email notification of high severity alerts is not enabled, Cloudrail will highlight it as a violation.
+    human_readable_logic: Cloudrail will review the Security Center Contact configuration within your Azure subscription and Terraform plan to ensure email notifications of security alerts is enabled.
+    remediation_steps_console: Follow the guide at https://docs.microsoft.com/en-us/azure/security-center/security-center-provide-security-contact-details in order to enable email notifications for security alerts.
+    remediation_steps_tf: For the azurerm_security_center_contact resource, set the alert_notifications argument to true.
+    rule_type: non_context_aware
+    security_layer: logging
+    resource_type:
+      - security_services
