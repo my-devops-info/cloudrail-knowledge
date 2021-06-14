@@ -21,7 +21,6 @@ class DmsReplicationInstanceSubnetGroup(AwsResource):
         self.subnet_ids: List = subnet_ids
         self.vpc_id: Optional[str] = vpc_id
         self.tf_id: Optional[str] = None
-        self.rep_subnet_group_ids: list = [self.rep_subnet_group_id, self.tf_id]
 
     def get_keys(self) -> List[str]:
         return [self.account, self.region, self.rep_subnet_group_id]
@@ -48,3 +47,7 @@ class DmsReplicationInstanceSubnetGroup(AwsResource):
     @property
     def is_tagable(self) -> bool:
         return True
+
+    @property
+    def rep_subnet_group_ids(self) -> list:
+        return [self.rep_subnet_group_id, self.tf_id]
