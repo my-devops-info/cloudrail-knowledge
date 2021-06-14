@@ -20,6 +20,8 @@ class DmsReplicationInstanceSubnetGroup(AwsResource):
         self.rep_subnet_group_id: str = rep_subnet_group_id
         self.subnet_ids: List = subnet_ids
         self.vpc_id: Optional[str] = vpc_id
+        self.tf_id: Optional[str] = None
+        self.rep_subnet_group_ids: list = [self.rep_subnet_group_id, self.tf_id]
 
     def get_keys(self) -> List[str]:
         return [self.account, self.region, self.rep_subnet_group_id]

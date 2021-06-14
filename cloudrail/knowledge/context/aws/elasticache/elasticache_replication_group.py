@@ -30,6 +30,8 @@ class ElastiCacheReplicationGroup(NetworkEntity):
         self.security_group_ids: Optional[list] = None
         self.is_in_default_vpc: bool = True
         self.subnet_ids: Optional[List[str]] = None
+        self.tf_id: Optional[str] = None
+        self.rep_group_ids: list = [self.replication_group_id, self.tf_id]
 
     def get_keys(self) -> List[str]:
         return [self.account, self.region, self.replication_group_id]
