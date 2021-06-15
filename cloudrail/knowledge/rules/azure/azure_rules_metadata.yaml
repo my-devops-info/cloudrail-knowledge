@@ -959,10 +959,10 @@ rules_metadata:
       Cloudrail will review the Function Apps configuration within your Azure subscription
       and Terraform plan to ensure they are using the latest TLS version.
     remediation_steps_console:
-      Follow the guide at <https://azure.microsoft.com/en-us/blog/announcing-http-2-support-in-azure-app-service/>
-      in order to configure HTTP version for the web app.
+      Follow the guide at <https://docs.microsoft.com/en-us/azure/app-service/configure-ssl-bindings#enforce-tls-versions>
+      in order to set the Minimum TLS Version to 1.2 for the Function App.
     remediation_steps_tf:
-      For the azurerm_function_app resource, set the site_config block with http2_enabled argument set to true.
+      For the azurerm_function_app resource, in site_config block, set the min_tls_version argument to “1.2”.
     rule_type: non_context_aware
     security_layer: encryption
     resource_type:
