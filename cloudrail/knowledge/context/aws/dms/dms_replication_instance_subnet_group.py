@@ -50,4 +50,7 @@ class DmsReplicationInstanceSubnetGroup(AwsResource):
 
     @property
     def rep_subnet_group_ids(self) -> list:
-        return [self.rep_subnet_group_id, self.tf_id]
+        if self.tf_id:
+            return [self.rep_subnet_group_id, self.tf_id]
+        else:
+            return [self.rep_subnet_group_id]

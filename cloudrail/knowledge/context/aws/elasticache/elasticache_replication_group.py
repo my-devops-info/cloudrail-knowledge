@@ -63,4 +63,7 @@ class ElastiCacheReplicationGroup(NetworkEntity):
 
     @property
     def rep_group_ids(self) -> list:
-        return [self.replication_group_id, self.tf_id]
+        if self.tf_id:
+            return [self.replication_group_id, self.tf_id]
+        else:
+            return [self.replication_group_id]
