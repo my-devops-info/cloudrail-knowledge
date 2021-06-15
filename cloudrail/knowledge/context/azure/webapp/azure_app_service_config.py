@@ -1,8 +1,8 @@
 from typing import Optional, List
 
 from cloudrail.knowledge.context.azure.azure_resource import AzureResource
-from cloudrail.knowledge.context.azure.webapp.azure_ftps_state import FtpsState
 from cloudrail.knowledge.context.azure.constants.azure_resource_type import AzureResourceType
+from cloudrail.knowledge.context.azure.webapp.constants import FtpsState
 
 
 class AzureAppServiceConfig(AzureResource):
