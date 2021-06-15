@@ -947,3 +947,23 @@ rules_metadata:
     security_layer: iam
     resource_type:
       - compute
+
+  - rule_id: non_car_function_app_using_latest_tls_version
+    cloud_provider: azure
+    name: Ensure Function App is using the latest TLS version
+    severity: major
+    description:
+      Cloudrail will review the Function Apps configuration in your environment.
+      If a function does not use the latest TLS version, Cloudrail will highlight it as a violation.
+    human_readable_logic:
+      Cloudrail will review the Function Apps configuration within your Azure subscription
+      and Terraform plan to ensure they are using the latest TLS version.
+    remediation_steps_console:
+      Follow the guide at <https://azure.microsoft.com/en-us/blog/announcing-http-2-support-in-azure-app-service/>
+      in order to configure HTTP version for the web app.
+    remediation_steps_tf:
+      For the azurerm_function_app resource, set the site_config block with http2_enabled argument set to true.
+    rule_type: non_context_aware
+    security_layer: encryption
+    resource_type:
+      - compute
