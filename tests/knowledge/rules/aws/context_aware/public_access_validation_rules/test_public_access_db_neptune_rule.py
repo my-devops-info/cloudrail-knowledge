@@ -1,6 +1,6 @@
 import unittest
 
-from cloudrail.dev_tools.aws_rule_test_utils import create_network_entity
+from cloudrail.dev_tools.aws_rule_test_utils import create_empty_network_entity
 from cloudrail.knowledge.context.aws.aws_environment_context import AwsEnvironmentContext
 from cloudrail.knowledge.context.aws.ec2.security_group import SecurityGroup
 from cloudrail.knowledge.context.aws.neptune.neptune_cluster import NeptuneCluster
@@ -17,7 +17,7 @@ class TestPublicAccessDbNeptuneRule(unittest.TestCase):
     def test_public_access_db_neptune_fail(self):
         # Arrange
         neptune_cluster = create_empty_entity(NeptuneCluster)
-        neptune_instance = create_network_entity(NeptuneInstance)
+        neptune_instance = create_empty_network_entity(NeptuneInstance)
         neptune_cluster.cluster_instances.append(neptune_instance)
         security_group = create_empty_entity(SecurityGroup)
         neptune_instance.security_group_allowing_public_access = security_group
@@ -32,7 +32,7 @@ class TestPublicAccessDbNeptuneRule(unittest.TestCase):
     def test_public_access_db_neptune_pass(self):
         # Arrange
         neptune_cluster = create_empty_entity(NeptuneCluster)
-        neptune_instance = create_network_entity(NeptuneInstance)
+        neptune_instance = create_empty_network_entity(NeptuneInstance)
         neptune_cluster.cluster_instances.append(neptune_instance)
 
         context = AwsEnvironmentContext(neptune_clusters=[neptune_cluster], neptune_cluster_instances=[neptune_instance])
