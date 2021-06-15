@@ -12,16 +12,14 @@ class AzureFunctionApp(AzureResource):
         Attributes:
             name: Function app resource name.
             auth_settings: Function app authentication settings.
-            http2_enabled: Indication if http2 protocol should be enabled or not.
             site_config: Function app site settings.
     """
-    def __init__(self, name: str, auth_settings: AuthSettings, http2_enabled: bool, site_config: SiteConfig, client_cert_mode: FieldMode = None) -> None:
+    def __init__(self, name: str, auth_settings: AuthSettings, site_config: SiteConfig, client_cert_mode: FieldMode = None) -> None:
         super().__init__(AzureResourceType.AZURERM_FUNCTION_APP)
         self.name = name
         self.auth_settings: AuthSettings = auth_settings
         self.site_config: SiteConfig = site_config
         self.client_cert_mode: FieldMode = client_cert_mode
-        self.http2_enabled: bool = http2_enabled
         self.with_aliases(name)
 
     def get_keys(self) -> List[str]:

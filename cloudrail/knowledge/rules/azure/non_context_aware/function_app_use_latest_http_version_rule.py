@@ -13,7 +13,7 @@ class FunctionAppUseLatestHttpVersionRule(AzureBaseRule):
     def execute(self, env_context: AzureEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
         for func_app in env_context.function_apps:
-            if not func_app.http2_enabled:
+            if not func_app.site_config.http2_enabled:
                 issues.append(
                     Issue(
                         f'The {func_app.get_type()} `{func_app.get_friendly_name()}` does not use the latest HTTP version.',
