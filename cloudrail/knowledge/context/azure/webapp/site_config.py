@@ -1,8 +1,8 @@
-from cloudrail.knowledge.context.azure.webapp.constants import FtpState
+from cloudrail.knowledge.context.azure.webapp.constants import FtpsState
 
 
 class SiteConfig:
 
-    def __init__(self, ftp_state: FtpState) -> None:
+    def __init__(self, ftps_state: FtpsState) -> None:
         super().__init__()
-        self.ftp_state: FtpState = ftp_state
+        self.ftps_state: FtpsState = ftps_state
