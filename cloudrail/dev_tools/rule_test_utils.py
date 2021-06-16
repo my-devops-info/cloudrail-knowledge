@@ -27,5 +27,6 @@ def create_empty_entity(class_type: Type[_T], **kwargs) -> _T:
     return class_type(**params)
 
 
-def as_new_resource(resource: Mergeable, friendly_name: str):
-    resource.terraform_state = TerraformState(friendly_name, TerraformActionType.CREATE, None, True)
+def add_terraform_state(resource: Mergeable, friendly_name: str, as_new_resource: bool = True):
+    action_type = TerraformActionType.CREATE if as_new_resource else TerraformActionType.UPDATE
+    resource.terraform_state = TerraformState(friendly_name, action_type, None, as_new_resource)

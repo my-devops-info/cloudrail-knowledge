@@ -29,12 +29,6 @@ cloudrail/knowledge/rules/azure/non_context_aware/function_app_authentication_en
     selection:
       inherited_members: true
 
-## ::: cloudrail.knowledge.context.azure.webapp.azure_ftps_state
-    rendering:
-      show_root_toc_entry: false
-    selection:
-      inherited_members: true
-
 ## ::: cloudrail.knowledge.context.azure.webapp.auth_settings
     rendering:
       show_root_toc_entry: false

@@ -20,6 +20,12 @@ jobs:
         WITH_V: true
         DEFAULT_BUMP: patch
         DRY_RUN: true
+    - name: check if new version exist
+      run: |
+        if [ -z "${{steps.get_new_tag.outputs.new_tag}}" ]; then
+            echo "No new version"
+            exit 1
+        fi
     - name: Save version into env var
       run: echo "RELEASE_VERSION=${{steps.get_new_tag.outputs.new_tag}}" >> $GITHUB_ENV
     - name: Update version.py

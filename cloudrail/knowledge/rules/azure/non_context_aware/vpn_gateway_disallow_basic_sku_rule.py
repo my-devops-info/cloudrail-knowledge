@@ -1,26 +1,27 @@
 from typing import Dict, List
+
 from cloudrail.knowledge.context.azure.azure_environment_context import AzureEnvironmentContext
-from cloudrail.knowledge.context.azure.webapp.constants import FtpsState
+from cloudrail.knowledge.context.azure.network.azure_vnet_gateway import VirtualNetworkGatewayType
 from cloudrail.knowledge.rules.azure.azure_base_rule import AzureBaseRule
 from cloudrail.knowledge.rules.base_rule import Issue
 from cloudrail.knowledge.rules.rule_parameters.base_paramerter import ParameterType
 
 
-class FunctionAppEnforcesFtpsOnlyRule(AzureBaseRule):
+class VpnGatewayDisallowBasicSkuRule(AzureBaseRule):
 
     def get_id(self) -> str:
-        return 'non_car_function_app_enforces_ftps_only'
+        return 'non_car_vpn_gateway_disallow_basic_sku'
 
     def execute(self, env_context: AzureEnvironmentContext, parameters: Dict[ParameterType, any]) -> List[Issue]:
         issues: List[Issue] = []
-        for app in env_context.function_apps:
-            if app.site_config is None or app.site_config.ftps_state == FtpsState.ALL_ALLOWED:
+        for vnet_gw in env_context.vnet_gateways:
+            if vnet_gw.gateway_type == VirtualNetworkGatewayType.VPN and vnet_gw.sku_tier == 'Basic':
                 issues.append(
                     Issue(
-                        f'The Function App `{app.get_friendly_name()}` is not enforcing FTPS only or does not have FTP disabled.',
-                        app,
-                        app))
+                        f'{vnet_gw.get_type()} `{vnet_gw.get_friendly_name()}` uses "basic" SKU',
+                        vnet_gw,
+                        vnet_gw))
         return issues
 
     def should_run_rule(self, environment_context: AzureEnvironmentContext) -> bool:
-        return bool(environment_context.function_apps)
+        return bool(environment_context.vnet_gateways)

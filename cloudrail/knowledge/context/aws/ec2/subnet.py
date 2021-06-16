@@ -67,3 +67,6 @@ class Subnet(AwsResource):
     @property
     def is_tagable(self) -> bool:
         return True
+
+    def get_name(self) -> str:
+        return self.name
