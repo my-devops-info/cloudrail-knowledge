@@ -1,4 +1,6 @@
-from typing import List
+from typing import List, Optional
+
+from cloudrail.knowledge.context.aws.globalaccelerator.global_accelerator_attributes import GlobalAcceleratorAttribute
 from cloudrail.knowledge.context.aws.service_name import AwsServiceName
 from cloudrail.knowledge.context.aws.aws_resource import AwsResource
 
@@ -20,6 +22,7 @@ class GlobalAccelerator(AwsResource):
         self.accelerator_name: str = accelerator_name
         self.arn: str = arn
         self.region: str = 'us-west-2'
+        self.attributes: Optional[GlobalAcceleratorAttribute] = None
 
     def get_keys(self) -> List[str]:
         return [self.arn]

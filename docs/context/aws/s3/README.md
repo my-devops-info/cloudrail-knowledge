@@ -76,3 +76,9 @@ cloudrail/knowledge/rules/aws/context_aware/vpc_endpoints/vpc_endpoint_gateway_n
       show_root_toc_entry: false
     selection:
       inherited_members: true
+
+## ::: cloudrail.knowledge.context.aws.s3.s3_bucket_logging
+    rendering:
+      show_root_toc_entry: false
+    selection:
+      inherited_members: true
