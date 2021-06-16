@@ -14,8 +14,6 @@ class LambdaPolicyStatements(Policy):
             statements: The statements themselves.
             qualifier: A Lambda Function may have a qualified set, this will be it
                 (or None).
-            lambda_func_arn: The ARN of the Lambda Funciton these policy statements
-                are for.
     """
     def __init__(self, account: str, region: str, function_name: str,
                  statements: List[PolicyStatement], qualifier: str = None):
@@ -24,7 +22,6 @@ class LambdaPolicyStatements(Policy):
         self.statements: List[PolicyStatement] = statements
         self.qualifier: str = qualifier
         self.region: str = region
-        self.lambda_func_arn: str = create_lambda_function_arn(account, region, function_name, qualifier)
 
     def get_keys(self) -> List[str]:
         return [self.get_id()]
@@ -42,3 +39,10 @@ class LambdaPolicyStatements(Policy):
     @property
     def is_tagable(self) -> bool:
         return False
+
+    @property
+    def lambda_func_arn(self) -> str:
+        if ':' in self.function_name:
+            return self.function_name
+        else:
+            return create_lambda_function_arn(self.account, self.region, self.function_name, self.qualifier)
