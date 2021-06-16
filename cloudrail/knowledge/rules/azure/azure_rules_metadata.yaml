@@ -867,8 +867,10 @@ rules_metadata:
     name: Ensure Function App enforces FTPS only
     severity: medium
     description: Cloudrail will review the Function App configuration in your environment.
-     If a function app is not enforcing FTPS only, Cloudrail will highlight it as a violation.
-    human_readable_logic: Cloudrail will review the Function Apps configuration within your Azure subscription and       Terraform plan to check if they are enforcing FTPS only.
+      If a function app has FTP enabled and it is not enforcing FTPS only,
+      Cloudrail will highlight it as a violation.
+    human_readable_logic:  Cloudrail will review the Function Apps configuration within your Azure subscription and
+      Terraform plan to check if they are enforcing FTPS only or if they have FTP disabled.
     remediation_steps_console: Follow the guide at
      https://docs.microsoft.com/en-us/azure/app-service/deploy-ftp?tabs=portal#enforce-ftps in order to select
       FTPS Only in FTP state.
@@ -943,5 +945,25 @@ rules_metadata:
       set the client_cert_mode argument to "Required".
     rule_type: non_context_aware
     security_layer: networking
+    resource_type:
+      - compute
+
+  - rule_id: non_car_http_latest_in_function_app
+    cloud_provider: azure
+    name: Ensure HTTP version is the latest in Function Apps
+    severity: medium
+    description:
+      Cloudrail will review the App Service (Function Apps) configuration in your environment.
+      If an app does not use the latest HTTP version, Cloudrail will highlight it as a violation.
+    human_readable_logic: Cloudrail will review the Function Apps configuration within your Azure subscription and
+      Cloudrail will review the App Service configuration within your Azure subscription and Terraform plan to check
+      if latest http version is configured for web apps.
+    remediation_steps_console:
+      Follow the guide at <https://azure.microsoft.com/en-us/blog/announcing-http-2-support-in-azure-app-service/>
+      in order to configure HTTP version for the web app.
+    remediation_steps_tf:
+      For the azurerm_function_app resource, set the site_config block with http2_enabled argument set to true.
+    rule_type: non_context_aware
+    security_layer: iam
     resource_type:
       - compute
